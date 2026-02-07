@@ -1,0 +1,189 @@
+{
+  "name": "@mcm/ocsf",
+  "version": "0.1.0",
+  "description": "Zod schemas for the Open Cybersecurity Schema Framework (OCSF)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./v1_7": {
+      "import": {
+        "types": "./dist/v1_7/index.d.mts",
+        "default": "./dist/v1_7/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_7/index.d.cts",
+        "default": "./dist/v1_7/index.cjs"
+      }
+    },
+    "./v1_7/objects": {
+      "import": {
+        "types": "./dist/v1_7/objects/index.d.mts",
+        "default": "./dist/v1_7/objects/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_7/objects/index.d.cts",
+        "default": "./dist/v1_7/objects/index.cjs"
+      }
+    },
+    "./v1_7/events": {
+      "import": {
+        "types": "./dist/v1_7/events/index.d.mts",
+        "default": "./dist/v1_7/events/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_7/events/index.d.cts",
+        "default": "./dist/v1_7/events/index.cjs"
+      }
+    },
+    "./v1_7/enums": {
+      "import": {
+        "types": "./dist/v1_7/enums/index.d.mts",
+        "default": "./dist/v1_7/enums/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_7/enums/index.d.cts",
+        "default": "./dist/v1_7/enums/index.cjs"
+      }
+    },
+    "./v1_6": {
+      "import": {
+        "types": "./dist/v1_6/index.d.mts",
+        "default": "./dist/v1_6/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_6/index.d.cts",
+        "default": "./dist/v1_6/index.cjs"
+      }
+    },
+    "./v1_6/objects": {
+      "import": {
+        "types": "./dist/v1_6/objects/index.d.mts",
+        "default": "./dist/v1_6/objects/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_6/objects/index.d.cts",
+        "default": "./dist/v1_6/objects/index.cjs"
+      }
+    },
+    "./v1_6/events": {
+      "import": {
+        "types": "./dist/v1_6/events/index.d.mts",
+        "default": "./dist/v1_6/events/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_6/events/index.d.cts",
+        "default": "./dist/v1_6/events/index.cjs"
+      }
+    },
+    "./v1_6/enums": {
+      "import": {
+        "types": "./dist/v1_6/enums/index.d.mts",
+        "default": "./dist/v1_6/enums/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_6/enums/index.d.cts",
+        "default": "./dist/v1_6/enums/index.cjs"
+      }
+    },
+    "./v1_5": {
+      "import": {
+        "types": "./dist/v1_5/index.d.mts",
+        "default": "./dist/v1_5/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_5/index.d.cts",
+        "default": "./dist/v1_5/index.cjs"
+      }
+    },
+    "./v1_5/objects": {
+      "import": {
+        "types": "./dist/v1_5/objects/index.d.mts",
+        "default": "./dist/v1_5/objects/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_5/objects/index.d.cts",
+        "default": "./dist/v1_5/objects/index.cjs"
+      }
+    },
+    "./v1_5/events": {
+      "import": {
+        "types": "./dist/v1_5/events/index.d.mts",
+        "default": "./dist/v1_5/events/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_5/events/index.d.cts",
+        "default": "./dist/v1_5/events/index.cjs"
+      }
+    },
+    "./v1_5/enums": {
+      "import": {
+        "types": "./dist/v1_5/enums/index.d.mts",
+        "default": "./dist/v1_5/enums/index.mjs"
+      },
+      "require": {
+        "types": "./dist/v1_5/enums/index.d.cts",
+        "default": "./dist/v1_5/enums/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "download": "tsx scripts/download-schemas.ts",
+    "generate": "tsx scripts/generate.ts",
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src/ tests/ scripts/",
+    "lint:fix": "biome check --write src/ tests/ scripts/",
+    "format": "biome format --write src/ tests/ scripts/",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "tsup": "^8.0.0",
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "@biomejs/biome": "^1.5.0",
+    "tsx": "^4.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ocsf",
+    "cybersecurity",
+    "schema",
+    "zod",
+    "validation",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcm/typescript-ocsf.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

@@ -1,0 +1,121 @@
+import { z } from "zod";
+
+import { Extension, type ExtensionType } from "./extension.js";
+import { KeyValueObject, type KeyValueObjectType } from "./key_value_object.js";
+import { Logger, type LoggerType } from "./logger.js";
+import { Product, type ProductType } from "./product.js";
+import { TransformationInfo, type TransformationInfoType } from "./transformation_info.js";
+
+/**
+ * The Metadata object describes the metadata associated with the event.
+ *
+ * OCSF Object: Metadata
+ */
+export interface MetadataType {
+  /** The unique identifier used to correlate events. */
+  correlation_uid?: string | undefined;
+  /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */
+  debug?: string[] | undefined;
+  /** The Event ID, Code, or Name that the product uses to primarily identify the event. */
+  event_code?: string | undefined;
+  /** The schema extension used to create the event. */
+  extension?: ExtensionType | undefined;
+  /** The schema extensions used to create the event. */
+  extensions?: ExtensionType[] | undefined;
+  /** Indicates whether the OCSF event data has been truncated due to size limitations. When true, some event data may have been omitted to fit within system constraints. */
+  is_truncated?: boolean | undefined;
+  /** The list of labels attached to the event. For example: ["sample", "dev"] */
+  labels?: string[] | undefined;
+  /** The audit level at which an event was generated. */
+  log_level?: string | undefined;
+  /** The event log name. For example, syslog file name or Windows logging subsystem: Security. */
+  log_name?: string | undefined;
+  /** The logging provider or logging service that logged the event. For example, Microsoft-Windows-Security-Auditing. */
+  log_provider?: string | undefined;
+  /** The event log schema version that specifies the format of the original event. For example syslog version or Cisco Log Schema Version. */
+  log_version?: string | undefined;
+  /** The time when the logging system collected and logged the event.This attribute is distinct from the event time in that event time typically contain the time extracted from the original event. Most of the time, these two times will be different. */
+  logged_time?: number | undefined;
+  /** An array of Logger objects that describe the devices and logging products between the event source and its eventual destination. Note, this attribute can be used when there is a complex end-to-end path of event flow. */
+  loggers?: LoggerType[] | undefined;
+  /** The time when the event was last modified or enriched. */
+  modified_time?: number | undefined;
+  /** The original event time as reported by the event source. For example, the time in the original format from system event log such as Syslog on Unix/Linux and the System event file on Windows. Omit if event is generated instead of collected via logs. */
+  original_time?: string | undefined;
+  /** The event processed time, such as an ETL operation. */
+  processed_time?: number | undefined;
+  /** The product that reported the event. */
+  product: ProductType;
+  /** The list of profiles used to create the event. Profiles should be referenced by their name attribute for core profiles, or extension/name for profiles from extensions. */
+  profiles?: string[] | undefined;
+  /** Sequence number of the event. The sequence number is a value available in some events, to make the exact ordering of events unambiguous, regardless of the event time precision. */
+  sequence?: number | undefined;
+  /** The list of tags; {key:value} pairs associated to the event. */
+  tags?: KeyValueObjectType[] | undefined;
+  /** The unique tenant identifier. */
+  tenant_uid?: string | undefined;
+  /** An array of transformation info that describes the mappings or transforms applied to the data. */
+  transformation_info_list?: TransformationInfoType[] | undefined;
+  /** The logging system-assigned unique identifier of an event instance. */
+  uid?: string | undefined;
+  /** The original size of the OCSF event data in kilobytes before any truncation occurred. This field is typically populated when is_truncated is true to indicate the full size of the original event. */
+  untruncated_size?: number | undefined;
+  /** The version of the OCSF schema, using Semantic Versioning Specification (SemVer). For example: 1.0.0. Event consumers use the version to determine the available event attributes. */
+  version: string;
+  [key: string]: unknown;
+}
+
+export const Metadata: z.ZodType<MetadataType> = z
+  .object({
+    /** The unique identifier used to correlate events. */
+    correlation_uid: z.string().optional(),
+    /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */
+    debug: z.array(z.string()).optional(),
+    /** The Event ID, Code, or Name that the product uses to primarily identify the event. */
+    event_code: z.string().optional(),
+    /** The schema extension used to create the event. */
+    extension: Extension.optional(),
+    /** The schema extensions used to create the event. */
+    extensions: z.array(Extension).optional(),
+    /** Indicates whether the OCSF event data has been truncated due to size limitations. When true, some event data may have been omitted to fit within system constraints. */
+    is_truncated: z.boolean().optional(),
+    /** The list of labels attached to the event. For example: ["sample", "dev"] */
+    labels: z.array(z.string()).optional(),
+    /** The audit level at which an event was generated. */
+    log_level: z.string().optional(),
+    /** The event log name. For example, syslog file name or Windows logging subsystem: Security. */
+    log_name: z.string().optional(),
+    /** The logging provider or logging service that logged the event. For example, Microsoft-Windows-Security-Auditing. */
+    log_provider: z.string().optional(),
+    /** The event log schema version that specifies the format of the original event. For example syslog version or Cisco Log Schema Version. */
+    log_version: z.string().optional(),
+    /** The time when the logging system collected and logged the event.This attribute is distinct from the event time in that event time typically contain the time extracted from the original event. Most of the time, these two times will be different. */
+    logged_time: z.number().int().optional(),
+    /** An array of Logger objects that describe the devices and logging products between the event source and its eventual destination. Note, this attribute can be used when there is a complex end-to-end path of event flow. */
+    loggers: z.array(Logger).optional(),
+    /** The time when the event was last modified or enriched. */
+    modified_time: z.number().int().optional(),
+    /** The original event time as reported by the event source. For example, the time in the original format from system event log such as Syslog on Unix/Linux and the System event file on Windows. Omit if event is generated instead of collected via logs. */
+    original_time: z.string().optional(),
+    /** The event processed time, such as an ETL operation. */
+    processed_time: z.number().int().optional(),
+    /** The product that reported the event. */
+    product: Product,
+    /** The list of profiles used to create the event. Profiles should be referenced by their name attribute for core profiles, or extension/name for profiles from extensions. */
+    profiles: z.array(z.string()).optional(),
+    /** Sequence number of the event. The sequence number is a value available in some events, to make the exact ordering of events unambiguous, regardless of the event time precision. */
+    sequence: z.number().int().optional(),
+    /** The list of tags; {key:value} pairs associated to the event. */
+    tags: z.array(KeyValueObject).optional(),
+    /** The unique tenant identifier. */
+    tenant_uid: z.string().optional(),
+    /** An array of transformation info that describes the mappings or transforms applied to the data. */
+    transformation_info_list: z.array(TransformationInfo).optional(),
+    /** The logging system-assigned unique identifier of an event instance. */
+    uid: z.string().optional(),
+    /** The original size of the OCSF event data in kilobytes before any truncation occurred. This field is typically populated when is_truncated is true to indicate the full size of the original event. */
+    untruncated_size: z.number().int().optional(),
+    /** The version of the OCSF schema, using Semantic Versioning Specification (SemVer). For example: 1.0.0. Event consumers use the version to determine the available event attributes. */
+    version: z.string(),
+  })
+  .passthrough() as any;

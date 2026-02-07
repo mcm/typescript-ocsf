@@ -1,0 +1,24 @@
+/** Data Lifecycle State ID values. */
+export const DataLifecycleStateId = {
+  /** The data lifecycle state is unknown. */
+  UNKNOWN: 0,
+  /** The data was stored on physical or logical media and was not actively moving through the network nor was being processed. E.g., data stored in a database, PDF files in a file share, or EHR records in object storage. */
+  DATA_AT_REST: 1,
+  /** The data was actively moving through the network or from one physical or logical location to another. E.g., emails being send, data replication or Change Data Capture (CDC) streams, or sensitive data processed on an API. */
+  DATA_IN_TRANSIT: 2,
+  /** The data was being processed, accessed, or read by a system, making it active in memory or CPU. E.g., sensitive data in a Business Intelligence tool, ePHI being processed in an EHR application or a user viewing data stored in a spreadsheet or PDF. */
+  DATA_IN_USE: 3,
+  /** The data lifecycle state is not mapped. See the <code>data_lifecycle_state</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
+} as const;
+
+export type DataLifecycleStateId = (typeof DataLifecycleStateId)[keyof typeof DataLifecycleStateId];
+
+/** Label mapping for DataLifecycleStateId values. */
+export const DataLifecycleStateIdLabels: Record<number, string> = {
+  0: "Unknown",
+  1: "Data at-Rest",
+  2: "Data in-Transit",
+  3: "Data in-Use",
+  99: "Other",
+};
