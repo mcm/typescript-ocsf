@@ -1,6 +1,6 @@
 {
   "name": "@mcm/ocsf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zod schemas for the Open Cybersecurity Schema Framework (OCSF)",
   "license": "Apache-2.0",
   "type": "module",
@@ -10,8 +10,8 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       },
       "require": {
         "types": "./dist/index.d.cts",
@@ -20,8 +20,8 @@
     },
     "./v1_7": {
       "import": {
-        "types": "./dist/v1_7/index.d.mts",
-        "default": "./dist/v1_7/index.mjs"
+        "types": "./dist/v1_7/index.d.ts",
+        "default": "./dist/v1_7/index.js"
       },
       "require": {
         "types": "./dist/v1_7/index.d.cts",
@@ -30,8 +30,8 @@
     },
     "./v1_7/objects": {
       "import": {
-        "types": "./dist/v1_7/objects/index.d.mts",
-        "default": "./dist/v1_7/objects/index.mjs"
+        "types": "./dist/v1_7/objects/index.d.ts",
+        "default": "./dist/v1_7/objects/index.js"
       },
       "require": {
         "types": "./dist/v1_7/objects/index.d.cts",
@@ -40,8 +40,8 @@
     },
     "./v1_7/events": {
       "import": {
-        "types": "./dist/v1_7/events/index.d.mts",
-        "default": "./dist/v1_7/events/index.mjs"
+        "types": "./dist/v1_7/events/index.d.ts",
+        "default": "./dist/v1_7/events/index.js"
       },
       "require": {
         "types": "./dist/v1_7/events/index.d.cts",
@@ -50,8 +50,8 @@
     },
     "./v1_7/enums": {
       "import": {
-        "types": "./dist/v1_7/enums/index.d.mts",
-        "default": "./dist/v1_7/enums/index.mjs"
+        "types": "./dist/v1_7/enums/index.d.ts",
+        "default": "./dist/v1_7/enums/index.js"
       },
       "require": {
         "types": "./dist/v1_7/enums/index.d.cts",
@@ -60,8 +60,8 @@
     },
     "./v1_6": {
       "import": {
-        "types": "./dist/v1_6/index.d.mts",
-        "default": "./dist/v1_6/index.mjs"
+        "types": "./dist/v1_6/index.d.ts",
+        "default": "./dist/v1_6/index.js"
       },
       "require": {
         "types": "./dist/v1_6/index.d.cts",
@@ -70,8 +70,8 @@
     },
     "./v1_6/objects": {
       "import": {
-        "types": "./dist/v1_6/objects/index.d.mts",
-        "default": "./dist/v1_6/objects/index.mjs"
+        "types": "./dist/v1_6/objects/index.d.ts",
+        "default": "./dist/v1_6/objects/index.js"
       },
       "require": {
         "types": "./dist/v1_6/objects/index.d.cts",
@@ -80,8 +80,8 @@
     },
     "./v1_6/events": {
       "import": {
-        "types": "./dist/v1_6/events/index.d.mts",
-        "default": "./dist/v1_6/events/index.mjs"
+        "types": "./dist/v1_6/events/index.d.ts",
+        "default": "./dist/v1_6/events/index.js"
       },
       "require": {
         "types": "./dist/v1_6/events/index.d.cts",
@@ -90,8 +90,8 @@
     },
     "./v1_6/enums": {
       "import": {
-        "types": "./dist/v1_6/enums/index.d.mts",
-        "default": "./dist/v1_6/enums/index.mjs"
+        "types": "./dist/v1_6/enums/index.d.ts",
+        "default": "./dist/v1_6/enums/index.js"
       },
       "require": {
         "types": "./dist/v1_6/enums/index.d.cts",
@@ -100,8 +100,8 @@
     },
     "./v1_5": {
       "import": {
-        "types": "./dist/v1_5/index.d.mts",
-        "default": "./dist/v1_5/index.mjs"
+        "types": "./dist/v1_5/index.d.ts",
+        "default": "./dist/v1_5/index.js"
       },
       "require": {
         "types": "./dist/v1_5/index.d.cts",
@@ -110,8 +110,8 @@
     },
     "./v1_5/objects": {
       "import": {
-        "types": "./dist/v1_5/objects/index.d.mts",
-        "default": "./dist/v1_5/objects/index.mjs"
+        "types": "./dist/v1_5/objects/index.d.ts",
+        "default": "./dist/v1_5/objects/index.js"
       },
       "require": {
         "types": "./dist/v1_5/objects/index.d.cts",
@@ -120,8 +120,8 @@
     },
     "./v1_5/events": {
       "import": {
-        "types": "./dist/v1_5/events/index.d.mts",
-        "default": "./dist/v1_5/events/index.mjs"
+        "types": "./dist/v1_5/events/index.d.ts",
+        "default": "./dist/v1_5/events/index.js"
       },
       "require": {
         "types": "./dist/v1_5/events/index.d.cts",
@@ -130,8 +130,8 @@
     },
     "./v1_5/enums": {
       "import": {
-        "types": "./dist/v1_5/enums/index.d.mts",
-        "default": "./dist/v1_5/enums/index.mjs"
+        "types": "./dist/v1_5/enums/index.d.ts",
+        "default": "./dist/v1_5/enums/index.js"
       },
       "require": {
         "types": "./dist/v1_5/enums/index.d.cts",
