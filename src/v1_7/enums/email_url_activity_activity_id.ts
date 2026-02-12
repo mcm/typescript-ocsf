@@ -8,8 +8,7 @@ export const EmailUrlActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type EmailUrlActivityActivityId =
-  (typeof EmailUrlActivityActivityId)[keyof typeof EmailUrlActivityActivityId];
+export type EmailUrlActivityActivityId = (typeof EmailUrlActivityActivityId)[keyof typeof EmailUrlActivityActivityId];
 
 export const EmailUrlActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

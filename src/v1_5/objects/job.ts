@@ -1,58 +1,34 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { File, type FileType } from "./file.js";
-import { User, type UserType } from "./user.js";
+import { File } from './file.js';
+import { User } from './user.js';
 
 /**
  * The Job object provides information about a scheduled job or task, including its name, command line, and state. It encompasses attributes that describe the properties and status of the scheduled job.
  *
  * OCSF Object: Job
  */
-export interface JobType {
+export const Job = z.object({
   /** The job command line. */
-  cmd_line?: string | undefined;
+  cmd_line: z.string().optional(),
   /** The time when the job was created. */
-  created_time?: number | undefined;
+  created_time: z.number().int().optional(),
   /** The description of the job. */
-  desc?: string | undefined;
+  desc: z.string().optional(),
   /** The file that pertains to the job. */
-  file: FileType;
+  file: File,
   /** The time when the job was last run. */
-  last_run_time?: number | undefined;
+  last_run_time: z.number().int().optional(),
   /** The name of the job. */
-  name: string;
+  name: z.string(),
   /** The time when the job will next be run. */
-  next_run_time?: number | undefined;
+  next_run_time: z.number().int().optional(),
   /** The run state of the job. */
-  run_state?: string | undefined;
+  run_state: z.string().optional(),
   /** The run state ID of the job. */
-  run_state_id?: number | undefined;
+  run_state_id: z.number().int().optional(),
   /** The user that created the job. */
-  user?: UserType | undefined;
-  [key: string]: unknown;
-}
+  user: User.optional(),
+}).passthrough() as any;
 
-export const Job: z.ZodType<JobType> = z
-  .object({
-    /** The job command line. */
-    cmd_line: z.string().optional(),
-    /** The time when the job was created. */
-    created_time: z.number().int().optional(),
-    /** The description of the job. */
-    desc: z.string().optional(),
-    /** The file that pertains to the job. */
-    file: File,
-    /** The time when the job was last run. */
-    last_run_time: z.number().int().optional(),
-    /** The name of the job. */
-    name: z.string(),
-    /** The time when the job will next be run. */
-    next_run_time: z.number().int().optional(),
-    /** The run state of the job. */
-    run_state: z.string().optional(),
-    /** The run state ID of the job. */
-    run_state_id: z.number().int().optional(),
-    /** The user that created the job. */
-    user: z.lazy(() => User).optional(),
-  })
-  .passthrough() as any;
+export type JobType = z.infer<typeof Job>;

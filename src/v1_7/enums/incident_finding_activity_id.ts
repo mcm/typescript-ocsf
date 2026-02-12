@@ -10,8 +10,7 @@ export const IncidentFindingActivityId = {
   OTHER: 99,
 } as const;
 
-export type IncidentFindingActivityId =
-  (typeof IncidentFindingActivityId)[keyof typeof IncidentFindingActivityId];
+export type IncidentFindingActivityId = (typeof IncidentFindingActivityId)[keyof typeof IncidentFindingActivityId];
 
 export const IncidentFindingActivityIdLabels: Record<number, string> = {
   0: "Unknown",

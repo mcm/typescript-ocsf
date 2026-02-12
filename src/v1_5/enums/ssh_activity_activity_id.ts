@@ -18,8 +18,7 @@ export const SshActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type SshActivityActivityId =
-  (typeof SshActivityActivityId)[keyof typeof SshActivityActivityId];
+export type SshActivityActivityId = (typeof SshActivityActivityId)[keyof typeof SshActivityActivityId];
 
 export const SshActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

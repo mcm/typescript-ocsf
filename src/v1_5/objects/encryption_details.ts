@@ -1,35 +1,21 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * Details about the encrytpion methodology utilized.
  *
  * OCSF Object: Encryption Details
  */
-export interface EncryptionDetailsType {
+export const EncryptionDetails = z.object({
   /** The encryption algorithm used, normalized to the caption of 'algorithm_id */
-  algorithm?: string | undefined;
+  algorithm: z.string().optional(),
   /** The encryption algorithm used. */
-  algorithm_id?: number | undefined;
+  algorithm_id: z.number().int().optional(),
   /** The length of the encryption key used. */
-  key_length?: number | undefined;
+  key_length: z.number().int().optional(),
   /** The unique identifier of the key used for encrpytion. For example, AWS KMS Key ARN. */
-  key_uid?: string | undefined;
+  key_uid: z.string().optional(),
   /** The type of the encryption used. */
-  type?: string | undefined;
-  [key: string]: unknown;
-}
+  type: z.string().optional(),
+}).passthrough() as any;
 
-export const EncryptionDetails: z.ZodType<EncryptionDetailsType> = z
-  .object({
-    /** The encryption algorithm used, normalized to the caption of 'algorithm_id */
-    algorithm: z.string().optional(),
-    /** The encryption algorithm used. */
-    algorithm_id: z.number().int().optional(),
-    /** The length of the encryption key used. */
-    key_length: z.number().int().optional(),
-    /** The unique identifier of the key used for encrpytion. For example, AWS KMS Key ARN. */
-    key_uid: z.string().optional(),
-    /** The type of the encryption used. */
-    type: z.string().optional(),
-  })
-  .passthrough() as any;
+export type EncryptionDetailsType = z.infer<typeof EncryptionDetails>;

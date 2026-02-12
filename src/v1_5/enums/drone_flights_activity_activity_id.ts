@@ -10,8 +10,7 @@ export const DroneFlightsActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type DroneFlightsActivityActivityId =
-  (typeof DroneFlightsActivityActivityId)[keyof typeof DroneFlightsActivityActivityId];
+export type DroneFlightsActivityActivityId = (typeof DroneFlightsActivityActivityId)[keyof typeof DroneFlightsActivityActivityId];
 
 export const DroneFlightsActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -1,57 +1,33 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { Reputation, type ReputationType } from "./reputation.js";
+import { Reputation } from './reputation.js';
 
 /**
  * The Enrichment object provides inline enrichment data for specific attributes of interest within an event. It serves as a mechanism to enhance or supplement the information associated with the event by adding additional relevant details or context.
  *
  * OCSF Object: Enrichment
  */
-export interface EnrichmentType {
+export const Enrichment = z.object({
   /** The time when the enrichment data was generated. */
-  created_time?: number | undefined;
+  created_time: z.number().int().optional(),
   /** The enrichment data associated with the attribute and value. The meaning of this data depends on the type the enrichment record. */
-  data: Record<string, unknown>;
+  data: z.record(z.unknown()),
   /** A long description of the enrichment data. */
-  desc?: string | undefined;
+  desc: z.string().optional(),
   /** The name of the attribute to which the enriched data pertains. */
-  name: string;
+  name: z.string(),
   /** The enrichment data provider name. */
-  provider?: string | undefined;
+  provider: z.string().optional(),
   /** The reputation of the enrichment data. */
-  reputation?: ReputationType | undefined;
+  reputation: Reputation.optional(),
   /** A short description of the enrichment data. */
-  short_desc?: string | undefined;
+  short_desc: z.string().optional(),
   /** The URL of the source of the enrichment data. */
-  src_url?: string | undefined;
+  src_url: z.string().optional(),
   /** The enrichment type. For example: location. */
-  type?: string | undefined;
+  type: z.string().optional(),
   /** The value of the attribute to which the enriched data pertains. */
-  value: string;
-  [key: string]: unknown;
-}
+  value: z.string(),
+}).passthrough() as any;
 
-export const Enrichment: z.ZodType<EnrichmentType> = z
-  .object({
-    /** The time when the enrichment data was generated. */
-    created_time: z.number().int().optional(),
-    /** The enrichment data associated with the attribute and value. The meaning of this data depends on the type the enrichment record. */
-    data: z.record(z.unknown()),
-    /** A long description of the enrichment data. */
-    desc: z.string().optional(),
-    /** The name of the attribute to which the enriched data pertains. */
-    name: z.string(),
-    /** The enrichment data provider name. */
-    provider: z.string().optional(),
-    /** The reputation of the enrichment data. */
-    reputation: Reputation.optional(),
-    /** A short description of the enrichment data. */
-    short_desc: z.string().optional(),
-    /** The URL of the source of the enrichment data. */
-    src_url: z.string().optional(),
-    /** The enrichment type. For example: location. */
-    type: z.string().optional(),
-    /** The value of the attribute to which the enriched data pertains. */
-    value: z.string(),
-  })
-  .passthrough() as any;
+export type EnrichmentType = z.infer<typeof Enrichment>;

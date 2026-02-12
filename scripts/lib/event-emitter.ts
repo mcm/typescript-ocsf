@@ -21,6 +21,7 @@ import type { ParsedAttribute, ParsedEvent, ParsedObject, ParsedSiblingPair } fr
  *   },
  *   z.object({ ... }).passthrough(),
  * );
+ * export type FileActivityType = z.infer<typeof FileActivity>;
  * ```
  */
 export function emitEventFile(
@@ -36,7 +37,7 @@ export function emitEventFile(
   lines.push("import { prefillUids, type UidConfig } from '../../uid.js';");
   lines.push("");
 
-  // Import referenced objects
+  // Import referenced objects (schema only, not type)
   const importedObjects = new Set<string>();
   for (const attr of event.attributes) {
     if (attr.objectType) {
@@ -54,11 +55,7 @@ export function emitEventFile(
     const fileName = toFileName(refObj.className);
     // Handle special case where Object is renamed to OcsfObject to avoid shadowing
     const importClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
-    const importTypeName =
-      refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
-    lines.push(
-      `import { ${importClassName}, type ${importTypeName} } from '../objects/${fileName}.js';`,
-    );
+    lines.push(`import { ${importClassName} } from '../objects/${fileName}.js';`);
   }
 
   if (importedObjects.size > 0) lines.push("");
@@ -106,12 +103,8 @@ export function emitEventFile(
   );
   lines.push(" */");
 
-  // Emit explicit TypeScript interface to avoid TS7056 errors
-  emitExplicitType(lines, event, allObjects);
-  lines.push("");
-
-  // Schema with preprocess
-  lines.push(`export const ${event.className}: z.ZodType<${event.className}Type> = z.preprocess(`);
+  // Schema with preprocess (with 'as any' to avoid TS7056 errors)
+  lines.push(`export const ${event.className} = z.preprocess(`);
   lines.push("  (data) => {");
   lines.push("    if (typeof data !== 'object' || data === null) return data;");
   lines.push("    let d = { ...data } as Record<string, unknown>;");
@@ -135,7 +128,8 @@ export function emitEventFile(
       if (refObj && !refObj.name.startsWith("_")) {
         // Handle special case where Object is renamed to OcsfObject
         const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
-        zodType = `z.lazy(() => ${refClassName})`;
+        // Direct reference (no z.lazy wrapper)
+        zodType = refClassName;
       } else {
         zodType = "z.record(z.unknown())";
       }
@@ -157,66 +151,14 @@ export function emitEventFile(
   lines.push(") as any;");
   lines.push("");
 
+  // Type inference
+  lines.push(`export type ${event.className}Type = z.infer<typeof ${event.className}>;`);
+  lines.push("");
+
   return lines.join("\n");
 }
 
 /** Convert an attribute name to a SCREAMING_SNAKE_CASE constant name. */
 function toConstName(attrName: string): string {
   return attrName.toUpperCase();
-}
-
-/**
- * Emit an explicit TypeScript interface for the event type.
- * This prevents TS7056 errors caused by complex type inference from z.preprocess().
- */
-function emitExplicitType(
-  lines: string[],
-  event: ParsedEvent,
-  allObjects: Map<string, ParsedObject>,
-): void {
-  lines.push(`export interface ${event.className}Type {`);
-
-  for (const attr of event.attributes) {
-    const tsType = getTypeScriptType(attr, allObjects);
-    const optional = attr.requirement !== "required" ? "?" : "";
-    if (attr.description) {
-      lines.push(`  /** ${attr.description} */`);
-    }
-    lines.push(`  ${attr.name}${optional}: ${tsType};`);
-  }
-
-  // Allow extra properties (passthrough)
-  lines.push("  [key: string]: unknown;");
-  lines.push("}");
-}
-
-/**
- * Get the TypeScript type string for an attribute (used in explicit interfaces).
- */
-function getTypeScriptType(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
-  let base: string;
-
-  if (attr.objectType) {
-    const refObj = allObjects.get(attr.objectType);
-    if (!refObj) {
-      base = "Record<string, unknown>";
-    } else {
-      // Handle special case where Object is renamed to OcsfObject
-      const refTypeName =
-        refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
-      base = refTypeName;
-    }
-  } else {
-    base = mapOcsfTypeToTs(attr.ocsfType);
-  }
-
-  if (attr.isArray) {
-    base = `${base}[]`;
-  }
-
-  if (attr.requirement !== "required") {
-    base += " | undefined";
-  }
-
-  return base;
 }

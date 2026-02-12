@@ -10,8 +10,7 @@ export const DnsActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type DnsActivityActivityId =
-  (typeof DnsActivityActivityId)[keyof typeof DnsActivityActivityId];
+export type DnsActivityActivityId = (typeof DnsActivityActivityId)[keyof typeof DnsActivityActivityId];
 
 export const DnsActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

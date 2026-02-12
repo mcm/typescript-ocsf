@@ -20,8 +20,7 @@ export const NtpActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type NtpActivityActivityId =
-  (typeof NtpActivityActivityId)[keyof typeof NtpActivityActivityId];
+export type NtpActivityActivityId = (typeof NtpActivityActivityId)[keyof typeof NtpActivityActivityId];
 
 export const NtpActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

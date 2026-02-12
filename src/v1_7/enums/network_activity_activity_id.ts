@@ -18,8 +18,7 @@ export const NetworkActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type NetworkActivityActivityId =
-  (typeof NetworkActivityActivityId)[keyof typeof NetworkActivityActivityId];
+export type NetworkActivityActivityId = (typeof NetworkActivityActivityId)[keyof typeof NetworkActivityActivityId];
 
 export const NetworkActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

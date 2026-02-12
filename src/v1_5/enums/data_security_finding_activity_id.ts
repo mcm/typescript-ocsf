@@ -12,8 +12,7 @@ export const DataSecurityFindingActivityId = {
   OTHER: 99,
 } as const;
 
-export type DataSecurityFindingActivityId =
-  (typeof DataSecurityFindingActivityId)[keyof typeof DataSecurityFindingActivityId];
+export type DataSecurityFindingActivityId = (typeof DataSecurityFindingActivityId)[keyof typeof DataSecurityFindingActivityId];
 
 export const DataSecurityFindingActivityIdLabels: Record<number, string> = {
   0: "Unknown",

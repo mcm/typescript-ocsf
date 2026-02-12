@@ -1,27 +1,17 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * This object is a used to capture strings which may be truncated by a security product due to their length.
  *
  * OCSF Object: Long String
  */
-export interface LongStringType {
+export const LongString = z.object({
   /** Indicates that value has been truncated. May be omitted if truncation has not occurred. */
-  is_truncated?: boolean | undefined;
+  is_truncated: z.boolean().optional(),
   /** The size in bytes of the string represented by value before truncation. Should be omitted if truncation has not occurred. */
-  untruncated_size?: number | undefined;
+  untruncated_size: z.number().int().optional(),
   /** The string value, truncated if is_truncated is true. */
-  value: string;
-  [key: string]: unknown;
-}
+  value: z.string(),
+}).passthrough() as any;
 
-export const LongString: z.ZodType<LongStringType> = z
-  .object({
-    /** Indicates that value has been truncated. May be omitted if truncation has not occurred. */
-    is_truncated: z.boolean().optional(),
-    /** The size in bytes of the string represented by value before truncation. Should be omitted if truncation has not occurred. */
-    untruncated_size: z.number().int().optional(),
-    /** The string value, truncated if is_truncated is true. */
-    value: z.string(),
-  })
-  .passthrough() as any;
+export type LongStringType = z.infer<typeof LongString>;

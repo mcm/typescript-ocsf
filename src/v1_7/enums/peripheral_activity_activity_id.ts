@@ -14,8 +14,7 @@ export const PeripheralActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type PeripheralActivityActivityId =
-  (typeof PeripheralActivityActivityId)[keyof typeof PeripheralActivityActivityId];
+export type PeripheralActivityActivityId = (typeof PeripheralActivityActivityId)[keyof typeof PeripheralActivityActivityId];
 
 export const PeripheralActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

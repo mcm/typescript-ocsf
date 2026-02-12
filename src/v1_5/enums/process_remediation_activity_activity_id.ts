@@ -14,8 +14,7 @@ export const ProcessRemediationActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type ProcessRemediationActivityActivityId =
-  (typeof ProcessRemediationActivityActivityId)[keyof typeof ProcessRemediationActivityActivityId];
+export type ProcessRemediationActivityActivityId = (typeof ProcessRemediationActivityActivityId)[keyof typeof ProcessRemediationActivityActivityId];
 
 export const ProcessRemediationActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

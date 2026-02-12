@@ -24,8 +24,7 @@ export const ScanActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type ScanActivityActivityId =
-  (typeof ScanActivityActivityId)[keyof typeof ScanActivityActivityId];
+export type ScanActivityActivityId = (typeof ScanActivityActivityId)[keyof typeof ScanActivityActivityId];
 
 export const ScanActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

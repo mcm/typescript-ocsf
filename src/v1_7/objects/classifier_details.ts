@@ -1,27 +1,17 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * The Classifier Details object describes details about the classifier used for data classification.
  *
  * OCSF Object: Classifier Details
  */
-export interface ClassifierDetailsType {
+export const ClassifierDetails = z.object({
   /** The name of the classifier. */
-  name?: string | undefined;
+  name: z.string().optional(),
   /** The type of the classifier. */
-  type: string;
+  type: z.string(),
   /** The unique identifier of the classifier. */
-  uid?: string | undefined;
-  [key: string]: unknown;
-}
+  uid: z.string().optional(),
+}).passthrough() as any;
 
-export const ClassifierDetails: z.ZodType<ClassifierDetailsType> = z
-  .object({
-    /** The name of the classifier. */
-    name: z.string().optional(),
-    /** The type of the classifier. */
-    type: z.string(),
-    /** The unique identifier of the classifier. */
-    uid: z.string().optional(),
-  })
-  .passthrough() as any;
+export type ClassifierDetailsType = z.infer<typeof ClassifierDetails>;

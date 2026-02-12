@@ -20,8 +20,7 @@ export const ApplicationLifecycleActivityId = {
   OTHER: 99,
 } as const;
 
-export type ApplicationLifecycleActivityId =
-  (typeof ApplicationLifecycleActivityId)[keyof typeof ApplicationLifecycleActivityId];
+export type ApplicationLifecycleActivityId = (typeof ApplicationLifecycleActivityId)[keyof typeof ApplicationLifecycleActivityId];
 
 export const ApplicationLifecycleActivityIdLabels: Record<number, string> = {
   0: "Unknown",

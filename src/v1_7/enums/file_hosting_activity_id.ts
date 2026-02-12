@@ -38,8 +38,7 @@ export const FileHostingActivityId = {
   OTHER: 99,
 } as const;
 
-export type FileHostingActivityId =
-  (typeof FileHostingActivityId)[keyof typeof FileHostingActivityId];
+export type FileHostingActivityId = (typeof FileHostingActivityId)[keyof typeof FileHostingActivityId];
 
 export const FileHostingActivityIdLabels: Record<number, string> = {
   0: "Unknown",

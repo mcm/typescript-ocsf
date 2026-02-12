@@ -1,47 +1,27 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * The Ticket object represents ticket in the customer's IT Service Management (ITSM) systems like ServiceNow, Jira, etc.
  *
  * OCSF Object: Ticket
  */
-export interface TicketType {
+export const Ticket = z.object({
   /** The url of a ticket in the ticket system. */
-  src_url?: string | undefined;
+  src_url: z.string().optional(),
   /** The status of the ticket normalized to the caption of the status_id value. In the case of 99, this value should as defined by the source. */
-  status?: string | undefined;
+  status: z.string().optional(),
   /** A list of contextual descriptions of the status, status_id values. */
-  status_details?: string[] | undefined;
+  status_details: z.array(z.string()).optional(),
   /** The normalized identifier for the ticket status. */
-  status_id?: number | undefined;
+  status_id: z.number().int().optional(),
   /** The title of the ticket. */
-  title?: string | undefined;
+  title: z.string().optional(),
   /** The linked ticket type determines whether the ticket is internal or in an external ticketing system. */
-  type?: string | undefined;
+  type: z.string().optional(),
   /** The normalized identifier for the ticket type. */
-  type_id?: number | undefined;
+  type_id: z.number().int().optional(),
   /** Unique identifier of the ticket. */
-  uid?: string | undefined;
-  [key: string]: unknown;
-}
+  uid: z.string().optional(),
+}).passthrough() as any;
 
-export const Ticket: z.ZodType<TicketType> = z
-  .object({
-    /** The url of a ticket in the ticket system. */
-    src_url: z.string().optional(),
-    /** The status of the ticket normalized to the caption of the status_id value. In the case of 99, this value should as defined by the source. */
-    status: z.string().optional(),
-    /** A list of contextual descriptions of the status, status_id values. */
-    status_details: z.array(z.string()).optional(),
-    /** The normalized identifier for the ticket status. */
-    status_id: z.number().int().optional(),
-    /** The title of the ticket. */
-    title: z.string().optional(),
-    /** The linked ticket type determines whether the ticket is internal or in an external ticketing system. */
-    type: z.string().optional(),
-    /** The normalized identifier for the ticket type. */
-    type_id: z.number().int().optional(),
-    /** Unique identifier of the ticket. */
-    uid: z.string().optional(),
-  })
-  .passthrough() as any;
+export type TicketType = z.infer<typeof Ticket>;

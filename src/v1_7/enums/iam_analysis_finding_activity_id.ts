@@ -10,8 +10,7 @@ export const IamAnalysisFindingActivityId = {
   OTHER: 99,
 } as const;
 
-export type IamAnalysisFindingActivityId =
-  (typeof IamAnalysisFindingActivityId)[keyof typeof IamAnalysisFindingActivityId];
+export type IamAnalysisFindingActivityId = (typeof IamAnalysisFindingActivityId)[keyof typeof IamAnalysisFindingActivityId];
 
 export const IamAnalysisFindingActivityIdLabels: Record<number, string> = {
   0: "Unknown",

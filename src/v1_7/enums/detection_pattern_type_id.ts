@@ -12,8 +12,7 @@ export const DetectionPatternTypeId = {
   OTHER: 99,
 } as const;
 
-export type DetectionPatternTypeId =
-  (typeof DetectionPatternTypeId)[keyof typeof DetectionPatternTypeId];
+export type DetectionPatternTypeId = (typeof DetectionPatternTypeId)[keyof typeof DetectionPatternTypeId];
 
 /** Label mapping for DetectionPatternTypeId values. */
 export const DetectionPatternTypeIdLabels: Record<number, string> = {

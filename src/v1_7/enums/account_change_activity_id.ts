@@ -28,8 +28,7 @@ export const AccountChangeActivityId = {
   OTHER: 99,
 } as const;
 
-export type AccountChangeActivityId =
-  (typeof AccountChangeActivityId)[keyof typeof AccountChangeActivityId];
+export type AccountChangeActivityId = (typeof AccountChangeActivityId)[keyof typeof AccountChangeActivityId];
 
 export const AccountChangeActivityIdLabels: Record<number, string> = {
   0: "Unknown",

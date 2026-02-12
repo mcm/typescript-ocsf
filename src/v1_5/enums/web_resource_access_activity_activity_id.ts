@@ -12,8 +12,7 @@ export const WebResourceAccessActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type WebResourceAccessActivityActivityId =
-  (typeof WebResourceAccessActivityActivityId)[keyof typeof WebResourceAccessActivityActivityId];
+export type WebResourceAccessActivityActivityId = (typeof WebResourceAccessActivityActivityId)[keyof typeof WebResourceAccessActivityActivityId];
 
 export const WebResourceAccessActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

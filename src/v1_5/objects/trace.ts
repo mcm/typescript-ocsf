@@ -1,46 +1,28 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { Service, type ServiceType } from "./service.js";
-import { Span, type SpanType } from "./span.js";
+import { Service } from './service.js';
+import { Span } from './span.js';
 
 /**
  * The trace object contains information about a distributed trace,  which is crucial for observability. Traces are made up of one or more spans, which are individual units of work in application activity. Traces track the journey of a request as it moves through various services in a system, capturing key details like timing, status, and dependencies at each step. Traces provide insights into system performance, helping to identify latency, bottlenecks, and issues in complex, distributed environments.
  *
  * OCSF Object: Trace
  */
-export interface TraceType {
+export const Trace = z.object({
   /** The total time, in milliseconds, that the trace covers, calculated as the difference between start_time and end_time. This duration helps assess the overall performance of a request as it travels across various services, and is essential for identifying latency and potential bottlenecks within the distributed system. The trace duration may differ from individual span durations due to the propagation and processing times of the trace as it spans multiple components. */
-  duration?: number | undefined;
+  duration: z.number().int().optional(),
   /** The end timestamp of the trace, essential for identifying latency and performance bottlenecks. Like the start time, this timestamp is normalized across the trace system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time allows for accurate trace duration calculations and helps observability tools track overall performance across services, regardless of the individual system time settings. */
-  end_time?: number | undefined;
+  end_time: z.number().int().optional(),
   /** The flags associated with the trace, used to indicate specific properties or behaviors, such as whether the trace is sampled or if it has special handling. Flags help control how traces are processed, logged, and analyzed, providing valuable context for tracing and observability tools in identifying trace characteristics or specific tracking requirements. */
-  flags?: string[] | undefined;
+  flags: z.array(z.string()).optional(),
   /** Identifies the service or component generating the trace, helping to track and correlate the flow of requests through various parts of a distributed system. This information is essential for understanding the role and performance of specific services within the broader context of system operations and for diagnosing issues across different components. */
-  service?: ServiceType | undefined;
+  service: Service.optional(),
   /** Represents a single unit of work or operation within a distributed trace. A span typically tracks the execution of a request across a service, capturing important details such as the operation, timestamps, and status. Spans help break down the overall trace into smaller, manageable parts, enabling detailed analysis of the performance and behavior of specific operations within the system. They are crucial for understanding latency, dependencies, and bottlenecks in complex distributed systems. */
-  span?: SpanType | undefined;
+  span: Span.optional(),
   /** The start timestamp of the trace, essential for identifying latency and performance bottlenecks. Like the end time, this timestamp is normalized across the trace system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time enables accurate trace duration calculations and helps observability tools track performance across services, regardless of the individual system time settings. */
-  start_time?: number | undefined;
+  start_time: z.number().int().optional(),
   /** The unique identifier of the trace used in distributed systems and microservices architecture to track and correlate requests across various components of an application. */
-  uid: string;
-  [key: string]: unknown;
-}
+  uid: z.string(),
+}).passthrough() as any;
 
-export const Trace: z.ZodType<TraceType> = z
-  .object({
-    /** The total time, in milliseconds, that the trace covers, calculated as the difference between start_time and end_time. This duration helps assess the overall performance of a request as it travels across various services, and is essential for identifying latency and potential bottlenecks within the distributed system. The trace duration may differ from individual span durations due to the propagation and processing times of the trace as it spans multiple components. */
-    duration: z.number().int().optional(),
-    /** The end timestamp of the trace, essential for identifying latency and performance bottlenecks. Like the start time, this timestamp is normalized across the trace system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time allows for accurate trace duration calculations and helps observability tools track overall performance across services, regardless of the individual system time settings. */
-    end_time: z.number().int().optional(),
-    /** The flags associated with the trace, used to indicate specific properties or behaviors, such as whether the trace is sampled or if it has special handling. Flags help control how traces are processed, logged, and analyzed, providing valuable context for tracing and observability tools in identifying trace characteristics or specific tracking requirements. */
-    flags: z.array(z.string()).optional(),
-    /** Identifies the service or component generating the trace, helping to track and correlate the flow of requests through various parts of a distributed system. This information is essential for understanding the role and performance of specific services within the broader context of system operations and for diagnosing issues across different components. */
-    service: Service.optional(),
-    /** Represents a single unit of work or operation within a distributed trace. A span typically tracks the execution of a request across a service, capturing important details such as the operation, timestamps, and status. Spans help break down the overall trace into smaller, manageable parts, enabling detailed analysis of the performance and behavior of specific operations within the system. They are crucial for understanding latency, dependencies, and bottlenecks in complex distributed systems. */
-    span: Span.optional(),
-    /** The start timestamp of the trace, essential for identifying latency and performance bottlenecks. Like the end time, this timestamp is normalized across the trace system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time enables accurate trace duration calculations and helps observability tools track performance across services, regardless of the individual system time settings. */
-    start_time: z.number().int().optional(),
-    /** The unique identifier of the trace used in distributed systems and microservices architecture to track and correlate requests across various components of an application. */
-    uid: z.string(),
-  })
-  .passthrough() as any;
+export type TraceType = z.infer<typeof Trace>;

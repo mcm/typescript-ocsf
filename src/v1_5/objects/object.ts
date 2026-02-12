@@ -1,12 +1,11 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * An unordered collection of attributes. It defines a set of attributes available in all objects. It can be also used as a generic object to log objects that are not otherwise defined by the schema.
  *
  * OCSF Object: Object
  */
-export interface OcsfObjectType {
-  [key: string]: unknown;
-}
+export const OcsfObject = z.object({
+}).passthrough() as any;
 
-export const OcsfObject: z.ZodType<OcsfObjectType> = z.object({}).passthrough() as any;
+export type OcsfObjectType = z.infer<typeof OcsfObject>;

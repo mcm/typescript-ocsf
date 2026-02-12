@@ -5,12 +5,9 @@ import type { ParsedAttribute, ParsedObject } from "./types.js";
 /**
  * Emit a TypeScript file for a single OCSF object schema.
  *
- * Objects in circular reference cycles get:
- * 1. An explicit TypeScript interface (required by z.lazy())
- * 2. z.lazy() wrappers on all cross-references within the cycle
- * 3. Typed schema declaration: `const File: z.ZodType<FileType> = z.lazy(...)`
- *
- * Non-circular objects use simple z.object() with z.infer<> for types.
+ * Objects use direct Zod schema definitions with type inference:
+ * - Non-recursive objects: plain z.object() with z.infer<typeof X>
+ * - Recursive objects: z.object() with getter pattern for self-references
  *
  * All object schemas use .passthrough() to preserve unmapped fields.
  */
@@ -44,17 +41,14 @@ export function emitObjectFile(
   // Self-referencing check (e.g., file.parent_folder -> file)
   const selfReferencing = obj.attributes.some((a) => a.objectType === obj.name);
 
-  // Import referenced objects
-  // Always import both schema and type since all objects now have explicit interfaces
+  // Import referenced objects (schema only, not type)
   for (const refName of importedObjects) {
     const refObj = allObjects.get(refName);
     if (!refObj) continue;
     const fileName = toFileName(refObj.className);
     // Handle special case where Object is renamed to OcsfObject
     const importClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
-    const importTypeName =
-      refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
-    lines.push(`import { ${importClassName}, type ${importTypeName} } from './${fileName}.js';`);
+    lines.push(`import { ${importClassName} } from './${fileName}.js';`);
   }
 
   if (importedObjects.size > 0) lines.push("");
@@ -70,88 +64,117 @@ export function emitObjectFile(
   }
   lines.push(" */");
 
-  // Always emit explicit TypeScript interface to avoid TS7056 errors
-  emitExplicitType(lines, obj, allObjects, className, typeName);
-  lines.push("");
+  // Detect if object is recursive
+  const isRecursive = obj.isInCycle || selfReferencing;
 
-  if (obj.isInCycle || selfReferencing) {
-    // Emit schema with z.lazy() for cycle members
-    lines.push(`export const ${className}: z.ZodType<${typeName}> = z.lazy(() =>`);
-    lines.push("  z.object({");
-    emitFields(lines, obj, allObjects, true);
-    lines.push("  }).passthrough(),");
-    lines.push(") as any;");
+  if (isRecursive) {
+    // Recursive: use getter pattern (with 'as any' to avoid TS7056 errors)
+    lines.push(`export const ${className} = z.object({`);
+    emitFieldsWithGetters(lines, obj, allObjects);
+    lines.push("}).passthrough() as any;");
   } else {
-    // Simple schema
-    lines.push(`export const ${className}: z.ZodType<${typeName}> = z.object({`);
-    emitFields(lines, obj, allObjects, false);
+    // Non-recursive: plain object (with 'as any' to avoid TS7056 errors)
+    lines.push(`export const ${className} = z.object({`);
+    emitSimpleFields(lines, obj, allObjects);
     lines.push("}).passthrough() as any;");
   }
+
+  lines.push("");
+
+  // Type inference
+  lines.push(`export type ${typeName} = z.infer<typeof ${className}>;`);
 
   lines.push("");
   return lines.join("\n");
 }
 
 /**
- * Emit an explicit TypeScript interface for objects in reference cycles.
+ * Emit simple field definitions for non-recursive objects.
  */
-function emitExplicitType(
+function emitSimpleFields(
   lines: string[],
   obj: ParsedObject,
   allObjects: Map<string, ParsedObject>,
-  className: string,
-  typeName: string,
 ): void {
-  lines.push(`export interface ${typeName} {`);
-
   for (const attr of obj.attributes) {
-    const tsType = getTypeScriptType(attr, allObjects);
-    const optional = attr.requirement !== "required" ? "?" : "";
     if (attr.description) {
       lines.push(`  /** ${attr.description} */`);
     }
-    lines.push(`  ${attr.name}${optional}: ${tsType};`);
-  }
 
-  // Allow extra properties (passthrough)
-  lines.push("  [key: string]: unknown;");
-  lines.push("}");
-}
-
-/**
- * Emit Zod field definitions into a z.object() shape.
- */
-function emitFields(
-  lines: string[],
-  obj: ParsedObject,
-  allObjects: Map<string, ParsedObject>,
-  useLazy: boolean,
-): void {
-  for (const attr of obj.attributes) {
-    if (attr.description) {
-      lines.push(`    /** ${attr.description} */`);
-    }
-
-    let zodType = getZodType(attr, allObjects, useLazy, obj.name);
+    let zodType = getZodTypeSimple(attr, allObjects);
 
     // Apply optionality
     if (attr.requirement !== "required") {
       zodType += ".optional()";
     }
 
-    lines.push(`    ${attr.name}: ${zodType},`);
+    lines.push(`  ${attr.name}: ${zodType},`);
   }
 }
 
 /**
- * Get the Zod type expression for an attribute.
+ * Emit field definitions with getters for recursive objects.
  */
-function getZodType(
-  attr: ParsedAttribute,
+function emitFieldsWithGetters(
+  lines: string[],
+  obj: ParsedObject,
   allObjects: Map<string, ParsedObject>,
-  useLazy: boolean,
-  currentObjName: string,
-): string {
+): void {
+  for (const attr of obj.attributes) {
+    if (attr.description) {
+      lines.push(`  /** ${attr.description} */`);
+    }
+
+    const useGetter = shouldUseGetter(attr, obj, allObjects);
+
+    if (useGetter) {
+      // Use getter pattern with explicit return type
+      let zodType = getZodTypeForGetter(attr, allObjects);
+      const returnType = getZodReturnType(attr, allObjects);
+      if (attr.requirement !== "required") {
+        zodType += ".optional()";
+      }
+      lines.push(`  get ${attr.name}(): ${returnType} { return ${zodType}; },`);
+    } else {
+      // Regular field
+      let zodType = getZodTypeSimple(attr, allObjects);
+      if (attr.requirement !== "required") {
+        zodType += ".optional()";
+      }
+      lines.push(`  ${attr.name}: ${zodType},`);
+    }
+  }
+}
+
+/**
+ * Determine if a field should use getter pattern.
+ * Use getter when:
+ * - Field references itself (self-reference)
+ * - OR both current object and referenced object are in cycle
+ */
+function shouldUseGetter(
+  attr: ParsedAttribute,
+  currentObj: ParsedObject,
+  allObjects: Map<string, ParsedObject>,
+): boolean {
+  if (!attr.objectType) return false;
+
+  // Self-reference
+  if (attr.objectType === currentObj.name) return true;
+
+  // Both in cycle
+  const refObj = allObjects.get(attr.objectType);
+  if (refObj && currentObj.isInCycle && refObj.isInCycle) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Get the Zod type expression for a simple (non-getter) field.
+ */
+function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
   let base: string;
 
   if (attr.objectType) {
@@ -163,12 +186,8 @@ function getZodType(
     } else {
       // Handle special case where Object is renamed to OcsfObject
       const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
-      if (useLazy || refObj.isInCycle || attr.objectType === currentObjName) {
-        // Use z.lazy() for cycle members or self-references
-        base = `z.lazy(() => ${refClassName})`;
-      } else {
-        base = refClassName;
-      }
+      // Direct reference (no z.lazy)
+      base = refClassName;
     }
   } else {
     // Primitive type
@@ -184,32 +203,40 @@ function getZodType(
 }
 
 /**
- * Get the TypeScript type string for an attribute (used in explicit interfaces).
+ * Get the Zod type expression for a getter field.
  */
-function getTypeScriptType(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
+function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
   let base: string;
 
   if (attr.objectType) {
+    // Object reference
     const refObj = allObjects.get(attr.objectType);
     if (!refObj) {
-      base = "Record<string, unknown>";
+      // Unknown: use z.record(z.unknown())
+      base = "z.record(z.unknown())";
     } else {
       // Handle special case where Object is renamed to OcsfObject
-      const refTypeName =
-        refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
-      base = refTypeName;
+      const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
+      // Direct reference (no z.lazy)
+      base = refClassName;
     }
   } else {
-    base = mapOcsfTypeToTs(attr.ocsfType);
+    // Primitive type
+    base = mapOcsfTypeToZod(attr.ocsfType);
   }
 
+  // Wrap in array if needed
   if (attr.isArray) {
-    base = `${base}[]`;
-  }
-
-  if (attr.requirement !== "required") {
-    base += " | undefined";
+    base = `z.array(${base})`;
   }
 
   return base;
+}
+
+/**
+ * Get the explicit return type annotation for a getter.
+ * Use 'any' to break circular type references in recursive schemas.
+ */
+function getZodReturnType(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
+  return "any";
 }

@@ -23,10 +23,7 @@ export { CpuArchitectureId, CpuArchitectureIdLabels } from "./cpu_architecture_i
 export type { CpuArchitectureId as CpuArchitectureIdType } from "./cpu_architecture_id.js";
 export { DataLifecycleStateId, DataLifecycleStateIdLabels } from "./data_lifecycle_state_id.js";
 export type { DataLifecycleStateId as DataLifecycleStateIdType } from "./data_lifecycle_state_id.js";
-export {
-  DetectionPatternTypeId,
-  DetectionPatternTypeIdLabels,
-} from "./detection_pattern_type_id.js";
+export { DetectionPatternTypeId, DetectionPatternTypeIdLabels } from "./detection_pattern_type_id.js";
 export type { DetectionPatternTypeId as DetectionPatternTypeIdType } from "./detection_pattern_type_id.js";
 export { DetectionSystemId, DetectionSystemIdLabels } from "./detection_system_id.js";
 export type { DetectionSystemId as DetectionSystemIdType } from "./detection_system_id.js";

@@ -1,25 +1,17 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { Fingerprint, type FingerprintType } from "./fingerprint.js";
+import { Fingerprint } from './fingerprint.js';
 
 /**
  * The HASSH object contains SSH network fingerprinting values for specific client/server implementations. It provides a standardized way of identifying and categorizing SSH connections based on their unique characteristics and behavior.
  *
  * OCSF Object: HASSH
  */
-export interface HasshType {
+export const Hassh = z.object({
   /** The concatenation of key exchange, encryption, authentication and compression algorithms (separated by ';'). NOTE: This is not the underlying algorithm for the hash implementation. */
-  algorithm?: string | undefined;
+  algorithm: z.string().optional(),
   /** The hash of the key exchange, encryption, authentication and compression algorithms. */
-  fingerprint: FingerprintType;
-  [key: string]: unknown;
-}
+  fingerprint: Fingerprint,
+}).passthrough() as any;
 
-export const Hassh: z.ZodType<HasshType> = z
-  .object({
-    /** The concatenation of key exchange, encryption, authentication and compression algorithms (separated by ';'). NOTE: This is not the underlying algorithm for the hash implementation. */
-    algorithm: z.string().optional(),
-    /** The hash of the key exchange, encryption, authentication and compression algorithms. */
-    fingerprint: Fingerprint,
-  })
-  .passthrough() as any;
+export type HasshType = z.infer<typeof Hassh>;

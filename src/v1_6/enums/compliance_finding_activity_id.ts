@@ -10,8 +10,7 @@ export const ComplianceFindingActivityId = {
   OTHER: 99,
 } as const;
 
-export type ComplianceFindingActivityId =
-  (typeof ComplianceFindingActivityId)[keyof typeof ComplianceFindingActivityId];
+export type ComplianceFindingActivityId = (typeof ComplianceFindingActivityId)[keyof typeof ComplianceFindingActivityId];
 
 export const ComplianceFindingActivityIdLabels: Record<number, string> = {
   0: "Unknown",

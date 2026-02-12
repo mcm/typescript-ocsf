@@ -9,8 +9,7 @@ export const ProcessActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type ProcessActivityActivityId =
-  (typeof ProcessActivityActivityId)[keyof typeof ProcessActivityActivityId];
+export type ProcessActivityActivityId = (typeof ProcessActivityActivityId)[keyof typeof ProcessActivityActivityId];
 
 export const ProcessActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

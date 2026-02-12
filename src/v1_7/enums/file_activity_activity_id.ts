@@ -32,8 +32,7 @@ export const FileActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type FileActivityActivityId =
-  (typeof FileActivityActivityId)[keyof typeof FileActivityActivityId];
+export type FileActivityActivityId = (typeof FileActivityActivityId)[keyof typeof FileActivityActivityId];
 
 export const FileActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -8,8 +8,7 @@ export const KernelActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type KernelActivityActivityId =
-  (typeof KernelActivityActivityId)[keyof typeof KernelActivityActivityId];
+export type KernelActivityActivityId = (typeof KernelActivityActivityId)[keyof typeof KernelActivityActivityId];
 
 export const KernelActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

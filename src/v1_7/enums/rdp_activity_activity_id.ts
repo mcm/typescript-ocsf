@@ -20,8 +20,7 @@ export const RdpActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type RdpActivityActivityId =
-  (typeof RdpActivityActivityId)[keyof typeof RdpActivityActivityId];
+export type RdpActivityActivityId = (typeof RdpActivityActivityId)[keyof typeof RdpActivityActivityId];
 
 export const RdpActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

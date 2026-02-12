@@ -10,8 +10,7 @@ export const ModuleActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type ModuleActivityActivityId =
-  (typeof ModuleActivityActivityId)[keyof typeof ModuleActivityActivityId];
+export type ModuleActivityActivityId = (typeof ModuleActivityActivityId)[keyof typeof ModuleActivityActivityId];
 
 export const ModuleActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

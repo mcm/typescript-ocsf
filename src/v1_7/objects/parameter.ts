@@ -1,27 +1,17 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * The Parameter object provides details regarding a parameter of a a function.
  *
  * OCSF Object: Parameter
  */
-export interface ParameterType {
+export const Parameter = z.object({
   /** The parameter name. */
-  name?: string | undefined;
+  name: z.string().optional(),
   /** The parameter value after function execution. */
-  post_value?: string | undefined;
+  post_value: z.string().optional(),
   /** The parameter value before function execution. */
-  pre_value?: string | undefined;
-  [key: string]: unknown;
-}
+  pre_value: z.string().optional(),
+}).passthrough() as any;
 
-export const Parameter: z.ZodType<ParameterType> = z
-  .object({
-    /** The parameter name. */
-    name: z.string().optional(),
-    /** The parameter value after function execution. */
-    post_value: z.string().optional(),
-    /** The parameter value before function execution. */
-    pre_value: z.string().optional(),
-  })
-  .passthrough() as any;
+export type ParameterType = z.infer<typeof Parameter>;

@@ -16,8 +16,7 @@ export const SmbActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type SmbActivityActivityId =
-  (typeof SmbActivityActivityId)[keyof typeof SmbActivityActivityId];
+export type SmbActivityActivityId = (typeof SmbActivityActivityId)[keyof typeof SmbActivityActivityId];
 
 export const SmbActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

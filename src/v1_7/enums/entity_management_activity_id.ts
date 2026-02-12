@@ -30,8 +30,7 @@ export const EntityManagementActivityId = {
   OTHER: 99,
 } as const;
 
-export type EntityManagementActivityId =
-  (typeof EntityManagementActivityId)[keyof typeof EntityManagementActivityId];
+export type EntityManagementActivityId = (typeof EntityManagementActivityId)[keyof typeof EntityManagementActivityId];
 
 export const EntityManagementActivityIdLabels: Record<number, string> = {
   0: "Unknown",

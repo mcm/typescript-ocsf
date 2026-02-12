@@ -14,8 +14,7 @@ export const FileRemediationActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type FileRemediationActivityActivityId =
-  (typeof FileRemediationActivityActivityId)[keyof typeof FileRemediationActivityActivityId];
+export type FileRemediationActivityActivityId = (typeof FileRemediationActivityActivityId)[keyof typeof FileRemediationActivityActivityId];
 
 export const FileRemediationActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

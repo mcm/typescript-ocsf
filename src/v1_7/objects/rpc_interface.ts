@@ -1,31 +1,19 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * The RPC Interface represents the remote procedure call interface used in the DCE/RPC session.
  *
  * OCSF Object: RPC Interface
  */
-export interface RpcInterfaceType {
+export const RpcInterface = z.object({
   /** An integer that provides a reason code or additional information about the acknowledgment result. */
-  ack_reason?: number | undefined;
+  ack_reason: z.number().int().optional(),
   /** An integer that denotes the acknowledgment result of the DCE/RPC call. */
-  ack_result?: number | undefined;
+  ack_result: z.number().int().optional(),
   /** The unique identifier of the particular remote procedure or service. */
-  uuid: string;
+  uuid: z.string(),
   /** The version of the DCE/RPC protocol being used in the session. */
-  version: string;
-  [key: string]: unknown;
-}
+  version: z.string(),
+}).passthrough() as any;
 
-export const RpcInterface: z.ZodType<RpcInterfaceType> = z
-  .object({
-    /** An integer that provides a reason code or additional information about the acknowledgment result. */
-    ack_reason: z.number().int().optional(),
-    /** An integer that denotes the acknowledgment result of the DCE/RPC call. */
-    ack_result: z.number().int().optional(),
-    /** The unique identifier of the particular remote procedure or service. */
-    uuid: z.string(),
-    /** The version of the DCE/RPC protocol being used in the session. */
-    version: z.string(),
-  })
-  .passthrough() as any;
+export type RpcInterfaceType = z.infer<typeof RpcInterface>;

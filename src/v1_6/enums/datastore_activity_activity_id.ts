@@ -24,8 +24,7 @@ export const DatastoreActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type DatastoreActivityActivityId =
-  (typeof DatastoreActivityActivityId)[keyof typeof DatastoreActivityActivityId];
+export type DatastoreActivityActivityId = (typeof DatastoreActivityActivityId)[keyof typeof DatastoreActivityActivityId];
 
 export const DatastoreActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

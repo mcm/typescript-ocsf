@@ -18,8 +18,7 @@ export const MemoryActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type MemoryActivityActivityId =
-  (typeof MemoryActivityActivityId)[keyof typeof MemoryActivityActivityId];
+export type MemoryActivityActivityId = (typeof MemoryActivityActivityId)[keyof typeof MemoryActivityActivityId];
 
 export const MemoryActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

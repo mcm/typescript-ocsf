@@ -36,8 +36,7 @@ export const NetworkFileActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type NetworkFileActivityActivityId =
-  (typeof NetworkFileActivityActivityId)[keyof typeof NetworkFileActivityActivityId];
+export type NetworkFileActivityActivityId = (typeof NetworkFileActivityActivityId)[keyof typeof NetworkFileActivityActivityId];
 
 export const NetworkFileActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -10,8 +10,7 @@ export const AirborneBroadcastActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type AirborneBroadcastActivityActivityId =
-  (typeof AirborneBroadcastActivityActivityId)[keyof typeof AirborneBroadcastActivityActivityId];
+export type AirborneBroadcastActivityActivityId = (typeof AirborneBroadcastActivityActivityId)[keyof typeof AirborneBroadcastActivityActivityId];
 
 export const AirborneBroadcastActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

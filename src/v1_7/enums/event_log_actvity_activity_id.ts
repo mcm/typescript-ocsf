@@ -24,8 +24,7 @@ export const EventLogActvityActivityId = {
   OTHER: 99,
 } as const;
 
-export type EventLogActvityActivityId =
-  (typeof EventLogActvityActivityId)[keyof typeof EventLogActvityActivityId];
+export type EventLogActvityActivityId = (typeof EventLogActvityActivityId)[keyof typeof EventLogActvityActivityId];
 
 export const EventLogActvityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

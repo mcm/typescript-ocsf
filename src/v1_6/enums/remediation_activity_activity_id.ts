@@ -14,8 +14,7 @@ export const RemediationActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type RemediationActivityActivityId =
-  (typeof RemediationActivityActivityId)[keyof typeof RemediationActivityActivityId];
+export type RemediationActivityActivityId = (typeof RemediationActivityActivityId)[keyof typeof RemediationActivityActivityId];
 
 export const RemediationActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -1,43 +1,25 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * The Email Authentication object describes the Sender Policy Framework (SPF), DomainKeys Identified Mail (DKIM) and Domain-based Message Authentication, Reporting and Conformance (DMARC) attributes of an email.
  *
  * OCSF Object: Email Authentication
  */
-export interface EmailAuthType {
+export const EmailAuth = z.object({
   /** The DomainKeys Identified Mail (DKIM) status of the email. */
-  dkim?: string | undefined;
+  dkim: z.string().optional(),
   /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */
-  dkim_domain?: string | undefined;
+  dkim_domain: z.string().optional(),
   /** The DomainKeys Identified Mail (DKIM) signature used by the sending/receiving system. */
-  dkim_signature?: string | undefined;
+  dkim_signature: z.string().optional(),
   /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) status of the email. */
-  dmarc?: string | undefined;
+  dmarc: z.string().optional(),
   /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) override action. */
-  dmarc_override?: string | undefined;
+  dmarc_override: z.string().optional(),
   /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) policy status. */
-  dmarc_policy?: string | undefined;
+  dmarc_policy: z.string().optional(),
   /** The Sender Policy Framework (SPF) status of the email. */
-  spf?: string | undefined;
-  [key: string]: unknown;
-}
+  spf: z.string().optional(),
+}).passthrough() as any;
 
-export const EmailAuth: z.ZodType<EmailAuthType> = z
-  .object({
-    /** The DomainKeys Identified Mail (DKIM) status of the email. */
-    dkim: z.string().optional(),
-    /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */
-    dkim_domain: z.string().optional(),
-    /** The DomainKeys Identified Mail (DKIM) signature used by the sending/receiving system. */
-    dkim_signature: z.string().optional(),
-    /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) status of the email. */
-    dmarc: z.string().optional(),
-    /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) override action. */
-    dmarc_override: z.string().optional(),
-    /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) policy status. */
-    dmarc_policy: z.string().optional(),
-    /** The Sender Policy Framework (SPF) status of the email. */
-    spf: z.string().optional(),
-  })
-  .passthrough() as any;
+export type EmailAuthType = z.infer<typeof EmailAuth>;

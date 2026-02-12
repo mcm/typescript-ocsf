@@ -12,8 +12,7 @@ export const ApiActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type ApiActivityActivityId =
-  (typeof ApiActivityActivityId)[keyof typeof ApiActivityActivityId];
+export type ApiActivityActivityId = (typeof ApiActivityActivityId)[keyof typeof ApiActivityActivityId];
 
 export const ApiActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -10,8 +10,7 @@ export const ScheduledJobActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type ScheduledJobActivityActivityId =
-  (typeof ScheduledJobActivityActivityId)[keyof typeof ScheduledJobActivityActivityId];
+export type ScheduledJobActivityActivityId = (typeof ScheduledJobActivityActivityId)[keyof typeof ScheduledJobActivityActivityId];
 
 export const ScheduledJobActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -12,8 +12,7 @@ export const TunnelActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type TunnelActivityActivityId =
-  (typeof TunnelActivityActivityId)[keyof typeof TunnelActivityActivityId];
+export type TunnelActivityActivityId = (typeof TunnelActivityActivityId)[keyof typeof TunnelActivityActivityId];
 
 export const TunnelActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

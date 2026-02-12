@@ -22,8 +22,7 @@ export const HttpActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type HttpActivityActivityId =
-  (typeof HttpActivityActivityId)[keyof typeof HttpActivityActivityId];
+export type HttpActivityActivityId = (typeof HttpActivityActivityId)[keyof typeof HttpActivityActivityId];
 
 export const HttpActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

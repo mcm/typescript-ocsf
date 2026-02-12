@@ -1,23 +1,15 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * An environment variable.
  *
  * OCSF Object: Environment Variable
  */
-export interface EnvironmentVariableType {
+export const EnvironmentVariable = z.object({
   /** The name of the environment variable. */
-  name: string;
+  name: z.string(),
   /** The value of the environment variable. */
-  value: string;
-  [key: string]: unknown;
-}
+  value: z.string(),
+}).passthrough() as any;
 
-export const EnvironmentVariable: z.ZodType<EnvironmentVariableType> = z
-  .object({
-    /** The name of the environment variable. */
-    name: z.string(),
-    /** The value of the environment variable. */
-    value: z.string(),
-  })
-  .passthrough() as any;
+export type EnvironmentVariableType = z.infer<typeof EnvironmentVariable>;

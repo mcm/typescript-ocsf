@@ -16,8 +16,7 @@ export const GroupManagementActivityId = {
   OTHER: 99,
 } as const;
 
-export type GroupManagementActivityId =
-  (typeof GroupManagementActivityId)[keyof typeof GroupManagementActivityId];
+export type GroupManagementActivityId = (typeof GroupManagementActivityId)[keyof typeof GroupManagementActivityId];
 
 export const GroupManagementActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -10,8 +10,7 @@ export const ApplicationSecurityPostureFindingActivityId = {
   OTHER: 99,
 } as const;
 
-export type ApplicationSecurityPostureFindingActivityId =
-  (typeof ApplicationSecurityPostureFindingActivityId)[keyof typeof ApplicationSecurityPostureFindingActivityId];
+export type ApplicationSecurityPostureFindingActivityId = (typeof ApplicationSecurityPostureFindingActivityId)[keyof typeof ApplicationSecurityPostureFindingActivityId];
 
 export const ApplicationSecurityPostureFindingActivityIdLabels: Record<number, string> = {
   0: "Unknown",

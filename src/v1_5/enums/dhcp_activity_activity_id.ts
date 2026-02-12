@@ -22,8 +22,7 @@ export const DhcpActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type DhcpActivityActivityId =
-  (typeof DhcpActivityActivityId)[keyof typeof DhcpActivityActivityId];
+export type DhcpActivityActivityId = (typeof DhcpActivityActivityId)[keyof typeof DhcpActivityActivityId];
 
 export const DhcpActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

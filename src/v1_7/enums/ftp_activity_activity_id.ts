@@ -16,8 +16,7 @@ export const FtpActivityActivityId = {
   OTHER: 99,
 } as const;
 
-export type FtpActivityActivityId =
-  (typeof FtpActivityActivityId)[keyof typeof FtpActivityActivityId];
+export type FtpActivityActivityId = (typeof FtpActivityActivityId)[keyof typeof FtpActivityActivityId];
 
 export const FtpActivityActivityIdLabels: Record<number, string> = {
   0: "Unknown",

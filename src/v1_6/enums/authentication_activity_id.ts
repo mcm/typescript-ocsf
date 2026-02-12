@@ -18,8 +18,7 @@ export const AuthenticationActivityId = {
   OTHER: 99,
 } as const;
 
-export type AuthenticationActivityId =
-  (typeof AuthenticationActivityId)[keyof typeof AuthenticationActivityId];
+export type AuthenticationActivityId = (typeof AuthenticationActivityId)[keyof typeof AuthenticationActivityId];
 
 export const AuthenticationActivityIdLabels: Record<number, string> = {
   0: "Unknown",

@@ -1,23 +1,23 @@
-import { z } from "zod";
-import { type SiblingPair, reconcileSiblings } from "../../sibling.js";
-import { type UidConfig, prefillUids } from "../../uid.js";
+import { z } from 'zod';
+import { reconcileSiblings, type SiblingPair } from '../../sibling.js';
+import { prefillUids, type UidConfig } from '../../uid.js';
 
-import { Actor, type ActorType } from "../objects/actor.js";
-import { DataSecurity, type DataSecurityType } from "../objects/data_security.js";
-import { Database, type DatabaseType } from "../objects/database.js";
-import { Databucket, type DatabucketType } from "../objects/databucket.js";
-import { Device, type DeviceType } from "../objects/device.js";
-import { Enrichment, type EnrichmentType } from "../objects/enrichment.js";
-import { File, type FileType } from "../objects/file.js";
-import { FindingInfo, type FindingInfoType } from "../objects/finding_info.js";
-import { Fingerprint, type FingerprintType } from "../objects/fingerprint.js";
-import { Metadata, type MetadataType } from "../objects/metadata.js";
-import { NetworkEndpoint, type NetworkEndpointType } from "../objects/network_endpoint.js";
-import { OcsfObject, type OcsfObjectType } from "../objects/object.js";
-import { Observable, type ObservableType } from "../objects/observable.js";
-import { ResourceDetails, type ResourceDetailsType } from "../objects/resource_details.js";
-import { Table, type TableType } from "../objects/table.js";
-import { VendorAttributes, type VendorAttributesType } from "../objects/vendor_attributes.js";
+import { Enrichment } from '../objects/enrichment.js';
+import { Metadata } from '../objects/metadata.js';
+import { Observable } from '../objects/observable.js';
+import { Fingerprint } from '../objects/fingerprint.js';
+import { OcsfObject } from '../objects/object.js';
+import { Device } from '../objects/device.js';
+import { FindingInfo } from '../objects/finding_info.js';
+import { VendorAttributes } from '../objects/vendor_attributes.js';
+import { Actor } from '../objects/actor.js';
+import { DataSecurity } from '../objects/data_security.js';
+import { Database } from '../objects/database.js';
+import { Databucket } from '../objects/databucket.js';
+import { NetworkEndpoint } from '../objects/network_endpoint.js';
+import { File } from '../objects/file.js';
+import { ResourceDetails } from '../objects/resource_details.js';
+import { Table } from '../objects/table.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
   1: "Create",
@@ -93,228 +93,120 @@ const UID_CONFIG: UidConfig = {
  * Category: Data Security Finding
  * @see https://schema.ocsf.io/1.7.0/classes/data_security_finding
  */
-export interface DataSecurityFindingType {
-  /** The normalized identifier of the Data Security Finding activity. */
-  activity_id: number;
-  /** The Data Security finding activity name, as defined by the activity_id. */
-  activity_name?: string | undefined;
-  /** The event category name, as defined by category_uid value. */
-  category_name?: string | undefined;
-  /** The category unique identifier of the event. */
-  category_uid: number;
-  /** The event class name, as defined by class_uid value. */
-  class_name?: string | undefined;
-  /** The unique identifier of a class. A class describes the attributes available in an event. */
-  class_uid: number;
-  /** The number of times that events in the same logical group occurred during the event Start Time to End Time period. */
-  count?: number | undefined;
-  /** The event duration or aggregate time, the amount of time the event covers from start_time to end_time in milliseconds. */
-  duration?: number | undefined;
-  /** The time of the most recent event included in the finding. */
-  end_time?: number | undefined;
-  /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
-  enrichments?: EnrichmentType[] | undefined;
-  /** The description of the event/finding, as defined by the source. */
-  message?: string | undefined;
-  /** The metadata associated with the event or a finding. */
-  metadata: MetadataType;
-  /** The observables associated with the event or a finding. */
-  observables?: ObservableType[] | undefined;
-  /** The raw event/finding data as received from the source. */
-  raw_data?: string | undefined;
-  /** The hash, which describes the content of the raw_data field. */
-  raw_data_hash?: FingerprintType | undefined;
-  /** The size of the raw data which was transformed into an OCSF event, in bytes. */
-  raw_data_size?: number | undefined;
-  /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
-  severity?: string | undefined;
-  /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-  severity_id: number;
-  /** The time of the least recent event included in the finding. */
-  start_time?: number | undefined;
-  /** The normalized status of the Finding set by the consumer normalized to the caption of the status_id value. In the case of 'Other', it is defined by the source. */
-  status?: string | undefined;
-  /** The event status code, as reported by the event source.For example, in a Windows Failed Authentication event, this would be the value of 'Failure Code', e.g. 0x18. */
-  status_code?: string | undefined;
-  /** The status detail contains additional information about the event/finding outcome. */
-  status_detail?: string | undefined;
-  /** The normalized status identifier of the Finding, set by the consumer. */
-  status_id?: number | undefined;
-  /** The normalized event occurrence time or the finding creation time. */
-  time: number;
-  /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
-  timezone_offset?: number | undefined;
-  /** The event/finding type name, as defined by the type_uid. */
-  type_name?: string | undefined;
-  /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
-  type_uid: number;
-  /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType | undefined;
-  /** A user provided comment about the finding. */
-  comment?: string | undefined;
-  /** The confidence, normalized to the caption of the confidence_id value. In the case of 'Other', it is defined by the event source. */
-  confidence?: string | undefined;
-  /** The normalized confidence refers to the accuracy of the rule that created the finding. A rule with a low confidence means that the finding scope is wide and may create finding reports that may not be malicious in nature. */
-  confidence_id?: number | undefined;
-  /** The confidence score as reported by the event source. */
-  confidence_score?: number | undefined;
-  /** Describes the device where classified or sensitive data is stored in, or was accessed from. */
-  device?: DeviceType | undefined;
-  /** Describes the supporting information about a generated finding. */
-  finding_info: FindingInfoType;
-  /** The Vendor Attributes object can be used to represent values of attributes populated by the Vendor/Finding Provider. It can help distinguish between the vendor-provided values and consumer-updated values, of key attributes like severity_id.The original finding producer should not populate this object. It should be populated by consuming systems that support data mutability. */
-  vendor_attributes?: VendorAttributesType | undefined;
-  /** Describes details about the actor implicated in the data security finding. Either an actor that owns a particular digital file or information store, or an actor which accessed classified or sensitive data. */
-  actor?: ActorType | undefined;
-  /** The Data Security object describes the characteristics, techniques and content of a Data Loss Prevention (DLP), Data Loss Detection (DLD), Data Classification, or similar tools' finding, alert, or detection mechanism(s). */
-  data_security?: DataSecurityType | undefined;
-  /** Describes the database where classified or sensitive data is stored in, or was accessed from. Databases are typically datastore services that contain an organized collection of structured and/or semi-structured data. */
-  database?: DatabaseType | undefined;
-  /** Describes the databucket where classified or sensitive data is stored in, or was accessed from. The data bucket object is a basic container that holds data, typically organized through the use of data partitions. */
-  databucket?: DatabucketType | undefined;
-  /** Describes the endpoint where classified or sensitive data is stored in, or was accessed from. */
-  dst_endpoint?: NetworkEndpointType | undefined;
-  /** Describes a file that contains classified or sensitive data. */
-  file?: FileType | undefined;
-  /** The impact , normalized to the caption of the impact_id value. In the case of 'Other', it is defined by the event source. */
-  impact?: string | undefined;
-  /** The normalized impact of the incident or finding. Per NIST, this is the magnitude of harm that can be expected to result from the consequences of unauthorized disclosure, modification, destruction, or loss of information or information system availability. */
-  impact_id?: number | undefined;
-  /** The impact as an integer value of the finding, valid range 0-100. */
-  impact_score?: number | undefined;
-  /** Indicates that the event is considered to be an alertable signal. For example, an activity_id of 'Create' could constitute an alertable signal and the value would be true, while 'Close' likely would not and either omit the attribute or set its value to false. Note that other events with the security_control profile may also be deemed alertable signals and may also carry is_alert = true attributes. */
-  is_alert?: boolean | undefined;
-  /** Describes details about additional resources, where classified or sensitive data is stored in, or was accessed from. You can populate this object, if the specific resource type objects available in the class (database, databucket, table, file) aren't sufficient; OR You can also choose to duplicate uid, name of the specific resources objects, for a consistent access to resource uids across all findings. */
-  resources?: ResourceDetailsType[] | undefined;
-  /** Describes the risk associated with the finding. */
-  risk_details?: string | undefined;
-  /** The risk level, normalized to the caption of the risk_level_id value. */
-  risk_level?: string | undefined;
-  /** The normalized risk level id. */
-  risk_level_id?: number | undefined;
-  /** The risk score as reported by the event source. */
-  risk_score?: number | undefined;
-  /** Details about the source endpoint where classified or sensitive data was accessed from. */
-  src_endpoint?: NetworkEndpointType | undefined;
-  /** Describes the table where classified or sensitive data is stored in, or was accessed from. The table object represents a table within a structured relational database, warehouse, lake, or similar. */
-  table?: TableType | undefined;
-  [key: string]: unknown;
-}
-
-export const DataSecurityFinding: z.ZodType<DataSecurityFindingType> = z.preprocess(
+export const DataSecurityFinding = z.preprocess(
   (data) => {
-    if (typeof data !== "object" || data === null) return data;
+    if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
     d = reconcileSiblings(d, SIBLING_PAIRS);
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z
-    .object({
-      /** The normalized identifier of the Data Security Finding activity. */
-      activity_id: z.number().int(),
-      /** The Data Security finding activity name, as defined by the activity_id. */
-      activity_name: z.string().optional(),
-      /** The event category name, as defined by category_uid value. */
-      category_name: z.string().optional(),
-      /** The category unique identifier of the event. */
-      category_uid: z.number().int(),
-      /** The event class name, as defined by class_uid value. */
-      class_name: z.string().optional(),
-      /** The unique identifier of a class. A class describes the attributes available in an event. */
-      class_uid: z.number().int(),
-      /** The number of times that events in the same logical group occurred during the event Start Time to End Time period. */
-      count: z.number().int().optional(),
-      /** The event duration or aggregate time, the amount of time the event covers from start_time to end_time in milliseconds. */
-      duration: z.number().int().optional(),
-      /** The time of the most recent event included in the finding. */
-      end_time: z.number().int().optional(),
-      /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
-      enrichments: z.array(z.lazy(() => Enrichment)).optional(),
-      /** The description of the event/finding, as defined by the source. */
-      message: z.string().optional(),
-      /** The metadata associated with the event or a finding. */
-      metadata: z.lazy(() => Metadata),
-      /** The observables associated with the event or a finding. */
-      observables: z.array(z.lazy(() => Observable)).optional(),
-      /** The raw event/finding data as received from the source. */
-      raw_data: z.string().optional(),
-      /** The hash, which describes the content of the raw_data field. */
-      raw_data_hash: z.lazy(() => Fingerprint).optional(),
-      /** The size of the raw data which was transformed into an OCSF event, in bytes. */
-      raw_data_size: z.number().int().optional(),
-      /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
-      severity: z.string().optional(),
-      /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-      severity_id: z.number().int(),
-      /** The time of the least recent event included in the finding. */
-      start_time: z.number().int().optional(),
-      /** The normalized status of the Finding set by the consumer normalized to the caption of the status_id value. In the case of 'Other', it is defined by the source. */
-      status: z.string().optional(),
-      /** The event status code, as reported by the event source.For example, in a Windows Failed Authentication event, this would be the value of 'Failure Code', e.g. 0x18. */
-      status_code: z.string().optional(),
-      /** The status detail contains additional information about the event/finding outcome. */
-      status_detail: z.string().optional(),
-      /** The normalized status identifier of the Finding, set by the consumer. */
-      status_id: z.number().int().optional(),
-      /** The normalized event occurrence time or the finding creation time. */
-      time: z.number().int(),
-      /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
-      timezone_offset: z.number().int().optional(),
-      /** The event/finding type name, as defined by the type_uid. */
-      type_name: z.string().optional(),
-      /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
-      type_uid: z.number().int(),
-      /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-      unmapped: z.lazy(() => OcsfObject).optional(),
-      /** A user provided comment about the finding. */
-      comment: z.string().optional(),
-      /** The confidence, normalized to the caption of the confidence_id value. In the case of 'Other', it is defined by the event source. */
-      confidence: z.string().optional(),
-      /** The normalized confidence refers to the accuracy of the rule that created the finding. A rule with a low confidence means that the finding scope is wide and may create finding reports that may not be malicious in nature. */
-      confidence_id: z.number().int().optional(),
-      /** The confidence score as reported by the event source. */
-      confidence_score: z.number().int().optional(),
-      /** Describes the device where classified or sensitive data is stored in, or was accessed from. */
-      device: z.lazy(() => Device).optional(),
-      /** Describes the supporting information about a generated finding. */
-      finding_info: z.lazy(() => FindingInfo),
-      /** The Vendor Attributes object can be used to represent values of attributes populated by the Vendor/Finding Provider. It can help distinguish between the vendor-provided values and consumer-updated values, of key attributes like severity_id.The original finding producer should not populate this object. It should be populated by consuming systems that support data mutability. */
-      vendor_attributes: z.lazy(() => VendorAttributes).optional(),
-      /** Describes details about the actor implicated in the data security finding. Either an actor that owns a particular digital file or information store, or an actor which accessed classified or sensitive data. */
-      actor: z.lazy(() => Actor).optional(),
-      /** The Data Security object describes the characteristics, techniques and content of a Data Loss Prevention (DLP), Data Loss Detection (DLD), Data Classification, or similar tools' finding, alert, or detection mechanism(s). */
-      data_security: z.lazy(() => DataSecurity).optional(),
-      /** Describes the database where classified or sensitive data is stored in, or was accessed from. Databases are typically datastore services that contain an organized collection of structured and/or semi-structured data. */
-      database: z.lazy(() => Database).optional(),
-      /** Describes the databucket where classified or sensitive data is stored in, or was accessed from. The data bucket object is a basic container that holds data, typically organized through the use of data partitions. */
-      databucket: z.lazy(() => Databucket).optional(),
-      /** Describes the endpoint where classified or sensitive data is stored in, or was accessed from. */
-      dst_endpoint: z.lazy(() => NetworkEndpoint).optional(),
-      /** Describes a file that contains classified or sensitive data. */
-      file: z.lazy(() => File).optional(),
-      /** The impact , normalized to the caption of the impact_id value. In the case of 'Other', it is defined by the event source. */
-      impact: z.string().optional(),
-      /** The normalized impact of the incident or finding. Per NIST, this is the magnitude of harm that can be expected to result from the consequences of unauthorized disclosure, modification, destruction, or loss of information or information system availability. */
-      impact_id: z.number().int().optional(),
-      /** The impact as an integer value of the finding, valid range 0-100. */
-      impact_score: z.number().int().optional(),
-      /** Indicates that the event is considered to be an alertable signal. For example, an activity_id of 'Create' could constitute an alertable signal and the value would be true, while 'Close' likely would not and either omit the attribute or set its value to false. Note that other events with the security_control profile may also be deemed alertable signals and may also carry is_alert = true attributes. */
-      is_alert: z.boolean().optional(),
-      /** Describes details about additional resources, where classified or sensitive data is stored in, or was accessed from. You can populate this object, if the specific resource type objects available in the class (database, databucket, table, file) aren't sufficient; OR You can also choose to duplicate uid, name of the specific resources objects, for a consistent access to resource uids across all findings. */
-      resources: z.array(z.lazy(() => ResourceDetails)).optional(),
-      /** Describes the risk associated with the finding. */
-      risk_details: z.string().optional(),
-      /** The risk level, normalized to the caption of the risk_level_id value. */
-      risk_level: z.string().optional(),
-      /** The normalized risk level id. */
-      risk_level_id: z.number().int().optional(),
-      /** The risk score as reported by the event source. */
-      risk_score: z.number().int().optional(),
-      /** Details about the source endpoint where classified or sensitive data was accessed from. */
-      src_endpoint: z.lazy(() => NetworkEndpoint).optional(),
-      /** Describes the table where classified or sensitive data is stored in, or was accessed from. The table object represents a table within a structured relational database, warehouse, lake, or similar. */
-      table: z.lazy(() => Table).optional(),
-    })
-    .passthrough(),
+  z.object({
+    /** The normalized identifier of the Data Security Finding activity. */
+    activity_id: z.number().int(),
+    /** The Data Security finding activity name, as defined by the activity_id. */
+    activity_name: z.string().optional(),
+    /** The event category name, as defined by category_uid value. */
+    category_name: z.string().optional(),
+    /** The category unique identifier of the event. */
+    category_uid: z.number().int(),
+    /** The event class name, as defined by class_uid value. */
+    class_name: z.string().optional(),
+    /** The unique identifier of a class. A class describes the attributes available in an event. */
+    class_uid: z.number().int(),
+    /** The number of times that events in the same logical group occurred during the event Start Time to End Time period. */
+    count: z.number().int().optional(),
+    /** The event duration or aggregate time, the amount of time the event covers from start_time to end_time in milliseconds. */
+    duration: z.number().int().optional(),
+    /** The time of the most recent event included in the finding. */
+    end_time: z.number().int().optional(),
+    /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
+    enrichments: z.array(Enrichment).optional(),
+    /** The description of the event/finding, as defined by the source. */
+    message: z.string().optional(),
+    /** The metadata associated with the event or a finding. */
+    metadata: Metadata,
+    /** The observables associated with the event or a finding. */
+    observables: z.array(Observable).optional(),
+    /** The raw event/finding data as received from the source. */
+    raw_data: z.string().optional(),
+    /** The hash, which describes the content of the raw_data field. */
+    raw_data_hash: Fingerprint.optional(),
+    /** The size of the raw data which was transformed into an OCSF event, in bytes. */
+    raw_data_size: z.number().int().optional(),
+    /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
+    severity: z.string().optional(),
+    /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
+    severity_id: z.number().int(),
+    /** The time of the least recent event included in the finding. */
+    start_time: z.number().int().optional(),
+    /** The normalized status of the Finding set by the consumer normalized to the caption of the status_id value. In the case of 'Other', it is defined by the source. */
+    status: z.string().optional(),
+    /** The event status code, as reported by the event source.For example, in a Windows Failed Authentication event, this would be the value of 'Failure Code', e.g. 0x18. */
+    status_code: z.string().optional(),
+    /** The status detail contains additional information about the event/finding outcome. */
+    status_detail: z.string().optional(),
+    /** The normalized status identifier of the Finding, set by the consumer. */
+    status_id: z.number().int().optional(),
+    /** The normalized event occurrence time or the finding creation time. */
+    time: z.number().int(),
+    /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
+    timezone_offset: z.number().int().optional(),
+    /** The event/finding type name, as defined by the type_uid. */
+    type_name: z.string().optional(),
+    /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
+    type_uid: z.number().int(),
+    /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
+    unmapped: OcsfObject.optional(),
+    /** A user provided comment about the finding. */
+    comment: z.string().optional(),
+    /** The confidence, normalized to the caption of the confidence_id value. In the case of 'Other', it is defined by the event source. */
+    confidence: z.string().optional(),
+    /** The normalized confidence refers to the accuracy of the rule that created the finding. A rule with a low confidence means that the finding scope is wide and may create finding reports that may not be malicious in nature. */
+    confidence_id: z.number().int().optional(),
+    /** The confidence score as reported by the event source. */
+    confidence_score: z.number().int().optional(),
+    /** Describes the device where classified or sensitive data is stored in, or was accessed from. */
+    device: Device.optional(),
+    /** Describes the supporting information about a generated finding. */
+    finding_info: FindingInfo,
+    /** The Vendor Attributes object can be used to represent values of attributes populated by the Vendor/Finding Provider. It can help distinguish between the vendor-provided values and consumer-updated values, of key attributes like severity_id.The original finding producer should not populate this object. It should be populated by consuming systems that support data mutability. */
+    vendor_attributes: VendorAttributes.optional(),
+    /** Describes details about the actor implicated in the data security finding. Either an actor that owns a particular digital file or information store, or an actor which accessed classified or sensitive data. */
+    actor: Actor.optional(),
+    /** The Data Security object describes the characteristics, techniques and content of a Data Loss Prevention (DLP), Data Loss Detection (DLD), Data Classification, or similar tools' finding, alert, or detection mechanism(s). */
+    data_security: DataSecurity.optional(),
+    /** Describes the database where classified or sensitive data is stored in, or was accessed from. Databases are typically datastore services that contain an organized collection of structured and/or semi-structured data. */
+    database: Database.optional(),
+    /** Describes the databucket where classified or sensitive data is stored in, or was accessed from. The data bucket object is a basic container that holds data, typically organized through the use of data partitions. */
+    databucket: Databucket.optional(),
+    /** Describes the endpoint where classified or sensitive data is stored in, or was accessed from. */
+    dst_endpoint: NetworkEndpoint.optional(),
+    /** Describes a file that contains classified or sensitive data. */
+    file: File.optional(),
+    /** The impact , normalized to the caption of the impact_id value. In the case of 'Other', it is defined by the event source. */
+    impact: z.string().optional(),
+    /** The normalized impact of the incident or finding. Per NIST, this is the magnitude of harm that can be expected to result from the consequences of unauthorized disclosure, modification, destruction, or loss of information or information system availability. */
+    impact_id: z.number().int().optional(),
+    /** The impact as an integer value of the finding, valid range 0-100. */
+    impact_score: z.number().int().optional(),
+    /** Indicates that the event is considered to be an alertable signal. For example, an activity_id of 'Create' could constitute an alertable signal and the value would be true, while 'Close' likely would not and either omit the attribute or set its value to false. Note that other events with the security_control profile may also be deemed alertable signals and may also carry is_alert = true attributes. */
+    is_alert: z.boolean().optional(),
+    /** Describes details about additional resources, where classified or sensitive data is stored in, or was accessed from. You can populate this object, if the specific resource type objects available in the class (database, databucket, table, file) aren't sufficient; OR You can also choose to duplicate uid, name of the specific resources objects, for a consistent access to resource uids across all findings. */
+    resources: z.array(ResourceDetails).optional(),
+    /** Describes the risk associated with the finding. */
+    risk_details: z.string().optional(),
+    /** The risk level, normalized to the caption of the risk_level_id value. */
+    risk_level: z.string().optional(),
+    /** The normalized risk level id. */
+    risk_level_id: z.number().int().optional(),
+    /** The risk score as reported by the event source. */
+    risk_score: z.number().int().optional(),
+    /** Details about the source endpoint where classified or sensitive data was accessed from. */
+    src_endpoint: NetworkEndpoint.optional(),
+    /** Describes the table where classified or sensitive data is stored in, or was accessed from. The table object represents a table within a structured relational database, warehouse, lake, or similar. */
+    table: Table.optional(),
+  }).passthrough(),
 ) as any;
+
+export type DataSecurityFindingType = z.infer<typeof DataSecurityFinding>;
