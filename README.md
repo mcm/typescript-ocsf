@@ -8,6 +8,7 @@ TypeScript library providing Zod schemas and runtime validation for the Open Cyb
 
 - **Complete OCSF Coverage** — Support for OCSF v1.5.0, v1.6.0, and v1.7.0
 - **Type-Safe Schemas** — Full TypeScript inference with Zod schemas for all events, objects, and enums
+- **Schema Composition** — Extend and compose schemas with `.array()`, `.extend()`, `.pick()`, `.omit()`, `.merge()`
 - **Automatic Sibling Reconciliation** — Auto-fill label attributes from their ID counterparts (e.g., `activity_name` from `activity_id`)
 - **Automatic UID Pre-filling** — Automatically populate `category_uid`, `class_uid`, and `type_uid` based on event type
 - **Runtime Validation** — Validate OCSF events at runtime with detailed error messages
@@ -199,6 +200,52 @@ const json = JSON.stringify(event);
 // Parse JSON back to typed object
 const parsed = FileActivity.parse(JSON.parse(json));
 ```
+
+### Schema Composition
+
+OCSF schemas support full Zod composition, enabling you to extend and customize schemas for your use case:
+
+```typescript
+import { z } from "zod";
+import { User } from "@mcm/ocsf/v1_7/objects";
+
+// Extend a schema with custom fields
+const ExtendedUser = User.extend({
+  department: z.string().optional(),
+  manager_uid: z.string().optional(),
+});
+
+type ExtendedUserType = z.infer<typeof ExtendedUser>;
+
+// Create arrays with proper type inference
+const UserList = z.object({
+  users: User.array(),
+  total: z.number(),
+});
+
+type UserListType = z.infer<typeof UserList>;
+// users is typed as UserType[], not unknown[]!
+
+// Pick specific fields
+const UserSubset = User.pick({
+  name: true,
+  uid: true,
+  email_addr: true,
+});
+
+// Omit fields
+const UserWithoutGroups = User.omit({
+  groups: true,
+});
+
+// Merge schemas
+const UserWithTimestamps = User.merge(z.object({
+  created_at: z.number(),
+  updated_at: z.number(),
+}));
+```
+
+All composition operations preserve full TypeScript type inference and IDE autocomplete support.
 
 ## Version-Specific Imports
 
