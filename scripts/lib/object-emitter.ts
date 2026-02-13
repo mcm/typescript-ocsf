@@ -68,15 +68,15 @@ export function emitObjectFile(
   const isRecursive = obj.isInCycle || selfReferencing;
 
   if (isRecursive) {
-    // Recursive: use getter pattern
-    lines.push(`export const ${className} = z.object({`);
+    // Recursive: use getter pattern with strict validation
+    lines.push(`export const ${className} = z.strictObject({`);
     emitFieldsWithGetters(lines, obj, allObjects);
-    lines.push("}).passthrough();");
+    lines.push("});");
   } else {
-    // Non-recursive: plain object
-    lines.push(`export const ${className} = z.object({`);
+    // Non-recursive: plain object with strict validation
+    lines.push(`export const ${className} = z.strictObject({`);
     emitSimpleFields(lines, obj, allObjects);
-    lines.push("}).passthrough();");
+    lines.push("});");
   }
 
   lines.push("");

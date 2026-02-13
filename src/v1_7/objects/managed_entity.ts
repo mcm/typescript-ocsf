@@ -13,7 +13,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Managed Entity
  */
-export const ManagedEntity = z.object({
+export const ManagedEntity = z.strictObject({
   /** The name of the managed entity. It should match the name of the specific entity object's name if populated, or the name of the managed entity if the type_id is 'Other'. */
   name: z.string().optional(),
   /** The identifier of the managed entity. It should match the uid of the specific entity's object UID if populated, or the source specific ID if the type_id is 'Other'. */
@@ -40,6 +40,6 @@ export const ManagedEntity = z.object({
   user: User.optional(),
   /** The version of the managed entity. For example: 1.2.3. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type ManagedEntityType = z.infer<typeof ManagedEntity>;

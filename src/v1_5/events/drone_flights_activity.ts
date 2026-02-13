@@ -82,7 +82,7 @@ export const DroneFlightsActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -165,7 +165,7 @@ export const DroneFlightsActivity = z.preprocess(
     unmanned_system_operating_area: UnmannedSystemOperatingArea.optional(),
     /** The human or machine operator of an Unmanned System. */
     unmanned_system_operator: User,
-  }).passthrough(),
+  }),
 );
 
 export type DroneFlightsActivityType = z.infer<typeof DroneFlightsActivity>;

@@ -55,23 +55,24 @@ describe("FileActivity sibling + UID integration (end-to-end)", () => {
     expect(result.type_uid).toBe(100102); // class_uid * 100 + activity_id
   });
 
-  it("3. Preserves extra/unmapped fields", async () => {
+  it("3. Rejects unrecognized fields (strict mode)", async () => {
     const { FileActivity } = await import("../../src/v1_7/events/file_activity.js");
 
     const input = {
       ...createMinimalEvent(),
       activity_id: 3,
-      custom_field: "custom_value",
-      another_field: 123,
+      custom_field: "custom_value", // Unrecognized field
     };
 
-    const result = FileActivity.parse(input);
+    // Strict mode rejects unrecognized fields
+    expect(() => FileActivity.parse(input)).toThrow();
 
-    // FileActivity uses .passthrough() so extra fields are preserved
-    expect((result as Record<string, unknown>).custom_field).toBe("custom_value");
-    expect((result as Record<string, unknown>).another_field).toBe(123);
-    expect(result.activity_id).toBe(3);
-    expect(result.activity_name).toBe("Update");
+    // safeParse shows the error
+    const result = FileActivity.safeParse(input);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].code).toBe("unrecognized_keys");
+    }
   });
 
   it("4. Rejects mismatched sibling pairs", async () => {

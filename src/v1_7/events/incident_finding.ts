@@ -110,7 +110,7 @@ export const IncidentFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the Incident activity. */
     activity_id: z.number().int(),
     /** The Incident activity name, as defined by the activity_id. */
@@ -209,7 +209,7 @@ export const IncidentFinding = z.preprocess(
     verdict: z.string().optional(),
     /** The normalized verdict of an Incident. */
     verdict_id: z.number().int().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type IncidentFindingType = z.infer<typeof IncidentFinding>;

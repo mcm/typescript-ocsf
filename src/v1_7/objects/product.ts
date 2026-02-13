@@ -7,7 +7,7 @@ import { Feature } from './feature.js';
  *
  * OCSF Object: Product
  */
-export const Product = z.object({
+export const Product = z.strictObject({
   /** The name of the product. */
   name: z.string().optional(),
   /** The unique identifier of the product. */
@@ -26,6 +26,6 @@ export const Product = z.object({
   vendor_name: z.string().optional(),
   /** The version of the product, as defined by the event source. For example: 2013.1.3-beta. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type ProductType = z.infer<typeof Product>;

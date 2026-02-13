@@ -62,7 +62,7 @@ export const UserAccess = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -133,7 +133,7 @@ export const UserAccess = z.preprocess(
     resources: z.array(ResourceDetails).optional(),
     /** User to which privileges were assigned. */
     user: User,
-  }).passthrough(),
+  }),
 );
 
 export type UserAccessType = z.infer<typeof UserAccess>;

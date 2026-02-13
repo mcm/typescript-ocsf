@@ -68,7 +68,7 @@ export const NetworkActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -141,7 +141,7 @@ export const NetworkActivity = z.preprocess(
     traffic: NetworkTraffic.optional(),
     /** The URL details relevant to the network traffic. */
     url: Url.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type NetworkActivityType = z.infer<typeof NetworkActivity>;

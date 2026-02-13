@@ -55,7 +55,7 @@ export const Application = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -112,7 +112,7 @@ export const Application = z.preprocess(
     type_uid: z.number().int(),
     /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
     unmapped: OcsfObject.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type ApplicationType = z.infer<typeof Application>;

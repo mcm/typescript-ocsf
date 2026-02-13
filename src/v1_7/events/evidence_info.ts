@@ -70,7 +70,7 @@ export const EvidenceInfo = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -137,7 +137,7 @@ export const EvidenceInfo = z.preprocess(
     device: Device,
     /** The specific resulting evidence information that was queried or discovered based on the query type. Contains various child objects corresponding to the query_type_id values. */
     query_evidence: QueryEvidence,
-  }).passthrough(),
+  }),
 );
 
 export type EvidenceInfoType = z.infer<typeof EvidenceInfo>;

@@ -7,7 +7,7 @@ import { PortInfo } from './port_info.js';
  *
  * OCSF Object: Network Interface
  */
-export const NetworkInterface = z.object({
+export const NetworkInterface = z.strictObject({
   /** The name of the network interface. */
   name: z.string().optional(),
   /** The unique identifier for the network interface. */
@@ -28,6 +28,6 @@ export const NetworkInterface = z.object({
   type: z.string().optional(),
   /** The network interface type identifier. */
   type_id: z.number().int().optional(),
-}).passthrough();
+});
 
 export type NetworkInterfaceType = z.infer<typeof NetworkInterface>;

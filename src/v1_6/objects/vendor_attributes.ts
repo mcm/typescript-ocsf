@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: Vendor Attributes
  */
-export const VendorAttributes = z.object({
+export const VendorAttributes = z.strictObject({
   /** The finding severity, as reported by the Vendor (Finding Provider). The value should be normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
   severity: z.string().optional(),
   /** The finding severity ID, as reported by the Vendor (Finding Provider). */
   severity_id: z.number().int().optional(),
-}).passthrough();
+});
 
 export type VendorAttributesType = z.infer<typeof VendorAttributes>;

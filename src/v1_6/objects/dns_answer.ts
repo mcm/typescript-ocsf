@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: DNS Answer
  */
-export const DnsAnswer = z.object({
+export const DnsAnswer = z.strictObject({
   /** The class of DNS data contained in this resource record. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */
@@ -20,6 +20,6 @@ export const DnsAnswer = z.object({
   rdata: z.string(),
   /** The time interval that the resource record may be cached. Zero value means that the resource record can only be used for the transaction in progress, and should not be cached. */
   ttl: z.number().int().optional(),
-}).passthrough();
+});
 
 export type DnsAnswerType = z.infer<typeof DnsAnswer>;

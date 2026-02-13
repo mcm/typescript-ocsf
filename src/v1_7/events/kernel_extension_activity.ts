@@ -60,7 +60,7 @@ export const KernelExtensionActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -123,7 +123,7 @@ export const KernelExtensionActivity = z.preprocess(
     device: Device,
     /** The driver that was loaded/unloaded into the kernel */
     driver: KernelDriver,
-  }).passthrough(),
+  }),
 );
 
 export type KernelExtensionActivityType = z.infer<typeof KernelExtensionActivity>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Geo Location
  */
-export const Location = z.object({
+export const Location = z.strictObject({
   /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
   aerial_height: z.string().optional(),
   /** The name of the city. */
@@ -42,6 +42,6 @@ export const Location = z.object({
   provider: z.string().optional(),
   /** The alphanumeric code that identifies the principal subdivision (e.g. province or state) of the country. For example, 'CH-VD' for the Canton of Vaud, Switzerland */
   region: z.string().optional(),
-}).passthrough();
+});
 
 export type LocationType = z.infer<typeof Location>;

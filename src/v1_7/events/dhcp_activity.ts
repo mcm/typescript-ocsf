@@ -81,7 +81,7 @@ export const DhcpActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -168,7 +168,7 @@ export const DhcpActivity = z.preprocess(
     relay: NetworkInterface.optional(),
     /** The unique identifier of the transaction. This is typically a random number generated from the client to associate a dhcp request/response pair. */
     transaction_uid: z.string().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type DhcpActivityType = z.infer<typeof DhcpActivity>;

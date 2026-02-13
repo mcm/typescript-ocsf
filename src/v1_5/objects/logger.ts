@@ -8,7 +8,7 @@ import { Product } from './product.js';
  *
  * OCSF Object: Logger
  */
-export const Logger = z.object({
+export const Logger = z.strictObject({
   /** The name of the logging product instance. */
   name: z.string().optional(),
   /** The unique identifier of the logging product instance. */
@@ -33,6 +33,6 @@ export const Logger = z.object({
   transmit_time: z.number().int().optional(),
   /** The version of the logging product. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type LoggerType = z.infer<typeof Logger>;

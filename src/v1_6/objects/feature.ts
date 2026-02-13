@@ -5,13 +5,13 @@ import { z } from 'zod';
  *
  * OCSF Object: Feature
  */
-export const Feature = z.object({
+export const Feature = z.strictObject({
   /** The name of the feature. */
   name: z.string().optional(),
   /** The unique identifier of the feature. */
   uid: z.string().optional(),
   /** The version of the feature. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type FeatureType = z.infer<typeof Feature>;

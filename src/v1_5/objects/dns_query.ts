@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: DNS Query
  */
-export const DnsQuery = z.object({
+export const DnsQuery = z.strictObject({
   /** The class of resource records being queried. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */
@@ -18,6 +18,6 @@ export const DnsQuery = z.object({
   opcode: z.string().optional(),
   /** The DNS opcode ID specifies the normalized query message type as defined in RFC-5395. */
   opcode_id: z.number().int().optional(),
-}).passthrough();
+});
 
 export type DnsQueryType = z.infer<typeof DnsQuery>;

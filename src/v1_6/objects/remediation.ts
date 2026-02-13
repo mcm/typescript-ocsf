@@ -8,7 +8,7 @@ import { KbArticle } from './kb_article.js';
  *
  * OCSF Object: Remediation
  */
-export const Remediation = z.object({
+export const Remediation = z.strictObject({
   /** An array of Center for Internet Security (CIS) Controls that can be optionally mapped to provide additional remediation details. */
   cis_controls: z.array(CisControl).optional(),
   /** The description of the remediation strategy. */
@@ -19,6 +19,6 @@ export const Remediation = z.object({
   kb_articles: z.array(z.string()).optional(),
   /** A list of supporting URL/s, references that help describe the remediation strategy. */
   references: z.array(z.string()).optional(),
-}).passthrough();
+});
 
 export type RemediationType = z.infer<typeof Remediation>;

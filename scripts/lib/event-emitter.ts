@@ -115,8 +115,8 @@ export function emitEventFile(
   lines.push("    return d;");
   lines.push("  },");
 
-  // Inner z.object()
-  lines.push("  z.object({");
+  // Inner z.strictObject() for strict validation
+  lines.push("  z.strictObject({");
   for (const attr of event.attributes) {
     if (attr.description) {
       lines.push(`    /** ${attr.description} */`);
@@ -147,7 +147,7 @@ export function emitEventFile(
 
     lines.push(`    ${attr.name}: ${zodType},`);
   }
-  lines.push("  }).passthrough(),");
+  lines.push("  }),");
   lines.push(");");
   lines.push("");
 

@@ -87,7 +87,7 @@ export const FileHosting = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -174,7 +174,7 @@ export const FileHosting = z.preprocess(
     share_type_id: z.number().int().optional(),
     /** The endpoint that performed the activity on the target file. */
     src_endpoint: NetworkEndpoint,
-  }).passthrough(),
+  }),
 );
 
 export type FileHostingType = z.infer<typeof FileHosting>;

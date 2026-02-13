@@ -68,7 +68,7 @@ export const FtpActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -155,7 +155,7 @@ export const FtpActivity = z.preprocess(
     port: z.number().int().optional(),
     /** The type of FTP network connection (e.g. active, passive). */
     type: z.string().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type FtpActivityType = z.infer<typeof FtpActivity>;

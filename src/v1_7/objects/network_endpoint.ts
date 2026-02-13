@@ -13,7 +13,7 @@ import { NetworkProxy } from './network_proxy.js';
  *
  * OCSF Object: Network Endpoint
  */
-export const NetworkEndpoint = z.object({
+export const NetworkEndpoint = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier. See specific usage. */
@@ -72,6 +72,6 @@ export const NetworkEndpoint = z.object({
   proxy_endpoint: NetworkProxy.optional(),
   /** The service name in service-to-service connections. For example, AWS VPC logs the pkt-src-aws-service and pkt-dst-aws-service fields identify the connection is coming from or going to an AWS service. */
   svc_name: z.string().optional(),
-}).passthrough();
+});
 
 export type NetworkEndpointType = z.infer<typeof NetworkEndpoint>;

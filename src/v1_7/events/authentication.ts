@@ -117,7 +117,7 @@ export const Authentication = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -218,7 +218,7 @@ export const Authentication = z.preprocess(
     session: Session.optional(),
     /** The subject (user/role or account) to authenticate. */
     user: User,
-  }).passthrough(),
+  }),
 );
 
 export type AuthenticationType = z.infer<typeof Authentication>;

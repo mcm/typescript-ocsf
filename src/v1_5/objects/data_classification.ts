@@ -9,7 +9,7 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Data Classification
  */
-export const DataClassification = z.object({
+export const DataClassification = z.strictObject({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */
@@ -38,6 +38,6 @@ export const DataClassification = z.object({
   total: z.number().int().optional(),
   /** The unique identifier of the classification job. */
   uid: z.string().optional(),
-}).passthrough();
+});
 
 export type DataClassificationType = z.infer<typeof DataClassification>;

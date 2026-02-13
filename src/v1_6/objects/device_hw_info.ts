@@ -8,7 +8,7 @@ import { KeyboardInfo } from './keyboard_info.js';
  *
  * OCSF Object: Device Hardware Info
  */
-export const DeviceHwInfo = z.object({
+export const DeviceHwInfo = z.strictObject({
   /** The BIOS date. For example: 03/31/16. */
   bios_date: z.string().optional(),
   /** The BIOS manufacturer. For example: LENOVO. */
@@ -43,6 +43,6 @@ export const DeviceHwInfo = z.object({
   uuid: z.string().optional(),
   /** The device manufacturer. */
   vendor_name: z.string().optional(),
-}).passthrough();
+});
 
 export type DeviceHwInfoType = z.infer<typeof DeviceHwInfo>;

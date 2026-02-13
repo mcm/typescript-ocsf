@@ -68,7 +68,7 @@ export const ServiceQuery = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -131,7 +131,7 @@ export const ServiceQuery = z.preprocess(
     query_result_id: z.number().int(),
     /** The service that pertains to the event. */
     service: Service,
-  }).passthrough(),
+  }),
 );
 
 export type ServiceQueryType = z.infer<typeof ServiceQuery>;

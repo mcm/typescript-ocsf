@@ -7,7 +7,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Reporter
  */
-export const Reporter = z.object({
+export const Reporter = z.strictObject({
   /** The name of the entity from which the event or finding was reported. */
   name: z.string().optional(),
   /** The unique identifier of the entity from which the event or finding was reported. */
@@ -18,6 +18,6 @@ export const Reporter = z.object({
   ip: z.string().optional(),
   /** The organization properties of the entity that reported the event or finding. */
   org: Organization.optional(),
-}).passthrough();
+});
 
 export type ReporterType = z.infer<typeof Reporter>;

@@ -75,7 +75,7 @@ export const ApplicationSecurityPostureFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the finding activity. */
     activity_id: z.number().int().optional(),
     /** The finding activity name, as defined by the activity_id. */
@@ -154,7 +154,7 @@ export const ApplicationSecurityPostureFinding = z.preprocess(
     resources: z.array(ResourceDetails).optional(),
     /** This object describes vulnerabilities reported in a security finding. */
     vulnerabilities: z.array(Vulnerability).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type ApplicationSecurityPostureFindingType = z.infer<typeof ApplicationSecurityPostureFinding>;

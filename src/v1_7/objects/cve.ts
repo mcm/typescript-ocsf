@@ -10,7 +10,7 @@ import { Product } from './product.js';
  *
  * OCSF Object: CVE
  */
-export const Cve = z.object({
+export const Cve = z.strictObject({
   /** The Record Creation Date identifies when the CVE ID was issued to a CVE Numbering Authority (CNA) or the CVE Record was published on the CVE List. Note that the Record Creation Date does not necessarily indicate when this vulnerability was discovered, shared with the affected vendor, publicly disclosed, or updated in CVE. */
   created_time: z.number().int().optional(),
   /** The CVSS object details Common Vulnerability Scoring System (CVSS) scores from the advisory that are related to the vulnerability. */
@@ -39,6 +39,6 @@ export const Cve = z.object({
   type: z.string().optional(),
   /** The Common Vulnerabilities and Exposures unique number assigned to a specific computer vulnerability. A CVE Identifier begins with 4 digits representing the year followed by a sequence of digits that acts as a unique identifier. For example: CVE-2021-12345. */
   uid: z.string(),
-}).passthrough();
+});
 
 export type CveType = z.infer<typeof Cve>;

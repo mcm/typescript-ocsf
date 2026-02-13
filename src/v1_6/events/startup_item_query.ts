@@ -69,7 +69,7 @@ export const StartupItemQuery = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -134,7 +134,7 @@ export const StartupItemQuery = z.preprocess(
     query_result_id: z.number().int(),
     /** The startup item object describes an application component that has associated startup criteria and configurations. */
     startup_item: StartupItem,
-  }).passthrough(),
+  }),
 );
 
 export type StartupItemQueryType = z.infer<typeof StartupItemQuery>;

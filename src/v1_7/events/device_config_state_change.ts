@@ -86,7 +86,7 @@ export const DeviceConfigStateChange = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -163,7 +163,7 @@ export const DeviceConfigStateChange = z.preprocess(
     state: z.string().optional(),
     /** The Config Change State of the managed entity. */
     state_id: z.number().int().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type DeviceConfigStateChangeType = z.infer<typeof DeviceConfigStateChange>;

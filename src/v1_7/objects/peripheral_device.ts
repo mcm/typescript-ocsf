@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Peripheral Device
  */
-export const PeripheralDevice = z.object({
+export const PeripheralDevice = z.strictObject({
   /** The name of the peripheral device. */
   name: z.string(),
   /** The unique identifier of the peripheral device. */
@@ -24,6 +24,6 @@ export const PeripheralDevice = z.object({
   vendor_id_list: z.array(z.string()).optional(),
   /** The primary vendor name for the peripheral device. */
   vendor_name: z.string().optional(),
-}).passthrough();
+});
 
 export type PeripheralDeviceType = z.infer<typeof PeripheralDevice>;

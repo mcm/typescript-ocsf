@@ -7,7 +7,7 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Agent
  */
-export const Agent = z.object({
+export const Agent = z.strictObject({
   /** The name of the agent or sensor. For example: AWS SSM Agent. */
   name: z.string().optional(),
   /** Describes the various policies that may be applied or enforced by an agent or sensor. E.g., Conditional Access, prevention, auto-update, tamper protection, destination configuration, etc. */
@@ -24,6 +24,6 @@ export const Agent = z.object({
   vendor_name: z.string().optional(),
   /** The semantic version of the agent or sensor, e.g., 7.101.50.0. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type AgentType = z.infer<typeof Agent>;

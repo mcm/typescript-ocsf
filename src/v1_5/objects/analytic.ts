@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Analytic
  */
-export const Analytic = z.object({
+export const Analytic = z.strictObject({
   /** The name of the analytic that generated the finding. */
   name: z.string().optional(),
   /** The unique identifier of the analytic that generated the finding. */
@@ -24,6 +24,6 @@ export const Analytic = z.object({
   type_id: z.number().int(),
   /** The analytic version. For example: 1.1. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type AnalyticType = z.infer<typeof Analytic>;

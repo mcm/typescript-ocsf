@@ -9,7 +9,7 @@ import { Metric } from './metric.js';
  *
  * OCSF Object: Load Balancer
  */
-export const LoadBalancer = z.object({
+export const LoadBalancer = z.strictObject({
   /** The name of the load balancer. */
   name: z.string().optional(),
   /** The unique identifier for the load balancer. */
@@ -32,6 +32,6 @@ export const LoadBalancer = z.object({
   metrics: z.array(Metric).optional(),
   /** The status detail contains additional status information about the load balancer distribution event. */
   status_detail: z.string().optional(),
-}).passthrough();
+});
 
 export type LoadBalancerType = z.infer<typeof LoadBalancer>;

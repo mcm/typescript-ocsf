@@ -24,7 +24,7 @@ import { Whois } from './whois.js';
  *
  * OCSF Object: OSINT
  */
-export const Osint = z.object({
+export const Osint = z.strictObject({
   /** Any pertinent DNS answers information related to an indicator or OSINT analysis. */
   answers: z.array(DnsAnswer).optional(),
   /** MITRE ATT&CK Tactics, Techniques, and/or Procedures (TTPs) pertinent to an indicator or OSINT analysis. */
@@ -119,6 +119,6 @@ export const Osint = z.object({
   vulnerabilities: z.array(Vulnerability).optional(),
   /** Any pertinent WHOIS information related to an indicator or OSINT analysis. */
   whois: Whois.optional(),
-}).passthrough();
+});
 
 export type OsintType = z.infer<typeof Osint>;

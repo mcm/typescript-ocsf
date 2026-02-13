@@ -76,7 +76,7 @@ export const EventLogActvity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -149,7 +149,7 @@ export const EventLogActvity = z.preprocess(
     log_type_id: z.number().int().optional(),
     /** The source endpoint for the event log activity. */
     src_endpoint: NetworkEndpoint.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type EventLogActvityType = z.infer<typeof EventLogActvity>;

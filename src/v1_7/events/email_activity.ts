@@ -72,7 +72,7 @@ export const EmailActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -157,7 +157,7 @@ export const EmailActivity = z.preprocess(
     src_endpoint: NetworkEndpoint.optional(),
     /** The recipient address from the transmission envelope. This may differ from the 'To' header and represents where the message was actually delivered. */
     to: z.array(z.string()).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type EmailActivityType = z.infer<typeof EmailActivity>;

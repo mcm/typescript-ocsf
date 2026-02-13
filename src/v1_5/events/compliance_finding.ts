@@ -74,7 +74,7 @@ export const ComplianceFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the finding activity. */
     activity_id: z.number().int().optional(),
     /** The finding activity name, as defined by the activity_id. */
@@ -153,7 +153,7 @@ export const ComplianceFinding = z.preprocess(
     resource: ResourceDetails.optional(),
     /** Describes details about the resource/resouces that are the subject of the compliance check. */
     resources: z.array(ResourceDetails).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type ComplianceFindingType = z.infer<typeof ComplianceFinding>;

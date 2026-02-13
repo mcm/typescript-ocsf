@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: RPC Interface
  */
-export const RpcInterface = z.object({
+export const RpcInterface = z.strictObject({
   /** An integer that provides a reason code or additional information about the acknowledgment result. */
   ack_reason: z.number().int().optional(),
   /** An integer that denotes the acknowledgment result of the DCE/RPC call. */
@@ -14,6 +14,6 @@ export const RpcInterface = z.object({
   uuid: z.string(),
   /** The version of the DCE/RPC protocol being used in the session. */
   version: z.string(),
-}).passthrough();
+});
 
 export type RpcInterfaceType = z.infer<typeof RpcInterface>;

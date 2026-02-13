@@ -7,13 +7,13 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Additional Restriction
  */
-export const AdditionalRestriction = z.object({
+export const AdditionalRestriction = z.strictObject({
   /** Detailed information about the policy document that defines this restriction, including policy metadata, type, scope, and the specific rules or conditions that implement the access control. */
   policy: Policy,
   /** The current status of the policy restriction, normalized to the caption of the status_id enum value. */
   status: z.string().optional(),
   /** The normalized status identifier indicating the applicability of this policy restriction. */
   status_id: z.number().int().optional(),
-}).passthrough();
+});
 
 export type AdditionalRestrictionType = z.infer<typeof AdditionalRestriction>;

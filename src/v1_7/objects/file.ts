@@ -14,7 +14,7 @@ import { OcsfObject } from './object.js';
  *
  * OCSF Object: File
  */
-export const File = z.object({
+export const File = z.strictObject({
   /** The name of the file. For example: svchost.exe */
   name: z.string(),
   /** The unique identifier of the file as defined by the storage system, such the file system file ID. */
@@ -97,6 +97,6 @@ export const File = z.object({
   volume: z.string().optional(),
   /** An unordered collection of zero or more name/value pairs where each pair represents a file or folder extended attribute.For example: Windows alternate data stream attributes (ADS stream name, ADS size, etc.), user-defined or application-defined attributes, ACL, owner, primary group, etc. Examples from DCS: ads_nameads_sizedaclownerprimary_grouplink_name - name of the link associated to the file.hard_link_count - the number of links that are associated to the file. */
   xattributes: OcsfObject.optional(),
-}).passthrough();
+});
 
 export type FileType = z.infer<typeof File>;

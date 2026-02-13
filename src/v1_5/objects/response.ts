@@ -7,7 +7,7 @@ import { Container } from './container.js';
  *
  * OCSF Object: Response Elements
  */
-export const Response = z.object({
+export const Response = z.strictObject({
   /** The numeric response sent to a request. */
   code: z.number().int().optional(),
   /** When working with containerized applications, the set of containers which write to the standard the output of a particular logging driver. For example, this may be the set of containers involved in handling api requests and responses for a containerized application. */
@@ -22,6 +22,6 @@ export const Response = z.object({
   flags: z.array(z.string()).optional(),
   /** The description of the event/finding, as defined by the source. */
   message: z.string().optional(),
-}).passthrough();
+});
 
 export type ResponseType = z.infer<typeof Response>;

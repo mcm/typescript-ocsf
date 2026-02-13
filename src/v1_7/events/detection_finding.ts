@@ -99,7 +99,7 @@ export const DetectionFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the finding activity. */
     activity_id: z.number().int().optional(),
     /** The finding activity name, as defined by the activity_id. */
@@ -200,7 +200,7 @@ export const DetectionFinding = z.preprocess(
     risk_score: z.number().int().optional(),
     /** Describes vulnerabilities reported in a Detection Finding. */
     vulnerabilities: z.array(Vulnerability).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type DetectionFindingType = z.infer<typeof DetectionFinding>;

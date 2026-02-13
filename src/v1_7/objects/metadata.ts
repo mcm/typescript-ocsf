@@ -12,7 +12,7 @@ import { TransformationInfo } from './transformation_info.js';
  *
  * OCSF Object: Metadata
  */
-export const Metadata = z.object({
+export const Metadata = z.strictObject({
   /** A unique identifier used to correlate this OCSF event with other related OCSF events, distinct from the event's uid value. This enables linking multiple OCSF events that are part of the same activity, transaction, or security incident across different systems or time periods. */
   correlation_uid: z.string().optional(),
   /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */
@@ -77,6 +77,6 @@ export const Metadata = z.object({
   untruncated_size: z.number().int().optional(),
   /** The version of the OCSF schema, using Semantic Versioning Specification (SemVer). For example: 1.0.0. Event consumers use the version to determine the available event attributes. */
   version: z.string(),
-}).passthrough();
+});
 
 export type MetadataType = z.infer<typeof Metadata>;

@@ -82,7 +82,7 @@ export const SshActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -167,7 +167,7 @@ export const SshActivity = z.preprocess(
     protocol_ver: z.string().optional(),
     /** The Server HASSH fingerprinting object. */
     server_hassh: Hassh.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type SshActivityType = z.infer<typeof SshActivity>;

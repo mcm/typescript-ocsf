@@ -63,7 +63,7 @@ export const CloudResourcesInventoryInfo = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -134,7 +134,7 @@ export const CloudResourcesInventoryInfo = z.preprocess(
     resources: z.array(ResourceDetails).optional(),
     /** A cloud-based database table discovered by an inventory process. */
     table: Table.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type CloudResourcesInventoryInfoType = z.infer<typeof CloudResourcesInventoryInfo>;

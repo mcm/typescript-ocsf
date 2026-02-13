@@ -7,7 +7,7 @@ import { RpcInterface } from './rpc_interface.js';
  *
  * OCSF Object: DCE/RPC
  */
-export const DceRpc = z.object({
+export const DceRpc = z.strictObject({
   /** The request command (e.g. REQUEST, BIND). */
   command: z.string().optional(),
   /** The reply to the request command (e.g. RESPONSE, BINDACK or FAULT). */
@@ -18,6 +18,6 @@ export const DceRpc = z.object({
   opnum: z.number().int().optional(),
   /** The RPC Interface object describes the details pertaining to the remote procedure call interface. */
   rpc_interface: RpcInterface,
-}).passthrough();
+});
 
 export type DceRpcType = z.infer<typeof DceRpc>;

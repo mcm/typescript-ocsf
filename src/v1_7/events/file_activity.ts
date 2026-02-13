@@ -72,7 +72,7 @@ export const FileActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -147,7 +147,7 @@ export const FileActivity = z.preprocess(
     file_diff: z.string().optional(),
     /** The resulting file object when the activity was allowed and successful. */
     file_result: File.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type FileActivityType = z.infer<typeof FileActivity>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Kernel Resource
  */
-export const Kernel = z.object({
+export const Kernel = z.strictObject({
   /** The indication of whether the object is part of the operating system. */
   is_system: z.boolean().optional(),
   /** The name of the kernel resource. */
@@ -18,6 +18,6 @@ export const Kernel = z.object({
   type: z.string().optional(),
   /** The type of the kernel resource. */
   type_id: z.number().int(),
-}).passthrough();
+});
 
 export type KernelType = z.infer<typeof Kernel>;

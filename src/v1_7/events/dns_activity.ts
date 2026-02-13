@@ -103,7 +103,7 @@ export const DnsActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -194,7 +194,7 @@ export const DnsActivity = z.preprocess(
     rcode_id: z.number().int().optional(),
     /** The Domain Name System (DNS) response time. */
     response_time: z.number().int().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type DnsActivityType = z.infer<typeof DnsActivity>;

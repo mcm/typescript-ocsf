@@ -69,7 +69,7 @@ export const AdminGroupQuery = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -134,7 +134,7 @@ export const AdminGroupQuery = z.preprocess(
     group: Group,
     /** The users that belong to the administrative group. */
     users: z.array(User).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type AdminGroupQueryType = z.infer<typeof AdminGroupQuery>;

@@ -63,7 +63,7 @@ export const PeripheralActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -126,7 +126,7 @@ export const PeripheralActivity = z.preprocess(
     device: Device,
     /** The peripheral device that is the subject of the activity. */
     peripheral_device: PeripheralDevice,
-  }).passthrough(),
+  }),
 );
 
 export type PeripheralActivityType = z.infer<typeof PeripheralActivity>;

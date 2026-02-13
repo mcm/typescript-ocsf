@@ -67,7 +67,7 @@ export const MemoryActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -138,7 +138,7 @@ export const MemoryActivity = z.preprocess(
     requested_permissions: z.number().int().optional(),
     /** The memory size that was access or requested. */
     size: z.number().int().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type MemoryActivityType = z.infer<typeof MemoryActivity>;

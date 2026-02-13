@@ -63,7 +63,7 @@ export const RemediationActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** Matches the MITRE D3FEND™ Tactic. Note: the Model and Detect Tactics are not supported as remediations by the OCSF Remediation event class. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -128,7 +128,7 @@ export const RemediationActivity = z.preprocess(
     remediation: Remediation.optional(),
     /** The remediation scan that pertains to this event. */
     scan: Scan.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type RemediationActivityType = z.infer<typeof RemediationActivity>;

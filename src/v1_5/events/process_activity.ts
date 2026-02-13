@@ -72,7 +72,7 @@ export const ProcessActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -145,7 +145,7 @@ export const ProcessActivity = z.preprocess(
     process: Process,
     /** The permissions mask that was requested by the process. */
     requested_permissions: z.number().int().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type ProcessActivityType = z.infer<typeof ProcessActivity>;

@@ -7,7 +7,7 @@ import { Timespan } from './timespan.js';
  *
  * OCSF Object: Network Traffic
  */
-export const NetworkTraffic = z.object({
+export const NetworkTraffic = z.strictObject({
   /** The total number of bytes transferred in both directions (sum of bytes_in and bytes_out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source (inbound direction). */
@@ -34,6 +34,6 @@ export const NetworkTraffic = z.object({
   start_time: z.number().int().optional(),
   /** The time span object representing the duration of the observation or reporting period. */
   timespan: Timespan.optional(),
-}).passthrough();
+});
 
 export type NetworkTrafficType = z.infer<typeof NetworkTraffic>;

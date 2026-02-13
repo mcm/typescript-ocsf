@@ -8,7 +8,7 @@ import { FunctionInvocation } from './function_invocation.js';
  *
  * OCSF Object: Module
  */
-export const Module = z.object({
+export const Module = z.strictObject({
   /** The memory address where the module was loaded. */
   base_address: z.string().optional(),
   /** The module file object. */
@@ -25,6 +25,6 @@ export const Module = z.object({
   start_address: z.string().optional(),
   /** The module type. */
   type: z.string().optional(),
-}).passthrough();
+});
 
 export type ModuleType = z.infer<typeof Module>;

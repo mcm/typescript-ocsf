@@ -58,7 +58,7 @@ export const System = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -117,7 +117,7 @@ export const System = z.preprocess(
     actor: Actor,
     /** An addressable device, computer system or host. */
     device: Device,
-  }).passthrough(),
+  }),
 );
 
 export type SystemType = z.infer<typeof System>;

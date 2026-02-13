@@ -68,7 +68,7 @@ export const JobQuery = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -131,7 +131,7 @@ export const JobQuery = z.preprocess(
     query_result_id: z.number().int(),
     /** The job object that pertains to the event. */
     job: Job,
-  }).passthrough(),
+  }),
 );
 
 export type JobQueryType = z.infer<typeof JobQuery>;

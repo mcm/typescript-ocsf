@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: Kill Chain Phase
  */
-export const KillChainPhase = z.object({
+export const KillChainPhase = z.strictObject({
   /** The cyber kill chain phase. */
   phase: z.string().optional(),
   /** The cyber kill chain phase identifier. */
   phase_id: z.number().int(),
-}).passthrough();
+});
 
 export type KillChainPhaseType = z.infer<typeof KillChainPhase>;

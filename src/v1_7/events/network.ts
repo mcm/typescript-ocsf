@@ -73,7 +73,7 @@ export const Network = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -152,7 +152,7 @@ export const Network = z.preprocess(
     tls: Tls.optional(),
     /** The network traffic for this observation period. Use when reporting: (1) delta values (bytes/packets transferred since the last observation), (2) instantaneous measurements at a specific point in time, or (3) standalone single-event metrics. This attribute represents a point-in-time measurement or incremental change, not a running total. For accumulated totals across multiple observations or the lifetime of a flow, use cumulative_traffic instead. */
     traffic: NetworkTraffic.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type NetworkType = z.infer<typeof Network>;

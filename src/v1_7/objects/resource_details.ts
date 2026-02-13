@@ -11,7 +11,7 @@ import { Graph } from './graph.js';
  *
  * OCSF Object: Resource Details
  */
-export const ResourceDetails = z.object({
+export const ResourceDetails = z.strictObject({
   /** The name of the entity. See specific usage. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */
@@ -60,6 +60,6 @@ export const ResourceDetails = z.object({
   version: z.string().optional(),
   /** The availability zone within a cloud region where the resource is located. Examples include AWS availability zones (us-east-1a, us-east-1b), Azure availability zones (1, 2, 3 within a region), GCP zones (us-central1-a, us-central1-b), or Oracle Cloud availability domains (AD-1, AD-2, AD-3). */
   zone: z.string().optional(),
-}).passthrough();
+});
 
 export type ResourceDetailsType = z.infer<typeof ResourceDetails>;

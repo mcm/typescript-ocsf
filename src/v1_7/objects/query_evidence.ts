@@ -19,7 +19,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Query Evidence
  */
-export const QueryEvidence = z.object({
+export const QueryEvidence = z.strictObject({
   /** The network connection information related to a Network Connection query type. */
   connection_info: NetworkConnectionInfo.optional(),
   /** The file that is the target of the query when query_type_id indicates a File query. */
@@ -58,6 +58,6 @@ export const QueryEvidence = z.object({
   user: User.optional(),
   /** The users that belong to the administrative group when query_type_id indicates a Users query. */
   users: z.array(User).optional(),
-}).passthrough();
+});
 
 export type QueryEvidenceType = z.infer<typeof QueryEvidence>;

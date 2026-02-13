@@ -70,7 +70,7 @@ export const Finding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the finding activity. */
     activity_id: z.number().int().optional(),
     /** The finding activity name, as defined by the activity_id. */
@@ -139,7 +139,7 @@ export const Finding = z.preprocess(
     finding_info: FindingInfo,
     /** The Vendor Attributes object can be used to represent values of attributes populated by the Vendor/Finding Provider. It can help distinguish between the vendor-prodvided values and consumer-updated values, of key attributes like severity_id.The original finding producer should not populate this object. It should be populated by consuming systems that support data mutability. */
     vendor_attributes: VendorAttributes.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type FindingType = z.infer<typeof Finding>;

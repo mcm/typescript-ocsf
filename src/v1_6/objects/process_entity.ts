@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Process Entity
  */
-export const ProcessEntity = z.object({
+export const ProcessEntity = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */
@@ -20,6 +20,6 @@ export const ProcessEntity = z.object({
   path: z.string().optional(),
   /** The process identifier, as reported by the operating system. Process ID (PID) is a number used by the operating system to uniquely identify an active process. */
   pid: z.number().int().optional(),
-}).passthrough();
+});
 
 export type ProcessEntityType = z.infer<typeof ProcessEntity>;

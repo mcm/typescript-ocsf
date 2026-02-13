@@ -9,7 +9,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: LDAP Person
  */
-export const LdapPerson = z.object({
+export const LdapPerson = z.strictObject({
   /** The cost center associated with the user. */
   cost_center: z.string().optional(),
   /** The timestamp when the user was created. */
@@ -52,6 +52,6 @@ export const LdapPerson = z.object({
   surname: z.string().optional(),
   /** The list of tags; {key:value} pairs associated to the user. */
   tags: z.array(KeyValueObject).optional(),
-}).passthrough();
+});
 
 export type LdapPersonType = z.infer<typeof LdapPerson>;

@@ -8,7 +8,7 @@ import { Remediation } from './remediation.js';
  *
  * OCSF Object: Affected Software Package
  */
-export const AffectedPackage = z.object({
+export const AffectedPackage = z.strictObject({
   /** Architecture is a shorthand name describing the type of computer hardware the packaged software is meant to run on. */
   architecture: z.string().optional(),
   /** The Common Platform Enumeration (CPE) name as described by (NIST) For example: cpe:/a:apple:safari:16.2. */
@@ -49,6 +49,6 @@ export const AffectedPackage = z.object({
   path: z.string().optional(),
   /** Describes the recommended remediation steps to address identified issue(s). */
   remediation: Remediation.optional(),
-}).passthrough();
+});
 
 export type AffectedPackageType = z.infer<typeof AffectedPackage>;

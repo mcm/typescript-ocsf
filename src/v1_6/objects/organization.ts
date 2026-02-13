@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Organization
  */
-export const Organization = z.object({
+export const Organization = z.strictObject({
   /** The name of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, Widget, Inc. or the AWS Organization name . */
   name: z.string().optional(),
   /** The unique identifier of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, an AWS Org ID or Oracle Cloud Domain ID . */
@@ -14,6 +14,6 @@ export const Organization = z.object({
   ou_name: z.string().optional(),
   /** The unique identifier of an organizational unit, Google Cloud Folder, or AWS Org Unit. For example, an Oracle Cloud Tenancy ID , AWS OU ID , or GCP Folder ID . */
   ou_uid: z.string().optional(),
-}).passthrough();
+});
 
 export type OrganizationType = z.infer<typeof Organization>;

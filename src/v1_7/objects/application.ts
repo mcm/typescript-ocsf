@@ -12,7 +12,7 @@ import { Url } from './url.js';
  *
  * OCSF Object: Application
  */
-export const Application = z.object({
+export const Application = z.strictObject({
   /** The criticality of the application as defined by the event source. */
   criticality: z.string().optional(),
   /** Additional data describing the application. */
@@ -53,6 +53,6 @@ export const Application = z.object({
   url: Url.optional(),
   /** The semantic version of the application, e.g., 1.7.4. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type ApplicationType = z.infer<typeof Application>;

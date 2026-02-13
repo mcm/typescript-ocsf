@@ -62,7 +62,7 @@ export const SoftwareInfo = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -129,7 +129,7 @@ export const SoftwareInfo = z.preprocess(
     product: Product.optional(),
     /** The Software Bill of Materials (SBOM) of the device software that is being discovered by an inventory process. */
     sbom: Sbom.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type SoftwareInfoType = z.infer<typeof SoftwareInfo>;

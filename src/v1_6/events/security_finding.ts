@@ -105,7 +105,7 @@ export const SecurityFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -210,7 +210,7 @@ export const SecurityFinding = z.preprocess(
     state_id: z.number().int(),
     /** This object describes vulnerabilities reported in a security finding. */
     vulnerabilities: z.array(Vulnerability).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type SecurityFindingType = z.infer<typeof SecurityFinding>;

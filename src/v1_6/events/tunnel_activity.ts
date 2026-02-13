@@ -78,7 +78,7 @@ export const TunnelActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -165,7 +165,7 @@ export const TunnelActivity = z.preprocess(
     tunnel_type_id: z.number().int().optional(),
     /** The user associated with the tunnel activity. */
     user: User.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type TunnelActivityType = z.infer<typeof TunnelActivity>;

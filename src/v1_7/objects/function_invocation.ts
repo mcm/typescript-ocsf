@@ -7,13 +7,13 @@ import { Parameter } from './parameter.js';
  *
  * OCSF Object: Function Invocation
  */
-export const FunctionInvocation = z.object({
+export const FunctionInvocation = z.strictObject({
   /** The error indication returned from the function. This may differ from the return value (e.g. when errno is used). */
   error: z.string().optional(),
   /** The parameters passed into a function invocation. */
   parameters: z.array(Parameter).optional(),
   /** The value returned from a function. */
   return_value: z.string().optional(),
-}).passthrough();
+});
 
 export type FunctionInvocationType = z.infer<typeof FunctionInvocation>;

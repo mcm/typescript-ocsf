@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: HTTP Header
  */
-export const HttpHeader = z.object({
+export const HttpHeader = z.strictObject({
   /** The name of the HTTP header. */
   name: z.string(),
   /** The value of the HTTP header. */
   value: z.string(),
-}).passthrough();
+});
 
 export type HttpHeaderType = z.infer<typeof HttpHeader>;

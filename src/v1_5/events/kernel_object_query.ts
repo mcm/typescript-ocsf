@@ -68,7 +68,7 @@ export const KernelObjectQuery = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -131,7 +131,7 @@ export const KernelObjectQuery = z.preprocess(
     query_result_id: z.number().int(),
     /** The kernel object that pertains to the event. */
     kernel: Kernel,
-  }).passthrough(),
+  }),
 );
 
 export type KernelObjectQueryType = z.infer<typeof KernelObjectQuery>;

@@ -11,7 +11,7 @@ import { ProgrammaticCredential } from './programmatic_credential.js';
  *
  * OCSF Object: User
  */
-export const User = z.object({
+export const User = z.strictObject({
   /** The username. For example, janedoe1. */
   name: z.string().optional(),
   /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */
@@ -54,6 +54,6 @@ export const User = z.object({
   type_id: z.number().int().optional(),
   /** The alternate user identifier. For example, the Active Directory user GUID or AWS user Principal ID. */
   uid_alt: z.string().optional(),
-}).passthrough();
+});
 
 export type UserType = z.infer<typeof User>;

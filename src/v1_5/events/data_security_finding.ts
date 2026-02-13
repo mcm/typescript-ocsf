@@ -99,7 +99,7 @@ export const DataSecurityFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the Data Security Finding activity. */
     activity_id: z.number().int(),
     /** The Data Security finding activity name, as defined by the activity_id. */
@@ -202,7 +202,7 @@ export const DataSecurityFinding = z.preprocess(
     src_endpoint: NetworkEndpoint.optional(),
     /** Describes the table where classified or sensitive data is stored in, or was accessed from. The table object represents a table within a structured relational database, warehouse, lake, or similar. */
     table: Table.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type DataSecurityFindingType = z.infer<typeof DataSecurityFinding>;

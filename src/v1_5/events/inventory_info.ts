@@ -58,7 +58,7 @@ export const InventoryInfo = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -117,7 +117,7 @@ export const InventoryInfo = z.preprocess(
     actor: Actor.optional(),
     /** The device that is being discovered by an inventory process. */
     device: Device,
-  }).passthrough(),
+  }),
 );
 
 export type InventoryInfoType = z.infer<typeof InventoryInfo>;

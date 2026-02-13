@@ -86,14 +86,14 @@ describe("Type Composition", () => {
     const data = {
       name: "Alice",
       uid: "u1",
-      email_addr: "alice@example.com", // should be omitted
+      // email_addr omitted - strict mode rejects unrecognized fields
     };
 
     const result = UserWithoutEmail.parse(data);
     expect(result.name).toBe("Alice");
     expect(result.uid).toBe("u1");
-    // email_addr should be preserved by passthrough but not validated
-    expect(result.email_addr).toBe("alice@example.com");
+    // email_addr was omitted and not in input, so should be undefined
+    expect(result.email_addr).toBeUndefined();
   });
 
   test("schemas support .merge() to combine schemas", () => {
@@ -129,7 +129,6 @@ describe("Type Composition", () => {
     const processData = {
       name: "app",
       pid: 1234,
-      type_id: 1,
       file: {
         name: "app.exe",
         path: "/usr/bin/app.exe",

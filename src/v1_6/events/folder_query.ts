@@ -69,7 +69,7 @@ export const FolderQuery = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -134,7 +134,7 @@ export const FolderQuery = z.preprocess(
     query_result_id: z.number().int(),
     /** The folder that is the target of the query. */
     folder: File,
-  }).passthrough(),
+  }),
 );
 
 export type FolderQueryType = z.infer<typeof FolderQuery>;

@@ -13,7 +13,7 @@ import { Trait } from './trait.js';
  *
  * OCSF Object: Finding Information
  */
-export const FindingInfo = z.object({
+export const FindingInfo = z.strictObject({
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** The MITRE ATT&CK® technique and associated tactics related to the finding. */
@@ -56,6 +56,6 @@ export const FindingInfo = z.object({
   uid: z.string(),
   /** The alternative unique identifier of the reported finding. */
   uid_alt: z.string().optional(),
-}).passthrough();
+});
 
 export type FindingInfoType = z.infer<typeof FindingInfo>;

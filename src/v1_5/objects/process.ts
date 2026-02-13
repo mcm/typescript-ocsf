@@ -12,7 +12,7 @@ import { OcsfObject } from './object.js';
  *
  * OCSF Object: Process
  */
-export const Process = z.object({
+export const Process = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */
@@ -57,6 +57,6 @@ export const Process = z.object({
   working_directory: z.string().optional(),
   /** An unordered collection of zero or more name/value pairs that represent a process extended attribute. */
   xattributes: OcsfObject.optional(),
-}).passthrough();
+});
 
 export type ProcessType = z.infer<typeof Process>;

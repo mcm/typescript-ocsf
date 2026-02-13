@@ -7,7 +7,7 @@ import { Location } from './location.js';
  *
  * OCSF Object: Aircraft
  */
-export const Aircraft = z.object({
+export const Aircraft = z.strictObject({
   /** The name of the aircraft, such as the such as the flight name or callsign. */
   name: z.string().optional(),
   /** The primary identification identifier for an aircraft, such as the 24-bit International Civil Aviation Organization (ICAO) identifier of the aircraft, as 6 hex digits. */
@@ -28,6 +28,6 @@ export const Aircraft = z.object({
   uid_alt: z.string().optional(),
   /** Vertical speed upward relative to the WGS-84 datum, measured in meters per second. Special Values: Invalid, No Value, or Unknown: 63 m/s. */
   vertical_speed: z.string().optional(),
-}).passthrough();
+});
 
 export type AircraftType = z.infer<typeof Aircraft>;

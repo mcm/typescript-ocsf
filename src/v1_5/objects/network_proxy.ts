@@ -12,7 +12,7 @@ import { AutonomousSystem } from './autonomous_system.js';
  *
  * OCSF Object: Network Proxy Endpoint
  */
-export const NetworkProxy = z.object({
+export const NetworkProxy = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier of the endpoint. */
@@ -67,6 +67,6 @@ export const NetworkProxy = z.object({
   get proxy_endpoint() { return z.lazy(() => NetworkProxy).optional(); },
   /** The service name in service-to-service connections. For example, AWS VPC logs the pkt-src-aws-service and pkt-dst-aws-service fields identify the connection is coming from or going to an AWS service. */
   svc_name: z.string().optional(),
-}).passthrough();
+});
 
 export type NetworkProxyType = z.infer<typeof NetworkProxy>;

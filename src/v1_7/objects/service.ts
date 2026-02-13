@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Service
  */
-export const Service = z.object({
+export const Service = z.strictObject({
   /** The name of the service. */
   name: z.string().optional(),
   /** The unique identifier of the service. */
@@ -18,6 +18,6 @@ export const Service = z.object({
   tags: z.array(KeyValueObject).optional(),
   /** The version of the service. */
   version: z.string().optional(),
-}).passthrough();
+});
 
 export type ServiceType = z.infer<typeof Service>;

@@ -58,7 +58,7 @@ export const PatchState = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -117,7 +117,7 @@ export const PatchState = z.preprocess(
     device: Device,
     /** A list of KB articles or patches related to an endpoint. A KB Article contains metadata that describes the patch or an update. */
     kb_article_list: z.array(KbArticle).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type PatchStateType = z.infer<typeof PatchState>;

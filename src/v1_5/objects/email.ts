@@ -9,7 +9,7 @@ import { Url } from './url.js';
  *
  * OCSF Object: Email
  */
-export const Email = z.object({
+export const Email = z.strictObject({
   /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
   cc: z.array(z.string()).optional(),
   /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
@@ -54,6 +54,6 @@ export const Email = z.object({
   urls: z.array(Url).optional(),
   /** The X-Originating-IP header identifying the emails originating IP address(es). */
   x_originating_ip: z.array(z.string()).optional(),
-}).passthrough();
+});
 
 export type EmailType = z.infer<typeof Email>;

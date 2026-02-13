@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: Autonomous System
  */
-export const AutonomousSystem = z.object({
+export const AutonomousSystem = z.strictObject({
   /** Organization name for the Autonomous System. */
   name: z.string().optional(),
   /** Unique number that the AS is identified by. */
   number: z.number().int().optional(),
-}).passthrough();
+});
 
 export type AutonomousSystemType = z.infer<typeof AutonomousSystem>;

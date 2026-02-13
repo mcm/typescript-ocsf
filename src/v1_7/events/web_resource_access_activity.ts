@@ -65,7 +65,7 @@ export const WebResourceAccessActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -134,7 +134,7 @@ export const WebResourceAccessActivity = z.preprocess(
     tls: Tls.optional(),
     /** Details about the resource that is the target of the activity. */
     web_resources: z.array(WebResource),
-  }).passthrough(),
+  }),
 );
 
 export type WebResourceAccessActivityType = z.infer<typeof WebResourceAccessActivity>;

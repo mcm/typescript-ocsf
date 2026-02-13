@@ -8,7 +8,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Cloud
  */
-export const Cloud = z.object({
+export const Cloud = z.strictObject({
   /** The account object describes details about the account that was the source or target of the activity. */
   account: Account.optional(),
   /** The canonical cloud partition name to which the region is assigned (e.g. AWS Partitions: aws, aws-cn, aws-us-gov). */
@@ -23,6 +23,6 @@ export const Cloud = z.object({
   region: z.string().optional(),
   /** The availability zone in the cloud region, as defined by the cloud provider. */
   zone: z.string().optional(),
-}).passthrough();
+});
 
 export type CloudType = z.infer<typeof Cloud>;

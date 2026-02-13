@@ -59,7 +59,7 @@ export const ScriptActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -122,7 +122,7 @@ export const ScriptActivity = z.preprocess(
     device: Device,
     /** The script that was the target of the activity. */
     script: Script,
-  }).passthrough(),
+  }),
 );
 
 export type ScriptActivityType = z.infer<typeof ScriptActivity>;

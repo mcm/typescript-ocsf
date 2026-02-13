@@ -79,7 +79,7 @@ export const NetworkFileActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -158,7 +158,7 @@ export const NetworkFileActivity = z.preprocess(
     expiration_time: z.number().int().optional(),
     /** The file that is the target of the activity. */
     file: File,
-  }).passthrough(),
+  }),
 );
 
 export type NetworkFileActivityType = z.infer<typeof NetworkFileActivity>;

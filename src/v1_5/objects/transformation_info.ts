@@ -7,7 +7,7 @@ import { Product } from './product.js';
  *
  * OCSF Object: Transformation Info
  */
-export const TransformationInfo = z.object({
+export const TransformationInfo = z.strictObject({
   /** The name of the transformation or mapping. */
   name: z.string().optional(),
   /** The unique identifier of the mapping or transformation. */
@@ -20,6 +20,6 @@ export const TransformationInfo = z.object({
   time: z.number().int().optional(),
   /** The Uniform Resource Locator String where the mapping or transformation exists. */
   url_string: z.string().optional(),
-}).passthrough();
+});
 
 export type TransformationInfoType = z.infer<typeof TransformationInfo>;

@@ -68,7 +68,7 @@ export const DiscoveryResult = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -131,7 +131,7 @@ export const DiscoveryResult = z.preprocess(
     query_result: z.string().optional(),
     /** The normalized identifier of the query result. */
     query_result_id: z.number().int(),
-  }).passthrough(),
+  }),
 );
 
 export type DiscoveryResultType = z.infer<typeof DiscoveryResult>;

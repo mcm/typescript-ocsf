@@ -60,7 +60,7 @@ export const Iam = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -123,7 +123,7 @@ export const Iam = z.preprocess(
     http_response: HttpResponse.optional(),
     /** Details about the source of the IAM activity. */
     src_endpoint: NetworkEndpoint.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type IamType = z.infer<typeof Iam>;

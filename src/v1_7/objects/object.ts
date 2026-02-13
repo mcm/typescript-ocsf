@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Object
  */
-export const OcsfObject = z.object({
-}).passthrough();
+export const OcsfObject = z.strictObject({
+});
 
 export type OcsfObjectType = z.infer<typeof OcsfObject>;

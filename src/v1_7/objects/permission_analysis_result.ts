@@ -8,7 +8,7 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Permission Analysis Result
  */
-export const PermissionAnalysisResult = z.object({
+export const PermissionAnalysisResult = z.strictObject({
   /** The condition keys and their values that were evaluated during policy analysis, including contextual constraints that affect permission grants. These conditions define when and how permissions are applied. Examples: aws:SourceIp:1.2.3.4, aws:RequestedRegion:us-east-1. */
   condition_keys: z.array(KeyValueObject).optional(),
   /** The specific privileges, actions, or permissions that are explicitly granted by the analyzed policy. Examples: AWS actions like s3:GetObject, ec2:RunInstances, iam:CreateUser; Azure actions like Microsoft.Storage/storageAccounts/read; or GCP permissions like storage.objects.get. */
@@ -19,6 +19,6 @@ export const PermissionAnalysisResult = z.object({
   unused_privileges_count: z.number().int().optional(),
   /** The total count of cloud services or resource types referenced in the policy that have not been accessed or utilized within the analysis timeframe. This helps identify unused service permissions that could be removed to reduce attack surface. Examples: AWS services like S3, SQS, IAM, Lambda; Azure services like Storage, Compute, KeyVault; or GCP services like Cloud Storage, Compute Engine, BigQuery. */
   unused_services_count: z.number().int().optional(),
-}).passthrough();
+});
 
 export type PermissionAnalysisResultType = z.infer<typeof PermissionAnalysisResult>;

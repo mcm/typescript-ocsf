@@ -11,7 +11,7 @@ import { TransformationInfo } from './transformation_info.js';
  *
  * OCSF Object: Metadata
  */
-export const Metadata = z.object({
+export const Metadata = z.strictObject({
   /** The unique identifier used to correlate events. */
   correlation_uid: z.string().optional(),
   /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */
@@ -58,6 +58,6 @@ export const Metadata = z.object({
   uid: z.string().optional(),
   /** The version of the OCSF schema, using Semantic Versioning Specification (SemVer). For example: 1.0.0. Event consumers use the version to determine the available event attributes. */
   version: z.string(),
-}).passthrough();
+});
 
 export type MetadataType = z.infer<typeof Metadata>;

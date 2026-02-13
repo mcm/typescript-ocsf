@@ -9,7 +9,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Container
  */
-export const Container = z.object({
+export const Container = z.strictObject({
   /** Commit hash of image created for docker or the SHA256 hash of the container. For example: 13550340a8681c84c861aac2e5b440161c2b33a3e4f302ac680ca5b686de48de. */
   hash: Fingerprint.optional(),
   /** The container image used as a template to run the container. */
@@ -34,6 +34,6 @@ export const Container = z.object({
   tags: z.array(KeyValueObject).optional(),
   /** The full container unique identifier for this instantiation of the container. For example: ac2ea168264a08f9aaca0dfc82ff3551418dfd22d02b713142a6843caa2f61bf. */
   uid: z.string().optional(),
-}).passthrough();
+});
 
 export type ContainerType = z.infer<typeof Container>;

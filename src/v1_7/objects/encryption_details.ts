@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Encryption Details
  */
-export const EncryptionDetails = z.object({
+export const EncryptionDetails = z.strictObject({
   /** The encryption algorithm used, normalized to the caption of 'algorithm_id */
   algorithm: z.string().optional(),
   /** The encryption algorithm used. */
@@ -16,6 +16,6 @@ export const EncryptionDetails = z.object({
   key_uid: z.string().optional(),
   /** The type of the encryption used. */
   type: z.string().optional(),
-}).passthrough();
+});
 
 export type EncryptionDetailsType = z.infer<typeof EncryptionDetails>;

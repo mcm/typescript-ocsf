@@ -64,7 +64,7 @@ export const ScheduledJobActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -127,7 +127,7 @@ export const ScheduledJobActivity = z.preprocess(
     device: Device,
     /** The job object that pertains to the event. */
     job: Job,
-  }).passthrough(),
+  }),
 );
 
 export type ScheduledJobActivityType = z.infer<typeof ScheduledJobActivity>;

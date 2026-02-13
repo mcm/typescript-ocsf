@@ -14,7 +14,7 @@ import { Trait } from './trait.js';
  *
  * OCSF Object: Finding Information
  */
-export const FindingInfo = z.object({
+export const FindingInfo = z.strictObject({
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** An Attack Graph describes possible routes an attacker could take through an environment. It describes relationships between resources and their findings, such as malware detections, vulnerabilities, misconfigurations, and other security actions. */
@@ -59,6 +59,6 @@ export const FindingInfo = z.object({
   uid: z.string(),
   /** The alternative unique identifier of the reported finding. */
   uid_alt: z.string().optional(),
-}).passthrough();
+});
 
 export type FindingInfoType = z.infer<typeof FindingInfo>;

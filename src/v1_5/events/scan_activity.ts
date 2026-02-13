@@ -66,7 +66,7 @@ export const ScanActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -149,7 +149,7 @@ export const ScanActivity = z.preprocess(
     schedule_uid: z.string().optional(),
     /** The total number of items that were scanned; zero if no items were scanned. */
     total: z.number().int().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type ScanActivityType = z.infer<typeof ScanActivity>;

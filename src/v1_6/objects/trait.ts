@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Trait
  */
-export const Trait = z.object({
+export const Trait = z.strictObject({
   /** The name of the trait. */
   name: z.string().optional(),
   /** The unique identifier of the trait. */
@@ -16,6 +16,6 @@ export const Trait = z.object({
   type: z.string().optional(),
   /** The values of the trait. */
   values: z.array(z.string()).optional(),
-}).passthrough();
+});
 
 export type TraitType = z.infer<typeof Trait>;

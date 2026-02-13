@@ -62,7 +62,7 @@ export const KernelActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -125,7 +125,7 @@ export const KernelActivity = z.preprocess(
     device: Device,
     /** The target kernel resource. */
     kernel: Kernel,
-  }).passthrough(),
+  }),
 );
 
 export type KernelActivityType = z.infer<typeof KernelActivity>;

@@ -61,7 +61,7 @@ export const UnmannedSystems = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int(),
     /** The event activity name, as defined by the activity_id. */
@@ -128,7 +128,7 @@ export const UnmannedSystems = z.preprocess(
     tls: Tls.optional(),
     /** The network traffic refers to the amount of data moving across a network at a given point of time. Intended to be used alongside Network Connection. */
     traffic: NetworkTraffic.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type UnmannedSystemsType = z.infer<typeof UnmannedSystems>;

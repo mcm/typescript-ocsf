@@ -79,7 +79,7 @@ export const IamAnalysisFinding = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the finding activity. */
     activity_id: z.number().int().optional(),
     /** The finding activity name, as defined by the activity_id. */
@@ -164,7 +164,7 @@ export const IamAnalysisFinding = z.preprocess(
     resources: z.array(ResourceDetails).optional(),
     /** Details about the identity (user, role, service account, or other principal) that is the subject of the IAM analysis. This provides context about the identity being evaluated for security risks and access patterns. */
     user: User.optional(),
-  }).passthrough(),
+  }),
 );
 
 export type IamAnalysisFindingType = z.infer<typeof IamAnalysisFinding>;

@@ -67,7 +67,7 @@ export const WebResourcesActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -136,7 +136,7 @@ export const WebResourcesActivity = z.preprocess(
     web_resources: z.array(WebResource),
     /** The results of the activity on web resources. It should contain the new values of the changed attributes of the web resources. */
     web_resources_result: z.array(WebResource).optional(),
-  }).passthrough(),
+  }),
 );
 
 export type WebResourcesActivityType = z.infer<typeof WebResourcesActivity>;

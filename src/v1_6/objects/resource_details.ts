@@ -11,7 +11,7 @@ import { Graph } from './graph.js';
  *
  * OCSF Object: Resource Details
  */
-export const ResourceDetails = z.object({
+export const ResourceDetails = z.strictObject({
   /** The name of the entity. See specific usage. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */
@@ -60,6 +60,6 @@ export const ResourceDetails = z.object({
   version: z.string().optional(),
   /** The specific availability zone within a cloud region where the resource is located. */
   zone: z.string().optional(),
-}).passthrough();
+});
 
 export type ResourceDetailsType = z.infer<typeof ResourceDetails>;

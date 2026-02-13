@@ -79,7 +79,7 @@ export const SmbActivity = z.preprocess(
     d = prefillUids(d, UID_CONFIG);
     return d;
   },
-  z.object({
+  z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
     activity_id: z.number().int().optional(),
     /** The event activity name, as defined by the activity_id. */
@@ -174,7 +174,7 @@ export const SmbActivity = z.preprocess(
     share_type_id: z.number().int().optional(),
     /** The tree id is a unique SMB identifier which represents an open connection to a share. */
     tree_uid: z.string().optional(),
-  }).passthrough(),
+  }),
 );
 
 export type SmbActivityType = z.infer<typeof SmbActivity>;

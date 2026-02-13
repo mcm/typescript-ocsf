@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Reputation
  */
-export const Reputation = z.object({
+export const Reputation = z.strictObject({
   /** The reputation score as reported by the event source. */
   base_score: z.number(),
   /** The provider of the reputation information. */
@@ -14,6 +14,6 @@ export const Reputation = z.object({
   score: z.string().optional(),
   /** The normalized reputation score identifier. */
   score_id: z.number().int(),
-}).passthrough();
+});
 
 export type ReputationType = z.infer<typeof Reputation>;
