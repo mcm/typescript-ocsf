@@ -8,7 +8,7 @@ import { KbArticle } from './kb_article.js';
  *
  * OCSF Object: Remediation
  */
-export const Remediation: any = z.object({
+export const Remediation = z.object({
   /** An array of Center for Internet Security (CIS) Controls that can be optionally mapped to provide additional remediation details. */
   cis_controls: z.array(CisControl).optional(),
   /** The description of the remediation strategy. */

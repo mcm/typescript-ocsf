@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Metric
  */
-export const Metric: any = z.object({
+export const Metric = z.object({
   /** The name of the metric. */
   name: z.string(),
   /** The value of the metric. */

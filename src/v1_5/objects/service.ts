@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Service
  */
-export const Service: any = z.object({
+export const Service = z.object({
   /** The name of the service. */
   name: z.string().optional(),
   /** The unique identifier of the service. */

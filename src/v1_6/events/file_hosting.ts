@@ -79,7 +79,7 @@ const UID_CONFIG: UidConfig = {
  * Category: File Hosting Activity
  * @see https://schema.ocsf.io/1.6.0/classes/file_hosting
  */
-export const FileHosting: any = z.preprocess(
+export const FileHosting = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -149,7 +149,7 @@ export const FileHosting: any = z.preprocess(
     /** The sum of hexadecimal values of requested access rights. */
     access_mask: z.number().int().optional(),
     /** The list of access check results. */
-    access_result: z.record(z.unknown()).optional(),
+    access_result: z.record(z.string(), z.unknown()).optional(),
     /** The actor that performed the activity on the target file. */
     actor: Actor,
     /** The network connection information. */

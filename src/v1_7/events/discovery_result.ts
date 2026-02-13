@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Discovery Result
  * @see https://schema.ocsf.io/1.7.0/classes/discovery_result
  */
-export const DiscoveryResult: any = z.preprocess(
+export const DiscoveryResult = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

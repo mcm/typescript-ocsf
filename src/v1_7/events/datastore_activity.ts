@@ -74,7 +74,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Datastore Activity
  * @see https://schema.ocsf.io/1.7.0/classes/datastore_activity
  */
-export const DatastoreActivity: any = z.preprocess(
+export const DatastoreActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

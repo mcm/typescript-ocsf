@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Email Activity
  * @see https://schema.ocsf.io/1.7.0/classes/email_activity
  */
-export const EmailActivity: any = z.preprocess(
+export const EmailActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

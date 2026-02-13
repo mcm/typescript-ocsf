@@ -24,7 +24,7 @@ import { Whois } from './whois.js';
  *
  * OCSF Object: OSINT
  */
-export const Osint: any = z.object({
+export const Osint = z.object({
   /** Any pertinent DNS answers information related to an indicator or OSINT analysis. */
   answers: z.array(DnsAnswer).optional(),
   /** MITRE ATT&CK Tactics, Techniques, and/or Procedures (TTPs) pertinent to an indicator or OSINT analysis. */

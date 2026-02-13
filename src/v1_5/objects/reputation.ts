@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Reputation
  */
-export const Reputation: any = z.object({
+export const Reputation = z.object({
   /** The reputation score as reported by the event source. */
   base_score: z.number(),
   /** The provider of the reputation information. */

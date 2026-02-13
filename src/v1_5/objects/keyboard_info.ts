@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Keyboard Information
  */
-export const KeyboardInfo: any = z.object({
+export const KeyboardInfo = z.object({
   /** The number of function keys on client keyboard. */
   function_keys: z.number().int().optional(),
   /** The Input Method Editor (IME) file name. */

@@ -69,7 +69,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Tunnel Activity
  * @see https://schema.ocsf.io/1.5.0/classes/tunnel_activity
  */
-export const TunnelActivity: any = z.preprocess(
+export const TunnelActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

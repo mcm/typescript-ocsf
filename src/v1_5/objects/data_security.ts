@@ -9,7 +9,7 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Data Security
  */
-export const DataSecurity: any = z.object({
+export const DataSecurity = z.object({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */

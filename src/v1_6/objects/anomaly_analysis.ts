@@ -9,7 +9,7 @@ import { Baseline } from './baseline.js';
  *
  * OCSF Object: Anomaly Analysis
  */
-export const AnomalyAnalysis: any = z.object({
+export const AnomalyAnalysis = z.object({
   /** The analysis targets define the scope of monitored activities, specifying what entities, systems or processes are analyzed for activity patterns. */
   analysis_targets: z.array(AnalysisTarget),
   /** List of detected activities that significantly deviate from the established baselines. This can include unusual access patterns, unexpected user-agents, abnormal API usage, suspicious traffic spikes, unauthorized access attempts, and other activities that may indicate potential security threats or system issues. */

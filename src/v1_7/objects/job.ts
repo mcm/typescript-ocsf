@@ -8,7 +8,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Job
  */
-export const Job: any = z.object({
+export const Job = z.object({
   /** The job command line. */
   cmd_line: z.string().optional(),
   /** The time when the job was created. */

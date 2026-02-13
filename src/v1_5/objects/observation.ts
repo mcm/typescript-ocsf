@@ -7,7 +7,7 @@ import { Timespan } from './timespan.js';
  *
  * OCSF Object: Observation
  */
-export const Observation: any = z.object({
+export const Observation = z.object({
   /** The specific value, event, indicator or data point that was observed and recorded. This is the core piece of information being tracked. */
   value: z.string(),
   /** Integer representing the total number of times this specific value/event was observed across all occurrences. Helps establish prevalence and patterns. */

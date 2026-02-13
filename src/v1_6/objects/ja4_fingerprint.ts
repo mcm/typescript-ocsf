@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: JA4+ Fingerprint
  */
-export const Ja4Fingerprint: any = z.object({
+export const Ja4Fingerprint = z.object({
   /** The 'a' section of the JA4 fingerprint. */
   section_a: z.string().optional(),
   /** The 'b' section of the JA4 fingerprint. */

@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Scheduled Job Activity
  * @see https://schema.ocsf.io/1.6.0/classes/scheduled_job_activity
  */
-export const ScheduledJobActivity: any = z.preprocess(
+export const ScheduledJobActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -7,7 +7,7 @@ import { NetworkEndpoint } from './network_endpoint.js';
  *
  * OCSF Object: Endpoint Connection
  */
-export const EndpointConnection: any = z.object({
+export const EndpointConnection = z.object({
   /** A numerical response status code providing details about the connection. */
   code: z.number().int().optional(),
   /** Provides characteristics of the network endpoint. */

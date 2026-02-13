@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: CWE
  */
-export const Cwe: any = z.object({
+export const Cwe = z.object({
   /** The caption assigned to the Common Weakness Enumeration unique identifier. */
   caption: z.string().optional(),
   /** URL pointing to the CWE Specification. For more information see CWE. */

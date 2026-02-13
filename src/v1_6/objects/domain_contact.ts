@@ -7,7 +7,7 @@ import { Location } from './location.js';
  *
  * OCSF Object: Domain Contact
  */
-export const DomainContact: any = z.object({
+export const DomainContact = z.object({
   /** The user's primary email address. */
   email_addr: z.string().optional(),
   /** Location details for the contract such as the city, state/province, country, etc. */

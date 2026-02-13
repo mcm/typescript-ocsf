@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Live Evidence Info
  * @see https://schema.ocsf.io/1.5.0/classes/evidence_info
  */
-export const EvidenceInfo: any = z.preprocess(
+export const EvidenceInfo = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

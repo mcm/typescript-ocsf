@@ -7,7 +7,7 @@ import { Parameter } from './parameter.js';
  *
  * OCSF Object: Function Invocation
  */
-export const FunctionInvocation: any = z.object({
+export const FunctionInvocation = z.object({
   /** The error indication returned from the function. This may differ from the return value (e.g. when errno is used). */
   error: z.string().optional(),
   /** The parameters passed into a function invocation. */

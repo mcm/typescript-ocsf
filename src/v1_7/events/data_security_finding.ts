@@ -93,7 +93,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Data Security Finding
  * @see https://schema.ocsf.io/1.7.0/classes/data_security_finding
  */
-export const DataSecurityFinding: any = z.preprocess(
+export const DataSecurityFinding = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

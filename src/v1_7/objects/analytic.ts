@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Analytic
  */
-export const Analytic: any = z.object({
+export const Analytic = z.object({
   /** The name of the analytic that generated the finding. */
   name: z.string().optional(),
   /** The unique identifier of the analytic that generated the finding. */
@@ -17,7 +17,7 @@ export const Analytic: any = z.object({
   /** The description of the analytic that generated the finding. */
   desc: z.string().optional(),
   /** Other analytics related to this analytic. */
-  get related_analytics(): any { return z.array(Analytic).optional(); },
+  get related_analytics() { return z.lazy(() => z.array(Analytic)).optional(); },
   /** The Analytic state. */
   state: z.string().optional(),
   /** The Analytic state identifier. */

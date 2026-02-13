@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Web Resources Activity
  * @see https://schema.ocsf.io/1.7.0/classes/web_resources_activity
  */
-export const WebResourcesActivity: any = z.preprocess(
+export const WebResourcesActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -9,7 +9,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Access Analysis Result
  */
-export const AccessAnalysisResult: any = z.object({
+export const AccessAnalysisResult = z.object({
   /** The generalized access level or permission scope granted to the identity through the analyzed policy configuration. Common examples include Read, Write, List, Delete, Admin, or custom permission levels. */
   access_level: z.string().optional(),
   /** The type or category of access being granted to the identity. This describes the nature of the access relationship, such as cross-account access, public access, federated access, or third-party integration access. Examples include 'Cross-Account', 'Public', 'Federated', 'Service-to-Service', etc. */

@@ -54,7 +54,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Software Inventory Info
  * @see https://schema.ocsf.io/1.7.0/classes/software_info
  */
-export const SoftwareInfo: any = z.preprocess(
+export const SoftwareInfo = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: RPC Interface
  */
-export const RpcInterface: any = z.object({
+export const RpcInterface = z.object({
   /** An integer that provides a reason code or additional information about the acknowledgment result. */
   ack_reason: z.number().int().optional(),
   /** An integer that denotes the acknowledgment result of the DCE/RPC call. */

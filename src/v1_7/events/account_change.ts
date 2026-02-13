@@ -66,7 +66,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Account Change
  * @see https://schema.ocsf.io/1.7.0/classes/account_change
  */
-export const AccountChange: any = z.preprocess(
+export const AccountChange = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

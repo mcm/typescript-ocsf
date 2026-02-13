@@ -7,13 +7,13 @@ import { Group } from './group.js';
  *
  * OCSF Object: Policy
  */
-export const Policy: any = z.object({
+export const Policy = z.object({
   /** The policy name. For example: IAM Policy. */
   name: z.string().optional(),
   /** A unique identifier of the policy instance. */
   uid: z.string().optional(),
   /** Additional data about the policy such as the underlying JSON policy itself or other details. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** The description of the policy. */
   desc: z.string().optional(),
   /** The policy group. */

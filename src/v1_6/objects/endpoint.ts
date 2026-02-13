@@ -11,7 +11,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Endpoint
  */
-export const Endpoint: any = z.object({
+export const Endpoint = z.object({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier of the endpoint. */

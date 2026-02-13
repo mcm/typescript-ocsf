@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Organization
  */
-export const Organization: any = z.object({
+export const Organization = z.object({
   /** The name of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, Widget, Inc. or the AWS Organization name . */
   name: z.string().optional(),
   /** The unique identifier of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, an AWS Org ID or Oracle Cloud Domain ID . */

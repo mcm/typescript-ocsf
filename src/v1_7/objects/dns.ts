@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: DNS
  */
-export const Dns: any = z.object({
+export const Dns = z.object({
   /** The class of resource records being queried. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */

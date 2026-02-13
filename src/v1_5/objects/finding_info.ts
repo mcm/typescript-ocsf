@@ -13,7 +13,7 @@ import { Trait } from './trait.js';
  *
  * OCSF Object: Finding Information
  */
-export const FindingInfo: any = z.object({
+export const FindingInfo = z.object({
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** The MITRE ATT&CK® technique and associated tactics related to the finding. */

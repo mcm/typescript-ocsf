@@ -104,8 +104,7 @@ export function emitEventFile(
   lines.push(" */");
 
   // Schema with preprocess
-  // Add :any annotation to prevent TS7056 errors on complex nested schemas
-  lines.push(`export const ${event.className}: any = z.preprocess(`);
+  lines.push(`export const ${event.className} = z.preprocess(`);
   lines.push("  (data) => {");
   lines.push("    if (typeof data !== 'object' || data === null) return data;");
   lines.push("    let d = { ...data } as Record<string, unknown>;");
@@ -132,7 +131,7 @@ export function emitEventFile(
         // Direct reference (no z.lazy wrapper)
         zodType = refClassName;
       } else {
-        zodType = "z.record(z.unknown())";
+        zodType = "z.record(z.string(), z.unknown())";
       }
     } else {
       zodType = mapOcsfTypeToZod(attr.ocsfType);

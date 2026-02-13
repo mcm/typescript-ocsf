@@ -9,7 +9,7 @@ import { Product } from './product.js';
  *
  * OCSF Object: KB Article
  */
-export const KbArticle: any = z.object({
+export const KbArticle = z.object({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The kb article bulletin identifier. */

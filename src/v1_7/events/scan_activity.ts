@@ -59,7 +59,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Scan Activity
  * @see https://schema.ocsf.io/1.7.0/classes/scan_activity
  */
-export const ScanActivity: any = z.preprocess(
+export const ScanActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

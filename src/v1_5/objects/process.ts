@@ -12,7 +12,7 @@ import { OcsfObject } from './object.js';
  *
  * OCSF Object: Process
  */
-export const Process: any = z.object({
+export const Process = z.object({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */
@@ -42,7 +42,7 @@ export const Process: any = z.object({
   /** The list of loaded module names. */
   loaded_modules: z.array(z.string()).optional(),
   /** The parent process of this process object. It is recommended to only populate this field for the top-level process object, to prevent deep nesting. Additional ancestry information can be supplied in the ancestry attribute. */
-  get parent_process(): any { return Process.optional(); },
+  get parent_process() { return z.lazy(() => Process).optional(); },
   /** The name of the containment jail (i.e., sandbox). For example, hardened_ps, high_security_ps, oracle_ps, netsvcs_ps, or default_ps. */
   sandbox: z.string().optional(),
   /** The user session under which this process is running. */
@@ -52,7 +52,7 @@ export const Process: any = z.object({
   /** The Identifier of the thread associated with the event, as returned by the operating system. */
   tid: z.number().int().optional(),
   /** The user under which this process is running. */
-  get user() { return User.optional(); },
+  get user() { return z.lazy(() => User).optional(); },
   /** The working directory of a process. */
   working_directory: z.string().optional(),
   /** An unordered collection of zero or more name/value pairs that represent a process extended attribute. */

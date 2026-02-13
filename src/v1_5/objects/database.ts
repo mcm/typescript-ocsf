@@ -7,7 +7,7 @@ import { Group } from './group.js';
  *
  * OCSF Object: Database
  */
-export const Database: any = z.object({
+export const Database = z.object({
   /** The database name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the database. */

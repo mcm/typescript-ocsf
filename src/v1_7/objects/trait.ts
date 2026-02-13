@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Trait
  */
-export const Trait: any = z.object({
+export const Trait = z.object({
   /** The name of the trait. */
   name: z.string().optional(),
   /** The unique identifier of the trait. */

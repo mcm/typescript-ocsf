@@ -73,7 +73,7 @@ const UID_CONFIG: UidConfig = {
  * Category: SSH Activity
  * @see https://schema.ocsf.io/1.5.0/classes/ssh_activity
  */
-export const SshActivity: any = z.preprocess(
+export const SshActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -7,7 +7,7 @@ import { Timespan } from './timespan.js';
  *
  * OCSF Object: Network Traffic
  */
-export const NetworkTraffic: any = z.object({
+export const NetworkTraffic = z.object({
   /** The total number of bytes transferred in both directions (sum of bytes_in and bytes_out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source (inbound direction). */

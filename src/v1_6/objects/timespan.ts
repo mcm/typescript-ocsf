@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Time Span
  */
-export const Timespan: any = z.object({
+export const Timespan = z.object({
   /** The duration of the time span in milliseconds. */
   duration: z.number().int().optional(),
   /** The duration of the time span in days. */

@@ -8,7 +8,7 @@ import { Span } from './span.js';
  *
  * OCSF Object: Trace
  */
-export const Trace: any = z.object({
+export const Trace = z.object({
   /** The total time, in milliseconds, that the trace covers, calculated as the difference between start_time and end_time. This duration helps assess the overall performance of a request as it travels across various services, and is essential for identifying latency and potential bottlenecks within the distributed system. The trace duration may differ from individual span durations due to the propagation and processing times of the trace as it spans multiple components. */
   duration: z.number().int().optional(),
   /** The end timestamp of the trace, essential for identifying latency and performance bottlenecks. Like the start time, this timestamp is normalized across the trace system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time allows for accurate trace duration calculations and helps observability tools track overall performance across services, regardless of the individual system time settings. */

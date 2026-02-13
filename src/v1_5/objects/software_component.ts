@@ -7,7 +7,7 @@ import { Fingerprint } from './fingerprint.js';
  *
  * OCSF Object: Software Component
  */
-export const SoftwareComponent: any = z.object({
+export const SoftwareComponent = z.object({
   /** The author(s) who published the software component. */
   author: z.string().optional(),
   /** Cryptographic hash to identify the binary instance of a software component. */

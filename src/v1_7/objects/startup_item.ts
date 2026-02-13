@@ -9,7 +9,7 @@ import { Process } from './process.js';
  *
  * OCSF Object: Startup Item
  */
-export const StartupItem: any = z.object({
+export const StartupItem = z.object({
   /** The startup item kernel driver resource. */
   driver: KernelDriver.optional(),
   /** The startup item job resource. */

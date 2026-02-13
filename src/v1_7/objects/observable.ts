@@ -7,7 +7,7 @@ import { Reputation } from './reputation.js';
  *
  * OCSF Object: Observable
  */
-export const Observable: any = z.object({
+export const Observable = z.object({
   /** The unique identifier (metadata.uid) of the source OCSF event from which this observable was extracted. This field enables linking observables back to their originating event data when observables are stored in a separate location or system. */
   event_uid: z.string().optional(),
   /** The full name of the observable attribute. The name is a pointer/reference to an attribute within the OCSF event data. For example: file.name. Array attributes may be represented in one of three ways. For example: resources.uid, resources[].uid, resources[0].uid. */

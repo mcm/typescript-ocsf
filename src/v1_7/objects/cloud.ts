@@ -8,7 +8,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Cloud
  */
-export const Cloud: any = z.object({
+export const Cloud = z.object({
   /** The Account object containing details about the cloud account, subscription, or billing unit where the event or finding was created. This object includes properties such as the account name, unique identifier, type, labels, and tags.Examples:AWS: Account object with name, uid (Account ID), type, and other account propertiesAzure: Subscription object with name, uid (Subscription ID), type, and subscription metadataGCP: Project object with name, uid (Project ID), type, and project attributesOracle Cloud: Compartment object with name, uid (Tenancy OCID), type, and compartment details */
   account: Account.optional(),
   /** The logical grouping or isolated segment within a cloud provider's infrastructure where the event or finding was created, often used for compliance, governance, or regional separation.Examples:AWS: Partition where the event occurred (aws, aws-cn, aws-us-gov)Azure: Cloud environment where the event occurred (AzureCloud, AzureUSGovernment, AzureChinaCloud) */

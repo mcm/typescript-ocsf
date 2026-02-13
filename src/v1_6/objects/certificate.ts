@@ -8,7 +8,7 @@ import { San } from './san.js';
  *
  * OCSF Object: Digital Certificate
  */
-export const Certificate: any = z.object({
+export const Certificate = z.object({
   /** The time when the certificate was created. */
   created_time: z.number().int().optional(),
   /** The expiration time of the certificate. */

@@ -8,7 +8,7 @@ import { DeviceHwInfo } from './device_hw_info.js';
  *
  * OCSF Object: Unmanned Aerial System
  */
-export const UnmannedAerialSystem: any = z.object({
+export const UnmannedAerialSystem = z.object({
   /** The name of the unmanned system as reported by tracking or sensing hardware. */
   name: z.string().optional(),
   /** The primary identification identifier for an unmanned system. This can be a Serial Number (in CTA-2063-A format, the Registration ID (provided by the CAA, a UTM, or a unique Session ID. */

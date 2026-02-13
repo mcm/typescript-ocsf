@@ -7,7 +7,7 @@ import { Group } from './group.js';
  *
  * OCSF Object: Table
  */
-export const Table: any = z.object({
+export const Table = z.object({
   /** The table name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the table. */

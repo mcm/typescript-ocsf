@@ -5,13 +5,13 @@ import { z } from 'zod';
  *
  * OCSF Object: Edge
  */
-export const Edge: any = z.object({
+export const Edge = z.object({
   /** The human-readable name or label for the edge. */
   name: z.string().optional(),
   /** Unique identifier of the edge. */
   uid: z.string().optional(),
   /** Additional data about the edge such as weight, distance, or custom properties. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** Indicates whether the edge is (true) or undirected (false). */
   is_directed: z.boolean().optional(),
   /** The type of relationship between nodes (e.g. is-attached-to , depends-on, etc). */

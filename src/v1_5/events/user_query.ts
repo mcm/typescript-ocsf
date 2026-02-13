@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: User Query
  * @see https://schema.ocsf.io/1.5.0/classes/user_query
  */
-export const UserQuery: any = z.preprocess(
+export const UserQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -12,11 +12,11 @@ import { Url } from './url.js';
  *
  * OCSF Object: Application
  */
-export const Application: any = z.object({
+export const Application = z.object({
   /** The criticality of the application as defined by the event source. */
   criticality: z.string().optional(),
   /** Additional data describing the application. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** A description or commentary for an application, usually retrieved from an upstream system. */
   desc: z.string().optional(),
   /** The name of the related application or associated resource group. */

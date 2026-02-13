@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Email Authentication
  */
-export const EmailAuth: any = z.object({
+export const EmailAuth = z.object({
   /** The DomainKeys Identified Mail (DKIM) status of the email. */
   dkim: z.string().optional(),
   /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */

@@ -7,7 +7,7 @@ import { OccurrenceDetails } from './occurrence_details.js';
  *
  * OCSF Object: Discovery Details
  */
-export const DiscoveryDetails: any = z.object({
+export const DiscoveryDetails = z.object({
   /** The number of discovered entities of the specified type. */
   count: z.number().int().optional(),
   /** Details about where in the target entity, specified information was discovered. Only the attributes, relevant to the target entity type should be populuated. */

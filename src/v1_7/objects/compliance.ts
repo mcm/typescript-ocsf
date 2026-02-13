@@ -10,7 +10,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Compliance
  */
-export const Compliance: any = z.object({
+export const Compliance = z.object({
   /** A list of assessments associated with the compliance requirements evaluation. */
   assessments: z.array(Assessment).optional(),
   /** The category a control framework pertains to, as reported by the source tool, such as Asset Management or Risk Assessment. */

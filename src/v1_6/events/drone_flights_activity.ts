@@ -75,7 +75,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Drone Flights Activity
  * @see https://schema.ocsf.io/1.6.0/classes/drone_flights_activity
  */
-export const DroneFlightsActivity: any = z.preprocess(
+export const DroneFlightsActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

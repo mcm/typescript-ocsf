@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Uniform Resource Locator
  */
-export const Url: any = z.object({
+export const Url = z.object({
   /** The Website categorization names, as defined by category_ids enum values. */
   categories: z.array(z.string()).optional(),
   /** The Website categorization identifiers. */

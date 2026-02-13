@@ -54,7 +54,7 @@ const UID_CONFIG: UidConfig = {
  * Category: User Access Management
  * @see https://schema.ocsf.io/1.5.0/classes/user_access
  */
-export const UserAccess: any = z.preprocess(
+export const UserAccess = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

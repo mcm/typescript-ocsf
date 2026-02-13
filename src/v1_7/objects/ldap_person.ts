@@ -9,7 +9,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: LDAP Person
  */
-export const LdapPerson: any = z.object({
+export const LdapPerson = z.object({
   /** The cost center associated with the user. */
   cost_center: z.string().optional(),
   /** The timestamp when the user was created. */
@@ -41,7 +41,7 @@ export const LdapPerson: any = z.object({
   /** The geographical location associated with a user. This is typically the user's usual work location. */
   location: Location.optional(),
   /** The user's manager. This helps in understanding an org hierarchy. This should only ever be populated once in an event. I.e. there should not be a manager's manager in an event. */
-  get manager(): any { return User.optional(); },
+  get manager() { return z.lazy(() => User).optional(); },
   /** The timestamp when the user entry was last modified. */
   modified_time: z.number().int().optional(),
   /** The primary office location associated with the user. This could be any string and isn't a specific address. For example, South East Virtual. */

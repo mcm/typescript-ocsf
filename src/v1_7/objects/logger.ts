@@ -8,7 +8,7 @@ import { Product } from './product.js';
  *
  * OCSF Object: Logger
  */
-export const Logger: any = z.object({
+export const Logger = z.object({
   /** The name of the logging product instance. */
   name: z.string().optional(),
   /** The unique identifier of the logging product instance. */

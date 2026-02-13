@@ -7,7 +7,7 @@ import { RpcInterface } from './rpc_interface.js';
  *
  * OCSF Object: DCE/RPC
  */
-export const DceRpc: any = z.object({
+export const DceRpc = z.object({
   /** The request command (e.g. REQUEST, BIND). */
   command: z.string().optional(),
   /** The reply to the request command (e.g. RESPONSE, BINDACK or FAULT). */

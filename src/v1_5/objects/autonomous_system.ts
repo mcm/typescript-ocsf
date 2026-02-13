@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Autonomous System
  */
-export const AutonomousSystem: any = z.object({
+export const AutonomousSystem = z.object({
   /** Organization name for the Autonomous System. */
   name: z.string().optional(),
   /** Unique number that the AS is identified by. */

@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Image
  */
-export const Image: any = z.object({
+export const Image = z.object({
   /** The image name. For example: elixir. */
   name: z.string().optional(),
   /** The unique image ID. For example: 77af4d6b9913. */

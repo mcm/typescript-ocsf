@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Subject Alternative Name
  */
-export const San: any = z.object({
+export const San = z.object({
   /** Name of SAN (e.g. The actual IP Address or domain.) */
   name: z.string(),
   /** Type descriptor of SAN (e.g. IP Address/domain/etc.) */

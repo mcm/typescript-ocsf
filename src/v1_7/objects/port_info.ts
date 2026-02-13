@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Port Information
  */
-export const PortInfo: any = z.object({
+export const PortInfo = z.object({
   /** The port number. For example: 80, 443, 22. */
   port: z.number().int(),
   /** The IP protocol name in lowercase, as defined by the Internet Assigned Numbers Authority (IANA). For example: tcp or udp. */

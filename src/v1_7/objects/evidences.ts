@@ -27,7 +27,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Evidence Artifacts
  */
-export const Evidences: any = z.object({
+export const Evidences = z.object({
   /** The naming convention or type identifier of the evidence associated with the security detection. For example, the @odata.type from Microsoft Graph Alerts V2 or display_name from CrowdStrike Falcon Incident Behaviors. */
   name: z.string().optional(),
   /** The unique identifier of the evidence associated with the security detection. For example, the activity_id from CrowdStrike Falcon Alerts or behavior_id from CrowdStrike Falcon Incident Behaviors. */
@@ -41,7 +41,7 @@ export const Evidences: any = z.object({
   /** Describes details about the container associated to the activity that triggered the detection. */
   container: Container.optional(),
   /** Additional evidence data that is not accounted for in the specific evidence attributes. Use only when absolutely necessary. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** Describes details about the database associated to the activity that triggered the detection. */
   database: Database.optional(),
   /** Describes details about the databucket associated to the activity that triggered the detection. */

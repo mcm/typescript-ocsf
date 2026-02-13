@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Operating System (OS)
  */
-export const Os: any = z.object({
+export const Os = z.object({
   /** The operating system build number. */
   build: z.string().optional(),
   /** The operating system country code, as defined by the ISO 3166-1 standard (Alpha-2 code).Note: The two letter country code should be capitalized. For example: US or CA. */

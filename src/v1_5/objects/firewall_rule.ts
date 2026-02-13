@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Firewall Rule
  */
-export const FirewallRule: any = z.object({
+export const FirewallRule = z.object({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */

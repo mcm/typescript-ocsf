@@ -21,7 +21,7 @@ describe("mapOcsfTypeToZod", () => {
   });
 
   it("maps json_t to record", () => {
-    expect(mapOcsfTypeToZod("json_t")).toBe("z.record(z.unknown())");
+    expect(mapOcsfTypeToZod("json_t")).toBe("z.record(z.string(), z.unknown())");
   });
 
   it("returns z.unknown() for unmapped types", () => {

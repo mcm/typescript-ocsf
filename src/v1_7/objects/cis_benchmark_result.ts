@@ -8,7 +8,7 @@ import { Rule } from './rule.js';
  *
  * OCSF Object: CIS Benchmark Result
  */
-export const CisBenchmarkResult: any = z.object({
+export const CisBenchmarkResult = z.object({
   /** The CIS benchmark description. */
   desc: z.string().optional(),
   /** The CIS benchmark name. */

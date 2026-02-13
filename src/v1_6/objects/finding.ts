@@ -9,7 +9,7 @@ import { Remediation } from './remediation.js';
  *
  * OCSF Object: Finding
  */
-export const Finding: any = z.object({
+export const Finding = z.object({
   /** The time when the finding was created. */
   created_time: z.number().int().optional(),
   /** The description of the reported finding. */
@@ -31,7 +31,7 @@ export const Finding: any = z.object({
   /** The URL pointing to the source of the finding. */
   src_url: z.string().optional(),
   /** Additional data supporting a finding as provided by security tool */
-  supporting_data: z.record(z.unknown()).optional(),
+  supporting_data: z.record(z.string(), z.unknown()).optional(),
   /** A title or a brief phrase summarizing the reported finding. */
   title: z.string(),
   /** One or more types of the reported finding. */

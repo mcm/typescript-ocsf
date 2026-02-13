@@ -13,13 +13,13 @@ import { User } from './user.js';
  *
  * OCSF Object: Managed Entity
  */
-export const ManagedEntity: any = z.object({
+export const ManagedEntity = z.object({
   /** The name of the managed entity. It should match the name of the specific entity object's name if populated, or the name of the managed entity if the type_id is 'Other'. */
   name: z.string().optional(),
   /** The identifier of the managed entity. It should match the uid of the specific entity's object UID if populated, or the source specific ID if the type_id is 'Other'. */
   uid: z.string().optional(),
   /** The managed entity content as a JSON object. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** An addressable device, computer system or host. */
   device: Device.optional(),
   /** The email object. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Schema Extension
  */
-export const Extension: any = z.object({
+export const Extension = z.object({
   /** The schema extension name. For example: dev. */
   name: z.string().optional(),
   /** The schema extension unique identifier. For example: 999. */

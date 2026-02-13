@@ -10,7 +10,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: User
  */
-export const User: any = z.object({
+export const User = z.object({
   /** The username. For example, janedoe1. */
   name: z.string().optional(),
   /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */
@@ -34,7 +34,7 @@ export const User: any = z.object({
   /** The user has a multi-factor or secondary-factor device assigned. */
   has_mfa: z.boolean().optional(),
   /** The additional LDAP attributes that describe a person. */
-  get ldap_person(): any { return LdapPerson.optional(); },
+  get ldap_person() { return z.lazy(() => LdapPerson).optional(); },
   /** Organization and org unit related to the user. */
   org: Organization.optional(),
   /** The telephone number of the user. */

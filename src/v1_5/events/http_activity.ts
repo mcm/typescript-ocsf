@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: HTTP Activity
  * @see https://schema.ocsf.io/1.5.0/classes/http_activity
  */
-export const HttpActivity: any = z.preprocess(
+export const HttpActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

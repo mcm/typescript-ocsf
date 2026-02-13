@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Web Resource
  */
-export const WebResource: any = z.object({
+export const WebResource = z.object({
   /** The name of the web resource. */
   name: z.string().optional(),
   /** The unique identifier of the web resource. */
@@ -15,7 +15,7 @@ export const WebResource: any = z.object({
   /** The time when the resource was created. */
   created_time: z.number().int().optional(),
   /** Details of the web resource, e.g, file details, search results or application-defined resource. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** The list of labels associated to the resource. */
   labels: z.array(z.string()).optional(),
   /** The time when the resource was last modified. */

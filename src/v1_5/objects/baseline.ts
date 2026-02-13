@@ -7,7 +7,7 @@ import { Observation } from './observation.js';
  *
  * OCSF Object: Baseline
  */
-export const Baseline: any = z.object({
+export const Baseline = z.object({
   /** The specific parameter or property being monitored. Examples include: CPU usage percentage, API response time in milliseconds, HTTP error rate, memory utilization, network latency, transaction volume, etc. */
   observation_parameter: z.string(),
   /** The type of analysis being performed to establish baseline behavior. Common types include: Frequency Analysis, Time Pattern Analysis, Volume Analysis, Sequence Analysis, Distribution Analysis, etc. */

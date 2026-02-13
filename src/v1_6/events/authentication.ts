@@ -109,7 +109,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Authentication
  * @see https://schema.ocsf.io/1.6.0/classes/authentication
  */
-export const Authentication: any = z.preprocess(
+export const Authentication = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -7,7 +7,7 @@ import { Fingerprint } from './fingerprint.js';
  *
  * OCSF Object: Software Package
  */
-export const Package: any = z.object({
+export const Package = z.object({
   /** Architecture is a shorthand name describing the type of computer hardware the packaged software is meant to run on. */
   architecture: z.string().optional(),
   /** The Common Platform Enumeration (CPE) name as described by (NIST) For example: cpe:/a:apple:safari:16.2. */

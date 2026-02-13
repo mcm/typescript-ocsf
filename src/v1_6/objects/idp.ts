@@ -10,7 +10,7 @@ import { Sso } from './sso.js';
  *
  * OCSF Object: Identity Provider
  */
-export const Idp: any = z.object({
+export const Idp = z.object({
   /** The name of the Identity Provider. */
   name: z.string().optional(),
   /** The unique identifier of the Identity Provider. */

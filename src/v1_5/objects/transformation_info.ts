@@ -7,7 +7,7 @@ import { Product } from './product.js';
  *
  * OCSF Object: Transformation Info
  */
-export const TransformationInfo: any = z.object({
+export const TransformationInfo = z.object({
   /** The name of the transformation or mapping. */
   name: z.string().optional(),
   /** The unique identifier of the mapping or transformation. */

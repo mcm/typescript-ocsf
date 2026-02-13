@@ -53,7 +53,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Identity & Access Management
  * @see https://schema.ocsf.io/1.7.0/classes/iam
  */
-export const Iam: any = z.preprocess(
+export const Iam = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

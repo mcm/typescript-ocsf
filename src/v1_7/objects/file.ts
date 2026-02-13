@@ -14,7 +14,7 @@ import { OcsfObject } from './object.js';
  *
  * OCSF Object: File
  */
-export const File: any = z.object({
+export const File = z.object({
   /** The name of the file. For example: svchost.exe */
   name: z.string(),
   /** The unique identifier of the file as defined by the storage system, such the file system file ID. */

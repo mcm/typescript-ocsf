@@ -11,7 +11,7 @@ import { TransformationInfo } from './transformation_info.js';
  *
  * OCSF Object: Metadata
  */
-export const Metadata: any = z.object({
+export const Metadata = z.object({
   /** The unique identifier used to correlate events. */
   correlation_uid: z.string().optional(),
   /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */

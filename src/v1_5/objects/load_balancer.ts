@@ -9,7 +9,7 @@ import { Metric } from './metric.js';
  *
  * OCSF Object: Load Balancer
  */
-export const LoadBalancer: any = z.object({
+export const LoadBalancer = z.object({
   /** The name of the load balancer. */
   name: z.string().optional(),
   /** The unique identifier for the load balancer. */

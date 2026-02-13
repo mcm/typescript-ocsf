@@ -10,7 +10,7 @@ import { Rule } from './rule.js';
  *
  * OCSF Object: Affected Code
  */
-export const AffectedCode: any = z.object({
+export const AffectedCode = z.object({
   /** The column number of the last part of the assessed code identified as vulnerable. */
   end_column: z.number().int().optional(),
   /** The line number of the last line of code block identified as vulnerable. */

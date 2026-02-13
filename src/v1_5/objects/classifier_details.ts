@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Classifier Details
  */
-export const ClassifierDetails: any = z.object({
+export const ClassifierDetails = z.object({
   /** The name of the classifier. */
   name: z.string().optional(),
   /** The type of the classifier. */

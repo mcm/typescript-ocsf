@@ -8,7 +8,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Cloud
  */
-export const Cloud: any = z.object({
+export const Cloud = z.object({
   /** The account object describes details about the account that was the source or target of the activity. */
   account: Account.optional(),
   /** The canonical cloud partition name to which the region is assigned (e.g. AWS Partitions: aws, aws-cn, aws-us-gov). */

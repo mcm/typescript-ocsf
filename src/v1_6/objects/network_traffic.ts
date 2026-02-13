@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Network Traffic
  */
-export const NetworkTraffic: any = z.object({
+export const NetworkTraffic = z.object({
   /** The total number of bytes (in and out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Long String
  */
-export const LongString: any = z.object({
+export const LongString = z.object({
   /** Indicates that value has been truncated. May be omitted if truncation has not occurred. */
   is_truncated: z.boolean().optional(),
   /** The size in bytes of the string represented by value before truncation. Should be omitted if truncation has not occurred. */

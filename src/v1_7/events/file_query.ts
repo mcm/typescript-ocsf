@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: File Query
  * @see https://schema.ocsf.io/1.7.0/classes/file_query
  */
-export const FileQuery: any = z.preprocess(
+export const FileQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

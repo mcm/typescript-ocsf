@@ -8,7 +8,7 @@ import { FunctionInvocation } from './function_invocation.js';
  *
  * OCSF Object: Module
  */
-export const Module: any = z.object({
+export const Module = z.object({
   /** The memory address where the module was loaded. */
   base_address: z.string().optional(),
   /** The module file object. */

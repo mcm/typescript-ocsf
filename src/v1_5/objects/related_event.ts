@@ -12,7 +12,7 @@ import { Trait } from './trait.js';
  *
  * OCSF Object: Related Event/Finding
  */
-export const RelatedEvent: any = z.object({
+export const RelatedEvent = z.object({
   /** An array of MITRE ATT&CK® objects describing identified tactics, techniques & sub-techniques. The objects are compatible with MITRE ATLAS™ tactics, techniques & sub-techniques. */
   attacks: z.array(Attack).optional(),
   /** The number of times that activity in the same logical group occurred, as reported by the related Finding. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Kill Chain Phase
  */
-export const KillChainPhase: any = z.object({
+export const KillChainPhase = z.object({
   /** The cyber kill chain phase. */
   phase: z.string().optional(),
   /** The cyber kill chain phase identifier. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: SCIM
  */
-export const Scim: any = z.object({
+export const Scim = z.object({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authorization protocol used by the SCIM resource. */
@@ -29,9 +29,9 @@ export const Scim: any = z.object({
   /** Maximum number of requests allowed by the SCIM resource within a specified time frame to avoid throttling. */
   rate_limit: z.number().int().optional(),
   /** SCIM provides a schema for representing groups, identified using the following schema URI: urn:ietf:params:scim:schemas:core:2.0:Group as defined in RFC-7634. This attribute will capture key-value pairs for the scheme implemented in a SCIM resource. */
-  scim_group_schema: z.record(z.unknown()).optional(),
+  scim_group_schema: z.record(z.string(), z.unknown()).optional(),
   /** SCIM provides a resource type for user resources. The core schema for user is identified using the following schema URI: urn:ietf:params:scim:schemas:core:2.0:User as defined in RFC-7634. his attribute will capture key-value pairs for the scheme implemented in a SCIM resource. This object is inclusive of both the basic and Enterprise User Schema Extension. */
-  scim_user_schema: z.record(z.unknown()).optional(),
+  scim_user_schema: z.record(z.string(), z.unknown()).optional(),
   /** The provisioning state of the SCIM resource, normalized to the caption of the state_id value. In the case of Other, it is defined by the event source. */
   state: z.string().optional(),
   /** The normalized state ID of the SCIM resource to reflect its activation status. */

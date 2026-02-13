@@ -7,7 +7,7 @@ import { HttpHeader } from './http_header.js';
  *
  * OCSF Object: HTTP Response
  */
-export const HttpResponse: any = z.object({
+export const HttpResponse = z.object({
   /** The actual length of the HTTP response body, in number of bytes, independent of a potentially existing Content-Length header. */
   body_length: z.number().int().optional(),
   /** The Hypertext Transfer Protocol (HTTP) status code returned from the web server to the client. For example, 200. */

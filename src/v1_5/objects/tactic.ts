@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE Tactic
  */
-export const Tactic: any = z.object({
+export const Tactic = z.object({
   /** The Tactic name that is associated with the attack technique. For example: Reconnaissance or ML Model Access. */
   name: z.string().optional(),
   /** The Tactic ID that is associated with the attack technique. For example: TA0043, or AML.TA0000. */

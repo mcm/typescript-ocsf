@@ -10,7 +10,7 @@ import { Service } from './service.js';
  *
  * OCSF Object: API
  */
-export const Api: any = z.object({
+export const Api = z.object({
   /** The information pertaining to the API group. */
   group: Group.optional(),
   /** Verb/Operation associated with the request */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: EPSS
  */
-export const Epss: any = z.object({
+export const Epss = z.object({
   /** The timestamp indicating when the EPSS score was calculated. */
   created_time: z.number().int().optional(),
   /** The EPSS score's percentile representing relative importance and ranking of the score in the larger EPSS dataset. */

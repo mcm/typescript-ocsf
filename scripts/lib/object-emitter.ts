@@ -68,13 +68,13 @@ export function emitObjectFile(
   const isRecursive = obj.isInCycle || selfReferencing;
 
   if (isRecursive) {
-    // Recursive: use getter pattern with :any to prevent TS7056
-    lines.push(`export const ${className}: any = z.object({`);
+    // Recursive: use getter pattern
+    lines.push(`export const ${className} = z.object({`);
     emitFieldsWithGetters(lines, obj, allObjects);
     lines.push("}).passthrough();");
   } else {
-    // Non-recursive: plain object with :any to prevent TS7056 on complex schemas
-    lines.push(`export const ${className}: any = z.object({`);
+    // Non-recursive: plain object
+    lines.push(`export const ${className} = z.object({`);
     emitSimpleFields(lines, obj, allObjects);
     lines.push("}).passthrough();");
   }
@@ -128,29 +128,11 @@ function emitFieldsWithGetters(
     const useGetter = shouldUseGetter(attr, obj, allObjects);
 
     if (useGetter) {
-      // Use getter pattern - direct references support .extend()
-      let zodType = getZodTypeForGetter(attr, allObjects);
-      if (attr.requirement !== "required") {
-        zodType += ".optional()";
-      }
-      // Add :any return type for self-referencing and mutually-referencing getters
-      // This breaks circular type inference without affecting runtime or z.infer types
-      const isSelfReference = attr.objectType === obj.name;
-      let isMutualReference = false;
-
-      if (!isSelfReference && attr.objectType) {
-        const refObj = allObjects.get(attr.objectType);
-        if (refObj) {
-          // Check if the referenced object has any attribute that references back to current object
-          isMutualReference = refObj.attributes.some((refAttr) => refAttr.objectType === obj.name);
-        }
-      }
-
-      if (isSelfReference || isMutualReference) {
-        lines.push(`  get ${attr.name}(): any { return ${zodType}; },`);
-      } else {
-        lines.push(`  get ${attr.name}() { return ${zodType}; },`);
-      }
+      // For Zod 4: wrap in z.lazy() to defer execution and avoid circular import issues
+      const baseType = getZodTypeForGetter(attr, allObjects);
+      const lazyType = `z.lazy(() => ${baseType})`;
+      const finalType = attr.requirement !== "required" ? `${lazyType}.optional()` : lazyType;
+      lines.push(`  get ${attr.name}() { return ${finalType}; },`);
     } else {
       // Regular field
       let zodType = getZodTypeSimple(attr, allObjects);
@@ -197,8 +179,8 @@ function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedO
     // Object reference
     const refObj = allObjects.get(attr.objectType);
     if (!refObj) {
-      // Unknown: use z.record(z.unknown())
-      base = "z.record(z.unknown())";
+      // Unknown: use z.record(z.string(), z.unknown())
+      base = "z.record(z.string(), z.unknown())";
     } else {
       // Handle special case where Object is renamed to OcsfObject
       const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
@@ -229,8 +211,8 @@ function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, Pars
     // Object reference
     const refObj = allObjects.get(attr.objectType);
     if (!refObj) {
-      // Unknown: use z.record(z.unknown())
-      base = "z.record(z.unknown())";
+      // Unknown: use z.record(z.string(), z.unknown())
+      base = "z.record(z.string(), z.unknown())";
     } else {
       // Handle special case where Object is renamed to OcsfObject
       const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;

@@ -49,7 +49,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Application Error
  * @see https://schema.ocsf.io/1.7.0/classes/application_error
  */
-export const ApplicationError: any = z.preprocess(
+export const ApplicationError = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

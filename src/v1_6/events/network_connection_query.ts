@@ -78,7 +78,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Network Connection Query
  * @see https://schema.ocsf.io/1.6.0/classes/network_connection_query
  */
-export const NetworkConnectionQuery: any = z.preprocess(
+export const NetworkConnectionQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

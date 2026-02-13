@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Session
  */
-export const Session: any = z.object({
+export const Session = z.object({
   /** The number of identical sessions spawned from the same source IP, destination IP, application, and content/threat type seen over a period of time. */
   count: z.number().int().optional(),
   /** The time when the session was created. */

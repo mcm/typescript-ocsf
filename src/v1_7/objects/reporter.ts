@@ -7,7 +7,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Reporter
  */
-export const Reporter: any = z.object({
+export const Reporter = z.object({
   /** The name of the entity from which the event or finding was reported. */
   name: z.string().optional(),
   /** The unique identifier of the entity from which the event or finding was reported. */

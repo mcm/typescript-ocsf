@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Campaign
  */
-export const Campaign: any = z.object({
+export const Campaign = z.object({
   /** The name of a specific campaign associated with a cyber threat. */
   name: z.string(),
 }).passthrough();

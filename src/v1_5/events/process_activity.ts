@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Process Activity
  * @see https://schema.ocsf.io/1.5.0/classes/process_activity
  */
-export const ProcessActivity: any = z.preprocess(
+export const ProcessActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

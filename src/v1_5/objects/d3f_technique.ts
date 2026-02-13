@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE D3FEND™ Technique
  */
-export const D3fTechnique: any = z.object({
+export const D3fTechnique = z.object({
   /** The name of the defensive technique. For example: IO Port Restriction. */
   name: z.string().optional(),
   /** The unique identifier of the defensive technique. For example: D3-IOPR. */

@@ -51,7 +51,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Device Inventory Info
  * @see https://schema.ocsf.io/1.7.0/classes/inventory_info
  */
-export const InventoryInfo: any = z.preprocess(
+export const InventoryInfo = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

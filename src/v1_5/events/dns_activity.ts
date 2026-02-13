@@ -84,7 +84,7 @@ const UID_CONFIG: UidConfig = {
  * Category: DNS Activity
  * @see https://schema.ocsf.io/1.5.0/classes/dns_activity
  */
-export const DnsActivity: any = z.preprocess(
+export const DnsActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

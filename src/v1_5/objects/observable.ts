@@ -7,7 +7,7 @@ import { Reputation } from './reputation.js';
  *
  * OCSF Object: Observable
  */
-export const Observable: any = z.object({
+export const Observable = z.object({
   /** The full name of the observable attribute. The name is a pointer/reference to an attribute within the OCSF event data. For example: file.name. */
   name: z.string().optional(),
   /** Contains the original and normalized reputation scores. */

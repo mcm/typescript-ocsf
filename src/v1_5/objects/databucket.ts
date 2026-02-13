@@ -13,7 +13,7 @@ import { File } from './file.js';
  *
  * OCSF Object: Databucket
  */
-export const Databucket: any = z.object({
+export const Databucket = z.object({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */
@@ -21,7 +21,7 @@ export const Databucket: any = z.object({
   /** The time when the databucket was known to have been created. */
   created_time: z.number().int().optional(),
   /** Additional data describing the resource. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** The list of labels associated to the resource. */
   labels: z.array(z.string()).optional(),
   /** The most recent time when any changes, updates, or modifications were made within the databucket. */

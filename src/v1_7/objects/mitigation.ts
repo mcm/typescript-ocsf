@@ -7,7 +7,7 @@ import { D3fend } from './d3fend.js';
  *
  * OCSF Object: MITRE Mitigation
  */
-export const Mitigation: any = z.object({
+export const Mitigation = z.object({
   /** The Mitigation name that is associated with the attack technique. For example: Password Policies, or Code Signing. */
   name: z.string().optional(),
   /** The Mitigation ID that is associated with the attack technique. For example: M1027, or AML.M0013. */

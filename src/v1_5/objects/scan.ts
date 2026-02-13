@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Scan
  */
-export const Scan: any = z.object({
+export const Scan = z.object({
   /** The administrator-supplied or application-generated name of the scan. For example: "Home office weekly user database scan", "Scan folders for viruses", "Full system virus scan" */
   name: z.string().optional(),
   /** The application-defined unique identifier assigned to an instance of a scan. */

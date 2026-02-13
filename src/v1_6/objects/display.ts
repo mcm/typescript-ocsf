@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Display
  */
-export const Display: any = z.object({
+export const Display = z.object({
   /** The numeric color depth. */
   color_depth: z.number().int().optional(),
   /** The numeric physical height of display. */

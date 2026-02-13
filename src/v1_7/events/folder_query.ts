@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Folder Query
  * @see https://schema.ocsf.io/1.7.0/classes/folder_query
  */
-export const FolderQuery: any = z.preprocess(
+export const FolderQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

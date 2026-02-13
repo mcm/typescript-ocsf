@@ -62,7 +62,7 @@ const UID_CONFIG: UidConfig = {
  * Category: DHCP Activity
  * @see https://schema.ocsf.io/1.5.0/classes/dhcp_activity
  */
-export const DhcpActivity: any = z.preprocess(
+export const DhcpActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Threat Actor
  */
-export const ThreatActor: any = z.object({
+export const ThreatActor = z.object({
   /** The name of the threat actor. */
   name: z.string(),
   /** The classification of the threat actor based on their motivations, capabilities, or affiliations. Common types include nation-state actors, cybercriminal groups, hacktivists, or insider threats. */

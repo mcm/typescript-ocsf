@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Finding
  * @see https://schema.ocsf.io/1.6.0/classes/finding
  */
-export const Finding: any = z.preprocess(
+export const Finding = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -8,7 +8,7 @@ import { Url } from './url.js';
  *
  * OCSF Object: HTTP Request
  */
-export const HttpRequest: any = z.object({
+export const HttpRequest = z.object({
   /** The arguments sent along with the HTTP request. */
   args: z.string().optional(),
   /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */

@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Kernel Object Query
  * @see https://schema.ocsf.io/1.6.0/classes/kernel_object_query
  */
-export const KernelObjectQuery: any = z.preprocess(
+export const KernelObjectQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

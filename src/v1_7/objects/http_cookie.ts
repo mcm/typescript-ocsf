@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: HTTP Cookie
  */
-export const HttpCookie: any = z.object({
+export const HttpCookie = z.object({
   /** The domain name for the server from which the http_cookie is served. */
   domain: z.string().optional(),
   /** The expiration time of the HTTP cookie. */

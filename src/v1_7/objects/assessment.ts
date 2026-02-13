@@ -7,7 +7,7 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Assessment
  */
-export const Assessment: any = z.object({
+export const Assessment = z.object({
   /** The name of the configuration or signal being assessed. For example: Kernel Mode Code Integrity (KMCI) or publicAccessibilityState. */
   name: z.string().optional(),
   /** The unique identifier of the configuration or signal being assessed. For example: the signal_id. */

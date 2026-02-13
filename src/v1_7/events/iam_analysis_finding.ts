@@ -71,7 +71,7 @@ const UID_CONFIG: UidConfig = {
  * Category: IAM Analysis Finding
  * @see https://schema.ocsf.io/1.7.0/classes/iam_analysis_finding
  */
-export const IamAnalysisFinding: any = z.preprocess(
+export const IamAnalysisFinding = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

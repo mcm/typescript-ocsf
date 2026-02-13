@@ -53,7 +53,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Module Activity
  * @see https://schema.ocsf.io/1.7.0/classes/module_activity
  */
-export const ModuleActivity: any = z.preprocess(
+export const ModuleActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -59,7 +59,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Group Management
  * @see https://schema.ocsf.io/1.5.0/classes/group_management
  */
-export const GroupManagement: any = z.preprocess(
+export const GroupManagement = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

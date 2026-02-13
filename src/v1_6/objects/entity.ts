@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Entity
  */
-export const Entity: any = z.object({
+export const Entity = z.object({
   /** The name of the entity. */
   name: z.string().optional(),
   /** The unique identifier of the entity. */

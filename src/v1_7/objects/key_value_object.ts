@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Key:Value object
  */
-export const KeyValueObject: any = z.object({
+export const KeyValueObject = z.object({
   /** The name of the key. */
   name: z.string(),
   /** The value associated to the key. */

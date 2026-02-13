@@ -13,7 +13,7 @@ export function mapOcsfTypeToZod(ocsfType: string): string {
     boolean_t: "z.boolean()",
     float_t: "z.number()",
     double_t: "z.number()",
-    json_t: "z.record(z.unknown())",
+    json_t: "z.record(z.string(), z.unknown())",
     bytestring_t: "z.string()",
 
     // Timestamp

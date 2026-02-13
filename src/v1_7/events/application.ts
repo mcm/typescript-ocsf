@@ -47,7 +47,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Application Activity
  * @see https://schema.ocsf.io/1.7.0/classes/application
  */
-export const Application: any = z.preprocess(
+export const Application = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

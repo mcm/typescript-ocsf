@@ -7,7 +7,7 @@ import { EncryptionDetails } from './encryption_details.js';
  *
  * OCSF Object: Authentication Token
  */
-export const AuthenticationToken: any = z.object({
+export const AuthenticationToken = z.object({
   /** The time that the authentication token was created. */
   created_time: z.number().int().optional(),
   /** The encryption details of the authentication token. */

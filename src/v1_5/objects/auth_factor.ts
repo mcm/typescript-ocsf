@@ -7,7 +7,7 @@ import { Device } from './device.js';
  *
  * OCSF Object: Authentication Factor
  */
-export const AuthFactor: any = z.object({
+export const AuthFactor = z.object({
   /** Device used to complete an authentication request. */
   device: Device.optional(),
   /** The email address used in an email-based authentication factor. */

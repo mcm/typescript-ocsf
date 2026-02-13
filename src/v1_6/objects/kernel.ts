@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Kernel Resource
  */
-export const Kernel: any = z.object({
+export const Kernel = z.object({
   /** The indication of whether the object is part of the operating system. */
   is_system: z.boolean().optional(),
   /** The name of the kernel resource. */

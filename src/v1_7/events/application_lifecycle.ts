@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Application Lifecycle
  * @see https://schema.ocsf.io/1.7.0/classes/application_lifecycle
  */
-export const ApplicationLifecycle: any = z.preprocess(
+export const ApplicationLifecycle = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

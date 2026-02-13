@@ -10,7 +10,7 @@ import { Technique } from './technique.js';
  *
  * OCSF Object: MITRE ATT&CK® & ATLAS™
  */
-export const Attack: any = z.object({
+export const Attack = z.object({
   /** The Mitigation object describes the MITRE ATT&CK® or ATLAS™ Mitigation ID and/or name that is associated to an attack. */
   mitigation: Mitigation.optional(),
   /** The Sub-technique object describes the MITRE ATT&CK® or ATLAS™ Sub-technique ID and/or name associated to an attack. */

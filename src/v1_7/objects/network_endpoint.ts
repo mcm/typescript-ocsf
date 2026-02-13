@@ -13,7 +13,7 @@ import { NetworkProxy } from './network_proxy.js';
  *
  * OCSF Object: Network Endpoint
  */
-export const NetworkEndpoint: any = z.object({
+export const NetworkEndpoint = z.object({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier. See specific usage. */

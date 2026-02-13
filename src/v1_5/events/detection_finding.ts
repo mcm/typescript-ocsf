@@ -89,7 +89,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Detection Finding
  * @see https://schema.ocsf.io/1.5.0/classes/detection_finding
  */
-export const DetectionFinding: any = z.preprocess(
+export const DetectionFinding = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

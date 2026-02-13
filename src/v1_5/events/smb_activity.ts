@@ -70,7 +70,7 @@ const UID_CONFIG: UidConfig = {
  * Category: SMB Activity
  * @see https://schema.ocsf.io/1.5.0/classes/smb_activity
  */
-export const SmbActivity: any = z.preprocess(
+export const SmbActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE Sub-technique
  */
-export const SubTechnique: any = z.object({
+export const SubTechnique = z.object({
   /** The name of the attack sub-technique. For example: Scanning IP Blocks or User Execution: Unsafe ML Artifacts. */
   name: z.string().optional(),
   /** The unique identifier of the attack sub-technique. For example: T1595.001 or AML.T0011.000. */

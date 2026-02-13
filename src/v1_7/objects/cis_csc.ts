@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: CIS CSC
  */
-export const CisCsc: any = z.object({
+export const CisCsc = z.object({
   /** A Control is prescriptive, prioritized, and simplified set of best practices that one can use to strengthen their cybersecurity posture. e.g. AWS SecurityHub Controls, CIS Controls. */
   control: z.string(),
   /** The CIS critical security control version. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Parameter
  */
-export const Parameter: any = z.object({
+export const Parameter = z.object({
   /** The parameter name. */
   name: z.string().optional(),
   /** The parameter value after function execution. */

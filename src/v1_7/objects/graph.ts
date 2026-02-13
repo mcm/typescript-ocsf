@@ -8,7 +8,7 @@ import { Node } from './node.js';
  *
  * OCSF Object: Graph
  */
-export const Graph: any = z.object({
+export const Graph = z.object({
   /** The graph name - a human readable identifier for the graph. */
   name: z.string().optional(),
   /** Unique identifier of the graph - a unique ID to reference this specific graph. */

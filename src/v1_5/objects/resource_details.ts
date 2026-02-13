@@ -11,7 +11,7 @@ import { Graph } from './graph.js';
  *
  * OCSF Object: Resource Details
  */
-export const ResourceDetails: any = z.object({
+export const ResourceDetails = z.object({
   /** The name of the entity. See specific usage. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */
@@ -19,7 +19,7 @@ export const ResourceDetails: any = z.object({
   /** The time when the resource was created. */
   created_time: z.number().int().optional(),
   /** Additional data describing the resource. */
-  data: z.record(z.unknown()).optional(),
+  data: z.record(z.string(), z.unknown()).optional(),
   /** The list of labels associated to the resource. */
   labels: z.array(z.string()).optional(),
   /** The time when the resource was last modified. */

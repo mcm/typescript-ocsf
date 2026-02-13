@@ -11,7 +11,7 @@ import { Cwe } from './cwe.js';
  *
  * OCSF Object: Advisory
  */
-export const Advisory: any = z.object({
+export const Advisory = z.object({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The Advisory bulletin identifier. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Environment Variable
  */
-export const EnvironmentVariable: any = z.object({
+export const EnvironmentVariable = z.object({
   /** The name of the environment variable. */
   name: z.string(),
   /** The value of the environment variable. */

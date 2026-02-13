@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Geo Location
  */
-export const Location: any = z.object({
+export const Location = z.object({
   /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
   aerial_height: z.string().optional(),
   /** The name of the city. */

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Rule
  */
-export const Rule: any = z.object({
+export const Rule = z.object({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */

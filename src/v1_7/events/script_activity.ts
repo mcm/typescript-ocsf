@@ -51,7 +51,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Script Activity
  * @see https://schema.ocsf.io/1.7.0/classes/script_activity
  */
-export const ScriptActivity: any = z.preprocess(
+export const ScriptActivity = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

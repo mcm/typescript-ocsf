@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Occurrence Details
  */
-export const OccurrenceDetails: any = z.object({
+export const OccurrenceDetails = z.object({
   /** The cell name/reference in a spreadsheet. e.g A2 */
   cell_name: z.string().optional(),
   /** The column name in a spreadsheet, where the information was discovered. */

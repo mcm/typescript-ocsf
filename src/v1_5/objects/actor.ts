@@ -11,7 +11,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Actor
  */
-export const Actor: any = z.object({
+export const Actor = z.object({
   /** The client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process if present. */
   app_name: z.string().optional(),
   /** The unique identifier of the client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process.pid or process.uid if present. */

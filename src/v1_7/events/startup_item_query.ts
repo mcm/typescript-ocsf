@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Startup Item Query
  * @see https://schema.ocsf.io/1.7.0/classes/startup_item_query
  */
-export const StartupItemQuery: any = z.preprocess(
+export const StartupItemQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

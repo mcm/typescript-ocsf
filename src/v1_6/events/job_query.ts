@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Job Query
  * @see https://schema.ocsf.io/1.6.0/classes/job_query
  */
-export const JobQuery: any = z.preprocess(
+export const JobQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

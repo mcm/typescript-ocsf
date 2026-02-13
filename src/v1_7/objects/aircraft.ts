@@ -7,7 +7,7 @@ import { Location } from './location.js';
  *
  * OCSF Object: Aircraft
  */
-export const Aircraft: any = z.object({
+export const Aircraft = z.object({
   /** The name of the aircraft, such as the such as the flight name or callsign. */
   name: z.string().optional(),
   /** The primary identification identifier for an aircraft, such as the 24-bit International Civil Aviation Organization (ICAO) identifier of the aircraft, as 6 hex digits. */

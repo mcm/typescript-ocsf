@@ -8,7 +8,7 @@ import { DomainContact } from './domain_contact.js';
  *
  * OCSF Object: WHOIS
  */
-export const Whois: any = z.object({
+export const Whois = z.object({
   /** The autonomous system information associated with a domain. */
   autonomous_system: AutonomousSystem.optional(),
   /** When the domain was registered or WHOIS entry was created. */

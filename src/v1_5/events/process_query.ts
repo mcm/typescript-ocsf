@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Process Query
  * @see https://schema.ocsf.io/1.5.0/classes/process_query
  */
-export const ProcessQuery: any = z.preprocess(
+export const ProcessQuery = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;

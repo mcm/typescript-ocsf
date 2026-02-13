@@ -7,7 +7,7 @@ import { Feature } from './feature.js';
  *
  * OCSF Object: Product
  */
-export const Product: any = z.object({
+export const Product = z.object({
   /** The name of the product. */
   name: z.string().optional(),
   /** The unique identifier of the product. */

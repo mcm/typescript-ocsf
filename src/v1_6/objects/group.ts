@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Group
  */
-export const Group: any = z.object({
+export const Group = z.object({
   /** The group name. */
   name: z.string().optional(),
   /** The unique identifier of the group. For example, for Windows events this is the security identifier (SID) of the group. */
