@@ -9,7 +9,7 @@ export const Fingerprint = z.strictObject({
   /** The hash algorithm used to create the digital fingerprint, normalized to the caption of algorithm_id. In the case of Other, it is defined by the event source. */
   algorithm: z.string().optional(),
   /** The identifier of the normalized hash algorithm, which was used to create the digital fingerprint. */
-  algorithm_id: z.number().int(),
+  algorithm_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]),
   /** The digital fingerprint value. */
   value: z.string(),
 });

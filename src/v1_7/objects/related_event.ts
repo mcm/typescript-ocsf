@@ -38,7 +38,7 @@ export const RelatedEvent = z.strictObject({
   /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
   severity: z.string().optional(),
   /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-  severity_id: z.number().int().optional(),
+  severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** The related event status. Should correspond to the label of the status_id (or 'Other' status value for status_id = 99) of the related event. */
   status: z.string().optional(),
   /** The list of tags; {key:value} pairs associated with the related event/finding. */

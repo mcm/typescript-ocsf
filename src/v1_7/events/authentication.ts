@@ -20,6 +20,7 @@ import { Session } from '../objects/session.js';
 import { User } from '../objects/user.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
+  0: "Unknown",
   1: "Logon",
   2: "Logoff",
   3: "Authentication Ticket",
@@ -27,6 +28,7 @@ const ACTIVITY_ID_LABELS: Record<number, string> = {
   5: "Service Ticket Renew",
   6: "Preauth",
   7: "Account Switch",
+  99: "Other",
 };
 
 const SEVERITY_ID_LABELS: Record<number, string> = {
@@ -119,7 +121,7 @@ export const Authentication = z.preprocess(
   },
   z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
-    activity_id: z.number().int().optional(),
+    activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]).optional(),
     /** The event activity name, as defined by the activity_id. */
     activity_name: z.string().optional(),
     /** The event category name, as defined by category_uid value. */
@@ -153,7 +155,7 @@ export const Authentication = z.preprocess(
     /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
     severity: z.string().optional(),
     /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-    severity_id: z.number().int(),
+    severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
     /** The start time of a time period, or the time of the least recent event included in the aggregate event. */
     start_time: z.number().int().optional(),
     /** The event status, normalized to the caption of the status_id value. In the case of 'Other', it is defined by the event source. */
@@ -163,7 +165,7 @@ export const Authentication = z.preprocess(
     /** The details about the authentication request. For example, possible details for Windows logon or logoff events are:SuccessLOGOFF_USER_INITIATEDLOGOFF_OTHERFailureUSER_DOES_NOT_EXISTINVALID_CREDENTIALSACCOUNT_DISABLEDACCOUNT_LOCKED_OUTPASSWORD_EXPIRED */
     status_detail: z.string().optional(),
     /** The normalized identifier of the event status. */
-    status_id: z.number().int().optional(),
+    status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
     /** The normalized event occurrence time or the finding creation time. */
     time: z.number().int(),
     /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
@@ -185,13 +187,13 @@ export const Authentication = z.preprocess(
     /** The account switch method, normalized to the caption of the account_switch_type_id value. In the case of 'Other', it is defined by the event source. */
     account_switch_type: z.string().optional(),
     /** The normalized identifier of the account switch method. */
-    account_switch_type_id: z.number().int().optional(),
+    account_switch_type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
     /** Describes a category of methods used for identity verification in an authentication attempt. */
     auth_factors: z.array(AuthFactor).optional(),
     /** The authentication protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
     auth_protocol: z.string().optional(),
     /** The normalized identifier of the authentication protocol used to create the user session. */
-    auth_protocol_id: z.number().int().optional(),
+    auth_protocol_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(99)]).optional(),
     /** The authentication token, ticket, or assertion, e.g. Kerberos, OIDC, SAML. */
     authentication_token: AuthenticationToken.optional(),
     /** The certificate associated with the authentication or pre-authentication (Kerberos). */
@@ -211,7 +213,7 @@ export const Authentication = z.preprocess(
     /** The logon type, normalized to the caption of the logon_type_id value. In the case of 'Other', it is defined by the event source. */
     logon_type: z.string().optional(),
     /** The normalized logon type identifier. */
-    logon_type_id: z.number().int().optional(),
+    logon_type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(99)]).optional(),
     /** The service or gateway to which the user or process is being authenticated */
     service: Service.optional(),
     /** The authenticated user or service session. */

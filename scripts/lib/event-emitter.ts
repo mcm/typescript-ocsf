@@ -133,6 +133,10 @@ export function emitEventFile(
       } else {
         zodType = "z.record(z.string(), z.unknown())";
       }
+    } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
+      // Generate enum validation using union of literals
+      const literals = attr.enumValues.map((v) => `z.literal(${v.value})`).join(", ");
+      zodType = `z.union([${literals}])`;
     } else {
       zodType = mapOcsfTypeToZod(attr.ocsfType);
     }

@@ -81,7 +81,7 @@ export const Evidences = z.strictObject({
   /** The normalized verdict of the evidence associated with the security detection. */
   verdict: z.string().optional(),
   /** The normalized verdict (or status) ID of the evidence associated with the security detection. For example, Microsoft Graph Security Alerts contain a verdict enumeration for each type of evidence associated with the Alert. This is typically set by an automated investigation process or an analyst/investigator assigned to the finding. */
-  verdict_id: z.number().int().optional(),
+  verdict_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(99)]).optional(),
 });
 
 export type EvidencesType = z.infer<typeof Evidences>;

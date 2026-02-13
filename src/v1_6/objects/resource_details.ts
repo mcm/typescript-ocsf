@@ -55,7 +55,7 @@ export const ResourceDetails = z.strictObject({
   /** The role of the resource in the context of the event or finding, normalized to the caption of the role_id value. In the case of 'Other', it is defined by the event source. */
   role: z.string().optional(),
   /** The normalized identifier of the resource's role in the context of the event or finding. */
-  role_id: z.number().int().optional(),
+  role_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]).optional(),
   /** The version of the resource. For example 1.2.3. */
   version: z.string().optional(),
   /** The specific availability zone within a cloud region where the resource is located. */

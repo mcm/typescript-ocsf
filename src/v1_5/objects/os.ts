@@ -29,7 +29,7 @@ export const Os = z.strictObject({
   /** The type of the operating system. */
   type: z.string().optional(),
   /** The type identifier of the operating system. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(100), z.literal(101), z.literal(200), z.literal(201), z.literal(300), z.literal(301), z.literal(302), z.literal(400), z.literal(401), z.literal(402)]),
   /** The version of the OS running on the device that originated the event. For example: "Windows 10", "OS X 10.7", or "iOS 9". */
   version: z.string().optional(),
 });

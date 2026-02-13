@@ -21,7 +21,7 @@ export const KbArticle = z.strictObject({
   /** The install state of the kb article. */
   install_state: z.string().optional(),
   /** The normalized install state ID of the kb article. */
-  install_state_id: z.number().int().optional(),
+  install_state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The kb article has been replaced by another. */
   is_superseded: z.boolean().optional(),
   /** The operating system the kb article applies. */

@@ -13,7 +13,7 @@ export const AdditionalRestriction = z.strictObject({
   /** The current status of the policy restriction, normalized to the caption of the status_id enum value. */
   status: z.string().optional(),
   /** The normalized status identifier indicating the applicability of this policy restriction. */
-  status_id: z.number().int().optional(),
+  status_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
 });
 
 export type AdditionalRestrictionType = z.infer<typeof AdditionalRestriction>;

@@ -24,7 +24,7 @@ export const Graph = z.strictObject({
   /** The graph query language, normalized to the caption of the query_language_id value. */
   query_language: z.string().optional(),
   /** The normalized identifier of a graph query language that can be used to interact with the graph. */
-  query_language_id: z.number().int().optional(),
+  query_language_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]).optional(),
   /** The graph type. Typically useful to represent the specific type of graph that is used. */
   type: z.string().optional(),
 });

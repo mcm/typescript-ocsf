@@ -9,7 +9,7 @@ export const Scim = z.strictObject({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authorization protocol used by the SCIM resource. */
-  auth_protocol_id: z.number().int().optional(),
+  auth_protocol_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(99)]).optional(),
   /** When the SCIM resource was added to the service provider. */
   created_time: z.number().int().optional(),
   /** Message or code associated with the last encountered error. */
@@ -35,7 +35,7 @@ export const Scim = z.strictObject({
   /** The provisioning state of the SCIM resource, normalized to the caption of the state_id value. In the case of Other, it is defined by the event source. */
   state: z.string().optional(),
   /** The normalized state ID of the SCIM resource to reflect its activation status. */
-  state_id: z.number().int().optional(),
+  state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
   /** A unique identifier for a SCIM resource as defined by the service provider. */
   uid: z.string().optional(),
   /** A String that is an identifier for the resource as defined by the provisioning client. The externalId may simplify identification of a resource between the provisioning client and the service provider by allowing the client to use a filter to locate the resource with an identifier from the provisioning domain, obviating the need to store a local mapping between the provisioning domain's identifier of the resource and the identifier used by the service provider. */

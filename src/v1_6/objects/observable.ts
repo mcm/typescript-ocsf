@@ -15,7 +15,7 @@ export const Observable = z.strictObject({
   /** The observable value type name. */
   type: z.string().optional(),
   /** The observable value type identifier. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(99)]),
   /** The value associated with the observable attribute. The meaning of the value depends on the observable type.If the name refers to a scalar attribute, then the value is the value of the attribute.If the name refers to an object attribute, then the value is not populated. */
   value: z.string().optional(),
 });

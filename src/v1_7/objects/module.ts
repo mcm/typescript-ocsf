@@ -20,7 +20,7 @@ export const Module = z.strictObject({
   /** The load type, normalized to the caption of the load_type_id value. In the case of 'Other', it is defined by the event source. */
   load_type: z.string().optional(),
   /** The normalized identifier for how the module was loaded in memory. */
-  load_type_id: z.number().int().optional(),
+  load_type_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]).optional(),
   /** The start address of the execution. */
   start_address: z.string().optional(),
   /** The module type. */

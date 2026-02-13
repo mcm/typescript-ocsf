@@ -13,13 +13,13 @@ export const DataSecurity = z.strictObject({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */
-  category_id: z.number().int().optional(),
+  category_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** Describes details about the classifier used for data classification. */
   classifier_details: ClassifierDetails.optional(),
   /** The file content confidentiality, normalized to the confidentiality_id value. In the case of 'Other', it is defined by the event source. */
   confidentiality: z.string().optional(),
   /** The normalized identifier of the file content confidentiality indicator. */
-  confidentiality_id: z.number().int().optional(),
+  confidentiality_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** Details about the data discovered by classification job. */
   discovery_details: z.array(DiscoveryDetails).optional(),
   /** Details about the policy that triggered the finding. */
@@ -33,7 +33,7 @@ export const DataSecurity = z.strictObject({
   /** The contextual description of the status, status_id value. */
   status_details: z.array(z.string()).optional(),
   /** The normalized status identifier of the classification job. */
-  status_id: z.number().int().optional(),
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The total count of discovered entities, by the classification job. */
   total: z.number().int().optional(),
   /** The unique identifier of the classification job. */
@@ -41,13 +41,13 @@ export const DataSecurity = z.strictObject({
   /** The name of the stage or state that the data was in. E.g., Data-at-Rest, Data-in-Transit, etc. */
   data_lifecycle_state: z.string().optional(),
   /** The stage or state that the data was in when it was assessed or scanned by a data security tool. */
-  data_lifecycle_state_id: z.number().int().optional(),
+  data_lifecycle_state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** Specific pattern, algorithm, fingerprint, or model used for detection. */
   detection_pattern: z.string().optional(),
   /** The name of the type of data security tool or system that the finding, detection, or alert originated from. E.g., Endpoint, Secure Email Gateway, etc. */
   detection_system: z.string().optional(),
   /** The type of data security tool or system that the finding, detection, or alert originated from. */
-  detection_system_id: z.number().int().optional(),
+  detection_system_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(99)]).optional(),
   /** A text, binary, file name, or datastore that matched against a detection rule. */
   pattern_match: z.string().optional(),
 });

@@ -23,7 +23,7 @@ export const Script = z.strictObject({
   /** The script type, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the event source. */
   type: z.string().optional(),
   /** The normalized script type ID. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]),
   /** Some script engines assign a unique ID to each individual execution of a given script. This attribute captures that unique ID. In the case of PowerShell, the unique ID corresponds to the ScriptBlockId in the raw ETW events provided by the OS. */
   uid: z.string().optional(),
 });

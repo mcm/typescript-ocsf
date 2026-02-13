@@ -11,7 +11,7 @@ export const Sso = z.strictObject({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authentication protocol used by the SSO resource. */
-  auth_protocol_id: z.number().int().optional(),
+  auth_protocol_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(99)]).optional(),
   /** Digital Signature associated with the SSO resource, e.g., SAML X.509 certificate details. */
   certificate: Certificate.optional(),
   /** When the SSO resource was created. */

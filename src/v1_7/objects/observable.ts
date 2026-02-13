@@ -17,7 +17,7 @@ export const Observable = z.strictObject({
   /** The observable value type name. */
   type: z.string().optional(),
   /** The observable value type identifier. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(99)]),
   /** The OCSF event type UID (type_uid) of the source event that this observable was extracted from. This field enables filtering and categorizing observables by their originating event type. For example: 300101 for Network Activity (class_uid 3001) with activity_id 1. */
   type_uid: z.number().int().optional(),
   /** The value associated with the observable attribute. The meaning of the value depends on the observable type.If the name refers to a scalar attribute, then the value is the value of the attribute.If the name refers to an object attribute, then the value is not populated. */

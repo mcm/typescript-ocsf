@@ -36,7 +36,7 @@ export const Osint = z.strictObject({
   /** The confidence of an indicator being malicious and/or pertinent, normalized to the caption of the confidence_id value. In the case of 'Other', it is defined by the event source or analyst. */
   confidence: z.string().optional(),
   /** The normalized confidence refers to the accuracy of collected information related to the OSINT or how pertinent an indicator or analysis is to a specific event or finding. A low confidence means that the information collected or analysis conducted lacked detail or is not accurate enough to qualify an indicator as fully malicious. */
-  confidence_id: z.number().int().optional(),
+  confidence_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The campaign object describes details about the campaign that was the source of the activity. */
   campaign: Campaign.optional(),
   /** Categorizes the threat indicator based on its functional or operational role. */
@@ -62,7 +62,7 @@ export const Osint = z.strictObject({
   /** The detection pattern type, normalized to the caption of the detection_pattern_type_id value. In the case of 'Other', it is defined by the event source. */
   detection_pattern_type: z.string().optional(),
   /** Specifies the type of detection pattern used to identify the associated threat indicator. */
-  detection_pattern_type_id: z.number().int().optional(),
+  detection_pattern_type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** A grouping of adversarial behaviors and resources believed to be associated with specific threat actors or campaigns. Intrusion sets often encompass multiple campaigns and are used to organize related activities under a common label. */
   intrusion_sets: z.array(z.string()).optional(),
   /** Lockheed Martin Kill Chain Phases pertinent to an indicator or OSINT analysis. */
@@ -90,7 +90,7 @@ export const Osint = z.strictObject({
   /** Represents the severity level of the threat indicator, typically reflecting its potential impact or damage. */
   severity: z.string().optional(),
   /** The normalized severity level of the threat indicator, typically reflecting its potential impact or damage. */
-  severity_id: z.number().int().optional(),
+  severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** Any digital signatures or hashes related to an indicator or OSINT analysis. */
   signatures: z.array(DigitalSignature).optional(),
   /** The source URL of an indicator or OSINT analysis, e.g., a URL back to a TIP, report, or otherwise. */
@@ -106,7 +106,7 @@ export const Osint = z.strictObject({
   /** The OSINT indicator type. */
   type: z.string().optional(),
   /** The OSINT indicator type ID. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(99)]),
   /** The unique identifier for the OSINT object. */
   uid: z.string().optional(),
   /** The timestamp indicating when the associated indicator or intelligence was added to the system or repository. */

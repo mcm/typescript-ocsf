@@ -16,7 +16,7 @@ export const Whois = z.strictObject({
   /** The normalized value of dnssec_status_id. */
   dnssec_status: z.string().optional(),
   /** Describes the normalized status of DNS Security Extensions (DNSSEC) for a domain. */
-  dnssec_status_id: z.number().int().optional(),
+  dnssec_status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
   /** The domain name corresponding to the WHOIS record. */
   domain: z.string().optional(),
   /** An array of Domain Contact objects. */

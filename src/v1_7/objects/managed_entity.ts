@@ -35,7 +35,7 @@ export const ManagedEntity = z.strictObject({
   /** The managed entity type. For example: Policy, User, Organization, Device. */
   type: z.string().optional(),
   /** The type of the Managed Entity. It is recommended to also populate the type attribute with the associated label, or the source specific name if Other. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]).optional(),
   /** The user that pertains to the event or object. */
   user: User.optional(),
   /** The version of the managed entity. For example: 1.2.3. */

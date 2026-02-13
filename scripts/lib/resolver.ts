@@ -1,4 +1,10 @@
-import type { ParsedAttribute, ParsedEvent, ParsedObject, ParsedSchema } from "./types.js";
+import type {
+  ParsedAttribute,
+  ParsedEnumValue,
+  ParsedEvent,
+  ParsedObject,
+  ParsedSchema,
+} from "./types.js";
 
 /**
  * Resolve inheritance and detect cycles in a parsed OCSF schema.
@@ -29,6 +35,32 @@ export function resolveSchema(schema: ParsedSchema): ParsedSchema {
   }
 
   return schema;
+}
+
+/**
+ * Merge enum values from parent and child.
+ * Child values override parent values with the same numeric value.
+ * This ensures child enum values take precedence while preserving
+ * parent values not redefined in the child.
+ */
+export function mergeEnumValues(
+  parent: ParsedEnumValue[] | undefined,
+  child: ParsedEnumValue[] | undefined,
+): ParsedEnumValue[] | undefined {
+  // If child is undefined, return parent (could be undefined)
+  if (!child) return parent;
+  // If child is defined but parent is not, return child
+  if (!parent) return child;
+
+  // Both defined: merge by numeric value, child wins conflicts
+  const merged = new Map<number, ParsedEnumValue>();
+  for (const p of parent) {
+    merged.set(p.value, p);
+  }
+  for (const c of child) {
+    merged.set(c.value, c);
+  }
+  return Array.from(merged.values()).sort((a, b) => a.value - b.value);
 }
 
 /**
@@ -68,8 +100,8 @@ function resolveObjectInheritance(objects: Map<string, ParsedObject>): void {
           mergedAttrs.set(attr.name, {
             ...existing,
             ...attr,
-            // Preserve enum values from child if present, else parent
-            enumValues: attr.enumValues ?? existing.enumValues,
+            // Merge enum values: child overrides parent by numeric value
+            enumValues: mergeEnumValues(existing.enumValues, attr.enumValues),
             // Preserve sibling from child if present, else parent
             sibling: attr.sibling ?? existing.sibling,
           });
@@ -127,7 +159,7 @@ function resolveEventInheritance(
             mergedAttrs.set(attr.name, {
               ...existing,
               ...attr,
-              enumValues: attr.enumValues ?? existing.enumValues,
+              enumValues: mergeEnumValues(existing.enumValues, attr.enumValues),
               sibling: attr.sibling ?? existing.sibling,
             });
           } else {

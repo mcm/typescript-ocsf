@@ -17,7 +17,7 @@ export const Ja4Fingerprint = z.strictObject({
   /** The JA4+ fingerprint type as defined by FoxIO, normalized to the caption of 'type_id'. In the case of 'Other', it is defined by the event source. */
   type: z.string().optional(),
   /** The identifier of the JA4+ fingerprint type. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(99)]),
   /** The JA4+ fingerprint value. */
   value: z.string(),
 });

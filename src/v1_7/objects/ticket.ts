@@ -13,13 +13,13 @@ export const Ticket = z.strictObject({
   /** A list of contextual descriptions of the status, status_id values. */
   status_details: z.array(z.string()).optional(),
   /** The normalized identifier for the ticket status. */
-  status_id: z.number().int().optional(),
+  status_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8)]).optional(),
   /** The title of the ticket. */
   title: z.string().optional(),
   /** The linked ticket type determines whether the ticket is internal or in an external ticketing system. */
   type: z.string().optional(),
   /** The normalized identifier for the ticket type. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
   /** Unique identifier of the ticket. */
   uid: z.string().optional(),
 });

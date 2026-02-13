@@ -16,9 +16,11 @@ import { Remediation } from '../objects/remediation.js';
 import { ResourceDetails } from '../objects/resource_details.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
+  0: "Unknown",
   1: "Create",
   2: "Update",
   3: "Close",
+  99: "Other",
 };
 
 const SEVERITY_ID_LABELS: Record<number, string> = {
@@ -33,12 +35,14 @@ const SEVERITY_ID_LABELS: Record<number, string> = {
 };
 
 const STATUS_ID_LABELS: Record<number, string> = {
+  0: "Unknown",
   1: "New",
   2: "In Progress",
   3: "Suppressed",
   4: "Resolved",
   5: "Archived",
   6: "Deleted",
+  99: "Other",
 };
 
 const CONFIDENCE_ID_LABELS: Record<number, string> = {
@@ -78,7 +82,7 @@ export const ComplianceFinding = z.preprocess(
   },
   z.strictObject({
     /** The normalized identifier of the finding activity. */
-    activity_id: z.number().int().optional(),
+    activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
     /** The finding activity name, as defined by the activity_id. */
     activity_name: z.string().optional(),
     /** The event category name, as defined by category_uid value. */
@@ -112,7 +116,7 @@ export const ComplianceFinding = z.preprocess(
     /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
     severity: z.string().optional(),
     /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-    severity_id: z.number().int(),
+    severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
     /** The time of the least recent event included in the finding. */
     start_time: z.number().int().optional(),
     /** The normalized status of the Finding set by the consumer normalized to the caption of the status_id value. In the case of 'Other', it is defined by the source. */
@@ -122,7 +126,7 @@ export const ComplianceFinding = z.preprocess(
     /** The status detail contains additional information about the event/finding outcome. */
     status_detail: z.string().optional(),
     /** The normalized status identifier of the Finding, set by the consumer. */
-    status_id: z.number().int().optional(),
+    status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
     /** The normalized event occurrence time or the finding creation time. */
     time: z.number().int(),
     /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
@@ -138,7 +142,7 @@ export const ComplianceFinding = z.preprocess(
     /** The confidence, normalized to the caption of the confidence_id value. In the case of 'Other', it is defined by the event source. */
     confidence: z.string().optional(),
     /** The normalized confidence refers to the accuracy of the rule that created the finding. A rule with a low confidence means that the finding scope is wide and may create finding reports that may not be malicious in nature. */
-    confidence_id: z.number().int().optional(),
+    confidence_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
     /** The confidence score as reported by the event source. */
     confidence_score: z.number().int().optional(),
     /** Describes the affected device/host. If applicable, it can be used in conjunction with Resource(s). e.g. Specific details about an AWS EC2 instance, that is affected by the Finding. */

@@ -9,7 +9,7 @@ export const KillChainPhase = z.strictObject({
   /** The cyber kill chain phase. */
   phase: z.string().optional(),
   /** The cyber kill chain phase identifier. */
-  phase_id: z.number().int(),
+  phase_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]),
 });
 
 export type KillChainPhaseType = z.infer<typeof KillChainPhase>;

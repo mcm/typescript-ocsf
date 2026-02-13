@@ -30,7 +30,7 @@ export const File = z.strictObject({
   /** The file content confidentiality, normalized to the confidentiality_id value. In the case of 'Other', it is defined by the event source. */
   confidentiality: z.string().optional(),
   /** The normalized identifier of the file content confidentiality indicator. */
-  confidentiality_id: z.number().int().optional(),
+  confidentiality_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** The time when the file was created. */
   created_time: z.number().int().optional(),
   /** The user that created the file. */
@@ -40,7 +40,7 @@ export const File = z.strictObject({
   /** The drive type, normalized to the caption of the drive_type_id value. In the case of Other, it is defined by the source. */
   drive_type: z.string().optional(),
   /** Identifies the type of a disk drive, i.e. fixed, removable, etc. */
-  drive_type_id: z.number().int().optional(),
+  drive_type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(99)]).optional(),
   /** The encryption details of the file. Should be populated if the file is encrypted. */
   encryption_details: EncryptionDetails.optional(),
   /** The extension of the file, excluding the leading dot. For example: exe from svchost.exe, or gz from export.tar.gz. */
@@ -84,7 +84,7 @@ export const File = z.strictObject({
   /** The file type. */
   type: z.string().optional(),
   /** The file type ID. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]),
   /** The URL of the file, when applicable. */
   url: Url.optional(),
   /** The file URI, such as those reporting by static analysis tools. E.g., file:///C:/dev/sarif/sarif-tutorials/samples/Introduction/simple-example.js */

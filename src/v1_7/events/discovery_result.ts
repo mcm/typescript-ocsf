@@ -10,7 +10,9 @@ import { OcsfObject } from '../objects/object.js';
 import { QueryInfo } from '../objects/query_info.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
+  0: "Unknown",
   1: "Query",
+  99: "Other",
 };
 
 const SEVERITY_ID_LABELS: Record<number, string> = {
@@ -70,7 +72,7 @@ export const DiscoveryResult = z.preprocess(
   },
   z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
-    activity_id: z.number().int().optional(),
+    activity_id: z.union([z.literal(0), z.literal(1), z.literal(99)]).optional(),
     /** The event activity name, as defined by the activity_id. */
     activity_name: z.string().optional(),
     /** The event category name, as defined by category_uid value. */
@@ -104,7 +106,7 @@ export const DiscoveryResult = z.preprocess(
     /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
     severity: z.string().optional(),
     /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-    severity_id: z.number().int(),
+    severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
     /** The start time of a time period, or the time of the least recent event included in the aggregate event. */
     start_time: z.number().int().optional(),
     /** The event status, normalized to the caption of the status_id value. In the case of 'Other', it is defined by the event source. */
@@ -114,7 +116,7 @@ export const DiscoveryResult = z.preprocess(
     /** The status detail contains additional information about the event/finding outcome. */
     status_detail: z.string().optional(),
     /** The normalized identifier of the event status. */
-    status_id: z.number().int().optional(),
+    status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
     /** The normalized event occurrence time or the finding creation time. */
     time: z.number().int(),
     /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
@@ -130,7 +132,7 @@ export const DiscoveryResult = z.preprocess(
     /** The result of the query. */
     query_result: z.string().optional(),
     /** The normalized identifier of the query result. */
-    query_result_id: z.number().int(),
+    query_result_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(99)]),
   }),
 );
 

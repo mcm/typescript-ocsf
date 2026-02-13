@@ -61,7 +61,7 @@ export const UnmannedSystemOperatingArea = z.strictObject({
   /** The type of operating area. For example, Takeoff Location, Fixed Location, Dynamic Location. */
   type: z.string().optional(),
   /** The operating area type identifier. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
 });
 
 export type UnmannedSystemOperatingAreaType = z.infer<typeof UnmannedSystemOperatingArea>;

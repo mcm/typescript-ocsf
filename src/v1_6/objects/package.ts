@@ -35,7 +35,7 @@ export const Package = z.strictObject({
   /** The type of software package, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type: z.string().optional(),
   /** The type of software package. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(1), z.literal(2)]).optional(),
   /** A unique identifier for the package or library reported by the source tool. E.g., the libId within the sbom field of an OX Security Issue or the SPDX components.*.bom-ref. */
   uid: z.string().optional(),
   /** The name of the vendor who published the software package. */

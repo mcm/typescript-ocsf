@@ -13,13 +13,13 @@ export const DataClassification = z.strictObject({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */
-  category_id: z.number().int().optional(),
+  category_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** Describes details about the classifier used for data classification. */
   classifier_details: ClassifierDetails.optional(),
   /** The file content confidentiality, normalized to the confidentiality_id value. In the case of 'Other', it is defined by the event source. */
   confidentiality: z.string().optional(),
   /** The normalized identifier of the file content confidentiality indicator. */
-  confidentiality_id: z.number().int().optional(),
+  confidentiality_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** Details about the data discovered by classification job. */
   discovery_details: z.array(DiscoveryDetails).optional(),
   /** Details about the data policy that governs data handling and security measures related to classification. */
@@ -33,7 +33,7 @@ export const DataClassification = z.strictObject({
   /** The contextual description of the status, status_id value. */
   status_details: z.array(z.string()).optional(),
   /** The normalized status identifier of the classification job. */
-  status_id: z.number().int().optional(),
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The total count of discovered entities, by the classification job. */
   total: z.number().int().optional(),
   /** The unique identifier of the classification job. */

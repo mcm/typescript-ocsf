@@ -14,9 +14,11 @@ import { Ticket } from '../objects/ticket.js';
 import { VendorAttributes } from '../objects/vendor_attributes.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
+  0: "Unknown",
   1: "Create",
   2: "Update",
   3: "Close",
+  99: "Other",
 };
 
 const SEVERITY_ID_LABELS: Record<number, string> = {
@@ -31,11 +33,13 @@ const SEVERITY_ID_LABELS: Record<number, string> = {
 };
 
 const STATUS_ID_LABELS: Record<number, string> = {
+  0: "Unknown",
   1: "New",
   2: "In Progress",
   3: "On Hold",
   4: "Resolved",
   5: "Closed",
+  99: "Other",
 };
 
 const CONFIDENCE_ID_LABELS: Record<number, string> = {
@@ -111,7 +115,7 @@ export const IncidentFinding = z.preprocess(
   },
   z.strictObject({
     /** The normalized identifier of the Incident activity. */
-    activity_id: z.number().int(),
+    activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
     /** The Incident activity name, as defined by the activity_id. */
     activity_name: z.string().optional(),
     /** The event category name, as defined by category_uid value. */
@@ -143,7 +147,7 @@ export const IncidentFinding = z.preprocess(
     /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
     severity: z.string().optional(),
     /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-    severity_id: z.number().int(),
+    severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
     /** The time of the least recent event included in the incident. */
     start_time: z.number().int().optional(),
     /** The normalized status of the Incident normalized to the caption of the status_id value. In the case of 'Other', it is defined by the source. */
@@ -153,7 +157,7 @@ export const IncidentFinding = z.preprocess(
     /** The status detail contains additional information about the event/finding outcome. */
     status_detail: z.string().optional(),
     /** The normalized status identifier of the Incident. */
-    status_id: z.number().int(),
+    status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(99)]),
     /** The normalized event occurrence time or the finding creation time. */
     time: z.number().int(),
     /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
@@ -175,7 +179,7 @@ export const IncidentFinding = z.preprocess(
     /** The confidence, normalized to the caption of the confidence_id value. In the case of 'Other', it is defined by the event source. */
     confidence: z.string().optional(),
     /** The normalized confidence refers to the accuracy of the rule that created the finding. A rule with a low confidence means that the finding scope is wide and may create finding reports that may not be malicious in nature. */
-    confidence_id: z.number().int().optional(),
+    confidence_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
     /** The confidence score as reported by the event source. */
     confidence_score: z.number().int().optional(),
     /** The short description of the Incident. */
@@ -185,7 +189,7 @@ export const IncidentFinding = z.preprocess(
     /** The impact , normalized to the caption of the impact_id value. In the case of 'Other', it is defined by the event source. */
     impact: z.string().optional(),
     /** The normalized impact of the incident or finding. Per NIST, this is the magnitude of harm that can be expected to result from the consequences of unauthorized disclosure, modification, destruction, or loss of information or information system availability. */
-    impact_id: z.number().int().optional(),
+    impact_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
     /** The impact as an integer value of the finding, valid range 0-100. */
     impact_score: z.number().int().optional(),
     /** A determination based on analytics as to whether a potential breach was found. */
@@ -193,7 +197,7 @@ export const IncidentFinding = z.preprocess(
     /** The priority, normalized to the caption of the priority_id value. In the case of 'Other', it is defined by the event source. */
     priority: z.string().optional(),
     /** The normalized priority. Priority identifies the relative importance of the incident or finding. It is a measurement of urgency. */
-    priority_id: z.number().int().optional(),
+    priority_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
     /** A Url link used to access the original incident. */
     src_url: z.string().optional(),
     /** The linked ticket in the ticketing system. */
@@ -205,7 +209,7 @@ export const IncidentFinding = z.preprocess(
     /** The verdict assigned to an Incident finding. */
     verdict: z.string().optional(),
     /** The normalized verdict of an Incident. */
-    verdict_id: z.number().int().optional(),
+    verdict_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(99)]).optional(),
   }),
 );
 

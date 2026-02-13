@@ -26,7 +26,7 @@ export const Job = z.strictObject({
   /** The run state of the job. */
   run_state: z.string().optional(),
   /** The run state ID of the job. */
-  run_state_id: z.number().int().optional(),
+  run_state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
   /** The user that created the job. */
   user: User.optional(),
 });

@@ -34,7 +34,7 @@ export const UnmannedAerialSystem = z.strictObject({
   /** The type of the UAS. For example, Helicopter, Gyroplane, Rocket, etc. */
   type: z.string().optional(),
   /** The UAS type identifier. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(99)]).optional(),
   /** The Unmanned Aircraft System Traffic Management (UTM) provided universal unique ID (UUID) traceable to a non-obfuscated ID where this UTM UUID acts as a 'session id' to protect exposure of operationally sensitive information. */
   uuid: z.string().optional(),
 });

@@ -34,7 +34,7 @@ export const Idp = z.strictObject({
   /** The configuration state of the Identity Provider, normalized to the caption of the state_id value. In the case of Other, it is defined by the event source. */
   state: z.string().optional(),
   /** The normalized state ID of the Identity Provider to reflect its configuration or activation status. */
-  state_id: z.number().int().optional(),
+  state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
   /** The tenant ID associated with the Identity Provider. */
   tenant_uid: z.string().optional(),
   /** The URL for accessing the configuration or metadata of the Identity Provider. */

@@ -73,7 +73,7 @@ export const Databucket = z.strictObject({
   /** The size of the databucket in bytes. */
   size: z.number().int().optional(),
   /** The normalized identifier of the databucket type. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
 });
 
 export type DatabucketType = z.infer<typeof Databucket>;

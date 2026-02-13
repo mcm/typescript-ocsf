@@ -19,7 +19,7 @@ export const PeripheralDevice = z.strictObject({
   /** The Peripheral Device type, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type: z.string().optional(),
   /** The normalized peripheral device type ID. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]).optional(),
   /** The list of vendor IDs for the peripheral device. */
   vendor_id_list: z.array(z.string()).optional(),
   /** The primary vendor name for the peripheral device. */

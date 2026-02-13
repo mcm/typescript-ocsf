@@ -21,7 +21,7 @@ export const AuthenticationToken = z.strictObject({
   /** The type of the authentication token. */
   type: z.string().optional(),
   /** The normalized authentication token type identifier. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(99)]).optional(),
 });
 
 export type AuthenticationTokenType = z.infer<typeof AuthenticationToken>;

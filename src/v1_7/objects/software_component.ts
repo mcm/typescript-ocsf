@@ -23,11 +23,11 @@ export const SoftwareComponent = z.strictObject({
   /** The relationship between two software components, normalized to the caption of the relationship_id value. In the case of 'Other', it is defined by the source. */
   relationship: z.string().optional(),
   /** The normalized identifier of the relationship between two software components. */
-  relationship_id: z.number().int().optional(),
+  relationship_id: z.union([z.literal(0), z.literal(1), z.literal(99)]).optional(),
   /** The type of software component, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type: z.string().optional(),
   /** The type of software component. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
   /** The software component version. */
   version: z.string(),
 });

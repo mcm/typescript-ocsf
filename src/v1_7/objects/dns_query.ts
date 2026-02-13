@@ -17,7 +17,7 @@ export const DnsQuery = z.strictObject({
   /** The DNS opcode specifies the type of the query message. */
   opcode: z.string().optional(),
   /** The DNS opcode ID specifies the normalized query message type as defined in RFC-5395. */
-  opcode_id: z.number().int().optional(),
+  opcode_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
 });
 
 export type DnsQueryType = z.infer<typeof DnsQuery>;

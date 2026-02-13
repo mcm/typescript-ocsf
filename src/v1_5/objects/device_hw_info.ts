@@ -20,7 +20,7 @@ export const DeviceHwInfo = z.strictObject({
   /** The CPU architecture, normalized to the caption of the cpu_architecture_id value. In the case of Other, it is defined by the source. */
   cpu_architecture: z.string().optional(),
   /** The normalized identifier of the CPU architecture. */
-  cpu_architecture_id: z.number().int().optional(),
+  cpu_architecture_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The cpu architecture, the number of bits used for addressing in memory. For example: 32 or 64. */
   cpu_bits: z.number().int().optional(),
   /** The number of processor cores in all installed processors. For Example: 42. */

@@ -25,7 +25,7 @@ export const Advisory = z.strictObject({
   /** The install state of the Advisory. */
   install_state: z.string().optional(),
   /** The normalized install state ID of the Advisory. */
-  install_state_id: z.number().int().optional(),
+  install_state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The Advisory has been replaced by another. */
   is_superseded: z.boolean().optional(),
   /** The time when the Advisory record was last updated. */

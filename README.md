@@ -169,6 +169,85 @@ console.log(event.type_uid); // 100105 (File System Activity: Delete)
 // type_uid is calculated as: class_uid * 100 + activity_id
 ```
 
+### Working with Enums
+
+OCSF enum fields are fully validated with proper inheritance:
+
+```typescript
+import { IncidentFinding } from "@mcm/ocsf/v1_7/events";
+
+// Valid: Standard enum values (1-5)
+const event1 = IncidentFinding.parse({
+  time: Date.now(),
+  severity_id: 1,
+  status_id: 1,  // "New"
+  activity_id: 1,
+  metadata: {
+    version: "1.7.0",
+    product: {
+      name: "Security Platform",
+      vendor_name: "Security Corp",
+    },
+  },
+});
+
+// Valid: Inherited base values (0=Unknown, 99=Other)
+const event2 = IncidentFinding.parse({
+  time: Date.now(),
+  severity_id: 1,
+  status_id: 0,  // "Unknown" - inherited from dictionary
+  activity_id: 1,
+  metadata: {
+    version: "1.7.0",
+    product: {
+      name: "Security Platform",
+      vendor_name: "Security Corp",
+    },
+  },
+});
+
+const event3 = IncidentFinding.parse({
+  time: Date.now(),
+  severity_id: 1,
+  status_id: 99,  // "Other" - inherited from dictionary
+  status: "Custom vendor status",
+  activity_id: 1,
+  metadata: {
+    version: "1.7.0",
+    product: {
+      name: "Security Platform",
+      vendor_name: "Security Corp",
+    },
+  },
+});
+
+// Invalid: Value not in enum
+try {
+  const invalid = IncidentFinding.parse({
+    time: Date.now(),
+    severity_id: 1,
+    status_id: 999,  // ❌ ZodError: Invalid enum value
+    activity_id: 1,
+    metadata: {
+      version: "1.7.0",
+      product: {
+        name: "Security Platform",
+        vendor_name: "Security Corp",
+      },
+    },
+  });
+} catch (error) {
+  console.error("Validation failed:", error);
+}
+```
+
+**Enum Inheritance:**
+- Event-specific enums inherit base values from the OCSF dictionary
+- Most enums include `0: "Unknown"` and `99: "Other"` as base values
+- Events can add or override specific enum values
+- Validation ensures only defined enum values are accepted
+- Sibling reconciliation works with validated enums (e.g., `status_id: 1` auto-fills `status: "New"`)
+
 ### Safe Parsing with Error Handling
 
 ```typescript

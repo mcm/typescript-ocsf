@@ -192,4 +192,19 @@ describe("FileActivity sibling + UID integration (end-to-end)", () => {
     expect(result.activity_id).toBe(10);
     expect(result.activity_name).toBe("Encrypt"); // Normalized to canonical form
   });
+
+  it("11. Maps unknown label to OTHER (99) when available", async () => {
+    const { FileActivity } = await import("../../src/v1_7/events/file_activity.js");
+
+    const input = {
+      ...createMinimalEvent(),
+      activity_name: "Custom Vendor Activity",
+    };
+
+    const result = FileActivity.parse(input);
+
+    // Should map to OTHER (99) since it exists in the enum
+    expect(result.activity_id).toBe(99);
+    expect(result.activity_name).toBe("Custom Vendor Activity");
+  });
 });

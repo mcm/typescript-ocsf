@@ -36,7 +36,7 @@ export const Application = z.strictObject({
   /** The risk level, normalized to the caption of the risk_level_id value. */
   risk_level: z.string().optional(),
   /** The normalized risk level id. */
-  risk_level_id: z.number().int().optional(),
+  risk_level_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
   /** The risk score as reported by the event source. */
   risk_score: z.number().int().optional(),
   /** The Software Bill of Materials (SBOM) associated with the application */

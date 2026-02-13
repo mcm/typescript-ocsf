@@ -15,7 +15,7 @@ export const Agent = z.strictObject({
   /** The normalized caption of the type_id value for the agent or sensor. In the case of 'Other' or 'Unknown', it is defined by the event source. */
   type: z.string().optional(),
   /** The normalized representation of an agent or sensor. E.g., EDR, vulnerability management, APM, backup & recovery, etc. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9)]).optional(),
   /** The UID of the agent or sensor, sometimes known as a Sensor ID or aid. */
   uid: z.string().optional(),
   /** An alternative or contextual identifier for the agent or sensor, such as a configuration, organization, or license UID. */

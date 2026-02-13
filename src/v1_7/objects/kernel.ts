@@ -17,7 +17,7 @@ export const Kernel = z.strictObject({
   /** The type of the kernel resource. */
   type: z.string().optional(),
   /** The type of the kernel resource. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(1), z.literal(2)]),
 });
 
 export type KernelType = z.infer<typeof Kernel>;

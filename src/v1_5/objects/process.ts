@@ -36,7 +36,7 @@ export const Process = z.strictObject({
   /** The process integrity level, normalized to the caption of the integrity_id value. In the case of 'Other', it is defined by the event source (Windows only). */
   integrity: z.string().optional(),
   /** The normalized identifier of the process integrity level (Windows only). */
-  integrity_id: z.number().int().optional(),
+  integrity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** The lineage of the process, represented by a list of paths for each ancestor process. For example: ['/usr/sbin/sshd', '/usr/bin/bash', '/usr/bin/whoami']. */
   lineage: z.array(z.string()).optional(),
   /** The list of loaded module names. */

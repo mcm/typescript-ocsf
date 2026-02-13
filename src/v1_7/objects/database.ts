@@ -25,7 +25,7 @@ export const Database = z.strictObject({
   /** The database type. */
   type: z.string().optional(),
   /** The normalized identifier of the database type. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
 });
 
 export type DatabaseType = z.infer<typeof Database>;

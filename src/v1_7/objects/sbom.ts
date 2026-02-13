@@ -21,7 +21,7 @@ export const Sbom = z.strictObject({
   /** The type of SBOM, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type: z.string().optional(),
   /** The type of SBOM. */
-  type_id: z.number().int().optional(),
+  type_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
   /** A unique identifier for the SBOM or the SBOM generation by a source tool, such as the SPDX metadata.component.bom-ref. */
   uid: z.string().optional(),
   /** The specification (spec) version of the particular SBOM, e.g., 1.6. */

@@ -43,7 +43,7 @@ export const QueryEvidence = z.strictObject({
   /** The normalized caption of query_type_id or the source-specific query type. */
   query_type: z.string().optional(),
   /** The normalized type of system query performed against a device or system component. */
-  query_type_id: z.number().int(),
+  query_type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(15), z.literal(16), z.literal(17), z.literal(18), z.literal(99)]),
   /** The service that pertains to the event when query_type_id indicates a Service query. */
   service: Service.optional(),
   /** The authenticated user or service session when query_type_id indicates a Session query. */
@@ -53,7 +53,7 @@ export const QueryEvidence = z.strictObject({
   /** The state of the socket, normalized to the caption of the state_id value. In the case of 'Other', it is defined by the event source. */
   state: z.string().optional(),
   /** The state of the TCP socket for the network connection. */
-  tcp_state_id: z.number().int().optional(),
+  tcp_state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11)]).optional(),
   /** The user that pertains to the event when query_type_id indicates a User query. */
   user: User.optional(),
   /** The users that belong to the administrative group when query_type_id indicates a Users query. */

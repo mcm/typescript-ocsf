@@ -187,6 +187,10 @@ function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedO
       // Direct reference (no z.lazy)
       base = refClassName;
     }
+  } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
+    // Generate enum validation using union of literals
+    const literals = attr.enumValues.map((v) => `z.literal(${v.value})`).join(", ");
+    base = `z.union([${literals}])`;
   } else {
     // Primitive type
     base = mapOcsfTypeToZod(attr.ocsfType);
@@ -219,6 +223,10 @@ function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, Pars
       // Direct reference (no z.lazy) to support composition methods
       base = refClassName;
     }
+  } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
+    // Generate enum validation using union of literals
+    const literals = attr.enumValues.map((v) => `z.literal(${v.value})`).join(", ");
+    base = `z.union([${literals}])`;
   } else {
     // Primitive type
     base = mapOcsfTypeToZod(attr.ocsfType);

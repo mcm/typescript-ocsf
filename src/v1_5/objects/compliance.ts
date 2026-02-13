@@ -40,7 +40,7 @@ export const Compliance = z.strictObject({
   /** A list of contextual descriptions of the status, status_code values. */
   status_details: z.array(z.string()).optional(),
   /** The normalized status identifier of the compliance check. */
-  status_id: z.number().int().optional(),
+  status_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
 });
 
 export type ComplianceType = z.infer<typeof Compliance>;

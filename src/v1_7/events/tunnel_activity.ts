@@ -90,7 +90,7 @@ export const TunnelActivity = z.preprocess(
   },
   z.strictObject({
     /** The normalized identifier of the activity that triggered the event. */
-    activity_id: z.number().int(),
+    activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
     /** The event activity name, as defined by the activity_id. */
     activity_name: z.string().optional(),
     /** The event category name, as defined by category_uid value. */
@@ -124,7 +124,7 @@ export const TunnelActivity = z.preprocess(
     /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
     severity: z.string().optional(),
     /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
-    severity_id: z.number().int(),
+    severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
     /** The start time of a time period, or the time of the least recent event included in the aggregate event. */
     start_time: z.number().int().optional(),
     /** The event status, normalized to the caption of the status_id value. In the case of 'Other', it is defined by the event source. */
@@ -134,7 +134,7 @@ export const TunnelActivity = z.preprocess(
     /** The status detail contains additional information about the event/finding outcome. */
     status_detail: z.string().optional(),
     /** The normalized identifier of the event status. */
-    status_id: z.number().int().optional(),
+    status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
     /** The normalized event occurrence time or the finding creation time. */
     time: z.number().int(),
     /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
@@ -158,7 +158,7 @@ export const TunnelActivity = z.preprocess(
     /** Indicates whether the source network endpoint, destination network endpoint, or neither served as the observation point for the activity. The value is normalized to the caption of the observation_point_id. */
     observation_point: z.string().optional(),
     /** The normalized identifier of the observation point. The observation point identifier indicates whether the source network endpoint, destination network endpoint, or neither served as the observation point for the activity. */
-    observation_point_id: z.number().int().optional(),
+    observation_point_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
     /** The proxy (server) in a network connection. */
     proxy: NetworkProxy.optional(),
     /** The initiator (client) of the tunnel connection. */
@@ -178,7 +178,7 @@ export const TunnelActivity = z.preprocess(
     /** The tunnel type. Example: Split or Full. */
     tunnel_type: z.string().optional(),
     /** The normalized tunnel type ID. */
-    tunnel_type_id: z.number().int().optional(),
+    tunnel_type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
     /** The user associated with the tunnel activity. */
     user: User.optional(),
   }),

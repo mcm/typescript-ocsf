@@ -19,7 +19,7 @@ export const DomainContact = z.strictObject({
   /** The Domain Contact type, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source */
   type: z.string().optional(),
   /** The normalized domain contact type ID. */
-  type_id: z.number().int(),
+  type_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]),
   /** The unique identifier of the contact information, typically provided in WHOIS information. */
   uid: z.string().optional(),
 });

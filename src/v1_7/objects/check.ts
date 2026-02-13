@@ -13,13 +13,13 @@ export const Check = z.strictObject({
   /** The severity level as defined in the source document. For example CIS Benchmarks, valid values are: Level 1 (security-forward, essential settings), Level 2 (security-focused environment, more restrictive), or Scored/Not Scored (whether compliance can be automatically checked). For DISA STIG, valid values are: CAT I (maps to severity_id 5/Critical), CAT II (maps to severity_id 4/High), or CAT III (maps to severity_id 3/Medium). */
   severity: z.string().optional(),
   /** The normalized severity identifier that maps severity levels to standard severity levels. For example CIS Benchmark: Level 2 maps to 4 (High), Level 1 maps to 3 (Medium). For DISA STIG: CAT I maps to 5 (Critical), CAT II maps to 4 (High), and CAT III maps to 3 (Medium). */
-  severity_id: z.number().int().optional(),
+  severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
   /** The regulatory or industry standard this check is associated with. E.g., PCI DSS 3.2.1, HIPAA Security Rule, NIST SP 800-53 Rev. 5, or ISO/IEC 27001:2013. */
   standards: z.array(z.string()).optional(),
   /** The resultant status of the compliance check normalized to the caption of the status_id value. For example, CIS Benchmark: Pass when all requirements are met, Fail when requirements are not met, or DISA STIG: NotAFinding (maps to status_id 1/Pass), Open (maps to status_id 3/Fail). */
   status: z.string().optional(),
   /** The normalized status identifier of the compliance check. */
-  status_id: z.number().int().optional(),
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The unique identifier of the compliance check within its standard or framework. For example, CIS Benchmark identifier 1.1.1.1, DISA STIG identifier V-230234, or NIST control identifier AC-17(2). */
   uid: z.string().optional(),
   /** The check version. For example, CIS Benchmark: 1.1.0 for Amazon Linux 2 or DISA STIG: V2R1 for Windows 10. */

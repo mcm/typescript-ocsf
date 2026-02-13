@@ -11,13 +11,13 @@ export const NetworkConnectionInfo = z.strictObject({
   /** The boundary of the connection, normalized to the caption of 'boundary_id'. In the case of 'Other', it is defined by the event source. For cloud connections, this translates to the traffic-boundary(same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */
   boundary: z.string().optional(),
   /** The normalized identifier of the boundary of the connection. For cloud connections, this translates to the traffic-boundary (same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */
-  boundary_id: z.number().int().optional(),
+  boundary_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(99)]).optional(),
   /** The Community ID of the network connection. */
   community_uid: z.string().optional(),
   /** The direction of the initiated connection, traffic, or email, normalized to the caption of the direction_id value. In the case of 'Other', it is defined by the event source. */
   direction: z.string().optional(),
   /** The normalized identifier of the direction of the initiated connection, traffic, or email. */
-  direction_id: z.number().int(),
+  direction_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
   /** The Connection Flag History summarizes events in a network connection. For example flags ShAD representing SYN, SYN/ACK, ACK and Data exchange. */
   flag_history: z.string().optional(),
   /** The IP protocol name in lowercase, as defined by the Internet Assigned Numbers Authority (IANA). For example: tcp or udp. */
@@ -27,7 +27,7 @@ export const NetworkConnectionInfo = z.strictObject({
   /** The Internet Protocol version. */
   protocol_ver: z.string().optional(),
   /** The Internet Protocol version identifier. */
-  protocol_ver_id: z.number().int().optional(),
+  protocol_ver_id: z.union([z.literal(0), z.literal(4), z.literal(6), z.literal(99)]).optional(),
   /** The authenticated user or service session. */
   session: Session.optional(),
   /** The network connection TCP header flags (i.e., control bits). */
