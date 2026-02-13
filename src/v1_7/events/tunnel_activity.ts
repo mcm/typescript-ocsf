@@ -80,7 +80,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Tunnel Activity
  * @see https://schema.ocsf.io/1.7.0/classes/tunnel_activity
  */
-export const TunnelActivity = z.preprocess(
+export const TunnelActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -182,6 +182,6 @@ export const TunnelActivity = z.preprocess(
     /** The user associated with the tunnel activity. */
     user: User.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type TunnelActivityType = z.infer<typeof TunnelActivity>;

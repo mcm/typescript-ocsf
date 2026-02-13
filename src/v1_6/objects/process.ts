@@ -12,7 +12,7 @@ import { OcsfObject } from './object.js';
  *
  * OCSF Object: Process
  */
-export const Process = z.object({
+export const Process: any = z.object({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */
@@ -54,11 +54,11 @@ export const Process = z.object({
   /** The identifier of the thread associated with the event, as returned by the operating system. */
   tid: z.number().int().optional(),
   /** The user under which this process is running. */
-  get user(): any { return User.optional(); },
+  get user() { return User.optional(); },
   /** The working directory of a process. */
   working_directory: z.string().optional(),
   /** An unordered collection of zero or more name/value pairs that represent a process extended attribute. */
   xattributes: OcsfObject.optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ProcessType = z.infer<typeof Process>;

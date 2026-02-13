@@ -54,7 +54,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Kernel Activity
  * @see https://schema.ocsf.io/1.6.0/classes/kernel_activity
  */
-export const KernelActivity = z.preprocess(
+export const KernelActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -126,6 +126,6 @@ export const KernelActivity = z.preprocess(
     /** The target kernel resource. */
     kernel: Kernel,
   }).passthrough(),
-) as any;
+);
 
 export type KernelActivityType = z.infer<typeof KernelActivity>;

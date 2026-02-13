@@ -55,7 +55,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Peripheral Activity
  * @see https://schema.ocsf.io/1.7.0/classes/peripheral_activity
  */
-export const PeripheralActivity = z.preprocess(
+export const PeripheralActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -127,6 +127,6 @@ export const PeripheralActivity = z.preprocess(
     /** The peripheral device that is the subject of the activity. */
     peripheral_device: PeripheralDevice,
   }).passthrough(),
-) as any;
+);
 
 export type PeripheralActivityType = z.infer<typeof PeripheralActivity>;

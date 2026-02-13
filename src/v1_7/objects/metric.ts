@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: Metric
  */
-export const Metric = z.object({
+export const Metric: any = z.object({
   /** The name of the metric. */
   name: z.string(),
   /** The value of the metric. */
   value: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type MetricType = z.infer<typeof Metric>;

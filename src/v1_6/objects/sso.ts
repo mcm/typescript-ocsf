@@ -7,7 +7,7 @@ import { Certificate } from './certificate.js';
  *
  * OCSF Object: SSO
  */
-export const Sso = z.object({
+export const Sso: any = z.object({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authentication protocol used by the SSO resource. */
@@ -38,6 +38,6 @@ export const Sso = z.object({
   uid: z.string().optional(),
   /** Name of the vendor or service provider implementing SSO. E.g., Okta, Auth0, Microsoft. */
   vendor_name: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type SsoType = z.infer<typeof Sso>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Scan
  */
-export const Scan = z.object({
+export const Scan: any = z.object({
   /** The administrator-supplied or application-generated name of the scan. For example: "Home office weekly user database scan", "Scan folders for viruses", "Full system virus scan" */
   name: z.string().optional(),
   /** The application-defined unique identifier assigned to an instance of a scan. */
@@ -14,6 +14,6 @@ export const Scan = z.object({
   type: z.string().optional(),
   /** The type id of the scan. */
   type_id: z.number().int(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ScanType = z.infer<typeof Scan>;

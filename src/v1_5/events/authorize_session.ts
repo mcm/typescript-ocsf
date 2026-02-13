@@ -55,7 +55,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Authorize Session
  * @see https://schema.ocsf.io/1.5.0/classes/authorize_session
  */
-export const AuthorizeSession = z.preprocess(
+export const AuthorizeSession: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -137,6 +137,6 @@ export const AuthorizeSession = z.preprocess(
     /** The user to which new privileges were assigned. */
     user: User,
   }).passthrough(),
-) as any;
+);
 
 export type AuthorizeSessionType = z.infer<typeof AuthorizeSession>;

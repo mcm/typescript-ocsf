@@ -65,7 +65,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Network
  * @see https://schema.ocsf.io/1.7.0/classes/network
  */
-export const Network = z.preprocess(
+export const Network: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -153,6 +153,6 @@ export const Network = z.preprocess(
     /** The network traffic for this observation period. Use when reporting: (1) delta values (bytes/packets transferred since the last observation), (2) instantaneous measurements at a specific point in time, or (3) standalone single-event metrics. This attribute represents a point-in-time measurement or incremental change, not a running total. For accumulated totals across multiple observations or the lifetime of a flow, use cumulative_traffic instead. */
     traffic: NetworkTraffic.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type NetworkType = z.infer<typeof Network>;

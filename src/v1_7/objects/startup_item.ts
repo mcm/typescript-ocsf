@@ -9,7 +9,7 @@ import { Process } from './process.js';
  *
  * OCSF Object: Startup Item
  */
-export const StartupItem = z.object({
+export const StartupItem: any = z.object({
   /** The startup item kernel driver resource. */
   driver: KernelDriver.optional(),
   /** The startup item job resource. */
@@ -34,6 +34,6 @@ export const StartupItem = z.object({
   type: z.string().optional(),
   /** The startup item type identifier. */
   type_id: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type StartupItemType = z.infer<typeof StartupItem>;

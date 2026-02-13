@@ -52,7 +52,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Identity & Access Management
  * @see https://schema.ocsf.io/1.5.0/classes/iam
  */
-export const Iam = z.preprocess(
+export const Iam: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -124,6 +124,6 @@ export const Iam = z.preprocess(
     /** Details about the source of the IAM activity. */
     src_endpoint: NetworkEndpoint.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type IamType = z.infer<typeof Iam>;

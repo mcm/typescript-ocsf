@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Uniform Resource Locator
  */
-export const Url = z.object({
+export const Url: any = z.object({
   /** The Website categorization names, as defined by category_ids enum values. */
   categories: z.array(z.string()).optional(),
   /** The Website categorization identifiers. */
@@ -28,6 +28,6 @@ export const Url = z.object({
   subdomain: z.string().optional(),
   /** The URL string. See RFC 1738. For example: http://www.example.com/download/trouble.exe. Note: The URL path should not populate the URL string. */
   url_string: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type UrlType = z.infer<typeof Url>;

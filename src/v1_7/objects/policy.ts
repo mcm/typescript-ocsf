@@ -7,7 +7,7 @@ import { Group } from './group.js';
  *
  * OCSF Object: Policy
  */
-export const Policy = z.object({
+export const Policy: any = z.object({
   /** The policy name. For example: AdministratorAccess Policy. */
   name: z.string().optional(),
   /** A unique identifier of the policy instance. */
@@ -24,6 +24,6 @@ export const Policy = z.object({
   type: z.string().optional(),
   /** The policy version number. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type PolicyType = z.infer<typeof Policy>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Query Information
  */
-export const QueryInfo = z.object({
+export const QueryInfo: any = z.object({
   /** The query name for a saved or scheduled query. */
   name: z.string().optional(),
   /** The unique identifier of the query. */
@@ -18,6 +18,6 @@ export const QueryInfo = z.object({
   query_string: z.string(),
   /** The time when the query was run. */
   query_time: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type QueryInfoType = z.infer<typeof QueryInfo>;

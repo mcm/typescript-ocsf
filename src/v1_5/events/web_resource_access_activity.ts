@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Web Resource Access Activity
  * @see https://schema.ocsf.io/1.5.0/classes/web_resource_access_activity
  */
-export const WebResourceAccessActivity = z.preprocess(
+export const WebResourceAccessActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -132,6 +132,6 @@ export const WebResourceAccessActivity = z.preprocess(
     /** Details about the resource that is the target of the activity. */
     web_resources: z.array(WebResource),
   }).passthrough(),
-) as any;
+);
 
 export type WebResourceAccessActivityType = z.infer<typeof WebResourceAccessActivity>;

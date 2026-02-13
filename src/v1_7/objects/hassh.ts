@@ -7,11 +7,11 @@ import { Fingerprint } from './fingerprint.js';
  *
  * OCSF Object: HASSH
  */
-export const Hassh = z.object({
+export const Hassh: any = z.object({
   /** The concatenation of key exchange, encryption, authentication and compression algorithms (separated by ';'). NOTE: This is not the underlying algorithm for the hash implementation. */
   algorithm: z.string().optional(),
   /** The hash of the key exchange, encryption, authentication and compression algorithms. */
   fingerprint: Fingerprint,
-}).passthrough() as any;
+}).passthrough();
 
 export type HasshType = z.infer<typeof Hassh>;

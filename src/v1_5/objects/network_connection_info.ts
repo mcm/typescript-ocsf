@@ -7,7 +7,7 @@ import { Session } from './session.js';
  *
  * OCSF Object: Network Connection Information
  */
-export const NetworkConnectionInfo = z.object({
+export const NetworkConnectionInfo: any = z.object({
   /** The boundary of the connection, normalized to the caption of 'boundary_id'. In the case of 'Other', it is defined by the event source. For cloud connections, this translates to the traffic-boundary(same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */
   boundary: z.string().optional(),
   /** The normalized identifier of the boundary of the connection. For cloud connections, this translates to the traffic-boundary (same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */
@@ -34,6 +34,6 @@ export const NetworkConnectionInfo = z.object({
   tcp_flags: z.number().int().optional(),
   /** The unique identifier of the connection. */
   uid: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type NetworkConnectionInfoType = z.infer<typeof NetworkConnectionInfo>;

@@ -7,7 +7,7 @@ import { Location } from './location.js';
  *
  * OCSF Object: Domain Contact
  */
-export const DomainContact = z.object({
+export const DomainContact: any = z.object({
   /** The user's primary email address. */
   email_addr: z.string().optional(),
   /** Location details for the contract such as the city, state/province, country, etc. */
@@ -22,6 +22,6 @@ export const DomainContact = z.object({
   type_id: z.number().int(),
   /** The unique identifier of the contact information, typically provided in WHOIS information. */
   uid: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DomainContactType = z.infer<typeof DomainContact>;

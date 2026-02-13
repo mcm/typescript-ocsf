@@ -71,7 +71,7 @@ const UID_CONFIG: UidConfig = {
  * Category: IAM Analysis Finding
  * @see https://schema.ocsf.io/1.6.0/classes/iam_analysis_finding
  */
-export const IamAnalysisFinding = z.preprocess(
+export const IamAnalysisFinding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -165,6 +165,6 @@ export const IamAnalysisFinding = z.preprocess(
     /** Details about the identity (user, role, service account, or other principal) that is the subject of the IAM analysis. This provides context about the identity being evaluated for security risks and access patterns. */
     user: User.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type IamAnalysisFindingType = z.infer<typeof IamAnalysisFinding>;

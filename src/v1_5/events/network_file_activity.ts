@@ -70,7 +70,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Network File Activity
  * @see https://schema.ocsf.io/1.5.0/classes/network_file_activity
  */
-export const NetworkFileActivity = z.preprocess(
+export const NetworkFileActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -156,6 +156,6 @@ export const NetworkFileActivity = z.preprocess(
     /** The file that is the target of the activity. */
     file: File,
   }).passthrough(),
-) as any;
+);
 
 export type NetworkFileActivityType = z.infer<typeof NetworkFileActivity>;

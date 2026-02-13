@@ -7,7 +7,7 @@ import { Reputation } from './reputation.js';
  *
  * OCSF Object: Enrichment
  */
-export const Enrichment = z.object({
+export const Enrichment: any = z.object({
   /** The time when the enrichment data was generated. */
   created_time: z.number().int().optional(),
   /** The enrichment data associated with the attribute and value. The meaning of this data depends on the type the enrichment record. */
@@ -28,6 +28,6 @@ export const Enrichment = z.object({
   type: z.string().optional(),
   /** The value of the attribute to which the enriched data pertains. */
   value: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type EnrichmentType = z.infer<typeof Enrichment>;

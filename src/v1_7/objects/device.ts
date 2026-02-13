@@ -15,7 +15,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Device
  */
-export const Device = z.object({
+export const Device: any = z.object({
   /** The alternate device name, ordinarily as assigned by an administrator. Note: The Name could be any other string that helps to identify the device, such as a phone number; for example 310-555-1234. */
   name: z.string().optional(),
   /** The unique identifier of the device. For example the Windows TargetSID or AWS EC2 ARN. */
@@ -128,6 +128,6 @@ export const Device = z.object({
   uid_alt: z.string().optional(),
   /** The vendor for the device. For example Dell or Lenovo. */
   vendor_name: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DeviceType = z.infer<typeof Device>;

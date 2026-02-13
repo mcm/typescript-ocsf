@@ -7,7 +7,7 @@ import { File } from './file.js';
  *
  * OCSF Object: Module
  */
-export const Module = z.object({
+export const Module: any = z.object({
   /** The memory address where the module was loaded. */
   base_address: z.string().optional(),
   /** The module file object. */
@@ -22,6 +22,6 @@ export const Module = z.object({
   start_address: z.string().optional(),
   /** The module type. */
   type: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ModuleType = z.infer<typeof Module>;

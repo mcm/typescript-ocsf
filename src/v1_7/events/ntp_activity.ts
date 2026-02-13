@@ -82,7 +82,7 @@ const UID_CONFIG: UidConfig = {
  * Category: NTP Activity
  * @see https://schema.ocsf.io/1.7.0/classes/ntp_activity
  */
-export const NtpActivity = z.preprocess(
+export const NtpActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -182,6 +182,6 @@ export const NtpActivity = z.preprocess(
     /** The version number of the NTP protocol. */
     version: z.string(),
   }).passthrough(),
-) as any;
+);
 
 export type NtpActivityType = z.infer<typeof NtpActivity>;

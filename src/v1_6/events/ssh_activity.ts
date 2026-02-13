@@ -74,7 +74,7 @@ const UID_CONFIG: UidConfig = {
  * Category: SSH Activity
  * @see https://schema.ocsf.io/1.6.0/classes/ssh_activity
  */
-export const SshActivity = z.preprocess(
+export const SshActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -168,6 +168,6 @@ export const SshActivity = z.preprocess(
     /** The Server HASSH fingerprinting object. */
     server_hassh: Hassh.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type SshActivityType = z.infer<typeof SshActivity>;

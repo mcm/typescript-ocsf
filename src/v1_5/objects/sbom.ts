@@ -9,7 +9,7 @@ import { SoftwareComponent } from './software_component.js';
  *
  * OCSF Object: Software Bill of Materials
  */
-export const Sbom = z.object({
+export const Sbom: any = z.object({
   /** The time when the SBOM was created. */
   created_time: z.number().int().optional(),
   /** The software package or library that is being discovered or inventoried by an SBOM. */
@@ -26,6 +26,6 @@ export const Sbom = z.object({
   uid: z.string().optional(),
   /** The specification (spec) version of the particular SBOM, e.g., 1.6. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type SbomType = z.infer<typeof Sbom>;

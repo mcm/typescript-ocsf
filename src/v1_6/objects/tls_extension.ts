@@ -5,13 +5,13 @@ import { z } from 'zod';
  *
  * OCSF Object: TLS Extension
  */
-export const TlsExtension = z.object({
+export const TlsExtension: any = z.object({
   /** The data contains information specific to the particular extension type. */
   data: z.record(z.unknown()).optional(),
   /** The TLS extension type. For example: Server Name. */
   type: z.string().optional(),
   /** The TLS extension type identifier. See The Transport Layer Security (TLS) extension page. */
   type_id: z.number().int(),
-}).passthrough() as any;
+}).passthrough();
 
 export type TlsExtensionType = z.infer<typeof TlsExtension>;

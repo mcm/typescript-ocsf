@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: User Session Query
  * @see https://schema.ocsf.io/1.5.0/classes/session_query
  */
-export const SessionQuery = z.preprocess(
+export const SessionQuery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -132,6 +132,6 @@ export const SessionQuery = z.preprocess(
     /** The authenticated user or service session. */
     session: Session,
   }).passthrough(),
-) as any;
+);
 
 export type SessionQueryType = z.infer<typeof SessionQuery>;

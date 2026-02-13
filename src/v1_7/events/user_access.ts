@@ -55,7 +55,7 @@ const UID_CONFIG: UidConfig = {
  * Category: User Access Management
  * @see https://schema.ocsf.io/1.7.0/classes/user_access
  */
-export const UserAccess = z.preprocess(
+export const UserAccess: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -137,6 +137,6 @@ export const UserAccess = z.preprocess(
     /** User to which privileges were assigned. */
     user: User,
   }).passthrough(),
-) as any;
+);
 
 export type UserAccessType = z.infer<typeof UserAccess>;

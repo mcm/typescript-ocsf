@@ -57,7 +57,7 @@ const UID_CONFIG: UidConfig = {
  * Category: API Activity
  * @see https://schema.ocsf.io/1.6.0/classes/api_activity
  */
-export const ApiActivity = z.preprocess(
+export const ApiActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -137,6 +137,6 @@ export const ApiActivity = z.preprocess(
     /** Details about the source of the activity. */
     src_endpoint: NetworkEndpoint,
   }).passthrough(),
-) as any;
+);
 
 export type ApiActivityType = z.infer<typeof ApiActivity>;

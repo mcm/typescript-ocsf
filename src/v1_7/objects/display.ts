@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Display
  */
-export const Display = z.object({
+export const Display: any = z.object({
   /** The numeric color depth. */
   color_depth: z.number().int().optional(),
   /** The numeric physical height of display. */
@@ -16,6 +16,6 @@ export const Display = z.object({
   physical_width: z.number().int().optional(),
   /** The numeric scale factor of display. */
   scale_factor: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DisplayType = z.infer<typeof Display>;

@@ -51,7 +51,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Module Activity
  * @see https://schema.ocsf.io/1.5.0/classes/module_activity
  */
-export const ModuleActivity = z.preprocess(
+export const ModuleActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -121,6 +121,6 @@ export const ModuleActivity = z.preprocess(
     /** The module that was loaded or unloaded. */
     module: Module,
   }).passthrough(),
-) as any;
+);
 
 export type ModuleActivityType = z.infer<typeof ModuleActivity>;

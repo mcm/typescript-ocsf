@@ -7,7 +7,7 @@ import { Metric } from './metric.js';
  *
  * OCSF Object: CVSS Score
  */
-export const Cvss = z.object({
+export const Cvss: any = z.object({
   /** The CVSS base score. For example: 9.1. */
   base_score: z.number(),
   /** The CVSS depth represents a depth of the equation used to calculate CVSS score. */
@@ -26,6 +26,6 @@ export const Cvss = z.object({
   vendor_name: z.string().optional(),
   /** The CVSS version. For example: 3.1. */
   version: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type CvssType = z.infer<typeof Cvss>;

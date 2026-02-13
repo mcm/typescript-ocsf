@@ -65,7 +65,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Entity Management
  * @see https://schema.ocsf.io/1.6.0/classes/entity_management
  */
-export const EntityManagement = z.preprocess(
+export const EntityManagement: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -149,6 +149,6 @@ export const EntityManagement = z.preprocess(
     /** The updated managed entity. */
     entity_result: ManagedEntity.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type EntityManagementType = z.infer<typeof EntityManagement>;

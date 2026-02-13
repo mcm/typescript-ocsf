@@ -47,7 +47,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Application Activity
  * @see https://schema.ocsf.io/1.7.0/classes/application
  */
-export const Application = z.preprocess(
+export const Application: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -113,6 +113,6 @@ export const Application = z.preprocess(
     /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
     unmapped: OcsfObject.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type ApplicationType = z.infer<typeof Application>;

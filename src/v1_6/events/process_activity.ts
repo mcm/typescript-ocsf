@@ -65,7 +65,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Process Activity
  * @see https://schema.ocsf.io/1.6.0/classes/process_activity
  */
-export const ProcessActivity = z.preprocess(
+export const ProcessActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -149,6 +149,6 @@ export const ProcessActivity = z.preprocess(
     /** The permissions mask that was requested by the process. */
     requested_permissions: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type ProcessActivityType = z.infer<typeof ProcessActivity>;

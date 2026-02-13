@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Email Authentication
  */
-export const EmailAuth = z.object({
+export const EmailAuth: any = z.object({
   /** The DomainKeys Identified Mail (DKIM) status of the email. */
   dkim: z.string().optional(),
   /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */
@@ -20,6 +20,6 @@ export const EmailAuth = z.object({
   dmarc_policy: z.string().optional(),
   /** The Sender Policy Framework (SPF) status of the email. */
   spf: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type EmailAuthType = z.infer<typeof EmailAuth>;

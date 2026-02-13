@@ -9,7 +9,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Access Analysis Result
  */
-export const AccessAnalysisResult = z.object({
+export const AccessAnalysisResult: any = z.object({
   /** The generalized access level or permission scope granted to the identity through the analyzed policy configuration. Common examples include Read, Write, List, Delete, Admin, or custom permission levels. */
   access_level: z.string().optional(),
   /** The type or category of access being granted to the identity. This describes the nature of the access relationship, such as cross-account access, public access, federated access, or third-party integration access. Examples include 'Cross-Account', 'Public', 'Federated', 'Service-to-Service', etc. */
@@ -22,6 +22,6 @@ export const AccessAnalysisResult = z.object({
   condition_keys: z.array(KeyValueObject).optional(),
   /** The specific privileges, actions, or permissions that are granted through the analyzed access relationship. This includes the actual operations that the accessor can perform on the target resource. Examples: AWS actions like 'sts:AssumeRole', 's3:GetObject', 'ec2:DescribeInstances'; Azure actions like 'Microsoft.Storage/storageAccounts/read'; or GCP permissions like 'storage.objects.get'. */
   granted_privileges: z.array(z.string()).optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type AccessAnalysisResultType = z.infer<typeof AccessAnalysisResult>;

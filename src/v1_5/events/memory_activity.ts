@@ -58,7 +58,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Memory Activity
  * @see https://schema.ocsf.io/1.5.0/classes/memory_activity
  */
-export const MemoryActivity = z.preprocess(
+export const MemoryActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -136,6 +136,6 @@ export const MemoryActivity = z.preprocess(
     /** The memory size that was access or requested. */
     size: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type MemoryActivityType = z.infer<typeof MemoryActivity>;

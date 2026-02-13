@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Email Activity
  * @see https://schema.ocsf.io/1.6.0/classes/email_activity
  */
-export const EmailActivity = z.preprocess(
+export const EmailActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -158,6 +158,6 @@ export const EmailActivity = z.preprocess(
     /** The recipient address from the transmission envelope. This may differ from the 'To' header and represents where the message was actually delivered. */
     to: z.array(z.string()).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type EmailActivityType = z.infer<typeof EmailActivity>;

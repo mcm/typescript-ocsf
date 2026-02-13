@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Image
  */
-export const Image = z.object({
+export const Image: any = z.object({
   /** The image name. For example: elixir. */
   name: z.string().optional(),
   /** The unique image ID. For example: 77af4d6b9913. */
@@ -20,6 +20,6 @@ export const Image = z.object({
   tag: z.string().optional(),
   /** The list of tags; {key:value} pairs associated to the image. */
   tags: z.array(KeyValueObject).optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ImageType = z.infer<typeof Image>;

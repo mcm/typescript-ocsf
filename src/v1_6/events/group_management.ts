@@ -62,7 +62,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Group Management
  * @see https://schema.ocsf.io/1.6.0/classes/group_management
  */
-export const GroupManagement = z.preprocess(
+export const GroupManagement: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -146,6 +146,6 @@ export const GroupManagement = z.preprocess(
     /** A user that was added to or removed from the group. */
     user: User.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type GroupManagementType = z.infer<typeof GroupManagement>;

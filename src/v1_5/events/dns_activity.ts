@@ -84,7 +84,7 @@ const UID_CONFIG: UidConfig = {
  * Category: DNS Activity
  * @see https://schema.ocsf.io/1.5.0/classes/dns_activity
  */
-export const DnsActivity = z.preprocess(
+export const DnsActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -176,6 +176,6 @@ export const DnsActivity = z.preprocess(
     /** The Domain Name System (DNS) response time. */
     response_time: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type DnsActivityType = z.infer<typeof DnsActivity>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Network Traffic
  */
-export const NetworkTraffic = z.object({
+export const NetworkTraffic: any = z.object({
   /** The total number of bytes (in and out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source. */
@@ -26,6 +26,6 @@ export const NetworkTraffic = z.object({
   packets_in: z.number().int().optional(),
   /** The number of packets sent from the source to the destination. */
   packets_out: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type NetworkTrafficType = z.infer<typeof NetworkTraffic>;

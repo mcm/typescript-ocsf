@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Resource
  */
-export const Resource = z.object({
+export const Resource: any = z.object({
   /** The name of the resource. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */
@@ -26,6 +26,6 @@ export const Resource = z.object({
   type: z.string().optional(),
   /** The alternative unique identifier of the resource. */
   uid_alt: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ResourceType = z.infer<typeof Resource>;

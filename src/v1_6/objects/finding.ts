@@ -9,7 +9,7 @@ import { Remediation } from './remediation.js';
  *
  * OCSF Object: Finding
  */
-export const Finding = z.object({
+export const Finding: any = z.object({
   /** The time when the finding was created. */
   created_time: z.number().int().optional(),
   /** The description of the reported finding. */
@@ -38,6 +38,6 @@ export const Finding = z.object({
   types: z.array(z.string()).optional(),
   /** The unique identifier of the reported finding. */
   uid: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type FindingType = z.infer<typeof Finding>;

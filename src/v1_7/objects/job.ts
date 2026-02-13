@@ -8,7 +8,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Job
  */
-export const Job = z.object({
+export const Job: any = z.object({
   /** The job command line. */
   cmd_line: z.string().optional(),
   /** The time when the job was created. */
@@ -29,6 +29,6 @@ export const Job = z.object({
   run_state_id: z.number().int().optional(),
   /** The user that created the job. */
   user: User.optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type JobType = z.infer<typeof Job>;

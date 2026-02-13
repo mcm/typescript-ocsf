@@ -78,7 +78,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Device Config State Change
  * @see https://schema.ocsf.io/1.7.0/classes/device_config_state_change
  */
-export const DeviceConfigStateChange = z.preprocess(
+export const DeviceConfigStateChange: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -164,6 +164,6 @@ export const DeviceConfigStateChange = z.preprocess(
     /** The Config Change State of the managed entity. */
     state_id: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type DeviceConfigStateChangeType = z.infer<typeof DeviceConfigStateChange>;

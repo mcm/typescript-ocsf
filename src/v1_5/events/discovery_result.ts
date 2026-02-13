@@ -59,7 +59,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Discovery Result
  * @see https://schema.ocsf.io/1.5.0/classes/discovery_result
  */
-export const DiscoveryResult = z.preprocess(
+export const DiscoveryResult: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -129,6 +129,6 @@ export const DiscoveryResult = z.preprocess(
     /** The normalized identifier of the query result. */
     query_result_id: z.number().int(),
   }).passthrough(),
-) as any;
+);
 
 export type DiscoveryResultType = z.infer<typeof DiscoveryResult>;

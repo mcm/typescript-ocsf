@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Peripheral Device Query
  * @see https://schema.ocsf.io/1.6.0/classes/peripheral_device_query
  */
-export const PeripheralDeviceQuery = z.preprocess(
+export const PeripheralDeviceQuery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -135,6 +135,6 @@ export const PeripheralDeviceQuery = z.preprocess(
     /** The peripheral device that triggered the event. */
     peripheral_device: PeripheralDevice,
   }).passthrough(),
-) as any;
+);
 
 export type PeripheralDeviceQueryType = z.infer<typeof PeripheralDeviceQuery>;

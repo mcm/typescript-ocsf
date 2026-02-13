@@ -7,13 +7,13 @@ import { CisControl } from './cis_control.js';
  *
  * OCSF Object: CIS Benchmark
  */
-export const CisBenchmark = z.object({
+export const CisBenchmark: any = z.object({
   /** The CIS Critical Security Controls is a prioritized set of actions to protect your organization and data from cyber-attack vectors. */
   cis_controls: z.array(CisControl).optional(),
   /** The CIS Benchmark description. For example: The cramfs filesystem type is a compressed read-only Linux filesystem embedded in small footprint systems. A cramfs image can be used without having to first decompress the image. */
   desc: z.string().optional(),
   /** The CIS Benchmark name. For example: Ensure mounting of cramfs filesystems is disabled. */
   name: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type CisBenchmarkType = z.infer<typeof CisBenchmark>;

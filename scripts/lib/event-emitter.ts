@@ -103,8 +103,9 @@ export function emitEventFile(
   );
   lines.push(" */");
 
-  // Schema with preprocess (with 'as any' to avoid TS7056 errors)
-  lines.push(`export const ${event.className} = z.preprocess(`);
+  // Schema with preprocess
+  // Add :any annotation to prevent TS7056 errors on complex nested schemas
+  lines.push(`export const ${event.className}: any = z.preprocess(`);
   lines.push("  (data) => {");
   lines.push("    if (typeof data !== 'object' || data === null) return data;");
   lines.push("    let d = { ...data } as Record<string, unknown>;");
@@ -148,7 +149,7 @@ export function emitEventFile(
     lines.push(`    ${attr.name}: ${zodType},`);
   }
   lines.push("  }).passthrough(),");
-  lines.push(") as any;");
+  lines.push(");");
   lines.push("");
 
   // Type inference

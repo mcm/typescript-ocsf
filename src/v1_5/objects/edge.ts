@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Edge
  */
-export const Edge = z.object({
+export const Edge: any = z.object({
   /** The human-readable name or label for the edge. */
   name: z.string().optional(),
   /** Unique identifier of the edge. */
@@ -20,6 +20,6 @@ export const Edge = z.object({
   source: z.string(),
   /** The unique identifier of the node where the edge terminates. */
   target: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type EdgeType = z.infer<typeof Edge>;

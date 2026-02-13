@@ -11,7 +11,7 @@ import { User } from './user.js';
  *
  * OCSF Object: Endpoint
  */
-export const Endpoint = z.object({
+export const Endpoint: any = z.object({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier of the endpoint. */
@@ -52,6 +52,6 @@ export const Endpoint = z.object({
   vpc_uid: z.string().optional(),
   /** The network zone or LAN segment. */
   zone: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type EndpointType = z.infer<typeof Endpoint>;

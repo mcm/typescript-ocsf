@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Network Activity
  * @see https://schema.ocsf.io/1.5.0/classes/network_activity
  */
-export const NetworkActivity = z.preprocess(
+export const NetworkActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -142,6 +142,6 @@ export const NetworkActivity = z.preprocess(
     /** The URL details relevant to the network traffic. */
     url: Url.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type NetworkActivityType = z.infer<typeof NetworkActivity>;

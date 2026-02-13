@@ -59,7 +59,7 @@ const UID_CONFIG: UidConfig = {
  * Category: FTP Activity
  * @see https://schema.ocsf.io/1.5.0/classes/ftp_activity
  */
-export const FtpActivity = z.preprocess(
+export const FtpActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -153,6 +153,6 @@ export const FtpActivity = z.preprocess(
     /** The type of FTP network connection (e.g. active, passive). */
     type: z.string().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type FtpActivityType = z.infer<typeof FtpActivity>;

@@ -5,13 +5,13 @@ import { z } from 'zod';
  *
  * OCSF Object: CIS Control
  */
-export const CisControl = z.object({
+export const CisControl: any = z.object({
   /** The CIS Control description. For example: Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function. */
   desc: z.string().optional(),
   /** The CIS Control name. For example: 4.8 Uninstall or Disable Unnecessary Services on Enterprise Assets and Software. */
   name: z.string(),
   /** The CIS Control version. For example: v8. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type CisControlType = z.infer<typeof CisControl>;

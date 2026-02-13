@@ -10,7 +10,7 @@ import { Service } from './service.js';
  *
  * OCSF Object: API
  */
-export const Api = z.object({
+export const Api: any = z.object({
   /** The information pertaining to the API group. */
   group: Group.optional(),
   /** Verb/Operation associated with the request */
@@ -23,6 +23,6 @@ export const Api = z.object({
   service: Service.optional(),
   /** The version of the API service. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ApiType = z.infer<typeof Api>;

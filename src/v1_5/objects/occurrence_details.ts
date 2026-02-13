@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Occurrence Details
  */
-export const OccurrenceDetails = z.object({
+export const OccurrenceDetails: any = z.object({
   /** The cell name/reference in a spreadsheet. e.g A2 */
   cell_name: z.string().optional(),
   /** The column name in a spreadsheet, where the information was discovered. */
@@ -24,6 +24,6 @@ export const OccurrenceDetails = z.object({
   row_number: z.number().int().optional(),
   /** The line number of the first line of the file, where the information was discovered. */
   start_line: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type OccurrenceDetailsType = z.infer<typeof OccurrenceDetails>;

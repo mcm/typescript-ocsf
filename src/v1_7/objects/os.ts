@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Operating System (OS)
  */
-export const Os = z.object({
+export const Os: any = z.object({
   /** The operating system build number. */
   build: z.string().optional(),
   /** The operating system country code, as defined by the ISO 3166-1 standard (Alpha-2 code).Note: The two letter country code should be capitalized. For example: US or CA. */
@@ -32,6 +32,6 @@ export const Os = z.object({
   type_id: z.number().int(),
   /** The version of the OS running on the device that originated the event. For example: "Windows 10", "OS X 10.7", or "iOS 9". */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type OsType = z.infer<typeof Os>;

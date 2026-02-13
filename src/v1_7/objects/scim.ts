@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: SCIM
  */
-export const Scim = z.object({
+export const Scim: any = z.object({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authorization protocol used by the SCIM resource. */
@@ -46,6 +46,6 @@ export const Scim = z.object({
   vendor_name: z.string().optional(),
   /** SCIM protocol version supported e.g., SCIM 2.0. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ScimType = z.infer<typeof Scim>;

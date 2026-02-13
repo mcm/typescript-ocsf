@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Networks Query
  * @see https://schema.ocsf.io/1.5.0/classes/networks_query
  */
-export const NetworksQuery = z.preprocess(
+export const NetworksQuery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -132,6 +132,6 @@ export const NetworksQuery = z.preprocess(
     /** The physical or virtual network interfaces that are associated with the device, one for each unique MAC address/IP address/hostname/name combination.Note: The first element of the array is the network information that pertains to the event. */
     network_interfaces: z.array(NetworkInterface),
   }).passthrough(),
-) as any;
+);
 
 export type NetworksQueryType = z.infer<typeof NetworksQuery>;

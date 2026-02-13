@@ -7,7 +7,7 @@ import { Group } from './group.js';
  *
  * OCSF Object: Table
  */
-export const Table = z.object({
+export const Table: any = z.object({
   /** The table name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the table. */
@@ -22,6 +22,6 @@ export const Table = z.object({
   modified_time: z.number().int().optional(),
   /** The size of the data table in bytes. */
   size: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type TableType = z.infer<typeof Table>;

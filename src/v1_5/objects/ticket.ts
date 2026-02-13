@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Ticket
  */
-export const Ticket = z.object({
+export const Ticket: any = z.object({
   /** The url of a ticket in the ticket system. */
   src_url: z.string().optional(),
   /** The status of the ticket normalized to the caption of the status_id value. In the case of 99, this value should as defined by the source. */
@@ -22,6 +22,6 @@ export const Ticket = z.object({
   type_id: z.number().int().optional(),
   /** Unique identifier of the ticket. */
   uid: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type TicketType = z.infer<typeof Ticket>;

@@ -7,9 +7,9 @@ import { File } from './file.js';
  *
  * OCSF Object: Kernel Extension
  */
-export const KernelDriver = z.object({
+export const KernelDriver: any = z.object({
   /** The driver/extension file object. */
   file: File,
-}).passthrough() as any;
+}).passthrough();
 
 export type KernelDriverType = z.infer<typeof KernelDriver>;

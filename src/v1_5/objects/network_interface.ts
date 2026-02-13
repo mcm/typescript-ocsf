@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Network Interface
  */
-export const NetworkInterface = z.object({
+export const NetworkInterface: any = z.object({
   /** The name of the network interface. */
   name: z.string().optional(),
   /** The unique identifier for the network interface. */
@@ -24,6 +24,6 @@ export const NetworkInterface = z.object({
   type: z.string().optional(),
   /** The network interface type identifier. */
   type_id: z.number().int(),
-}).passthrough() as any;
+}).passthrough();
 
 export type NetworkInterfaceType = z.infer<typeof NetworkInterface>;

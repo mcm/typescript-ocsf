@@ -13,7 +13,7 @@ import { File } from './file.js';
  *
  * OCSF Object: Databucket
  */
-export const Databucket = z.object({
+export const Databucket: any = z.object({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */
@@ -74,6 +74,6 @@ export const Databucket = z.object({
   size: z.number().int().optional(),
   /** The normalized identifier of the databucket type. */
   type_id: z.number().int(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DatabucketType = z.infer<typeof Databucket>;

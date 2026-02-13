@@ -71,7 +71,7 @@ const UID_CONFIG: UidConfig = {
  * Category: SMB Activity
  * @see https://schema.ocsf.io/1.6.0/classes/smb_activity
  */
-export const SmbActivity = z.preprocess(
+export const SmbActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -175,6 +175,6 @@ export const SmbActivity = z.preprocess(
     /** The tree id is a unique SMB identifier which represents an open connection to a share. */
     tree_uid: z.string().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type SmbActivityType = z.infer<typeof SmbActivity>;

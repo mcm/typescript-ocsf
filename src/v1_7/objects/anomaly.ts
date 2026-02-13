@@ -7,7 +7,7 @@ import { Observation } from './observation.js';
  *
  * OCSF Object: Anomaly
  */
-export const Anomaly = z.object({
+export const Anomaly: any = z.object({
   /** The specific parameter, metric or property where the anomaly was observed. Examples include: CPU usage percentage, API response time in milliseconds, HTTP error rate, memory utilization, network latency, transaction volume, etc. This helps identify the exact aspect of the system exhibiting anomalous behavior. */
   observation_parameter: z.string(),
   /** The type of analysis methodology used to detect the anomaly. This indicates how the anomaly was identified through different analytical approaches. Common types include: Frequency Analysis, Time Pattern Analysis, Volume Analysis, Sequence Analysis, Distribution Analysis, etc. */
@@ -16,6 +16,6 @@ export const Anomaly = z.object({
   observations: z.array(Observation),
   /** The specific pattern identified within the observation type. For Frequency Analysis, this could be 'FREQUENT', 'INFREQUENT', 'RARE', or 'UNSEEN'. For Time Pattern Analysis, this could be 'BUSINESS_HOURS', 'OFF_HOURS', or 'UNUSUAL_TIME'. For Volume Analysis, this could be 'NORMAL_VOLUME', 'HIGH_VOLUME', or 'SURGE'. The pattern values are specific to each observation type and indicate how the observed behavior relates to the baseline. */
   observed_pattern: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type AnomalyType = z.infer<typeof Anomaly>;

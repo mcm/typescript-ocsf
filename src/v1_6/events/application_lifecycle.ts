@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Application Lifecycle
  * @see https://schema.ocsf.io/1.6.0/classes/application_lifecycle
  */
-export const ApplicationLifecycle = z.preprocess(
+export const ApplicationLifecycle: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -124,6 +124,6 @@ export const ApplicationLifecycle = z.preprocess(
     /** The application that was affected by the lifecycle event. This also applies to self-updating application systems. */
     app: Product,
   }).passthrough(),
-) as any;
+);
 
 export type ApplicationLifecycleType = z.infer<typeof ApplicationLifecycle>;

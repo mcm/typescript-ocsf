@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Cloud Resources Inventory Info
  * @see https://schema.ocsf.io/1.7.0/classes/cloud_resources_inventory_info
  */
-export const CloudResourcesInventoryInfo = z.preprocess(
+export const CloudResourcesInventoryInfo: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -138,6 +138,6 @@ export const CloudResourcesInventoryInfo = z.preprocess(
     /** A cloud-based database table discovered by an inventory process. */
     table: Table.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type CloudResourcesInventoryInfoType = z.infer<typeof CloudResourcesInventoryInfo>;

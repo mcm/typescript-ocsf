@@ -59,7 +59,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Airborne Broadcast Activity
  * @see https://schema.ocsf.io/1.5.0/classes/airborne_broadcast_activity
  */
-export const AirborneBroadcastActivity = z.preprocess(
+export const AirborneBroadcastActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -147,6 +147,6 @@ export const AirborneBroadcastActivity = z.preprocess(
     /** The human or machine operator of an Unmanned System. */
     unmanned_system_operator: User,
   }).passthrough(),
-) as any;
+);
 
 export type AirborneBroadcastActivityType = z.infer<typeof AirborneBroadcastActivity>;

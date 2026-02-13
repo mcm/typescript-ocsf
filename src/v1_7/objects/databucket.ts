@@ -13,7 +13,7 @@ import { Graph } from './graph.js';
  *
  * OCSF Object: Databucket
  */
-export const Databucket = z.object({
+export const Databucket: any = z.object({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */
@@ -74,6 +74,6 @@ export const Databucket = z.object({
   version: z.string().optional(),
   /** The specific availability zone within a cloud region where the databucket is located. */
   zone: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DatabucketType = z.infer<typeof Databucket>;

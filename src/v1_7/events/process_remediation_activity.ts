@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Process Remediation Activity
  * @see https://schema.ocsf.io/1.7.0/classes/process_remediation_activity
  */
-export const ProcessRemediationActivity = z.preprocess(
+export const ProcessRemediationActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -132,6 +132,6 @@ export const ProcessRemediationActivity = z.preprocess(
     /** The process that pertains to the remediation event. */
     process: Process,
   }).passthrough(),
-) as any;
+);
 
 export type ProcessRemediationActivityType = z.infer<typeof ProcessRemediationActivity>;

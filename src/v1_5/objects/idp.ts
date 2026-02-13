@@ -10,7 +10,7 @@ import { Sso } from './sso.js';
  *
  * OCSF Object: Identity Provider
  */
-export const Idp = z.object({
+export const Idp: any = z.object({
   /** The name of the Identity Provider. */
   name: z.string().optional(),
   /** The unique identifier of the Identity Provider. */
@@ -39,6 +39,6 @@ export const Idp = z.object({
   tenant_uid: z.string().optional(),
   /** The URL for accessing the configuration or metadata of the Identity Provider. */
   url_string: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type IdpType = z.infer<typeof Idp>;

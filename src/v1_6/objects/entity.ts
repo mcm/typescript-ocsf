@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: Entity
  */
-export const Entity = z.object({
+export const Entity: any = z.object({
   /** The name of the entity. */
   name: z.string().optional(),
   /** The unique identifier of the entity. */
   uid: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type EntityType = z.infer<typeof Entity>;

@@ -97,7 +97,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Security Finding
  * @see https://schema.ocsf.io/1.6.0/classes/security_finding
  */
-export const SecurityFinding = z.preprocess(
+export const SecurityFinding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -211,6 +211,6 @@ export const SecurityFinding = z.preprocess(
     /** This object describes vulnerabilities reported in a security finding. */
     vulnerabilities: z.array(Vulnerability).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type SecurityFindingType = z.infer<typeof SecurityFinding>;

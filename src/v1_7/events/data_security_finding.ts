@@ -93,7 +93,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Data Security Finding
  * @see https://schema.ocsf.io/1.7.0/classes/data_security_finding
  */
-export const DataSecurityFinding = z.preprocess(
+export const DataSecurityFinding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -207,6 +207,6 @@ export const DataSecurityFinding = z.preprocess(
     /** Describes the table where classified or sensitive data is stored in, or was accessed from. The table object represents a table within a structured relational database, warehouse, lake, or similar. */
     table: Table.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type DataSecurityFindingType = z.infer<typeof DataSecurityFinding>;

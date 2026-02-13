@@ -5,11 +5,11 @@ import { z } from 'zod';
  *
  * OCSF Object: Environment Variable
  */
-export const EnvironmentVariable = z.object({
+export const EnvironmentVariable: any = z.object({
   /** The name of the environment variable. */
   name: z.string(),
   /** The value of the environment variable. */
   value: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type EnvironmentVariableType = z.infer<typeof EnvironmentVariable>;

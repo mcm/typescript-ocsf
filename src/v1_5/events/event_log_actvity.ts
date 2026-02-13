@@ -68,7 +68,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Event Log Activity
  * @see https://schema.ocsf.io/1.5.0/classes/event_log_actvity
  */
-export const EventLogActvity = z.preprocess(
+export const EventLogActvity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -150,6 +150,6 @@ export const EventLogActvity = z.preprocess(
     /** The source endpoint for the event log activity. */
     src_endpoint: NetworkEndpoint.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type EventLogActvityType = z.infer<typeof EventLogActvity>;

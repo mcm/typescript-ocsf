@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Group
  */
-export const Group = z.object({
+export const Group: any = z.object({
   /** The group name. */
   name: z.string().optional(),
   /** The unique identifier of the group. For example, for Windows events this is the security identifier (SID) of the group. */
@@ -18,6 +18,6 @@ export const Group = z.object({
   privileges: z.array(z.string()).optional(),
   /** The type of the group or account. */
   type: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type GroupType = z.infer<typeof Group>;

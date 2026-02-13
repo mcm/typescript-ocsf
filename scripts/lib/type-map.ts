@@ -82,3 +82,47 @@ export function mapOcsfTypeToTs(ocsfType: string): string {
 
   return TYPE_MAP[ocsfType] ?? "unknown";
 }
+
+/**
+ * Maps OCSF type to Zod type name for use in return type annotations.
+ * For example: "string_t" -> "z.ZodString"
+ */
+export function mapOcsfTypeToZodTypeName(ocsfType: string): string {
+  const TYPE_MAP: Record<string, string> = {
+    // Primitive types
+    string_t: "z.ZodString",
+    integer_t: "z.ZodNumber",
+    long_t: "z.ZodNumber",
+    boolean_t: "z.ZodBoolean",
+    float_t: "z.ZodNumber",
+    double_t: "z.ZodNumber",
+    json_t: "z.ZodRecord<z.ZodString, z.ZodUnknown>",
+    bytestring_t: "z.ZodString",
+
+    // Timestamp
+    timestamp_t: "z.ZodNumber",
+
+    // String subtypes (all validate as strings)
+    ip_t: "z.ZodString",
+    mac_t: "z.ZodString",
+    email_t: "z.ZodString",
+    url_t: "z.ZodString",
+    hostname_t: "z.ZodString",
+    uuid_t: "z.ZodString",
+    subnet_t: "z.ZodString",
+    file_name_t: "z.ZodString",
+    file_path_t: "z.ZodString",
+    process_name_t: "z.ZodString",
+    username_t: "z.ZodString",
+    file_hash_t: "z.ZodString",
+    resource_uid_t: "z.ZodString",
+    path_t: "z.ZodString",
+    fingerprint_t: "z.ZodString",
+    port_t: "z.ZodNumber",
+    datetime_t: "z.ZodString",
+    country_t: "z.ZodString",
+    cidr_t: "z.ZodString",
+  };
+
+  return TYPE_MAP[ocsfType] ?? "z.ZodUnknown";
+}

@@ -62,7 +62,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Admin Group Query
  * @see https://schema.ocsf.io/1.6.0/classes/admin_group_query
  */
-export const AdminGroupQuery = z.preprocess(
+export const AdminGroupQuery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -138,6 +138,6 @@ export const AdminGroupQuery = z.preprocess(
     /** The users that belong to the administrative group. */
     users: z.array(User).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type AdminGroupQueryType = z.infer<typeof AdminGroupQuery>;

@@ -62,7 +62,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Module Query
  * @see https://schema.ocsf.io/1.6.0/classes/module_query
  */
-export const ModuleQuery = z.preprocess(
+export const ModuleQuery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -138,6 +138,6 @@ export const ModuleQuery = z.preprocess(
     /** The process that loaded the module. */
     process: Process,
   }).passthrough(),
-) as any;
+);
 
 export type ModuleQueryType = z.infer<typeof ModuleQuery>;

@@ -76,7 +76,7 @@ const UID_CONFIG: UidConfig = {
  * Category: File Hosting Activity
  * @see https://schema.ocsf.io/1.5.0/classes/file_hosting
  */
-export const FileHosting = z.preprocess(
+export const FileHosting: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -166,6 +166,6 @@ export const FileHosting = z.preprocess(
     /** The endpoint that performed the activity on the target file. */
     src_endpoint: NetworkEndpoint,
   }).passthrough(),
-) as any;
+);
 
 export type FileHostingType = z.infer<typeof FileHosting>;

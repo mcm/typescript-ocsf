@@ -10,7 +10,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: User
  */
-export const User = z.object({
+export const User: any = z.object({
   /** The username. For example, janedoe1. */
   name: z.string().optional(),
   /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */
@@ -51,6 +51,6 @@ export const User = z.object({
   type_id: z.number().int().optional(),
   /** The alternate user identifier. For example, the Active Directory user GUID or AWS user Principal ID. */
   uid_alt: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type UserType = z.infer<typeof User>;

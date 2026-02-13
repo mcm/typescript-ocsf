@@ -10,7 +10,7 @@ import { San } from './san.js';
  *
  * OCSF Object: Transport Layer Security (TLS)
  */
-export const Tls = z.object({
+export const Tls: any = z.object({
   /** The integer value of TLS alert if present. The alerts are defined in the TLS specification in RFC-2246. */
   alert: z.number().int().optional(),
   /** The certificate object containing information about the digital certificate. */
@@ -41,6 +41,6 @@ export const Tls = z.object({
   tls_extension_list: z.array(TlsExtension).optional(),
   /** The TLS protocol version. */
   version: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type TlsType = z.infer<typeof Tls>;

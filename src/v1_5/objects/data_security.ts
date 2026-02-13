@@ -9,7 +9,7 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Data Security
  */
-export const DataSecurity = z.object({
+export const DataSecurity: any = z.object({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */
@@ -50,6 +50,6 @@ export const DataSecurity = z.object({
   detection_system_id: z.number().int().optional(),
   /** A text, binary, file name, or datastore that matched against a detection rule. */
   pattern_match: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DataSecurityType = z.infer<typeof DataSecurity>;

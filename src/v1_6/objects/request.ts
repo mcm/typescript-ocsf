@@ -7,7 +7,7 @@ import { Container } from './container.js';
  *
  * OCSF Object: Request Elements
  */
-export const Request = z.object({
+export const Request: any = z.object({
   /** When working with containerized applications, the set of containers which write to the standard the output of a particular logging driver. For example, this may be the set of containers involved in handling api requests and responses for a containerized application. */
   containers: z.array(Container).optional(),
   /** The additional data that is associated with the api request. */
@@ -16,6 +16,6 @@ export const Request = z.object({
   flags: z.array(z.string()).optional(),
   /** The unique request identifier. */
   uid: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type RequestType = z.infer<typeof Request>;

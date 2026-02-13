@@ -10,7 +10,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Compliance
  */
-export const Compliance = z.object({
+export const Compliance: any = z.object({
   /** A list of assessments associated with the compliance requirements evaluation. */
   assessments: z.array(Assessment).optional(),
   /** The category a control framework pertains to, as reported by the source tool, such as Asset Management or Risk Assessment. */
@@ -41,6 +41,6 @@ export const Compliance = z.object({
   status_details: z.array(z.string()).optional(),
   /** The normalized status identifier of the compliance check. */
   status_id: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ComplianceType = z.infer<typeof Compliance>;

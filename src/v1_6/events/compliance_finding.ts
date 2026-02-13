@@ -68,7 +68,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Compliance Finding
  * @see https://schema.ocsf.io/1.6.0/classes/compliance_finding
  */
-export const ComplianceFinding = z.preprocess(
+export const ComplianceFinding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -158,6 +158,6 @@ export const ComplianceFinding = z.preprocess(
     /** Describes details about the resource/resources that are the subject of the compliance check. */
     resources: z.array(ResourceDetails).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type ComplianceFindingType = z.infer<typeof ComplianceFinding>;

@@ -7,11 +7,11 @@ import { Policy } from './policy.js';
  *
  * OCSF Object: Authorization Result
  */
-export const Authorization = z.object({
+export const Authorization: any = z.object({
   /** Authorization Result/outcome, e.g. allowed, denied. */
   decision: z.string().optional(),
   /** Details about the Identity/Access management policies that are applicable. */
   policy: Policy.optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type AuthorizationType = z.infer<typeof Authorization>;

@@ -54,7 +54,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Unmanned Systems
  * @see https://schema.ocsf.io/1.6.0/classes/unmanned_systems
  */
-export const UnmannedSystems = z.preprocess(
+export const UnmannedSystems: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -132,6 +132,6 @@ export const UnmannedSystems = z.preprocess(
     /** The network traffic refers to the amount of data moving across a network at a given point of time. Intended to be used alongside Network Connection. */
     traffic: NetworkTraffic.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type UnmannedSystemsType = z.infer<typeof UnmannedSystems>;

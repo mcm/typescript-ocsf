@@ -62,7 +62,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Live Evidence Info
  * @see https://schema.ocsf.io/1.6.0/classes/evidence_info
  */
-export const EvidenceInfo = z.preprocess(
+export const EvidenceInfo: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -138,6 +138,6 @@ export const EvidenceInfo = z.preprocess(
     /** The specific resulting evidence information that was queried or discovered based on the query type. Contains various child objects corresponding to the query_type_id values. */
     query_evidence: QueryEvidence,
   }).passthrough(),
-) as any;
+);
 
 export type EvidenceInfoType = z.infer<typeof EvidenceInfo>;

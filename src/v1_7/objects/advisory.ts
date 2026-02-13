@@ -11,7 +11,7 @@ import { Cwe } from './cwe.js';
  *
  * OCSF Object: Advisory
  */
-export const Advisory = z.object({
+export const Advisory: any = z.object({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The Advisory bulletin identifier. */
@@ -48,6 +48,6 @@ export const Advisory = z.object({
   title: z.string().optional(),
   /** The unique identifier assigned to the advisory or disclosed vulnerability, e.g, GHSA-5mrr-rgp6-x4gr. */
   uid: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type AdvisoryType = z.infer<typeof Advisory>;

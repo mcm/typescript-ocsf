@@ -8,7 +8,7 @@ import { DeviceHwInfo } from './device_hw_info.js';
  *
  * OCSF Object: Unmanned Aerial System
  */
-export const UnmannedAerialSystem = z.object({
+export const UnmannedAerialSystem: any = z.object({
   /** The name of the unmanned system as reported by tracking or sensing hardware. */
   name: z.string().optional(),
   /** The primary identification identifier for an unmanned system. This can be a Serial Number (in CTA-2063-A format, the Registration ID (provided by the CAA, a UTM, or a unique Session ID. */
@@ -37,6 +37,6 @@ export const UnmannedAerialSystem = z.object({
   type_id: z.number().int().optional(),
   /** The Unmanned Aircraft System Traffic Management (UTM) provided universal unique ID (UUID) traceable to a non-obfuscated ID where this UTM UUID acts as a 'session id' to protect exposure of operationally sensitive information. */
   uuid: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type UnmannedAerialSystemType = z.infer<typeof UnmannedAerialSystem>;

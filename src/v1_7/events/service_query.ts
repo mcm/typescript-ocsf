@@ -61,7 +61,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Service Query
  * @see https://schema.ocsf.io/1.7.0/classes/service_query
  */
-export const ServiceQuery = z.preprocess(
+export const ServiceQuery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -135,6 +135,6 @@ export const ServiceQuery = z.preprocess(
     /** The service that pertains to the event. */
     service: Service,
   }).passthrough(),
-) as any;
+);
 
 export type ServiceQueryType = z.infer<typeof ServiceQuery>;

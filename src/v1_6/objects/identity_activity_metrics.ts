@@ -7,7 +7,7 @@ import { ProgrammaticCredential } from './programmatic_credential.js';
  *
  * OCSF Object: Identity Activity Metrics
  */
-export const IdentityActivityMetrics = z.object({
+export const IdentityActivityMetrics: any = z.object({
   /** The timestamp when this identity was first observed or created in the system. This helps establish the identity's age and lifecycle stage for risk assessment. */
   first_seen_time: z.number().int().optional(),
   /** The timestamp when this identity last successfully authenticated to any system or service. This differs from last_seen_time as it specifically tracks authentication events rather than all activities. */
@@ -18,6 +18,6 @@ export const IdentityActivityMetrics = z.object({
   password_last_used_time: z.number().int().optional(),
   /** Details about the programmatic credentials associated with this identity, such as API keys, service account keys, access tokens, and client certificates used for automated access. */
   programmatic_credentials: z.array(ProgrammaticCredential).optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type IdentityActivityMetricsType = z.infer<typeof IdentityActivityMetrics>;

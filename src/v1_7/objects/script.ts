@@ -9,7 +9,7 @@ import { LongString } from './long_string.js';
  *
  * OCSF Object: Script
  */
-export const Script = z.object({
+export const Script: any = z.object({
   /** Present if this script is associated with a file. Not present in the case of a file-less script. */
   file: File.optional(),
   /** An array of the script's cryptographic hashes. Note that these hashes are calculated on the script in its original encoding, and not on the normalized UTF-8 encoding found in the script_content attribute. */
@@ -26,6 +26,6 @@ export const Script = z.object({
   type_id: z.number().int(),
   /** Some script engines assign a unique ID to each individual execution of a given script. This attribute captures that unique ID. In the case of PowerShell, the unique ID corresponds to the ScriptBlockId in the raw ETW events provided by the OS. */
   uid: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type ScriptType = z.infer<typeof Script>;

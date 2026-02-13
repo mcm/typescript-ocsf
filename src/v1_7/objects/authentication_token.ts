@@ -7,7 +7,7 @@ import { EncryptionDetails } from './encryption_details.js';
  *
  * OCSF Object: Authentication Token
  */
-export const AuthenticationToken = z.object({
+export const AuthenticationToken: any = z.object({
   /** The time that the authentication token was created. */
   created_time: z.number().int().optional(),
   /** The encryption details of the authentication token. */
@@ -22,6 +22,6 @@ export const AuthenticationToken = z.object({
   type: z.string().optional(),
   /** The normalized authentication token type identifier. */
   type_id: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type AuthenticationTokenType = z.infer<typeof AuthenticationToken>;

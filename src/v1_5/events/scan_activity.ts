@@ -58,7 +58,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Scan Activity
  * @see https://schema.ocsf.io/1.5.0/classes/scan_activity
  */
-export const ScanActivity = z.preprocess(
+export const ScanActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -150,6 +150,6 @@ export const ScanActivity = z.preprocess(
     /** The total number of items that were scanned; zero if no items were scanned. */
     total: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type ScanActivityType = z.infer<typeof ScanActivity>;

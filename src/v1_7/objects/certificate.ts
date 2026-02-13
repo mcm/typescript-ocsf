@@ -8,7 +8,7 @@ import { San } from './san.js';
  *
  * OCSF Object: Digital Certificate
  */
-export const Certificate = z.object({
+export const Certificate: any = z.object({
   /** The time when the certificate was created. */
   created_time: z.number().int().optional(),
   /** The expiration time of the certificate. */
@@ -29,6 +29,6 @@ export const Certificate = z.object({
   uid: z.string().optional(),
   /** The certificate version. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type CertificateType = z.infer<typeof Certificate>;

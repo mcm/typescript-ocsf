@@ -8,7 +8,7 @@ import { Organization } from './organization.js';
  *
  * OCSF Object: Cloud
  */
-export const Cloud = z.object({
+export const Cloud: any = z.object({
   /** The Account object containing details about the cloud account, subscription, or billing unit where the event or finding was created. This object includes properties such as the account name, unique identifier, type, labels, and tags.Examples:AWS: Account object with name, uid (Account ID), type, and other account propertiesAzure: Subscription object with name, uid (Subscription ID), type, and subscription metadataGCP: Project object with name, uid (Project ID), type, and project attributesOracle Cloud: Compartment object with name, uid (Tenancy OCID), type, and compartment details */
   account: Account.optional(),
   /** The logical grouping or isolated segment within a cloud provider's infrastructure where the event or finding was created, often used for compliance, governance, or regional separation.Examples:AWS: Partition where the event occurred (aws, aws-cn, aws-us-gov)Azure: Cloud environment where the event occurred (AzureCloud, AzureUSGovernment, AzureChinaCloud) */
@@ -23,6 +23,6 @@ export const Cloud = z.object({
   region: z.string().optional(),
   /** The availability zone in the cloud region where the event or finding was created, as defined by the cloud provider.Examples:AWS: Availability zone where the event occurred (us-east-1a, us-east-1b)Azure: Availability zone where the event occurred (1, 2, 3 within a region)GCP: Availability zone where the event occurred (us-central1-a, us-central1-b)Oracle Cloud: Availability zone where the event occurred (AD-1, AD-2, AD-3) */
   zone: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type CloudType = z.infer<typeof Cloud>;

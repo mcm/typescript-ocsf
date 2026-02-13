@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Finding
  * @see https://schema.ocsf.io/1.6.0/classes/finding
  */
-export const Finding = z.preprocess(
+export const Finding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -144,6 +144,6 @@ export const Finding = z.preprocess(
     /** The Vendor Attributes object can be used to represent values of attributes populated by the Vendor/Finding Provider. It can help distinguish between the vendor-provided values and consumer-updated values, of key attributes like severity_id.The original finding producer should not populate this object. It should be populated by consuming systems that support data mutability. */
     vendor_attributes: VendorAttributes.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type FindingType = z.infer<typeof Finding>;

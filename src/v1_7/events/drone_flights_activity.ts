@@ -75,7 +75,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Drone Flights Activity
  * @see https://schema.ocsf.io/1.7.0/classes/drone_flights_activity
  */
-export const DroneFlightsActivity = z.preprocess(
+export const DroneFlightsActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -169,6 +169,6 @@ export const DroneFlightsActivity = z.preprocess(
     /** The human or machine operator of an Unmanned System. */
     unmanned_system_operator: User,
   }).passthrough(),
-) as any;
+);
 
 export type DroneFlightsActivityType = z.infer<typeof DroneFlightsActivity>;

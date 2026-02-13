@@ -7,7 +7,7 @@ import { HttpHeader } from './http_header.js';
  *
  * OCSF Object: HTTP Response
  */
-export const HttpResponse = z.object({
+export const HttpResponse: any = z.object({
   /** The actual length of the HTTP response body, in number of bytes, independent of a potentially existing Content-Length header. */
   body_length: z.number().int().optional(),
   /** The Hypertext Transfer Protocol (HTTP) status code returned from the web server to the client. For example, 200. */
@@ -24,6 +24,6 @@ export const HttpResponse = z.object({
   message: z.string().optional(),
   /** The response status. For example: A successful HTTP status of 'OK' which corresponds to a code of 200. */
   status: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type HttpResponseType = z.infer<typeof HttpResponse>;

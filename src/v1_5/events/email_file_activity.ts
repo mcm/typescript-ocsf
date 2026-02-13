@@ -50,7 +50,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Email File Activity
  * @see https://schema.ocsf.io/1.5.0/classes/email_file_activity
  */
-export const EmailFileActivity = z.preprocess(
+export const EmailFileActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -118,6 +118,6 @@ export const EmailFileActivity = z.preprocess(
     /** The email file attachment. */
     file: File,
   }).passthrough(),
-) as any;
+);
 
 export type EmailFileActivityType = z.infer<typeof EmailFileActivity>;

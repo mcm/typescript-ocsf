@@ -60,7 +60,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Web Resources Activity
  * @see https://schema.ocsf.io/1.7.0/classes/web_resources_activity
  */
-export const WebResourcesActivity = z.preprocess(
+export const WebResourcesActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -140,6 +140,6 @@ export const WebResourcesActivity = z.preprocess(
     /** The results of the activity on web resources. It should contain the new values of the changed attributes of the web resources. */
     web_resources_result: z.array(WebResource).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type WebResourcesActivityType = z.infer<typeof WebResourcesActivity>;

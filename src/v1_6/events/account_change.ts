@@ -65,7 +65,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Account Change
  * @see https://schema.ocsf.io/1.6.0/classes/account_change
  */
-export const AccountChange = z.preprocess(
+export const AccountChange: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -147,6 +147,6 @@ export const AccountChange = z.preprocess(
     /** The result of the user account change. It should contain the new values of the changed attributes. */
     user_result: User.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type AccountChangeType = z.infer<typeof AccountChange>;

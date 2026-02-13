@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Node
  */
-export const Node = z.object({
+export const Node: any = z.object({
   /** Additional data about the node stored as key-value pairs. Can include custom properties specific to the node. */
   data: z.record(z.unknown()).optional(),
   /** A human-readable description of the node's purpose or meaning in the graph. */
@@ -16,6 +16,6 @@ export const Node = z.object({
   type: z.string().optional(),
   /** A unique string or numeric identifier that distinguishes this node from all others in the graph. Must be unique across all nodes. */
   uid: z.string(),
-}).passthrough() as any;
+}).passthrough();
 
 export type NodeType = z.infer<typeof Node>;

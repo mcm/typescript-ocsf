@@ -51,7 +51,7 @@ const UID_CONFIG: UidConfig = {
  * Category: OSINT Inventory Info
  * @see https://schema.ocsf.io/1.6.0/classes/osint_inventory_info
  */
-export const OsintInventoryInfo = z.preprocess(
+export const OsintInventoryInfo: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -121,6 +121,6 @@ export const OsintInventoryInfo = z.preprocess(
     /** The OSINT that is being discovered by an inventory process. */
     osint: z.array(Osint),
   }).passthrough(),
-) as any;
+);
 
 export type OsintInventoryInfoType = z.infer<typeof OsintInventoryInfo>;

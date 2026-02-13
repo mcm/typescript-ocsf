@@ -51,7 +51,7 @@ const UID_CONFIG: UidConfig = {
  * Category: User Inventory Info
  * @see https://schema.ocsf.io/1.6.0/classes/user_inventory
  */
-export const UserInventory = z.preprocess(
+export const UserInventory: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -121,6 +121,6 @@ export const UserInventory = z.preprocess(
     /** The user that is being discovered by an inventory process. */
     user: User,
   }).passthrough(),
-) as any;
+);
 
 export type UserInventoryType = z.infer<typeof UserInventory>;

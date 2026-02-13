@@ -50,7 +50,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Operating System Patch State
  * @see https://schema.ocsf.io/1.5.0/classes/patch_state
  */
-export const PatchState = z.preprocess(
+export const PatchState: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -118,6 +118,6 @@ export const PatchState = z.preprocess(
     /** A list of KB articles or patches related to an endpoint. A KB Article contains metadata that describes the patch or an update. */
     kb_article_list: z.array(KbArticle).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type PatchStateType = z.infer<typeof PatchState>;

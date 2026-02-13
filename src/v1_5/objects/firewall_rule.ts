@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Firewall Rule
  */
-export const FirewallRule = z.object({
+export const FirewallRule: any = z.object({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */
@@ -30,6 +30,6 @@ export const FirewallRule = z.object({
   rate_limit: z.number().int().optional(),
   /** The sensitivity of the firewall rule in the matched event. For example: HIGH. */
   sensitivity: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type FirewallRuleType = z.infer<typeof FirewallRule>;

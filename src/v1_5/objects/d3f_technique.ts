@@ -5,13 +5,13 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE D3FEND™ Technique
  */
-export const D3fTechnique = z.object({
+export const D3fTechnique: any = z.object({
   /** The name of the defensive technique. For example: IO Port Restriction. */
   name: z.string().optional(),
   /** The unique identifier of the defensive technique. For example: D3-IOPR. */
   uid: z.string().optional(),
   /** The versioned permalink of the defensive technique. For example: https://d3fend.mitre.org/technique/d3f:IOPortRestriction/. */
   src_url: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type D3fTechniqueType = z.infer<typeof D3fTechnique>;

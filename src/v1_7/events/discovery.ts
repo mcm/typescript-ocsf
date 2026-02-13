@@ -49,7 +49,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Discovery
  * @see https://schema.ocsf.io/1.7.0/classes/discovery
  */
-export const Discovery = z.preprocess(
+export const Discovery: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -115,6 +115,6 @@ export const Discovery = z.preprocess(
     /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
     unmapped: OcsfObject.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type DiscoveryType = z.infer<typeof Discovery>;

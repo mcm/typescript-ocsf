@@ -56,7 +56,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Network Remediation Activity
  * @see https://schema.ocsf.io/1.6.0/classes/network_remediation_activity
  */
-export const NetworkRemediationActivity = z.preprocess(
+export const NetworkRemediationActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -132,6 +132,6 @@ export const NetworkRemediationActivity = z.preprocess(
     /** The network connection that pertains to the remediation event. */
     connection_info: NetworkConnectionInfo,
   }).passthrough(),
-) as any;
+);
 
 export type NetworkRemediationActivityType = z.infer<typeof NetworkRemediationActivity>;

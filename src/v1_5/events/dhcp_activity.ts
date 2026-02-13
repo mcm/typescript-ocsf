@@ -62,7 +62,7 @@ const UID_CONFIG: UidConfig = {
  * Category: DHCP Activity
  * @see https://schema.ocsf.io/1.5.0/classes/dhcp_activity
  */
-export const DhcpActivity = z.preprocess(
+export const DhcpActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -150,6 +150,6 @@ export const DhcpActivity = z.preprocess(
     /** The unique identifier of the transaction. This is typically a random number generated from the client to associate a dhcp request/response pair. */
     transaction_uid: z.string().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type DhcpActivityType = z.infer<typeof DhcpActivity>;

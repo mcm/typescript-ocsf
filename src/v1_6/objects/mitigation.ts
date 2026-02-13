@@ -7,7 +7,7 @@ import { D3fend } from './d3fend.js';
  *
  * OCSF Object: MITRE Mitigation
  */
-export const Mitigation = z.object({
+export const Mitigation: any = z.object({
   /** The Mitigation name that is associated with the attack technique. For example: Password Policies, or Code Signing. */
   name: z.string().optional(),
   /** The Mitigation ID that is associated with the attack technique. For example: M1027, or AML.M0013. */
@@ -16,6 +16,6 @@ export const Mitigation = z.object({
   countermeasures: z.array(D3fend).optional(),
   /** The versioned permalink of the Mitigation. For example: https://attack.mitre.org/versions/v14/mitigations/M1027. */
   src_url: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type MitigationType = z.infer<typeof Mitigation>;

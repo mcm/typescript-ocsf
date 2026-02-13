@@ -8,13 +8,13 @@ import { D3fTechnique } from './d3f_technique.js';
  *
  * OCSF Object: MITRE D3FEND™
  */
-export const D3fend = z.object({
+export const D3fend: any = z.object({
   /** The Tactic object describes the tactic ID and/or name that is associated with a countermeasure. */
   d3f_tactic: D3fTactic.optional(),
   /** The Technique object describes the technique ID and/or name associated with a countermeasure. */
   d3f_technique: D3fTechnique.optional(),
   /** The D3FEND™ Matrix version. */
   version: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type D3fendType = z.infer<typeof D3fend>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
  *
  * OCSF Object: Check
  */
-export const Check = z.object({
+export const Check: any = z.object({
   /** The detailed description of the compliance check, explaining the security requirement, vulnerability, or configuration being assessed. For example, CIS: The cramfs filesystem type is a compressed read-only Linux filesystem. Removing support for unneeded filesystem types reduces the local attack surface. or DISA STIG: Unauthorized access to the information system by foreign entities may result in loss or compromise of data. */
   desc: z.string().optional(),
   /** The name or title of the compliance check. For example, CIS: Ensure mounting of cramfs filesystems is disabled or DISA STIG: The Ubuntu operating system must implement DoD-approved encryption to protect the confidentiality of remote access sessions. */
@@ -24,6 +24,6 @@ export const Check = z.object({
   severity: z.string().optional(),
   /** The normalized severity identifier that maps severity levels to standard severity levels. For example CIS Benchmark: Level 2 maps to 4 (High), Level 1 maps to 3 (Medium). For DISA STIG: CAT I maps to 5 (Critical), CAT II maps to 4 (High), and CAT III maps to 3 (Medium). */
   severity_id: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type CheckType = z.infer<typeof Check>;

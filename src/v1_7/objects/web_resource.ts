@@ -7,7 +7,7 @@ import { KeyValueObject } from './key_value_object.js';
  *
  * OCSF Object: Web Resource
  */
-export const WebResource = z.object({
+export const WebResource: any = z.object({
   /** The name of the web resource. */
   name: z.string().optional(),
   /** The unique identifier of the web resource. */
@@ -30,6 +30,6 @@ export const WebResource = z.object({
   desc: z.string().optional(),
   /** The URL pointing towards the source of the web resource. */
   url_string: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type WebResourceType = z.infer<typeof WebResource>;

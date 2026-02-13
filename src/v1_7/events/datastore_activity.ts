@@ -74,7 +74,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Datastore Activity
  * @see https://schema.ocsf.io/1.7.0/classes/datastore_activity
  */
-export const DatastoreActivity = z.preprocess(
+export const DatastoreActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -162,6 +162,6 @@ export const DatastoreActivity = z.preprocess(
     /** The normalized datastore resource type identifier. */
     type_id: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type DatastoreActivityType = z.infer<typeof DatastoreActivity>;

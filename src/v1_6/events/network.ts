@@ -55,7 +55,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Network
  * @see https://schema.ocsf.io/1.6.0/classes/network
  */
-export const Network = z.preprocess(
+export const Network: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -137,6 +137,6 @@ export const Network = z.preprocess(
     /** The network traffic refers to the amount of data moving across a network at a given point of time. Intended to be used alongside Network Connection. */
     traffic: NetworkTraffic.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type NetworkType = z.infer<typeof Network>;

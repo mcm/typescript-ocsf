@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: RDP Activity
  * @see https://schema.ocsf.io/1.5.0/classes/rdp_activity
  */
-export const RdpActivity = z.preprocess(
+export const RdpActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -164,6 +164,6 @@ export const RdpActivity = z.preprocess(
     /** The server response in an RDP network connection. */
     response: Response.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type RdpActivityType = z.infer<typeof RdpActivity>;

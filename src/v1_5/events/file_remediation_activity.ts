@@ -55,7 +55,7 @@ const UID_CONFIG: UidConfig = {
  * Category: File Remediation Activity
  * @see https://schema.ocsf.io/1.5.0/classes/file_remediation_activity
  */
-export const FileRemediationActivity = z.preprocess(
+export const FileRemediationActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -129,6 +129,6 @@ export const FileRemediationActivity = z.preprocess(
     /** The file that pertains to the remediation event. */
     file: File,
   }).passthrough(),
-) as any;
+);
 
 export type FileRemediationActivityType = z.infer<typeof FileRemediationActivity>;

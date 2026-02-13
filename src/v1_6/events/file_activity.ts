@@ -64,7 +64,7 @@ const UID_CONFIG: UidConfig = {
  * Category: File System Activity
  * @see https://schema.ocsf.io/1.6.0/classes/file_activity
  */
-export const FileActivity = z.preprocess(
+export const FileActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -148,6 +148,6 @@ export const FileActivity = z.preprocess(
     /** The resulting file object when the activity was allowed and successful. */
     file_result: File.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type FileActivityType = z.infer<typeof FileActivity>;

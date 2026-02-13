@@ -76,7 +76,7 @@ const UID_CONFIG: UidConfig = {
  * Category: HTTP Activity
  * @see https://schema.ocsf.io/1.7.0/classes/http_activity
  */
-export const HttpActivity = z.preprocess(
+export const HttpActivity: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -174,6 +174,6 @@ export const HttpActivity = z.preprocess(
     /** The Hypertext Transfer Protocol (HTTP) status code returned to the client. */
     http_status: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type HttpActivityType = z.infer<typeof HttpActivity>;

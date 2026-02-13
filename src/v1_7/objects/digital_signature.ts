@@ -8,7 +8,7 @@ import { Fingerprint } from './fingerprint.js';
  *
  * OCSF Object: Digital Signature
  */
-export const DigitalSignature = z.object({
+export const DigitalSignature: any = z.object({
   /** The digital signature algorithm used to create the signature, normalized to the caption of 'algorithm_id'. In the case of 'Other', it is defined by the event source. */
   algorithm: z.string().optional(),
   /** The identifier of the normalized digital signature algorithm. */
@@ -25,6 +25,6 @@ export const DigitalSignature = z.object({
   state: z.string().optional(),
   /** The normalized identifier of the signature state. */
   state_id: z.number().int().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type DigitalSignatureType = z.infer<typeof DigitalSignature>;

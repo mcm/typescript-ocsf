@@ -8,7 +8,7 @@ import { Url } from './url.js';
  *
  * OCSF Object: HTTP Request
  */
-export const HttpRequest = z.object({
+export const HttpRequest: any = z.object({
   /** The arguments sent along with the HTTP request. */
   args: z.string().optional(),
   /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */
@@ -31,6 +31,6 @@ export const HttpRequest = z.object({
   version: z.string().optional(),
   /** The X-Forwarded-For header identifying the originating IP address(es) of a client connecting to a web server through an HTTP proxy or a load balancer. */
   x_forwarded_for: z.array(z.string()).optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type HttpRequestType = z.infer<typeof HttpRequest>;

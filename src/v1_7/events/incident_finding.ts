@@ -102,7 +102,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Incident Finding
  * @see https://schema.ocsf.io/1.7.0/classes/incident_finding
  */
-export const IncidentFinding = z.preprocess(
+export const IncidentFinding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -210,6 +210,6 @@ export const IncidentFinding = z.preprocess(
     /** The normalized verdict of an Incident. */
     verdict_id: z.number().int().optional(),
   }).passthrough(),
-) as any;
+);
 
 export type IncidentFindingType = z.infer<typeof IncidentFinding>;

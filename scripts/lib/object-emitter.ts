@@ -1,5 +1,5 @@
 import { toClassName, toFileName } from "./naming.js";
-import { mapOcsfTypeToTs, mapOcsfTypeToZod } from "./type-map.js";
+import { mapOcsfTypeToTs, mapOcsfTypeToZod, mapOcsfTypeToZodTypeName } from "./type-map.js";
 import type { ParsedAttribute, ParsedObject } from "./types.js";
 
 /**
@@ -68,15 +68,15 @@ export function emitObjectFile(
   const isRecursive = obj.isInCycle || selfReferencing;
 
   if (isRecursive) {
-    // Recursive: use getter pattern (with 'as any' to avoid TS7056 errors)
-    lines.push(`export const ${className} = z.object({`);
+    // Recursive: use getter pattern with :any to prevent TS7056
+    lines.push(`export const ${className}: any = z.object({`);
     emitFieldsWithGetters(lines, obj, allObjects);
-    lines.push("}).passthrough() as any;");
+    lines.push("}).passthrough();");
   } else {
-    // Non-recursive: plain object (with 'as any' to avoid TS7056 errors)
-    lines.push(`export const ${className} = z.object({`);
+    // Non-recursive: plain object with :any to prevent TS7056 on complex schemas
+    lines.push(`export const ${className}: any = z.object({`);
     emitSimpleFields(lines, obj, allObjects);
-    lines.push("}).passthrough() as any;");
+    lines.push("}).passthrough();");
   }
 
   lines.push("");
@@ -128,13 +128,29 @@ function emitFieldsWithGetters(
     const useGetter = shouldUseGetter(attr, obj, allObjects);
 
     if (useGetter) {
-      // Use getter pattern with explicit return type
+      // Use getter pattern - direct references support .extend()
       let zodType = getZodTypeForGetter(attr, allObjects);
-      const returnType = getZodReturnType(attr, allObjects);
       if (attr.requirement !== "required") {
         zodType += ".optional()";
       }
-      lines.push(`  get ${attr.name}(): ${returnType} { return ${zodType}; },`);
+      // Add :any return type for self-referencing and mutually-referencing getters
+      // This breaks circular type inference without affecting runtime or z.infer types
+      const isSelfReference = attr.objectType === obj.name;
+      let isMutualReference = false;
+
+      if (!isSelfReference && attr.objectType) {
+        const refObj = allObjects.get(attr.objectType);
+        if (refObj) {
+          // Check if the referenced object has any attribute that references back to current object
+          isMutualReference = refObj.attributes.some(refAttr => refAttr.objectType === obj.name);
+        }
+      }
+
+      if (isSelfReference || isMutualReference) {
+        lines.push(`  get ${attr.name}(): any { return ${zodType}; },`);
+      } else {
+        lines.push(`  get ${attr.name}() { return ${zodType}; },`);
+      }
     } else {
       // Regular field
       let zodType = getZodTypeSimple(attr, allObjects);
@@ -204,6 +220,7 @@ function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedO
 
 /**
  * Get the Zod type expression for a getter field.
+ * Direct references (no z.lazy) to support .extend() on returned schemas.
  */
 function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
   let base: string;
@@ -217,7 +234,7 @@ function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, Pars
     } else {
       // Handle special case where Object is renamed to OcsfObject
       const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
-      // Direct reference (no z.lazy)
+      // Direct reference (no z.lazy) to support composition methods
       base = refClassName;
     }
   } else {
@@ -235,8 +252,37 @@ function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, Pars
 
 /**
  * Get the explicit return type annotation for a getter.
- * Use 'any' to break circular type references in recursive schemas.
+ * Computes the proper Zod type to break circular type references in recursive schemas.
  */
 function getZodReturnType(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
-  return "any";
+  let base: string;
+
+  if (attr.objectType) {
+    // Object reference
+    const refObj = allObjects.get(attr.objectType);
+    if (!refObj) {
+      // Unknown: use z.ZodRecord<z.ZodString, z.ZodUnknown>
+      base = "z.ZodRecord<z.ZodString, z.ZodUnknown>";
+    } else {
+      // Handle special case where Object is renamed to OcsfObject
+      const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
+      // Use typeof to reference the schema type
+      base = `typeof ${refClassName}`;
+    }
+  } else {
+    // Primitive type - map to Zod type name
+    base = mapOcsfTypeToZodTypeName(attr.ocsfType);
+  }
+
+  // Wrap in array if needed
+  if (attr.isArray) {
+    base = `z.ZodArray<${base}>`;
+  }
+
+  // Wrap in optional if needed
+  if (attr.requirement !== "required") {
+    base = `z.ZodOptional<${base}>`;
+  }
+
+  return base;
 }

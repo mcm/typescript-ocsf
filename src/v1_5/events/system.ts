@@ -50,7 +50,7 @@ const UID_CONFIG: UidConfig = {
  * Category: System Activity
  * @see https://schema.ocsf.io/1.5.0/classes/system
  */
-export const System = z.preprocess(
+export const System: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -118,6 +118,6 @@ export const System = z.preprocess(
     /** An addressable device, computer system or host. */
     device: Device,
   }).passthrough(),
-) as any;
+);
 
 export type SystemType = z.infer<typeof System>;

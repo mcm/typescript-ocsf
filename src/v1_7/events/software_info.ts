@@ -54,7 +54,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Software Inventory Info
  * @see https://schema.ocsf.io/1.7.0/classes/software_info
  */
-export const SoftwareInfo = z.preprocess(
+export const SoftwareInfo: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -130,6 +130,6 @@ export const SoftwareInfo = z.preprocess(
     /** The Software Bill of Materials (SBOM) of the device software that is being discovered by an inventory process. */
     sbom: Sbom.optional(),
   }).passthrough(),
-) as any;
+);
 
 export type SoftwareInfoType = z.infer<typeof SoftwareInfo>;

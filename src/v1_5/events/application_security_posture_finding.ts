@@ -67,7 +67,7 @@ const UID_CONFIG: UidConfig = {
  * Category: Application Security Posture Finding
  * @see https://schema.ocsf.io/1.5.0/classes/application_security_posture_finding
  */
-export const ApplicationSecurityPostureFinding = z.preprocess(
+export const ApplicationSecurityPostureFinding: any = z.preprocess(
   (data) => {
     if (typeof data !== 'object' || data === null) return data;
     let d = { ...data } as Record<string, unknown>;
@@ -155,6 +155,6 @@ export const ApplicationSecurityPostureFinding = z.preprocess(
     /** This object describes vulnerabilities reported in a security finding. */
     vulnerabilities: z.array(Vulnerability).optional(),
   }).passthrough(),
-) as any;
+);
 
 export type ApplicationSecurityPostureFindingType = z.infer<typeof ApplicationSecurityPostureFinding>;

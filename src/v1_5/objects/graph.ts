@@ -8,7 +8,7 @@ import { Node } from './node.js';
  *
  * OCSF Object: Graph
  */
-export const Graph = z.object({
+export const Graph: any = z.object({
   /** The graph name - a human readable identifier for the graph. */
   name: z.string().optional(),
   /** Unique identifier of the graph - a unique ID to reference this specific graph. */
@@ -27,6 +27,6 @@ export const Graph = z.object({
   query_language_id: z.number().int().optional(),
   /** The graph type. Typically useful to represent the specifc type of graph that is used. */
   type: z.string().optional(),
-}).passthrough() as any;
+}).passthrough();
 
 export type GraphType = z.infer<typeof Graph>;
