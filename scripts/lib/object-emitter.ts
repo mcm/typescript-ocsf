@@ -142,7 +142,7 @@ function emitFieldsWithGetters(
         const refObj = allObjects.get(attr.objectType);
         if (refObj) {
           // Check if the referenced object has any attribute that references back to current object
-          isMutualReference = refObj.attributes.some(refAttr => refAttr.objectType === obj.name);
+          isMutualReference = refObj.attributes.some((refAttr) => refAttr.objectType === obj.name);
         }
       }
 
