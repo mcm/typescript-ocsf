@@ -33,7 +33,7 @@ const activity = HttpActivity.parse({
   type_uid: 400201,
   http_request: {
     url: {
-      text: "https://example.com",
+      url_string: "https://example.com",
     },
   },
 });
@@ -42,7 +42,7 @@ const activity = HttpActivity.parse({
 console.log(activity.metadata.version);
 
 // 👈 Hover over activity.http_request - see HttpRequestType (reference!)
-console.log(activity.http_request?.url?.text);
+console.log(activity.http_request?.url?.url_string);
 
 // ============================================================================
 // ✅ SCHEMA EXTENSION - Now Possible via .schema Property!
