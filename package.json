@@ -1,6 +1,6 @@
 {
   "name": "@mcm/ocsf",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Zod schemas for the Open Cybersecurity Schema Framework (OCSF)",
   "license": "Apache-2.0",
   "type": "module",
@@ -14,7 +14,7 @@
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
       }
     },
@@ -24,7 +24,7 @@
         "default": "./dist/v1_7/index.js"
       },
       "require": {
-        "types": "./dist/v1_7/index.d.cts",
+        "types": "./dist/v1_7/index.d.ts",
         "default": "./dist/v1_7/index.cjs"
       }
     },
@@ -34,7 +34,7 @@
         "default": "./dist/v1_7/objects/index.js"
       },
       "require": {
-        "types": "./dist/v1_7/objects/index.d.cts",
+        "types": "./dist/v1_7/objects/index.d.ts",
         "default": "./dist/v1_7/objects/index.cjs"
       }
     },
@@ -44,7 +44,7 @@
         "default": "./dist/v1_7/events/index.js"
       },
       "require": {
-        "types": "./dist/v1_7/events/index.d.cts",
+        "types": "./dist/v1_7/events/index.d.ts",
         "default": "./dist/v1_7/events/index.cjs"
       }
     },
@@ -54,7 +54,7 @@
         "default": "./dist/v1_7/enums/index.js"
       },
       "require": {
-        "types": "./dist/v1_7/enums/index.d.cts",
+        "types": "./dist/v1_7/enums/index.d.ts",
         "default": "./dist/v1_7/enums/index.cjs"
       }
     },
@@ -64,7 +64,7 @@
         "default": "./dist/v1_6/index.js"
       },
       "require": {
-        "types": "./dist/v1_6/index.d.cts",
+        "types": "./dist/v1_6/index.d.ts",
         "default": "./dist/v1_6/index.cjs"
       }
     },
@@ -74,7 +74,7 @@
         "default": "./dist/v1_6/objects/index.js"
       },
       "require": {
-        "types": "./dist/v1_6/objects/index.d.cts",
+        "types": "./dist/v1_6/objects/index.d.ts",
         "default": "./dist/v1_6/objects/index.cjs"
       }
     },
@@ -84,7 +84,7 @@
         "default": "./dist/v1_6/events/index.js"
       },
       "require": {
-        "types": "./dist/v1_6/events/index.d.cts",
+        "types": "./dist/v1_6/events/index.d.ts",
         "default": "./dist/v1_6/events/index.cjs"
       }
     },
@@ -94,7 +94,7 @@
         "default": "./dist/v1_6/enums/index.js"
       },
       "require": {
-        "types": "./dist/v1_6/enums/index.d.cts",
+        "types": "./dist/v1_6/enums/index.d.ts",
         "default": "./dist/v1_6/enums/index.cjs"
       }
     },
@@ -104,7 +104,7 @@
         "default": "./dist/v1_5/index.js"
       },
       "require": {
-        "types": "./dist/v1_5/index.d.cts",
+        "types": "./dist/v1_5/index.d.ts",
         "default": "./dist/v1_5/index.cjs"
       }
     },
@@ -114,7 +114,7 @@
         "default": "./dist/v1_5/objects/index.js"
       },
       "require": {
-        "types": "./dist/v1_5/objects/index.d.cts",
+        "types": "./dist/v1_5/objects/index.d.ts",
         "default": "./dist/v1_5/objects/index.cjs"
       }
     },
@@ -124,7 +124,7 @@
         "default": "./dist/v1_5/events/index.js"
       },
       "require": {
-        "types": "./dist/v1_5/events/index.d.cts",
+        "types": "./dist/v1_5/events/index.d.ts",
         "default": "./dist/v1_5/events/index.cjs"
       }
     },
@@ -134,7 +134,7 @@
         "default": "./dist/v1_5/enums/index.js"
       },
       "require": {
-        "types": "./dist/v1_5/enums/index.d.cts",
+        "types": "./dist/v1_5/enums/index.d.ts",
         "default": "./dist/v1_5/enums/index.cjs"
       }
     }
@@ -147,7 +147,7 @@
   "scripts": {
     "download": "tsx scripts/download-schemas.ts",
     "generate": "tsx scripts/generate.ts",
-    "build": "tsup",
+    "build": "tsup && tsc --emitDeclarationOnly",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

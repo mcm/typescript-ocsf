@@ -8,7 +8,8 @@ TypeScript library providing Zod schemas and runtime validation for the Open Cyb
 
 - **Complete OCSF Coverage** — Support for OCSF v1.5.0, v1.6.0, and v1.7.0
 - **Type-Safe Schemas** — Full TypeScript inference with Zod schemas for all events, objects, and enums
-- **Schema Composition** — Extend and compose schemas with `.array()`, `.extend()`, `.pick()`, `.omit()`, `.merge()`
+- **Schema Composition** — Extend and compose schemas (events via `.schema.extend()`, objects directly)
+- **Clean Type Hints** — Explicit interfaces with type references, not massive inlined types (90% smaller files)
 - **Automatic Sibling Reconciliation** — Auto-fill label attributes from their ID counterparts (e.g., `activity_name` from `activity_id`)
 - **Automatic UID Pre-filling** — Automatically populate `category_uid`, `class_uid`, and `type_uid` based on event type
 - **Runtime Validation** — Validate OCSF events at runtime with detailed error messages
@@ -48,8 +49,11 @@ const event = FileActivity.parse({
   actor: {},
 });
 
-// TypeScript knows the full type
-type FileActivityType = z.infer<typeof FileActivity>;
+// Import the TypeScript type directly (recommended)
+import type { FileActivityType } from "@mcm/ocsf/v1_7/events";
+
+// Or infer from the schema
+type FileActivityType2 = z.infer<typeof FileActivity.schema>;
 
 // Sibling reconciliation automatically filled activity_name
 console.log(event.activity_name); // "Create"
@@ -282,7 +286,48 @@ const parsed = FileActivity.parse(JSON.parse(json));
 
 ### Schema Composition
 
-OCSF schemas support full Zod composition, enabling you to extend and customize schemas for your use case:
+OCSF schemas support full Zod composition, enabling you to extend and customize schemas for your use case.
+
+#### Extending Event Schemas
+
+Events export a parser object with a `.schema` property that can be extended:
+
+```typescript
+import { z } from "zod";
+import { HttpActivity } from "@mcm/ocsf/v1_7/events";
+
+// Extend event schema with custom vendor fields
+const ExtendedHttpActivity = HttpActivity.schema.extend({
+  vendor_trace_id: z.string().optional(),
+  internal_priority: z.number().int().min(1).max(10).optional(),
+});
+
+// Parse with extended schema
+const event = ExtendedHttpActivity.parse({
+  // ... standard OCSF fields
+  metadata: {
+    version: "1.7.0",
+    product: { name: "Web Server", vendor_name: "ACME" },
+  },
+  severity_id: 1,
+  time: Date.now(),
+  category_uid: 4,
+  class_uid: 4002,
+  type_uid: 400201,
+  // Custom fields
+  vendor_trace_id: "trace-abc-123",
+  internal_priority: 7,
+});
+
+// All Zod methods work on the schema property
+const MinimalEvent = HttpActivity.schema.pick({ time: true, severity_id: true });
+const PartialEvent = HttpActivity.schema.partial();
+const PublicEvent = HttpActivity.schema.omit({ actor: true, device: true });
+```
+
+#### Extending Object Schemas
+
+Objects can be extended directly:
 
 ```typescript
 import { z } from "zod";
@@ -325,6 +370,42 @@ const UserWithTimestamps = User.merge(z.object({
 ```
 
 All composition operations preserve full TypeScript type inference and IDE autocomplete support.
+
+### Type Inference and Clean Type Hints
+
+This library uses explicit TypeScript interfaces with type references, providing clean IDE hints and minimal type complexity:
+
+```typescript
+import type { HttpActivityType, MetadataType, ActorType } from "@mcm/ocsf/v1_7/events";
+
+// Types use references, not massive inline structures
+const metadata: MetadataType = {
+  version: "1.7.0",
+  product: { name: "Web Server", vendor_name: "ACME" },
+};
+
+// Hover over variables in your IDE to see clean, referenced types
+// Not 900-line inlined type definitions!
+const activity: HttpActivityType = HttpActivity.parse({
+  metadata,
+  severity_id: 1,
+  time: Date.now(),
+  category_uid: 4,
+  class_uid: 4002,
+  type_uid: 400201,
+});
+
+// Type inference works multiple ways:
+type T1 = HttpActivityType;                        // Direct import (recommended)
+type T2 = z.infer<typeof HttpActivity.schema>;     // From schema
+type T3 = typeof activity;                         // From parsed value
+```
+
+**Benefits:**
+- 90% smaller source files (267 lines vs 2,621 lines)
+- Clean IDE hover hints with type references
+- Faster TypeScript compilation
+- No TypeScript server crashes from huge types
 
 ## Version-Specific Imports
 
@@ -389,6 +470,27 @@ Each schema is a Zod schema that can be used for:
 - `z.infer<typeof Schema>` — Extract TypeScript type
 
 Full TypeDoc documentation coming soon.
+
+## Migration to v0.3.0
+
+**Breaking Changes:**
+
+1. **Event Schema Extension**
+   - Before: `FileActivity.extend()` ❌ (didn't work)
+   - After: `FileActivity.schema.extend()` ✅
+
+2. **Type Inference**
+   - Before: `type T = z.infer<typeof FileActivity>`
+   - After (recommended): `import type { FileActivityType } from "@mcm/ocsf/v1_7/events"`
+   - After (alternative): `type T = z.infer<typeof FileActivity.schema>`
+
+3. **Object Schema Extension** (no change)
+   - Still works: `User.extend({ custom: z.string() })`
+
+**Non-Breaking:**
+- `.parse()` and `.safeParse()` work exactly the same
+- Object composition unchanged
+- All sibling reconciliation and UID prefilling unchanged
 
 ## Development
 

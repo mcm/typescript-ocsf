@@ -17,7 +17,7 @@ export default defineConfig({
     'v1_5/enums/index': 'src/v1_5/enums/index.ts',
   },
   format: ['esm', 'cjs'],
-  dts: true,
+  dts: false, // Use tsc for declarations instead (more memory-efficient)
   clean: true,
   splitting: true,
   treeshake: true,

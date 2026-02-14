@@ -5,47 +5,153 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.3.0] - TBD
-
-### Fixed
-- **CRITICAL: Enum Inheritance** - Fixed broken enum value inheritance in schema generation
-  - Parent enum values (0=Unknown, 99=Other) are now correctly merged with child values
-  - Previously, child enums REPLACED parent enums, losing base values
-  - Example: `IncidentFinding.status_id` now correctly includes values 0, 1-5, and 99
-  - Affects ALL events/objects that define custom enum values
-  - Root cause: `resolver.ts` used `??` operator instead of merging enum values
+## [0.3.0] - 2026-02-14
 
 ### Added
-- **Enum Validation** - Enum fields now use proper Zod enum validation
-  - Runtime validation ensures only valid enum values are accepted
-  - Type inference: enum fields are typed as literal unions (e.g., `1 | 2 | 3 | 4 | 5`)
-  - Better error messages for invalid enum values
-  - Example: `status_id: 999` now throws ZodError instead of passing validation
-  - Sibling reconciliation works correctly with validated enums
+- **pydantic-ocsf Style Architecture** - Complete rewrite of type system using explicit interfaces
+  - TypeScript interfaces now use type references instead of inlining nested types
+  - Events export parser objects with `.parse()`, `.safeParse()`, and `.schema` properties
+  - Objects export schemas directly (unchanged behavior)
+  - Enables full schema composition for events via `.schema.extend()`, `.pick()`, `.omit()`, etc.
 
 ### Changed
-- **Schema Generation** - Event and object schemas now validate enum fields
-  - Enum fields use `z.union([z.literal(...), ...])` instead of `z.number().int()`
-  - **Breaking**: Code passing invalid enum values will now fail validation
-  - **Impact**: Only affects code that was already violating OCSF specification
-  - Migration: Ensure enum values are within defined ranges
+- **Type Generation** - Schemas no longer use explicit `z.ZodType<T>` annotations
+  - Preserves all Zod schema methods (`.extend()`, `.pick()`, `.omit()`, `.partial()`, etc.)
+  - TypeScript inference still works correctly
+  - **Breaking**: `z.infer<typeof Event>` → `z.infer<typeof Event.schema>` for events
+
+- **File Size Reduction** - Source files are 90% smaller
+  - Example: `account_change.ts` reduced from 2,621 lines to 267 lines
+  - Type references used instead of massive inline type definitions
+  - Dramatically improves TypeScript compilation speed and IDE performance
+
+### Fixed
+- **Event Schema Extension** - Events can now be extended via `.schema` property
+  - Previous versions: `FileActivity.extend()` ❌ caused type errors (ZodPipe doesn't have .extend())
+  - Now: `FileActivity.schema.extend({ custom: z.string() })` ✅ works perfectly
+  - All Zod composition methods now work for events
+
+- **IDE Type Hints** - Hover tooltips now show clean type references
+  - Before: 900-line inlined type definitions
+  - After: Clean references like `MetadataType`, `ActorType`, etc.
+  - Prevents TypeScript language server crashes from huge types
+
+### Breaking Changes
+
+**For Events Only:**
+
+1. **Schema Extension Access**
+   ```typescript
+   // Before (didn't work anyway):
+   const Extended = FileActivity.extend({ custom: z.string() })  // ❌ Type error
+
+   // After:
+   const Extended = FileActivity.schema.extend({ custom: z.string() })  // ✅ Works!
+   ```
+
+2. **Type Inference** (multiple options available)
+   ```typescript
+   // Recommended (direct import):
+   import type { FileActivityType } from "@mcm/ocsf/v1_7/events";
+
+   // Alternative (infer from schema):
+   type T = z.infer<typeof FileActivity.schema>;  // Note: .schema property
+
+   // No longer works:
+   type T = z.infer<typeof FileActivity>;  // ❌ FileActivity is parser object, not schema
+   ```
+
+3. **Object Schemas** (no breaking changes)
+   ```typescript
+   // Still works exactly the same:
+   const ExtendedUser = User.extend({ custom: z.string() });
+   type T = z.infer<typeof User>;
+   ```
+
+**Non-Breaking:**
+- `.parse()` and `.safeParse()` work identically for both events and objects
+- Sibling reconciliation unchanged
+- UID pre-filling unchanged
+- All validation behavior preserved
 
 ### Migration Guide
 
-If you see new ZodErrors after upgrading:
+**Upgrading from 0.2.x:**
 
-1. **Check enum values**: Ensure all enum fields use valid OCSF values
-2. **Use inherited values**: Remember that 0 (Unknown) and 99 (Other) are usually valid
-3. **Update tests**: Tests asserting invalid enum values will need updates
+1. **Update type imports (events only):**
+   ```typescript
+   // Before:
+   type T = z.infer<typeof FileActivity>;
 
-Example:
+   // After (option 1 - recommended):
+   import type { FileActivityType } from "@mcm/ocsf/v1_7/events";
+
+   // After (option 2):
+   type T = z.infer<typeof FileActivity.schema>;
+   ```
+
+2. **Update schema extensions (events only):**
+   ```typescript
+   // Before (didn't work):
+   const Extended = HttpActivity.extend({ ... });  // ❌ Type error
+
+   // After:
+   const Extended = HttpActivity.schema.extend({ ... });  // ✅ Works!
+   ```
+
+3. **Object usage unchanged** - No migration needed for object schemas
+
+**Testing your migration:**
+- Run TypeScript compiler: `npx tsc --noEmit`
+- Search for `z.infer<typeof.*Activity>` patterns in events
+- Search for `\.extend\(\)` on event schemas (not object schemas)
+
+### Performance Improvements
+
+- **90% smaller source files** - Faster IDE loading and TypeScript compilation
+- **Faster type checking** - Type references instead of recursive inline expansion
+- **Better IDE responsiveness** - No more TypeScript server crashes from huge types
+- **Smaller declaration files** - `.d.ts` files use references, not full type expansion
+
+### Technical Details
+
+**Architecture Change:**
 ```typescript
-// Before (invalid but accepted):
-{ status_id: 999 }  // No such value in OCSF
+// Objects (direct export - unchanged):
+export interface UserType { name: string; ... }
+export const User = z.strictObject({ name: z.string(), ... });
 
-// After (use valid value):
-{ status_id: 99, status: "Custom Status" }  // Use OTHER for custom values
+// Events (parser object - NEW):
+export interface HttpActivityType {
+  metadata: MetadataType;  // Reference, not inline!
+  time: number;
+  // ...
+}
+const HttpActivitySchema = z.strictObject({
+  metadata: Metadata,  // Zod schema reference
+  time: z.number(),
+  // ...
+});
+export const HttpActivity = {
+  parse: (data) => HttpActivitySchema.parse(preprocess(data)),
+  safeParse: (data) => { /* ... */ },
+  schema: HttpActivitySchema,  // Expose for composition
+};
 ```
+
+This pydantic-ocsf style architecture separates:
+- Type definitions (TypeScript interfaces with references)
+- Runtime validation (Zod schemas)
+- Preprocessing logic (sibling reconciliation, UID prefilling)
+
+All 752 schemas regenerated across OCSF v1.5.0, v1.6.0, and v1.7.0.
+
+### Internal Changes
+
+- `scripts/lib/event-emitter.ts`: Generate parser objects instead of direct schema exports
+- `scripts/lib/object-emitter.ts`: Generate explicit interfaces with type references
+- Removed `z.ZodType<T>` type annotations to preserve Zod methods
+- All generated files use type imports: `import type { ... } from '...'`
 
 ## [0.2.0] - 2025-02-12
 
