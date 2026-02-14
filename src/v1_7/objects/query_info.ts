@@ -5,7 +5,22 @@ import { z } from 'zod';
  *
  * OCSF Object: Query Information
  */
-export const QueryInfo = z.strictObject({
+export interface QueryInfoType {
+  /** The query name for a saved or scheduled query. */
+  name?: string;
+  /** The unique identifier of the query. */
+  uid?: string;
+  /** The size of the data returned from the query. */
+  bytes?: number;
+  /** The data returned from the query execution. */
+  data?: Record<string, unknown>;
+  /** A string representing the query code being run. For example: SELECT * FROM my_table */
+  query_string: string;
+  /** The time when the query was run. */
+  query_time?: number;
+}
+
+const QueryInfoSchema: z.ZodType<QueryInfoType> = z.strictObject({
   /** The query name for a saved or scheduled query. */
   name: z.string().optional(),
   /** The unique identifier of the query. */
@@ -20,4 +35,4 @@ export const QueryInfo = z.strictObject({
   query_time: z.number().int().optional(),
 });
 
-export type QueryInfoType = z.infer<typeof QueryInfo>;
+export const QueryInfo = QueryInfoSchema;

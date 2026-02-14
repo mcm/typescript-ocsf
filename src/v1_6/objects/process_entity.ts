@@ -5,7 +5,24 @@ import { z } from 'zod';
  *
  * OCSF Object: Process Entity
  */
-export const ProcessEntity = z.strictObject({
+export interface ProcessEntityType {
+  /** The friendly name of the process, for example: Notepad++. */
+  name?: string;
+  /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */
+  uid?: string;
+  /** The full command line used to launch an application, service, process, or job. For example: ssh user@10.0.0.10. If the command line is unavailable or missing, the empty string '' is to be used. */
+  cmd_line?: string;
+  /** A unique process identifier that can be assigned deterministically by multiple system data producers. */
+  cpid?: string;
+  /** The time when the process was created/started. */
+  created_time?: number;
+  /** The process file path. */
+  path?: string;
+  /** The process identifier, as reported by the operating system. Process ID (PID) is a number used by the operating system to uniquely identify an active process. */
+  pid?: number;
+}
+
+const ProcessEntitySchema: z.ZodType<ProcessEntityType> = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */
@@ -22,4 +39,4 @@ export const ProcessEntity = z.strictObject({
   pid: z.number().int().optional(),
 });
 
-export type ProcessEntityType = z.infer<typeof ProcessEntity>;
+export const ProcessEntity = ProcessEntitySchema;

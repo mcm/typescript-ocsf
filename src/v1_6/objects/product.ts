@@ -1,13 +1,36 @@
 import { z } from 'zod';
 
-import { Feature } from './feature.js';
+import type { FeatureType } from './feature.js';
 
 /**
  * The Product object describes characteristics of a software product.
  *
  * OCSF Object: Product
  */
-export const Product = z.strictObject({
+export interface ProductType {
+  /** The name of the product. */
+  name?: string;
+  /** The unique identifier of the product. */
+  uid?: string;
+  /** The Common Platform Enumeration (CPE) name as described by (NIST) For example: cpe:/a:apple:safari:16.2. */
+  cpe_name?: string;
+  /** The feature that reported the event. */
+  feature?: FeatureType;
+  /** The two letter lower case language codes, as defined by ISO 639-1. For example: en (English), de (German), or fr (French). */
+  lang?: string;
+  /** The installation path of the product. */
+  path?: string;
+  /** The URL pointing towards the product. */
+  url_string?: string;
+  /** The name of the vendor of the product. */
+  vendor_name?: string;
+  /** The version of the product, as defined by the event source. For example: 2013.1.3-beta. */
+  version?: string;
+}
+
+import { Feature } from './feature.js';
+
+const ProductSchema: z.ZodType<ProductType> = z.strictObject({
   /** The name of the product. */
   name: z.string().optional(),
   /** The unique identifier of the product. */
@@ -28,4 +51,4 @@ export const Product = z.strictObject({
   version: z.string().optional(),
 });
 
-export type ProductType = z.infer<typeof Product>;
+export const Product = ProductSchema;

@@ -5,7 +5,32 @@ import { z } from 'zod';
  *
  * OCSF Object: Analytic
  */
-export const Analytic = z.strictObject({
+export interface AnalyticType {
+  /** The name of the analytic that generated the finding. */
+  name?: string;
+  /** The unique identifier of the analytic that generated the finding. */
+  uid?: string;
+  /** The algorithm used by the underlying analytic to generate the finding. */
+  algorithm?: string;
+  /** The analytic category. */
+  category?: string;
+  /** The description of the analytic that generated the finding. */
+  desc?: string;
+  /** Other analytics related to this analytic. */
+  related_analytics?: AnalyticType[];
+  /** The Analytic state. */
+  state?: string;
+  /** The Analytic state identifier. */
+  state_id?: 1 | 2 | 3;
+  /** The analytic type. */
+  type?: string;
+  /** The analytic type ID. */
+  type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 99;
+  /** The analytic version. For example: 1.1. */
+  version?: string;
+}
+
+const AnalyticSchema: z.ZodType<AnalyticType> = z.strictObject({
   /** The name of the analytic that generated the finding. */
   name: z.string().optional(),
   /** The unique identifier of the analytic that generated the finding. */
@@ -30,4 +55,4 @@ export const Analytic = z.strictObject({
   version: z.string().optional(),
 });
 
-export type AnalyticType = z.infer<typeof Analytic>;
+export const Analytic = AnalyticSchema;

@@ -5,11 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: Analysis Target
  */
-export const AnalysisTarget = z.strictObject({
+export interface AnalysisTargetType {
+  /** The specific name or identifier of the analysis target, such as the username of a User Account, the name of a Kubernetes Cluster, the identifier of a Network Namespace, or the name of an Application Component. */
+  name: string;
+  /** The category of the analysis target, such as User Account, Kubernetes Cluster, Network Namespace, or Application Component. */
+  type?: string;
+}
+
+const AnalysisTargetSchema: z.ZodType<AnalysisTargetType> = z.strictObject({
   /** The specific name or identifier of the analysis target, such as the username of a User Account, the name of a Kubernetes Cluster, the identifier of a Network Namespace, or the name of an Application Component. */
   name: z.string(),
   /** The category of the analysis target, such as User Account, Kubernetes Cluster, Network Namespace, or Application Component. */
   type: z.string().optional(),
 });
 
-export type AnalysisTargetType = z.infer<typeof AnalysisTarget>;
+export const AnalysisTarget = AnalysisTargetSchema;

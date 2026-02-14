@@ -1,13 +1,28 @@
 import { z } from 'zod';
 
-import { KeyValueObject } from './key_value_object.js';
+import type { KeyValueObjectType } from './key_value_object.js';
 
 /**
  * The Service object describes characteristics of a service, <code> e.g. AWS EC2. </code>
  *
  * OCSF Object: Service
  */
-export const Service = z.strictObject({
+export interface ServiceType {
+  /** The name of the service. */
+  name?: string;
+  /** The unique identifier of the service. */
+  uid?: string;
+  /** The list of labels associated with the service. */
+  labels?: string[];
+  /** The list of tags; {key:value} pairs associated to the service. */
+  tags?: KeyValueObjectType[];
+  /** The version of the service. */
+  version?: string;
+}
+
+import { KeyValueObject } from './key_value_object.js';
+
+const ServiceSchema: z.ZodType<ServiceType> = z.strictObject({
   /** The name of the service. */
   name: z.string().optional(),
   /** The unique identifier of the service. */
@@ -20,4 +35,4 @@ export const Service = z.strictObject({
   version: z.string().optional(),
 });
 
-export type ServiceType = z.infer<typeof Service>;
+export const Service = ServiceSchema;

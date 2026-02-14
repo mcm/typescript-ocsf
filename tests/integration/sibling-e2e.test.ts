@@ -85,11 +85,15 @@ describe("FileActivity sibling + UID integration (end-to-end)", () => {
     };
 
     // reconcileSiblings throws an error for mismatched pairs
-    // safeParse will catch this and return { success: false }
-    // However, because it's thrown in preprocessing, it actually throws
-    expect(() => FileActivity.safeParse(input)).toThrow(
-      "activity_id=1 (Create) does not match activity_name='Delete'",
-    );
+    // safeParse catches this and returns { success: false, error: ... }
+    const result = FileActivity.safeParse(input);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      // ZodError.issues contains the error details
+      expect(result.error.issues[0].message).toContain(
+        "activity_id=1 (Create) does not match activity_name='Delete'",
+      );
+    }
   });
 
   it("5. Serialization includes both ID and label", async () => {

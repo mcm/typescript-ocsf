@@ -1,13 +1,32 @@
 import { z } from 'zod';
 
-import { Container } from './container.js';
+import type { ContainerType } from './container.js';
 
 /**
  * The Response Elements object describes characteristics of an API response.
  *
  * OCSF Object: Response Elements
  */
-export const Response = z.strictObject({
+export interface ResponseType {
+  /** The numeric response sent to a request. */
+  code?: number;
+  /** When working with containerized applications, the set of containers which write to the standard the output of a particular logging driver. For example, this may be the set of containers involved in handling api requests and responses for a containerized application. */
+  containers?: ContainerType[];
+  /** The additional data that is associated with the api response. */
+  data?: Record<string, unknown>;
+  /** Error Code */
+  error?: string;
+  /** Error Message */
+  error_message?: string;
+  /** The communication flags that are associated with the api response. */
+  flags?: string[];
+  /** The description of the event/finding, as defined by the source. */
+  message?: string;
+}
+
+import { Container } from './container.js';
+
+const ResponseSchema: z.ZodType<ResponseType> = z.strictObject({
   /** The numeric response sent to a request. */
   code: z.number().int().optional(),
   /** When working with containerized applications, the set of containers which write to the standard the output of a particular logging driver. For example, this may be the set of containers involved in handling api requests and responses for a containerized application. */
@@ -24,4 +43,4 @@ export const Response = z.strictObject({
   message: z.string().optional(),
 });
 
-export type ResponseType = z.infer<typeof Response>;
+export const Response = ResponseSchema;

@@ -1,13 +1,40 @@
 import { z } from 'zod';
 
-import { Fingerprint } from './fingerprint.js';
+import type { FingerprintType } from './fingerprint.js';
 
 /**
  * The Software Component object describes characteristics of a software component within a software package.
  *
  * OCSF Object: Software Component
  */
-export const SoftwareComponent = z.strictObject({
+export interface SoftwareComponentType {
+  /** The author(s) who published the software component. */
+  author?: string;
+  /** Cryptographic hash to identify the binary instance of a software component. */
+  hash?: FingerprintType;
+  /** The software license applied to this component. */
+  license?: string;
+  /** The software component name. */
+  name: string;
+  /** The Package URL (PURL) to identify the software component. This is a URL that uniquely identifies the component, including the component's name, version, and type. The URL is used to locate and retrieve the component's metadata and content. */
+  purl?: string;
+  /** The package URL (PURL) of the component that this software component has a relationship with. */
+  related_component?: string;
+  /** The relationship between two software components, normalized to the caption of the relationship_id value. In the case of 'Other', it is defined by the source. */
+  relationship?: string;
+  /** The normalized identifier of the relationship between two software components. */
+  relationship_id?: 0 | 1 | 99;
+  /** The type of software component, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
+  type?: string;
+  /** The type of software component. */
+  type_id?: 1 | 2 | 3;
+  /** The software component version. */
+  version: string;
+}
+
+import { Fingerprint } from './fingerprint.js';
+
+const SoftwareComponentSchema: z.ZodType<SoftwareComponentType> = z.strictObject({
   /** The author(s) who published the software component. */
   author: z.string().optional(),
   /** Cryptographic hash to identify the binary instance of a software component. */
@@ -32,4 +59,4 @@ export const SoftwareComponent = z.strictObject({
   version: z.string(),
 });
 
-export type SoftwareComponentType = z.infer<typeof SoftwareComponent>;
+export const SoftwareComponent = SoftwareComponentSchema;

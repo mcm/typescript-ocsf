@@ -1,13 +1,32 @@
 import { z } from 'zod';
 
-import { Group } from './group.js';
+import type { GroupType } from './group.js';
 
 /**
  * The Policy object describes the policies that are applicable. <p>Policy attributes provide traceability to the operational state of the security product at the time that the event was captured, facilitating forensics, troubleshooting, and policy tuning/adjustments.</p>
  *
  * OCSF Object: Policy
  */
-export const Policy = z.strictObject({
+export interface PolicyType {
+  /** The policy name. For example: IAM Policy. */
+  name?: string;
+  /** A unique identifier of the policy instance. */
+  uid?: string;
+  /** Additional data about the policy such as the underlying JSON policy itself or other details. */
+  data?: Record<string, unknown>;
+  /** The description of the policy. */
+  desc?: string;
+  /** The policy group. */
+  group?: GroupType;
+  /** A determination if the content of a policy was applied to a target or request, or not. */
+  is_applied?: boolean;
+  /** The policy version number. */
+  version?: string;
+}
+
+import { Group } from './group.js';
+
+const PolicySchema: z.ZodType<PolicyType> = z.strictObject({
   /** The policy name. For example: IAM Policy. */
   name: z.string().optional(),
   /** A unique identifier of the policy instance. */
@@ -24,4 +43,4 @@ export const Policy = z.strictObject({
   version: z.string().optional(),
 });
 
-export type PolicyType = z.infer<typeof Policy>;
+export const Policy = PolicySchema;

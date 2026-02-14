@@ -1,17 +1,42 @@
 import { z } from 'zod';
 
-import { Authorization } from './authorization.js';
-import { Idp } from './idp.js';
-import { Process } from './process.js';
-import { Session } from './session.js';
-import { User } from './user.js';
+import type { AuthorizationType } from './authorization.js';
+import type { IdpType } from './idp.js';
+import type { ProcessType } from './process.js';
+import type { SessionType } from './session.js';
+import type { UserType } from './user.js';
 
 /**
  * The Actor object contains details about the user, role, application, service, or process that initiated or performed a specific activity. Note that Actor is not the threat actor of a campaign but may be part of a campaign.
  *
  * OCSF Object: Actor
  */
-export const Actor = z.strictObject({
+export interface ActorType {
+  /** The client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process if present. */
+  app_name?: string;
+  /** The unique identifier of the client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process.pid or process.uid if present. */
+  app_uid?: string;
+  /** Provides details about an authorization, such as authorization outcome, and any associated policies related to the activity/event. */
+  authorizations?: AuthorizationType[];
+  /** This object describes details about the Identity Provider used. */
+  idp?: IdpType;
+  /** The name of the service that invoked the activity as described in the event. */
+  invoked_by?: string;
+  /** The process that initiated the activity. */
+  process?: ProcessType;
+  /** The user session from which the activity was initiated. */
+  session?: SessionType;
+  /** The user that initiated the activity or the user context from which the activity was initiated. */
+  user?: UserType;
+}
+
+import { Authorization } from './authorization.js';
+import { Idp } from './idp.js';
+import { Process } from './process.js';
+import { Session } from './session.js';
+import { User } from './user.js';
+
+const ActorSchema: z.ZodType<ActorType> = z.strictObject({
   /** The client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process if present. */
   app_name: z.string().optional(),
   /** The unique identifier of the client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process.pid or process.uid if present. */
@@ -30,4 +55,4 @@ export const Actor = z.strictObject({
   user: User.optional(),
 });
 
-export type ActorType = z.infer<typeof Actor>;
+export const Actor = ActorSchema;

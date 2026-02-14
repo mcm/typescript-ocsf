@@ -5,7 +5,20 @@ import { z } from 'zod';
  *
  * OCSF Object: Trait
  */
-export const Trait = z.strictObject({
+export interface TraitType {
+  /** The name of the trait. */
+  name?: string;
+  /** The unique identifier of the trait. */
+  uid?: string;
+  /** The high-level grouping or classification this trait belongs to. */
+  category?: string;
+  /** The type of the trait. For example, this can be used to indicate if the trait acts as a contributing factor (increases risk/severity) or a mitigating factor (decreases risk/severity), in the context of the related finding. */
+  type?: string;
+  /** The values of the trait. */
+  values?: string[];
+}
+
+const TraitSchema: z.ZodType<TraitType> = z.strictObject({
   /** The name of the trait. */
   name: z.string().optional(),
   /** The unique identifier of the trait. */
@@ -18,4 +31,4 @@ export const Trait = z.strictObject({
   values: z.array(z.string()).optional(),
 });
 
-export type TraitType = z.infer<typeof Trait>;
+export const Trait = TraitSchema;

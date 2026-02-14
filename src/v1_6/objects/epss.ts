@@ -5,7 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: EPSS
  */
-export const Epss = z.strictObject({
+export interface EpssType {
+  /** The timestamp indicating when the EPSS score was calculated. */
+  created_time?: number;
+  /** The EPSS score's percentile representing relative importance and ranking of the score in the larger EPSS dataset. */
+  percentile?: number;
+  /** The EPSS score representing the probability [0-1] of exploitation in the wild in the next 30 days (following score publication). */
+  score: string;
+  /** The version of the EPSS model used to calculate the score. */
+  version?: string;
+}
+
+const EpssSchema: z.ZodType<EpssType> = z.strictObject({
   /** The timestamp indicating when the EPSS score was calculated. */
   created_time: z.number().int().optional(),
   /** The EPSS score's percentile representing relative importance and ranking of the score in the larger EPSS dataset. */
@@ -16,4 +27,4 @@ export const Epss = z.strictObject({
   version: z.string().optional(),
 });
 
-export type EpssType = z.infer<typeof Epss>;
+export const Epss = EpssSchema;

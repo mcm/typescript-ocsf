@@ -1,13 +1,32 @@
 import { z } from 'zod';
 
-import { Location } from './location.js';
+import type { LocationType } from './location.js';
 
 /**
  * The contact information related to a domain registration, e.g., registrant, administrator, abuse, billing, or technical contact.
  *
  * OCSF Object: Domain Contact
  */
-export const DomainContact = z.strictObject({
+export interface DomainContactType {
+  /** The user's primary email address. */
+  email_addr?: string;
+  /** Location details for the contract such as the city, state/province, country, etc. */
+  location?: LocationType;
+  /** The individual or organization name for the contact. */
+  name?: string;
+  /** The number associated with the phone. */
+  phone_number?: string;
+  /** The Domain Contact type, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source */
+  type?: string;
+  /** The normalized domain contact type ID. */
+  type_id: 1 | 2 | 3 | 4 | 5;
+  /** The unique identifier of the contact information, typically provided in WHOIS information. */
+  uid?: string;
+}
+
+import { Location } from './location.js';
+
+const DomainContactSchema: z.ZodType<DomainContactType> = z.strictObject({
   /** The user's primary email address. */
   email_addr: z.string().optional(),
   /** Location details for the contract such as the city, state/province, country, etc. */
@@ -24,4 +43,4 @@ export const DomainContact = z.strictObject({
   uid: z.string().optional(),
 });
 
-export type DomainContactType = z.infer<typeof DomainContact>;
+export const DomainContact = DomainContactSchema;

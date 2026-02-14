@@ -5,7 +5,22 @@ import { z } from 'zod';
  *
  * OCSF Object: Group
  */
-export const Group = z.strictObject({
+export interface GroupType {
+  /** The group name. */
+  name?: string;
+  /** The unique identifier of the group. For example, for Windows events this is the security identifier (SID) of the group. */
+  uid?: string;
+  /** The group description. */
+  desc?: string;
+  /** The domain where the group is defined. For example: the LDAP or Active Directory domain. */
+  domain?: string;
+  /** The group privileges. */
+  privileges?: string[];
+  /** The type of the group or account. */
+  type?: string;
+}
+
+const GroupSchema: z.ZodType<GroupType> = z.strictObject({
   /** The group name. */
   name: z.string().optional(),
   /** The unique identifier of the group. For example, for Windows events this is the security identifier (SID) of the group. */
@@ -20,4 +35,4 @@ export const Group = z.strictObject({
   type: z.string().optional(),
 });
 
-export type GroupType = z.infer<typeof Group>;
+export const Group = GroupSchema;

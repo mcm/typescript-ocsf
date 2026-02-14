@@ -5,7 +5,36 @@ import { z } from 'zod';
  *
  * OCSF Object: Session
  */
-export const Session = z.strictObject({
+export interface SessionType {
+  /** The number of identical sessions spawned from the same source IP, destination IP, application, and content/threat type seen over a period of time. */
+  count?: number;
+  /** The time when the session was created. */
+  created_time?: number;
+  /** The unique identifier of the user's credential. For example, AWS Access Key ID. */
+  credential_uid?: string;
+  /** The reason which triggered the session expiration. */
+  expiration_reason?: string;
+  /** The session expiration time. */
+  expiration_time?: number;
+  /** Indicates whether Multi Factor Authentication was used during authentication. */
+  is_mfa?: boolean;
+  /** The indication of whether the session is remote. */
+  is_remote?: boolean;
+  /** The indication of whether the session is a VPN session. */
+  is_vpn?: boolean;
+  /** The identifier of the session issuer. */
+  issuer?: string;
+  /** The Pseudo Terminal associated with the session. Ex: the tty or pts value. */
+  terminal?: string;
+  /** The unique identifier of the session. */
+  uid?: string;
+  /** The alternate unique identifier of the session. e.g. AWS ARN - arn:aws:sts::123344444444:assumed-role/Admin/example-session. */
+  uid_alt?: string;
+  /** The universally unique identifier of the session. */
+  uuid?: string;
+}
+
+const SessionSchema: z.ZodType<SessionType> = z.strictObject({
   /** The number of identical sessions spawned from the same source IP, destination IP, application, and content/threat type seen over a period of time. */
   count: z.number().int().optional(),
   /** The time when the session was created. */
@@ -34,4 +63,4 @@ export const Session = z.strictObject({
   uuid: z.string().optional(),
 });
 
-export type SessionType = z.infer<typeof Session>;
+export const Session = SessionSchema;

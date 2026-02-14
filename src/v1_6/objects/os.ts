@@ -5,7 +5,36 @@ import { z } from 'zod';
  *
  * OCSF Object: Operating System (OS)
  */
-export const Os = z.strictObject({
+export interface OsType {
+  /** The operating system build number. */
+  build?: string;
+  /** The operating system country code, as defined by the ISO 3166-1 standard (Alpha-2 code).Note: The two letter country code should be capitalized. For example: US or CA. */
+  country?: string;
+  /** The Common Platform Enumeration (CPE) name as described by (NIST) For example: cpe:/a:apple:safari:16.2. */
+  cpe_name?: string;
+  /** The cpu architecture, the number of bits used for addressing in memory. For example: 32 or 64. */
+  cpu_bits?: number;
+  /** The operating system edition. For example: Professional. */
+  edition?: string;
+  /** The kernel release of the operating system. On Unix-based systems, this is determined from the uname -r command output, for example "5.15.0-122-generic". */
+  kernel_release?: string;
+  /** The two letter lower case language codes, as defined by ISO 639-1. For example: en (English), de (German), or fr (French). */
+  lang?: string;
+  /** The operating system name. */
+  name: string;
+  /** The name of the latest Service Pack. */
+  sp_name?: string;
+  /** The version number of the latest Service Pack. */
+  sp_ver?: number;
+  /** The type of the operating system. */
+  type?: string;
+  /** The type identifier of the operating system. */
+  type_id: 100 | 101 | 200 | 201 | 300 | 301 | 302 | 400 | 401 | 402;
+  /** The version of the OS running on the device that originated the event. For example: "Windows 10", "OS X 10.7", or "iOS 9". */
+  version?: string;
+}
+
+const OsSchema: z.ZodType<OsType> = z.strictObject({
   /** The operating system build number. */
   build: z.string().optional(),
   /** The operating system country code, as defined by the ISO 3166-1 standard (Alpha-2 code).Note: The two letter country code should be capitalized. For example: US or CA. */
@@ -34,4 +63,4 @@ export const Os = z.strictObject({
   version: z.string().optional(),
 });
 
-export type OsType = z.infer<typeof Os>;
+export const Os = OsSchema;

@@ -1,15 +1,66 @@
 import { z } from 'zod';
 
-import { File } from './file.js';
-import { HttpHeader } from './http_header.js';
-import { Url } from './url.js';
+import type { FileType } from './file.js';
+import type { HttpHeaderType } from './http_header.js';
+import type { UrlType } from './url.js';
 
 /**
  * The Email object describes the email metadata such as sender, recipients, and direction, and can include embedded URLs and files.
  *
  * OCSF Object: Email
  */
-export const Email = z.strictObject({
+export interface EmailType {
+  /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
+  cc?: string[];
+  /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  cc_mailboxes?: string[];
+  /** The machine-readable Delivered-To email header field. For example example.user@usersdomain.com */
+  delivered_to?: string;
+  /** The machine-readable Delivered-To email header values. For example example.user@usersdomain.com */
+  delivered_to_list?: string[];
+  /** The files embedded or attached to the email. */
+  files?: FileType[];
+  /** The machine-readable email header From values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  from?: string;
+  /** The human-readable email header From Mailbox value. For example 'Example User <example.user@usersdomain.com>'. */
+  from_mailbox?: string;
+  /** Additional HTTP headers of an HTTP request or response. */
+  http_headers?: HttpHeaderType[];
+  /** The indication of whether the email has been read. */
+  is_read?: boolean;
+  /** The email header Message-ID value, as defined by RFC 5322. */
+  message_uid?: string;
+  /** The email authentication header. */
+  raw_header?: string;
+  /** The machine-readable email header Reply-To values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  reply_to?: string;
+  /** The human-readable email header Reply To Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  reply_to_mailboxes?: string[];
+  /** The size in bytes of the email, including attachments. */
+  size?: number;
+  /** The value of the SMTP MAIL FROM command. */
+  smtp_from?: string;
+  /** The value of the SMTP envelope RCPT TO command. */
+  smtp_to?: string[];
+  /** The email header Subject value, as defined by RFC 5322. */
+  subject?: string;
+  /** The machine-readable email header To values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  to?: string[];
+  /** The human-readable email header To Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  to_mailboxes?: string[];
+  /** The unique identifier of the email thread. */
+  uid?: string;
+  /** The URLs embedded in the email. */
+  urls?: UrlType[];
+  /** The X-Originating-IP header identifying the emails originating IP address(es). */
+  x_originating_ip?: string[];
+}
+
+import { File } from './file.js';
+import { HttpHeader } from './http_header.js';
+import { Url } from './url.js';
+
+const EmailSchema: z.ZodType<EmailType> = z.strictObject({
   /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
   cc: z.array(z.string()).optional(),
   /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
@@ -56,4 +107,4 @@ export const Email = z.strictObject({
   x_originating_ip: z.array(z.string()).optional(),
 });
 
-export type EmailType = z.infer<typeof Email>;
+export const Email = EmailSchema;

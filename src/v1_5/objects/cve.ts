@@ -1,16 +1,52 @@
 import { z } from 'zod';
 
-import { Cvss } from './cvss.js';
-import { Cwe } from './cwe.js';
-import { Epss } from './epss.js';
-import { Product } from './product.js';
+import type { CvssType } from './cvss.js';
+import type { CweType } from './cwe.js';
+import type { EpssType } from './epss.js';
+import type { ProductType } from './product.js';
 
 /**
  * The Common Vulnerabilities and Exposures (CVE) object represents publicly disclosed cybersecurity vulnerabilities defined in CVE Program catalog (<a target='_blank' href='https://cve.mitre.org/'>CVE</a>). There is one CVE Record for each vulnerability in the catalog.
  *
  * OCSF Object: CVE
  */
-export const Cve = z.strictObject({
+export interface CveType {
+  /** The Record Creation Date identifies when the CVE ID was issued to a CVE Numbering Authority (CNA) or the CVE Record was published on the CVE List. Note that the Record Creation Date does not necessarily indicate when this vulnerability was discovered, shared with the affected vendor, publicly disclosed, or updated in CVE. */
+  created_time?: number;
+  /** The CVSS object details Common Vulnerability Scoring System (CVSS) scores from the advisory that are related to the vulnerability. */
+  cvss?: CvssType[];
+  /** The CWE object represents a weakness in a software system that can be exploited by a threat actor to perform an attack. The CWE object is based on the Common Weakness Enumeration (CWE) catalog. */
+  cwe?: CweType;
+  /** The Common Weakness Enumeration (CWE) unique identifier. For example: CWE-787. */
+  cwe_uid?: string;
+  /** Common Weakness Enumeration (CWE) definition URL. For example: https://cwe.mitre.org/data/definitions/787.html. */
+  cwe_url?: string;
+  /** A brief description of the CVE Record. */
+  desc?: string;
+  /** The Exploit Prediction Scoring System (EPSS) object describes the estimated probability a vulnerability will be exploited. EPSS is a community-driven effort to combine descriptive information about vulnerabilities (CVEs) with evidence of actual exploitation in-the-wild. (EPSS). */
+  epss?: EpssType;
+  /** The Record Modified Date identifies when the CVE record was last updated. */
+  modified_time?: number;
+  /** The product where the vulnerability was discovered. */
+  product?: ProductType;
+  /** A list of reference URLs with additional information about the CVE Record. */
+  references?: string[];
+  /** Describes the Common Weakness Enumeration (CWE) details related to the CVE Record. */
+  related_cwes?: CweType[];
+  /** A title or a brief phrase summarizing the CVE record. */
+  title?: string;
+  /** The vulnerability type as selected from a large dropdown menu during CVE refinement.Most frequently used vulnerability types are: DoS, Code Execution, Overflow, Memory Corruption, Sql Injection, XSS, Directory Traversal, Http Response Splitting, Bypass something, Gain Information, Gain Privileges, CSRF, File Inclusion. For more information see Vulnerabilities By Type distributions. */
+  type?: string;
+  /** The Common Vulnerabilities and Exposures unique number assigned to a specific computer vulnerability. A CVE Identifier begins with 4 digits representing the year followed by a sequence of digits that acts as a unique identifier. For example: CVE-2021-12345. */
+  uid: string;
+}
+
+import { Cvss } from './cvss.js';
+import { Cwe } from './cwe.js';
+import { Epss } from './epss.js';
+import { Product } from './product.js';
+
+const CveSchema: z.ZodType<CveType> = z.strictObject({
   /** The Record Creation Date identifies when the CVE ID was issued to a CVE Numbering Authority (CNA) or the CVE Record was published on the CVE List. Note that the Record Creation Date does not necessarily indicate when this vulnerability was discovered, shared with the affected vendor, publicly disclosed, or updated in CVE. */
   created_time: z.number().int().optional(),
   /** The CVSS object details Common Vulnerability Scoring System (CVSS) scores from the advisory that are related to the vulnerability. */
@@ -41,4 +77,4 @@ export const Cve = z.strictObject({
   uid: z.string(),
 });
 
-export type CveType = z.infer<typeof Cve>;
+export const Cve = CveSchema;

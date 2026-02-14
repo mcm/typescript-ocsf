@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: Feature
  */
-export const Feature = z.strictObject({
+export interface FeatureType {
+  /** The name of the feature. */
+  name?: string;
+  /** The unique identifier of the feature. */
+  uid?: string;
+  /** The version of the feature. */
+  version?: string;
+}
+
+const FeatureSchema: z.ZodType<FeatureType> = z.strictObject({
   /** The name of the feature. */
   name: z.string().optional(),
   /** The unique identifier of the feature. */
@@ -14,4 +23,4 @@ export const Feature = z.strictObject({
   version: z.string().optional(),
 });
 
-export type FeatureType = z.infer<typeof Feature>;
+export const Feature = FeatureSchema;

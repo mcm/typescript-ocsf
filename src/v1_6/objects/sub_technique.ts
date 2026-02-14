@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE Sub-technique
  */
-export const SubTechnique = z.strictObject({
+export interface SubTechniqueType {
+  /** The name of the attack sub-technique. For example: Scanning IP Blocks or User Execution: Unsafe ML Artifacts. */
+  name?: string;
+  /** The unique identifier of the attack sub-technique. For example: T1595.001 or AML.T0011.000. */
+  uid?: string;
+  /** The versioned permalink of the attack sub-technique. For example: https://attack.mitre.org/versions/v14/techniques/T1595/001/. */
+  src_url?: string;
+}
+
+const SubTechniqueSchema: z.ZodType<SubTechniqueType> = z.strictObject({
   /** The name of the attack sub-technique. For example: Scanning IP Blocks or User Execution: Unsafe ML Artifacts. */
   name: z.string().optional(),
   /** The unique identifier of the attack sub-technique. For example: T1595.001 or AML.T0011.000. */
@@ -14,4 +23,4 @@ export const SubTechnique = z.strictObject({
   src_url: z.string().optional(),
 });
 
-export type SubTechniqueType = z.infer<typeof SubTechnique>;
+export const SubTechnique = SubTechniqueSchema;

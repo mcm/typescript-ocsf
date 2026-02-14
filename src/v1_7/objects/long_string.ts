@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: Long String
  */
-export const LongString = z.strictObject({
+export interface LongStringType {
+  /** Indicates that value has been truncated. May be omitted if truncation has not occurred. */
+  is_truncated?: boolean;
+  /** The size in bytes of the string represented by value before truncation. Should be omitted if truncation has not occurred. */
+  untruncated_size?: number;
+  /** The string value, truncated if is_truncated is true. */
+  value: string;
+}
+
+const LongStringSchema: z.ZodType<LongStringType> = z.strictObject({
   /** Indicates that value has been truncated. May be omitted if truncation has not occurred. */
   is_truncated: z.boolean().optional(),
   /** The size in bytes of the string represented by value before truncation. Should be omitted if truncation has not occurred. */
@@ -14,4 +23,4 @@ export const LongString = z.strictObject({
   value: z.string(),
 });
 
-export type LongStringType = z.infer<typeof LongString>;
+export const LongString = LongStringSchema;

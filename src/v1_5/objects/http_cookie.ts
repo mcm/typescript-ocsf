@@ -5,7 +5,30 @@ import { z } from 'zod';
  *
  * OCSF Object: HTTP Cookie
  */
-export const HttpCookie = z.strictObject({
+export interface HttpCookieType {
+  /** The domain name for the server from which the http_cookie is served. */
+  domain?: string;
+  /** The expiration time of the HTTP cookie. */
+  expiration_time?: number;
+  /** A cookie attribute to make it inaccessible via JavaScript */
+  http_only?: boolean;
+  /** This attribute prevents the cookie from being accessed via JavaScript. */
+  is_http_only?: boolean;
+  /** The cookie attribute indicates that cookies are sent to the server only when the request is encrypted using the HTTPS protocol. */
+  is_secure?: boolean;
+  /** The HTTP cookie name. */
+  name: string;
+  /** The path of the HTTP cookie. */
+  path?: string;
+  /** The cookie attribute that lets servers specify whether/when cookies are sent with cross-site requests. Values are: Strict, Lax or None */
+  samesite?: string;
+  /** The cookie attribute to only send cookies to the server with an encrypted request over the HTTPS protocol. */
+  secure?: boolean;
+  /** The HTTP cookie value. */
+  value: string;
+}
+
+const HttpCookieSchema: z.ZodType<HttpCookieType> = z.strictObject({
   /** The domain name for the server from which the http_cookie is served. */
   domain: z.string().optional(),
   /** The expiration time of the HTTP cookie. */
@@ -28,4 +51,4 @@ export const HttpCookie = z.strictObject({
   value: z.string(),
 });
 
-export type HttpCookieType = z.infer<typeof HttpCookie>;
+export const HttpCookie = HttpCookieSchema;

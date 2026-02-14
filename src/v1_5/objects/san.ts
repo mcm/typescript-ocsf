@@ -5,11 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: Subject Alternative Name
  */
-export const San = z.strictObject({
+export interface SanType {
+  /** Name of SAN (e.g. The actual IP Address or domain.) */
+  name: string;
+  /** Type descriptor of SAN (e.g. IP Address/domain/etc.) */
+  type: string;
+}
+
+const SanSchema: z.ZodType<SanType> = z.strictObject({
   /** Name of SAN (e.g. The actual IP Address or domain.) */
   name: z.string(),
   /** Type descriptor of SAN (e.g. IP Address/domain/etc.) */
   type: z.string(),
 });
 
-export type SanType = z.infer<typeof San>;
+export const San = SanSchema;

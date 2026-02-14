@@ -1,5 +1,81 @@
 import { z } from 'zod';
 
+import type { KeyValueObjectType } from './key_value_object.js';
+import type { AgentType } from './agent.js';
+import type { EncryptionDetailsType } from './encryption_details.js';
+import type { FileType } from './file.js';
+import type { GroupType } from './group.js';
+import type { UserType } from './user.js';
+import type { GraphType } from './graph.js';
+
+/**
+ * The databucket object is a basic container that holds data, typically organized through the use of data partitions.
+ *
+ * OCSF Object: Databucket
+ */
+export interface DatabucketType {
+  /** The databucket name. */
+  name?: string;
+  /** The unique identifier of the databucket. */
+  uid?: string;
+  /** The time when the databucket was known to have been created. */
+  created_time?: number;
+  /** Additional data describing the resource. */
+  data?: Record<string, unknown>;
+  /** The list of labels associated to the resource. */
+  labels?: string[];
+  /** The most recent time when any changes, updates, or modifications were made within the databucket. */
+  modified_time?: number;
+  /** The list of tags; {key:value} pairs associated to the resource. */
+  tags?: KeyValueObjectType[];
+  /** The databucket type. */
+  type?: string;
+  /** The alternative unique identifier of the resource. */
+  uid_alt?: string;
+  /** A list of agent objects associated with a device, endpoint, or resource. */
+  agent_list?: AgentType[];
+  /** The canonical cloud partition name to which the region is assigned (e.g. AWS Partitions: aws, aws-cn, aws-us-gov). */
+  cloud_partition?: string;
+  /** The criticality of the databucket as defined by the event source. */
+  criticality?: string;
+  /** The description of the databucket. */
+  desc?: string;
+  /** The encryption details of the databucket. Should be populated if the databucket is encrypted. */
+  encryption_details?: EncryptionDetailsType;
+  /** Details about the file/object within a databucket. */
+  file?: FileType;
+  /** The name of the related resource group. */
+  group?: GroupType;
+  /** The group names to which the databucket belongs. */
+  groups?: GroupType[];
+  /** The fully qualified hostname of the databucket. */
+  hostname?: string;
+  /** The IP address of the resource, in either IPv4 or IPv6 format. */
+  ip?: string;
+  /** Indicates whether the device or resource has a backup enabled, such as an automated snapshot or a cloud backup. For example, this is indicated by the cloudBackupEnabled value within JAMF Pro mobile devices or the registration of an AWS ARN with the AWS Backup service. */
+  is_backed_up?: boolean;
+  /** Indicates if the databucket is encrypted. */
+  is_encrypted?: boolean;
+  /** Indicates if the databucket is publicly accessible. */
+  is_public?: boolean;
+  /** The namespace is useful when similar entities exist that you need to keep separate. */
+  namespace?: string;
+  /** The identity of the service or user account that owns the databucket. */
+  owner?: UserType;
+  /** The cloud region of the databucket. */
+  region?: string;
+  /** A graph representation showing how this databucket relates to and interacts with other entities in the environment. This can include parent/child relationships, dependencies, or other connections. */
+  resource_relationship?: GraphType;
+  /** The size of the databucket in bytes. */
+  size?: number;
+  /** The normalized identifier of the databucket type. */
+  type_id: 0 | 1 | 2 | 3 | 99;
+  /** The version of the resource. For example 1.2.3. */
+  version?: string;
+  /** The specific availability zone within a cloud region where the databucket is located. */
+  zone?: string;
+}
+
 import { KeyValueObject } from './key_value_object.js';
 import { Agent } from './agent.js';
 import { EncryptionDetails } from './encryption_details.js';
@@ -8,12 +84,7 @@ import { Group } from './group.js';
 import { User } from './user.js';
 import { Graph } from './graph.js';
 
-/**
- * The databucket object is a basic container that holds data, typically organized through the use of data partitions.
- *
- * OCSF Object: Databucket
- */
-export const Databucket = z.strictObject({
+const DatabucketSchema: z.ZodType<DatabucketType> = z.strictObject({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */
@@ -76,4 +147,4 @@ export const Databucket = z.strictObject({
   zone: z.string().optional(),
 });
 
-export type DatabucketType = z.infer<typeof Databucket>;
+export const Databucket = DatabucketSchema;

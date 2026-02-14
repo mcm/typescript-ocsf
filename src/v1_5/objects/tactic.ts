@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE Tactic
  */
-export const Tactic = z.strictObject({
+export interface TacticType {
+  /** The Tactic name that is associated with the attack technique. For example: Reconnaissance or ML Model Access. */
+  name?: string;
+  /** The Tactic ID that is associated with the attack technique. For example: TA0043, or AML.TA0000. */
+  uid?: string;
+  /** The versioned permalink of the Tactic. For example: https://attack.mitre.org/versions/v14/tactics/TA0043/. */
+  src_url?: string;
+}
+
+const TacticSchema: z.ZodType<TacticType> = z.strictObject({
   /** The Tactic name that is associated with the attack technique. For example: Reconnaissance or ML Model Access. */
   name: z.string().optional(),
   /** The Tactic ID that is associated with the attack technique. For example: TA0043, or AML.TA0000. */
@@ -14,4 +23,4 @@ export const Tactic = z.strictObject({
   src_url: z.string().optional(),
 });
 
-export type TacticType = z.infer<typeof Tactic>;
+export const Tactic = TacticSchema;

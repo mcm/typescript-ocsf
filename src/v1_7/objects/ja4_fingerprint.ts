@@ -5,7 +5,24 @@ import { z } from 'zod';
  *
  * OCSF Object: JA4+ Fingerprint
  */
-export const Ja4Fingerprint = z.strictObject({
+export interface Ja4FingerprintType {
+  /** The 'a' section of the JA4 fingerprint. */
+  section_a?: string;
+  /** The 'b' section of the JA4 fingerprint. */
+  section_b?: string;
+  /** The 'c' section of the JA4 fingerprint. */
+  section_c?: string;
+  /** The 'd' section of the JA4 fingerprint. */
+  section_d?: string;
+  /** The JA4+ fingerprint type as defined by FoxIO, normalized to the caption of 'type_id'. In the case of 'Other', it is defined by the event source. */
+  type?: string;
+  /** The identifier of the JA4+ fingerprint type. */
+  type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 99;
+  /** The JA4+ fingerprint value. */
+  value: string;
+}
+
+const Ja4FingerprintSchema: z.ZodType<Ja4FingerprintType> = z.strictObject({
   /** The 'a' section of the JA4 fingerprint. */
   section_a: z.string().optional(),
   /** The 'b' section of the JA4 fingerprint. */
@@ -22,4 +39,4 @@ export const Ja4Fingerprint = z.strictObject({
   value: z.string(),
 });
 
-export type Ja4FingerprintType = z.infer<typeof Ja4Fingerprint>;
+export const Ja4Fingerprint = Ja4FingerprintSchema;

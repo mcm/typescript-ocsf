@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: Classifier Details
  */
-export const ClassifierDetails = z.strictObject({
+export interface ClassifierDetailsType {
+  /** The name of the classifier. */
+  name?: string;
+  /** The type of the classifier. */
+  type: string;
+  /** The unique identifier of the classifier. */
+  uid?: string;
+}
+
+const ClassifierDetailsSchema: z.ZodType<ClassifierDetailsType> = z.strictObject({
   /** The name of the classifier. */
   name: z.string().optional(),
   /** The type of the classifier. */
@@ -14,4 +23,4 @@ export const ClassifierDetails = z.strictObject({
   uid: z.string().optional(),
 });
 
-export type ClassifierDetailsType = z.infer<typeof ClassifierDetails>;
+export const ClassifierDetails = ClassifierDetailsSchema;

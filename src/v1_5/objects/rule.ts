@@ -5,7 +5,22 @@ import { z } from 'zod';
  *
  * OCSF Object: Rule
  */
-export const Rule = z.strictObject({
+export interface RuleType {
+  /** The name of the rule that generated the event. */
+  name?: string;
+  /** The unique identifier of the rule that generated the event. */
+  uid?: string;
+  /** The rule category. */
+  category?: string;
+  /** The description of the rule that generated the event. */
+  desc?: string;
+  /** The rule type. */
+  type?: string;
+  /** The rule version. For example: 1.1. */
+  version?: string;
+}
+
+const RuleSchema: z.ZodType<RuleType> = z.strictObject({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */
@@ -20,4 +35,4 @@ export const Rule = z.strictObject({
   version: z.string().optional(),
 });
 
-export type RuleType = z.infer<typeof Rule>;
+export const Rule = RuleSchema;

@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: CWE
  */
-export const Cwe = z.strictObject({
+export interface CweType {
+  /** The caption assigned to the Common Weakness Enumeration unique identifier. */
+  caption?: string;
+  /** URL pointing to the CWE Specification. For more information see CWE. */
+  src_url?: string;
+  /** The Common Weakness Enumeration unique number assigned to a specific weakness. A CWE Identifier begins "CWE" followed by a sequence of digits that acts as a unique identifier. For example: CWE-123. */
+  uid: string;
+}
+
+const CweSchema: z.ZodType<CweType> = z.strictObject({
   /** The caption assigned to the Common Weakness Enumeration unique identifier. */
   caption: z.string().optional(),
   /** URL pointing to the CWE Specification. For more information see CWE. */
@@ -14,4 +23,4 @@ export const Cwe = z.strictObject({
   uid: z.string(),
 });
 
-export type CweType = z.infer<typeof Cwe>;
+export const Cwe = CweSchema;

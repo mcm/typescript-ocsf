@@ -1,13 +1,36 @@
 import { z } from 'zod';
 
-import { Device } from './device.js';
+import type { DeviceType } from './device.js';
 
 /**
  * An Authentication Factor object describes a category of methods used for identity verification in an authentication attempt.
  *
  * OCSF Object: Authentication Factor
  */
-export const AuthFactor = z.strictObject({
+export interface AuthFactorType {
+  /** Device used to complete an authentication request. */
+  device?: DeviceType;
+  /** The email address used in an email-based authentication factor. */
+  email_addr?: string;
+  /** The type of authentication factor used in an authentication attempt. */
+  factor_type?: string;
+  /** The normalized identifier for the authentication factor. */
+  factor_type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 99;
+  /** Whether the authentication factor is an HMAC-based One-time Password (HOTP). */
+  is_hotp?: boolean;
+  /** Whether the authentication factor is a Time-based One-time Password (TOTP). */
+  is_totp?: boolean;
+  /** The phone number used for a telephony-based authentication request. */
+  phone_number?: string;
+  /** The name of provider for an authentication factor. */
+  provider?: string;
+  /** The question(s) provided to user for a question-based authentication factor. */
+  security_questions?: string[];
+}
+
+import { Device } from './device.js';
+
+const AuthFactorSchema: z.ZodType<AuthFactorType> = z.strictObject({
   /** Device used to complete an authentication request. */
   device: Device.optional(),
   /** The email address used in an email-based authentication factor. */
@@ -28,4 +51,4 @@ export const AuthFactor = z.strictObject({
   security_questions: z.array(z.string()).optional(),
 });
 
-export type AuthFactorType = z.infer<typeof AuthFactor>;
+export const AuthFactor = AuthFactorSchema;

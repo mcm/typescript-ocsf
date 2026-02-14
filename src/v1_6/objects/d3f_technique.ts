@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: MITRE D3FEND™ Technique
  */
-export const D3fTechnique = z.strictObject({
+export interface D3fTechniqueType {
+  /** The name of the defensive technique. For example: IO Port Restriction. */
+  name?: string;
+  /** The unique identifier of the defensive technique. For example: D3-IOPR. */
+  uid?: string;
+  /** The versioned permalink of the defensive technique. For example: https://d3fend.mitre.org/technique/d3f:IOPortRestriction/. */
+  src_url?: string;
+}
+
+const D3fTechniqueSchema: z.ZodType<D3fTechniqueType> = z.strictObject({
   /** The name of the defensive technique. For example: IO Port Restriction. */
   name: z.string().optional(),
   /** The unique identifier of the defensive technique. For example: D3-IOPR. */
@@ -14,4 +23,4 @@ export const D3fTechnique = z.strictObject({
   src_url: z.string().optional(),
 });
 
-export type D3fTechniqueType = z.infer<typeof D3fTechnique>;
+export const D3fTechnique = D3fTechniqueSchema;

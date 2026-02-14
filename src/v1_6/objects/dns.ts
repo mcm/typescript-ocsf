@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: DNS
  */
-export const Dns = z.strictObject({
+export interface DnsType {
+  /** The class of resource records being queried. See RFC1035. For example: IN. */
+  class?: string;
+  /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */
+  packet_uid?: number;
+  /** The type of resource records being queried. See RFC1035. For example: A, AAAA, CNAME, MX, and NS. */
+  type?: string;
+}
+
+const DnsSchema: z.ZodType<DnsType> = z.strictObject({
   /** The class of resource records being queried. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */
@@ -14,4 +23,4 @@ export const Dns = z.strictObject({
   type: z.string().optional(),
 });
 
-export type DnsType = z.infer<typeof Dns>;
+export const Dns = DnsSchema;

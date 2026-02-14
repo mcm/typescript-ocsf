@@ -5,9 +5,14 @@ import { z } from 'zod';
  *
  * OCSF Object: Campaign
  */
-export const Campaign = z.strictObject({
+export interface CampaignType {
+  /** The name of a specific campaign associated with a cyber threat. */
+  name: string;
+}
+
+const CampaignSchema: z.ZodType<CampaignType> = z.strictObject({
   /** The name of a specific campaign associated with a cyber threat. */
   name: z.string(),
 });
 
-export type CampaignType = z.infer<typeof Campaign>;
+export const Campaign = CampaignSchema;

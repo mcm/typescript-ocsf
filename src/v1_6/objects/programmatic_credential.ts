@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: Programmatic Credential
  */
-export const ProgrammaticCredential = z.strictObject({
+export interface ProgrammaticCredentialType {
+  /** The timestamp when this programmatic credential was last used for authentication or API access. This helps track credential usage patterns, identify dormant credentials that may pose security risks, and support credential lifecycle management. The timestamp should reflect the most recent successful authentication or API call using this credential. */
+  last_used_time?: number;
+  /** The type or category of programmatic credential, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the event source. Examples include 'API Key', 'Service Account Key', 'Access Token', 'Client Certificate', 'OAuth Token', 'Personal Access Token', etc. */
+  type?: string;
+  /** The unique identifier of the programmatic credential. This could be an API key ID, service account key ID, access token identifier, certificate serial number, or other unique identifier that distinguishes this credential from others. Examples: AWS Access Key ID, GCP Service Account Key ID, Azure Application ID, or OAuth2 token identifier. */
+  uid: string;
+}
+
+const ProgrammaticCredentialSchema: z.ZodType<ProgrammaticCredentialType> = z.strictObject({
   /** The timestamp when this programmatic credential was last used for authentication or API access. This helps track credential usage patterns, identify dormant credentials that may pose security risks, and support credential lifecycle management. The timestamp should reflect the most recent successful authentication or API call using this credential. */
   last_used_time: z.number().int().optional(),
   /** The type or category of programmatic credential, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the event source. Examples include 'API Key', 'Service Account Key', 'Access Token', 'Client Certificate', 'OAuth Token', 'Personal Access Token', etc. */
@@ -14,4 +23,4 @@ export const ProgrammaticCredential = z.strictObject({
   uid: z.string(),
 });
 
-export type ProgrammaticCredentialType = z.infer<typeof ProgrammaticCredential>;
+export const ProgrammaticCredential = ProgrammaticCredentialSchema;

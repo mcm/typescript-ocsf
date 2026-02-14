@@ -5,7 +5,22 @@ import { z } from 'zod';
  *
  * OCSF Object: Peripheral Device
  */
-export const PeripheralDevice = z.strictObject({
+export interface PeripheralDeviceType {
+  /** The name of the peripheral device. */
+  name: string;
+  /** The unique identifier of the peripheral device. */
+  uid?: string;
+  /** The class of the peripheral device. */
+  class: string;
+  /** The peripheral device model. */
+  model?: string;
+  /** The peripheral device serial number. */
+  serial_number?: string;
+  /** The peripheral device vendor. */
+  vendor_name?: string;
+}
+
+const PeripheralDeviceSchema: z.ZodType<PeripheralDeviceType> = z.strictObject({
   /** The name of the peripheral device. */
   name: z.string(),
   /** The unique identifier of the peripheral device. */
@@ -20,4 +35,4 @@ export const PeripheralDevice = z.strictObject({
   vendor_name: z.string().optional(),
 });
 
-export type PeripheralDeviceType = z.infer<typeof PeripheralDevice>;
+export const PeripheralDevice = PeripheralDeviceSchema;

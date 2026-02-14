@@ -5,7 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: Reputation
  */
-export const Reputation = z.strictObject({
+export interface ReputationType {
+  /** The reputation score as reported by the event source. */
+  base_score: number;
+  /** The provider of the reputation information. */
+  provider?: string;
+  /** The reputation score, normalized to the caption of the score_id value. In the case of 'Other', it is defined by the event source. */
+  score?: string;
+  /** The normalized reputation score identifier. */
+  score_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 99;
+}
+
+const ReputationSchema: z.ZodType<ReputationType> = z.strictObject({
   /** The reputation score as reported by the event source. */
   base_score: z.number(),
   /** The provider of the reputation information. */
@@ -16,4 +27,4 @@ export const Reputation = z.strictObject({
   score_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(99)]),
 });
 
-export type ReputationType = z.infer<typeof Reputation>;
+export const Reputation = ReputationSchema;

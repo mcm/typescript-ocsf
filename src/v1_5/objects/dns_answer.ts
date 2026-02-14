@@ -5,7 +5,24 @@ import { z } from 'zod';
  *
  * OCSF Object: DNS Answer
  */
-export const DnsAnswer = z.strictObject({
+export interface DnsAnswerType {
+  /** The class of DNS data contained in this resource record. See RFC1035. For example: IN. */
+  class?: string;
+  /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */
+  packet_uid?: number;
+  /** The type of data contained in this resource record. See RFC1035. For example: CNAME. */
+  type?: string;
+  /** The list of DNS answer header flag IDs. */
+  flag_ids?: number[];
+  /** The list of DNS answer header flags. */
+  flags?: string[];
+  /** The data describing the DNS resource. The meaning of this data depends on the type and class of the resource record. */
+  rdata: string;
+  /** The time interval that the resource record may be cached. Zero value means that the resource record can only be used for the transaction in progress, and should not be cached. */
+  ttl?: number;
+}
+
+const DnsAnswerSchema: z.ZodType<DnsAnswerType> = z.strictObject({
   /** The class of DNS data contained in this resource record. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */
@@ -22,4 +39,4 @@ export const DnsAnswer = z.strictObject({
   ttl: z.number().int().optional(),
 });
 
-export type DnsAnswerType = z.infer<typeof DnsAnswer>;
+export const DnsAnswer = DnsAnswerSchema;

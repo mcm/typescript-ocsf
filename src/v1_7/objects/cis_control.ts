@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: CIS Control
  */
-export const CisControl = z.strictObject({
+export interface CisControlType {
+  /** The CIS Control description. For example: Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function. */
+  desc?: string;
+  /** The CIS Control name. For example: 4.8 Uninstall or Disable Unnecessary Services on Enterprise Assets and Software. */
+  name: string;
+  /** The CIS Control version. For example: v8. */
+  version?: string;
+}
+
+const CisControlSchema: z.ZodType<CisControlType> = z.strictObject({
   /** The CIS Control description. For example: Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function. */
   desc: z.string().optional(),
   /** The CIS Control name. For example: 4.8 Uninstall or Disable Unnecessary Services on Enterprise Assets and Software. */
@@ -14,4 +23,4 @@ export const CisControl = z.strictObject({
   version: z.string().optional(),
 });
 
-export type CisControlType = z.infer<typeof CisControl>;
+export const CisControl = CisControlSchema;

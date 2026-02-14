@@ -1,13 +1,30 @@
 import { z } from 'zod';
 
-import { Product } from './product.js';
+import type { ProductType } from './product.js';
 
 /**
  * The transformation_info object represents the mapping or transformation used.
  *
  * OCSF Object: Transformation Info
  */
-export const TransformationInfo = z.strictObject({
+export interface TransformationInfoType {
+  /** The name of the transformation or mapping. */
+  name?: string;
+  /** The unique identifier of the mapping or transformation. */
+  uid?: string;
+  /** The transformation language used to transform the data. */
+  lang?: string;
+  /** The product or instance used to make the transformation */
+  product?: ProductType;
+  /** Time of the transformation. */
+  time?: number;
+  /** The Uniform Resource Locator String where the mapping or transformation exists. */
+  url_string?: string;
+}
+
+import { Product } from './product.js';
+
+const TransformationInfoSchema: z.ZodType<TransformationInfoType> = z.strictObject({
   /** The name of the transformation or mapping. */
   name: z.string().optional(),
   /** The unique identifier of the mapping or transformation. */
@@ -22,4 +39,4 @@ export const TransformationInfo = z.strictObject({
   url_string: z.string().optional(),
 });
 
-export type TransformationInfoType = z.infer<typeof TransformationInfo>;
+export const TransformationInfo = TransformationInfoSchema;

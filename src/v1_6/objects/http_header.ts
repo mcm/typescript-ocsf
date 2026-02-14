@@ -5,11 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: HTTP Header
  */
-export const HttpHeader = z.strictObject({
+export interface HttpHeaderType {
+  /** The name of the HTTP header. */
+  name: string;
+  /** The value of the HTTP header. */
+  value: string;
+}
+
+const HttpHeaderSchema: z.ZodType<HttpHeaderType> = z.strictObject({
   /** The name of the HTTP header. */
   name: z.string(),
   /** The value of the HTTP header. */
   value: z.string(),
 });
 
-export type HttpHeaderType = z.infer<typeof HttpHeader>;
+export const HttpHeader = HttpHeaderSchema;

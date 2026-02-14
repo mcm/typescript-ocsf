@@ -1,5 +1,102 @@
 import { z } from 'zod';
 
+import type { UserType } from './user.js';
+import type { EncryptionDetailsType } from './encryption_details.js';
+import type { FingerprintType } from './fingerprint.js';
+import type { ProductType } from './product.js';
+import type { DigitalSignatureType } from './digital_signature.js';
+import type { KeyValueObjectType } from './key_value_object.js';
+import type { UrlType } from './url.js';
+import type { OcsfObjectType } from './object.js';
+
+/**
+ * The File object represents the metadata associated with a file stored in a computer system. It encompasses information about the file itself, including its attributes, properties, and organizational details.
+ *
+ * OCSF Object: File
+ */
+export interface FileType {
+  /** The name of the file. For example: svchost.exe */
+  name: string;
+  /** The unique identifier of the file as defined by the storage system, such the file system file ID. */
+  uid?: string;
+  /** The time when the file was last accessed. */
+  accessed_time?: number;
+  /** The name of the user who last accessed the object. */
+  accessor?: UserType;
+  /** The bitmask value that represents the file attributes. */
+  attributes?: number;
+  /** The name of the company that published the file. For example: Microsoft Corporation. */
+  company_name?: string;
+  /** The file content confidentiality, normalized to the confidentiality_id value. In the case of 'Other', it is defined by the event source. */
+  confidentiality?: string;
+  /** The normalized identifier of the file content confidentiality indicator. */
+  confidentiality_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
+  /** The time when the file was created. */
+  created_time?: number;
+  /** The user that created the file. */
+  creator?: UserType;
+  /** The description of the file, as returned by file system. For example: the description as returned by the Unix file command or the Windows file type. */
+  desc?: string;
+  /** The drive type, normalized to the caption of the drive_type_id value. In the case of Other, it is defined by the source. */
+  drive_type?: string;
+  /** Identifies the type of a disk drive, i.e. fixed, removable, etc. */
+  drive_type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 99;
+  /** The encryption details of the file. Should be populated if the file is encrypted. */
+  encryption_details?: EncryptionDetailsType;
+  /** The extension of the file, excluding the leading dot. For example: exe from svchost.exe, or gz from export.tar.gz. */
+  ext?: string;
+  /** An array of hash attributes. */
+  hashes?: FingerprintType[];
+  /** The name of the file as identified within the file itself. This contrasts with the name by which the file is known on disk. Where available, the internal name is widely used by security practitioners and detection content because the on-disk file name is not reliable. On the Windows OS, most PE files contain a VERSIONINFO resource from which the internal name can be obtained. On macOS, binaries can optionally embed a copy of the application's Info.plist file which in turn contains the name of the executable. */
+  internal_name?: string;
+  /** Indicates if the file was deleted from the filesystem. */
+  is_deleted?: boolean;
+  /** Indicates if the file is encrypted. */
+  is_encrypted?: boolean;
+  /** Indicates if the file is publicly accessible. For example in an object's public access in AWS S3 */
+  is_public?: boolean;
+  /** The indication of whether the object is part of the operating system. */
+  is_system?: boolean;
+  /** The Multipurpose Internet Mail Extensions (MIME) type of the file, if applicable. */
+  mime_type?: string;
+  /** The time when the file was last modified. */
+  modified_time?: number;
+  /** The user that last modified the file. */
+  modifier?: UserType;
+  /** The user that owns the file/object. */
+  owner?: UserType;
+  /** The parent folder in which the file resides. For example: c:\windows\system32 */
+  parent_folder?: string;
+  /** The full path to the file. For example: c:\windows\system32\svchost.exe. */
+  path?: string;
+  /** The product that created or installed the file. */
+  product?: ProductType;
+  /** The object security descriptor. */
+  security_descriptor?: string;
+  /** The digital signature of the file. */
+  signature?: DigitalSignatureType;
+  /** The size of data, in bytes. */
+  size?: number;
+  /** The storage class of the file. For example in AWS S3: STANDARD, STANDARD_IA, GLACIER. */
+  storage_class?: string;
+  /** The list of tags; {key:value} pairs associated to the file. */
+  tags?: KeyValueObjectType[];
+  /** The file type. */
+  type?: string;
+  /** The file type ID. */
+  type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 99;
+  /** The URL of the file, when applicable. */
+  url?: UrlType;
+  /** The file URI, such as those reporting by static analysis tools. E.g., file:///C:/dev/sarif/sarif-tutorials/samples/Introduction/simple-example.js */
+  uri?: string;
+  /** The volume on the storage device where the file is located. */
+  volume?: string;
+  /** The file version. For example: 8.0.7601.17514. */
+  version?: string;
+  /** An unordered collection of zero or more name/value pairs where each pair represents a file or folder extended attribute.For example: Windows alternate data stream attributes (ADS stream name, ADS size, etc.), user-defined or application-defined attributes, ACL, owner, primary group, etc. Examples from DCS: ads_nameads_sizedaclownerprimary_grouplink_name - name of the link associated to the file.hard_link_count - the number of links that are associated to the file. */
+  xattributes?: OcsfObjectType;
+}
+
 import { User } from './user.js';
 import { EncryptionDetails } from './encryption_details.js';
 import { Fingerprint } from './fingerprint.js';
@@ -9,12 +106,7 @@ import { KeyValueObject } from './key_value_object.js';
 import { Url } from './url.js';
 import { OcsfObject } from './object.js';
 
-/**
- * The File object represents the metadata associated with a file stored in a computer system. It encompasses information about the file itself, including its attributes, properties, and organizational details.
- *
- * OCSF Object: File
- */
-export const File = z.strictObject({
+const FileSchema: z.ZodType<FileType> = z.strictObject({
   /** The name of the file. For example: svchost.exe */
   name: z.string(),
   /** The unique identifier of the file as defined by the storage system, such the file system file ID. */
@@ -97,4 +189,4 @@ export const File = z.strictObject({
   xattributes: OcsfObject.optional(),
 });
 
-export type FileType = z.infer<typeof File>;
+export const File = FileSchema;

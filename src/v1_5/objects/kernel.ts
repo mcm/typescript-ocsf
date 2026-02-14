@@ -5,7 +5,22 @@ import { z } from 'zod';
  *
  * OCSF Object: Kernel Resource
  */
-export const Kernel = z.strictObject({
+export interface KernelType {
+  /** The indication of whether the object is part of the operating system. */
+  is_system?: boolean;
+  /** The name of the kernel resource. */
+  name: string;
+  /** The full path of the kernel resource. */
+  path?: string;
+  /** The system call that was invoked. */
+  system_call?: string;
+  /** The type of the kernel resource. */
+  type?: string;
+  /** The type of the kernel resource. */
+  type_id: 1 | 2;
+}
+
+const KernelSchema: z.ZodType<KernelType> = z.strictObject({
   /** The indication of whether the object is part of the operating system. */
   is_system: z.boolean().optional(),
   /** The name of the kernel resource. */
@@ -20,4 +35,4 @@ export const Kernel = z.strictObject({
   type_id: z.union([z.literal(1), z.literal(2)]),
 });
 
-export type KernelType = z.infer<typeof Kernel>;
+export const Kernel = KernelSchema;

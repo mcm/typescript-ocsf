@@ -1,17 +1,62 @@
 import { z } from 'zod';
 
-import { Timespan } from './timespan.js';
-import { Os } from './os.js';
-import { Product } from './product.js';
-import { Cve } from './cve.js';
-import { Cwe } from './cwe.js';
+import type { TimespanType } from './timespan.js';
+import type { OsType } from './os.js';
+import type { ProductType } from './product.js';
+import type { CveType } from './cve.js';
+import type { CweType } from './cwe.js';
 
 /**
  * The Advisory object represents publicly disclosed cybersecurity vulnerabilities defined in a Security advisory. e.g. <code> Microsoft KB Article</code>, <code>Apple Security Advisory</code>, or a <code>GitHub Security Advisory (GHSA)</code>
  *
  * OCSF Object: Advisory
  */
-export const Advisory = z.strictObject({
+export interface AdvisoryType {
+  /** The average time to patch. */
+  avg_timespan?: TimespanType;
+  /** The Advisory bulletin identifier. */
+  bulletin?: string;
+  /** The vendors classification of the Advisory. */
+  classification?: string;
+  /** The time when the Advisory record was created. */
+  created_time?: number;
+  /** A brief description of the Advisory Record. */
+  desc?: string;
+  /** The install state of the Advisory. */
+  install_state?: string;
+  /** The normalized install state ID of the Advisory. */
+  install_state_id?: 0 | 1 | 2 | 3 | 99;
+  /** The Advisory has been replaced by another. */
+  is_superseded?: boolean;
+  /** The time when the Advisory record was last updated. */
+  modified_time?: number;
+  /** The operating system the Advisory applies to. */
+  os?: OsType;
+  /** The product where the vulnerability was discovered. */
+  product?: ProductType;
+  /** A list of reference URLs with additional information about the vulnerabilities disclosed in the Advisory. */
+  references?: string[];
+  /** A list of Common Vulnerabilities and Exposures (CVE) identifiers related to the vulnerabilities disclosed in the Advisory. */
+  related_cves?: CveType[];
+  /** A list of Common Weakness Enumeration (CWE) identifiers related to the vulnerabilities disclosed in the Advisory. */
+  related_cwes?: CweType[];
+  /** The size in bytes for the Advisory. Usually populated for a KB Article patch. */
+  size?: number;
+  /** The Advisory link from the source vendor. */
+  src_url?: string;
+  /** A title or a brief phrase summarizing the Advisory. */
+  title?: string;
+  /** The unique identifier assigned to the advisory or disclosed vulnerability, e.g, GHSA-5mrr-rgp6-x4gr. */
+  uid: string;
+}
+
+import { Timespan } from './timespan.js';
+import { Os } from './os.js';
+import { Product } from './product.js';
+import { Cve } from './cve.js';
+import { Cwe } from './cwe.js';
+
+const AdvisorySchema: z.ZodType<AdvisoryType> = z.strictObject({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The Advisory bulletin identifier. */
@@ -50,4 +95,4 @@ export const Advisory = z.strictObject({
   uid: z.string(),
 });
 
-export type AdvisoryType = z.infer<typeof Advisory>;
+export const Advisory = AdvisorySchema;

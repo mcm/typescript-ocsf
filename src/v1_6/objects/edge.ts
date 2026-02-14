@@ -5,7 +5,24 @@ import { z } from 'zod';
  *
  * OCSF Object: Edge
  */
-export const Edge = z.strictObject({
+export interface EdgeType {
+  /** The human-readable name or label for the edge. */
+  name?: string;
+  /** Unique identifier of the edge. */
+  uid?: string;
+  /** Additional data about the edge such as weight, distance, or custom properties. */
+  data?: Record<string, unknown>;
+  /** Indicates whether the edge is (true) or undirected (false). */
+  is_directed?: boolean;
+  /** The type of relationship between nodes (e.g. is-attached-to , depends-on, etc). */
+  relation?: string;
+  /** The unique identifier of the node where the edge originates. */
+  source: string;
+  /** The unique identifier of the node where the edge terminates. */
+  target: string;
+}
+
+const EdgeSchema: z.ZodType<EdgeType> = z.strictObject({
   /** The human-readable name or label for the edge. */
   name: z.string().optional(),
   /** Unique identifier of the edge. */
@@ -22,4 +39,4 @@ export const Edge = z.strictObject({
   target: z.string(),
 });
 
-export type EdgeType = z.infer<typeof Edge>;
+export const Edge = EdgeSchema;

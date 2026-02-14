@@ -1,13 +1,28 @@
 import { z } from 'zod';
 
-import { Organization } from './organization.js';
+import type { OrganizationType } from './organization.js';
 
 /**
  * The entity from which an event or finding was reported.
  *
  * OCSF Object: Reporter
  */
-export const Reporter = z.strictObject({
+export interface ReporterType {
+  /** The name of the entity from which the event or finding was reported. */
+  name?: string;
+  /** The unique identifier of the entity from which the event or finding was reported. */
+  uid?: string;
+  /** The hostname of the entity from which the event or finding was reported. */
+  hostname?: string;
+  /** The IP address of the entity from which the event or finding was reported. */
+  ip?: string;
+  /** The organization properties of the entity that reported the event or finding. */
+  org?: OrganizationType;
+}
+
+import { Organization } from './organization.js';
+
+const ReporterSchema: z.ZodType<ReporterType> = z.strictObject({
   /** The name of the entity from which the event or finding was reported. */
   name: z.string().optional(),
   /** The unique identifier of the entity from which the event or finding was reported. */
@@ -20,4 +35,4 @@ export const Reporter = z.strictObject({
   org: Organization.optional(),
 });
 
-export type ReporterType = z.infer<typeof Reporter>;
+export const Reporter = ReporterSchema;

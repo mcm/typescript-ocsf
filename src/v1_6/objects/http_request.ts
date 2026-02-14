@@ -1,14 +1,42 @@
 import { z } from 'zod';
 
-import { HttpHeader } from './http_header.js';
-import { Url } from './url.js';
+import type { HttpHeaderType } from './http_header.js';
+import type { UrlType } from './url.js';
 
 /**
  * The HTTP Request object represents the attributes of a request made to a web server. It encapsulates the details and metadata associated with an HTTP request, including the request method, headers, URL, query parameters, body content, and other relevant information.
  *
  * OCSF Object: HTTP Request
  */
-export const HttpRequest = z.strictObject({
+export interface HttpRequestType {
+  /** The arguments sent along with the HTTP request. */
+  args?: string;
+  /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */
+  body_length?: number;
+  /** Additional HTTP headers of an HTTP request or response. */
+  http_headers?: HttpHeaderType[];
+  /** The HTTP request method indicates the desired action to be performed for a given resource. */
+  http_method?: string;
+  /** The length of the entire HTTP request, in number of bytes. */
+  length?: number;
+  /** The request header that identifies the address of the previous web page, which is linked to the current web page or resource being requested. */
+  referrer?: string;
+  /** The unique identifier of the http request. */
+  uid?: string;
+  /** The URL object that pertains to the request. */
+  url?: UrlType;
+  /** The request header that identifies the operating system and web browser. */
+  user_agent?: string;
+  /** The Hypertext Transfer Protocol (HTTP) version. */
+  version?: string;
+  /** The X-Forwarded-For header identifying the originating IP address(es) of a client connecting to a web server through an HTTP proxy or a load balancer. */
+  x_forwarded_for?: string[];
+}
+
+import { HttpHeader } from './http_header.js';
+import { Url } from './url.js';
+
+const HttpRequestSchema: z.ZodType<HttpRequestType> = z.strictObject({
   /** The arguments sent along with the HTTP request. */
   args: z.string().optional(),
   /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */
@@ -33,4 +61,4 @@ export const HttpRequest = z.strictObject({
   x_forwarded_for: z.array(z.string()).optional(),
 });
 
-export type HttpRequestType = z.infer<typeof HttpRequest>;
+export const HttpRequest = HttpRequestSchema;

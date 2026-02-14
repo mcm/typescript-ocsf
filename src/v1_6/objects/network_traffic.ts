@@ -5,7 +5,30 @@ import { z } from 'zod';
  *
  * OCSF Object: Network Traffic
  */
-export const NetworkTraffic = z.strictObject({
+export interface NetworkTrafficType {
+  /** The total number of bytes (in and out). */
+  bytes?: number;
+  /** The number of bytes sent from the destination to the source. */
+  bytes_in?: number;
+  /** Indicates the number of bytes missed, which is representative of packet loss. */
+  bytes_missed?: number;
+  /** The number of bytes sent from the source to the destination. */
+  bytes_out?: number;
+  /** The total number of chunks (in and out). */
+  chunks?: number;
+  /** The number of chunks sent from the destination to the source. */
+  chunks_in?: number;
+  /** The number of chunks sent from the source to the destination. */
+  chunks_out?: number;
+  /** The total number of packets (in and out). */
+  packets?: number;
+  /** The number of packets sent from the destination to the source. */
+  packets_in?: number;
+  /** The number of packets sent from the source to the destination. */
+  packets_out?: number;
+}
+
+const NetworkTrafficSchema: z.ZodType<NetworkTrafficType> = z.strictObject({
   /** The total number of bytes (in and out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source. */
@@ -28,4 +51,4 @@ export const NetworkTraffic = z.strictObject({
   packets_out: z.number().int().optional(),
 });
 
-export type NetworkTrafficType = z.infer<typeof NetworkTraffic>;
+export const NetworkTraffic = NetworkTrafficSchema;

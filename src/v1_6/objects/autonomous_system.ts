@@ -5,11 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: Autonomous System
  */
-export const AutonomousSystem = z.strictObject({
+export interface AutonomousSystemType {
+  /** Organization name for the Autonomous System. */
+  name?: string;
+  /** Unique number that the AS is identified by. */
+  number?: number;
+}
+
+const AutonomousSystemSchema: z.ZodType<AutonomousSystemType> = z.strictObject({
   /** Organization name for the Autonomous System. */
   name: z.string().optional(),
   /** Unique number that the AS is identified by. */
   number: z.number().int().optional(),
 });
 
-export type AutonomousSystemType = z.infer<typeof AutonomousSystem>;
+export const AutonomousSystem = AutonomousSystemSchema;

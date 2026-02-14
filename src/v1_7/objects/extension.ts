@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: Schema Extension
  */
-export const Extension = z.strictObject({
+export interface ExtensionType {
+  /** The schema extension name. For example: dev. */
+  name?: string;
+  /** The schema extension unique identifier. For example: 999. */
+  uid?: string;
+  /** The schema extension version. For example: 1.0.0-alpha.2. */
+  version: string;
+}
+
+const ExtensionSchema: z.ZodType<ExtensionType> = z.strictObject({
   /** The schema extension name. For example: dev. */
   name: z.string().optional(),
   /** The schema extension unique identifier. For example: 999. */
@@ -14,4 +23,4 @@ export const Extension = z.strictObject({
   version: z.string(),
 });
 
-export type ExtensionType = z.infer<typeof Extension>;
+export const Extension = ExtensionSchema;

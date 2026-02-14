@@ -5,7 +5,34 @@ import { z } from 'zod';
  *
  * OCSF Object: Time Span
  */
-export const Timespan = z.strictObject({
+export interface TimespanType {
+  /** The duration of the time span in milliseconds. */
+  duration?: number;
+  /** The duration of the time span in days. */
+  duration_days?: number;
+  /** The duration of the time span in hours. */
+  duration_hours?: number;
+  /** The duration of the time span in minutes. */
+  duration_mins?: number;
+  /** The duration of the time span in months. */
+  duration_months?: number;
+  /** The duration of the time span in seconds. */
+  duration_secs?: number;
+  /** The duration of the time span in weeks. */
+  duration_weeks?: number;
+  /** The duration of the time span in years. */
+  duration_years?: number;
+  /** The end time or conclusion of the timespan's interval. */
+  end_time?: number;
+  /** The start time or beginning of the timespan's interval. */
+  start_time?: number;
+  /** The type of time span duration the object represents. */
+  type?: string;
+  /** The normalized identifier for the time span duration type. */
+  type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 99;
+}
+
+const TimespanSchema: z.ZodType<TimespanType> = z.strictObject({
   /** The duration of the time span in milliseconds. */
   duration: z.number().int().optional(),
   /** The duration of the time span in days. */
@@ -32,4 +59,4 @@ export const Timespan = z.strictObject({
   type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(99)]).optional(),
 });
 
-export type TimespanType = z.infer<typeof Timespan>;
+export const Timespan = TimespanSchema;

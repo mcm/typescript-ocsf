@@ -5,7 +5,20 @@ import { z } from 'zod';
  *
  * OCSF Object: Keyboard Information
  */
-export const KeyboardInfo = z.strictObject({
+export interface KeyboardInfoType {
+  /** The number of function keys on client keyboard. */
+  function_keys?: number;
+  /** The Input Method Editor (IME) file name. */
+  ime?: string;
+  /** The keyboard locale identifier name (e.g., en-US). */
+  keyboard_layout?: string;
+  /** The keyboard numeric code. */
+  keyboard_subtype?: number;
+  /** The keyboard type (e.g., xt, ico). */
+  keyboard_type?: string;
+}
+
+const KeyboardInfoSchema: z.ZodType<KeyboardInfoType> = z.strictObject({
   /** The number of function keys on client keyboard. */
   function_keys: z.number().int().optional(),
   /** The Input Method Editor (IME) file name. */
@@ -18,4 +31,4 @@ export const KeyboardInfo = z.strictObject({
   keyboard_type: z.string().optional(),
 });
 
-export type KeyboardInfoType = z.infer<typeof KeyboardInfo>;
+export const KeyboardInfo = KeyboardInfoSchema;

@@ -5,7 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: Organization
  */
-export const Organization = z.strictObject({
+export interface OrganizationType {
+  /** The name of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, Widget, Inc. or the AWS Organization name . */
+  name?: string;
+  /** The unique identifier of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, an AWS Org ID or Oracle Cloud Domain ID . */
+  uid?: string;
+  /** The name of an organizational unit, Google Cloud Folder, or AWS Org Unit. For example, the GCP Project Name , or Dev_Prod_OU . */
+  ou_name?: string;
+  /** The unique identifier of an organizational unit, Google Cloud Folder, or AWS Org Unit. For example, an Oracle Cloud Tenancy ID , AWS OU ID , or GCP Folder ID . */
+  ou_uid?: string;
+}
+
+const OrganizationSchema: z.ZodType<OrganizationType> = z.strictObject({
   /** The name of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, Widget, Inc. or the AWS Organization name . */
   name: z.string().optional(),
   /** The unique identifier of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, an AWS Org ID or Oracle Cloud Domain ID . */
@@ -16,4 +27,4 @@ export const Organization = z.strictObject({
   ou_uid: z.string().optional(),
 });
 
-export type OrganizationType = z.infer<typeof Organization>;
+export const Organization = OrganizationSchema;

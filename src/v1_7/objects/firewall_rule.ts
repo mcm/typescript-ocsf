@@ -5,7 +5,34 @@ import { z } from 'zod';
  *
  * OCSF Object: Firewall Rule
  */
-export const FirewallRule = z.strictObject({
+export interface FirewallRuleType {
+  /** The name of the rule that generated the event. */
+  name?: string;
+  /** The unique identifier of the rule that generated the event. */
+  uid?: string;
+  /** The rule category. */
+  category?: string;
+  /** The description of the rule that generated the event. */
+  desc?: string;
+  /** The rule type. */
+  type?: string;
+  /** The rule version. For example: 1.1. */
+  version?: string;
+  /** The rule trigger condition for the rule. For example: SQL_INJECTION. */
+  condition?: string;
+  /** The rule response time duration, usually used for challenge completion time. */
+  duration?: number;
+  /** The data in a request that rule matched. For example: '["10","and","1"]'. */
+  match_details?: string[];
+  /** The location of the matched data in the source which resulted in the triggered firewall rule. For example: HEADER. */
+  match_location?: string;
+  /** The rate limit for a rate-based rule. */
+  rate_limit?: number;
+  /** The sensitivity of the firewall rule in the matched event. For example: HIGH. */
+  sensitivity?: string;
+}
+
+const FirewallRuleSchema: z.ZodType<FirewallRuleType> = z.strictObject({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */
@@ -32,4 +59,4 @@ export const FirewallRule = z.strictObject({
   sensitivity: z.string().optional(),
 });
 
-export type FirewallRuleType = z.infer<typeof FirewallRule>;
+export const FirewallRule = FirewallRuleSchema;

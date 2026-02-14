@@ -5,7 +5,24 @@ import { z } from 'zod';
  *
  * OCSF Object: Email Authentication
  */
-export const EmailAuth = z.strictObject({
+export interface EmailAuthType {
+  /** The DomainKeys Identified Mail (DKIM) status of the email. */
+  dkim?: string;
+  /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */
+  dkim_domain?: string;
+  /** The DomainKeys Identified Mail (DKIM) signature used by the sending/receiving system. */
+  dkim_signature?: string;
+  /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) status of the email. */
+  dmarc?: string;
+  /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) override action. */
+  dmarc_override?: string;
+  /** The Domain-based Message Authentication, Reporting and Conformance (DMARC) policy status. */
+  dmarc_policy?: string;
+  /** The Sender Policy Framework (SPF) status of the email. */
+  spf?: string;
+}
+
+const EmailAuthSchema: z.ZodType<EmailAuthType> = z.strictObject({
   /** The DomainKeys Identified Mail (DKIM) status of the email. */
   dkim: z.string().optional(),
   /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */
@@ -22,4 +39,4 @@ export const EmailAuth = z.strictObject({
   spf: z.string().optional(),
 });
 
-export type EmailAuthType = z.infer<typeof EmailAuth>;
+export const EmailAuth = EmailAuthSchema;

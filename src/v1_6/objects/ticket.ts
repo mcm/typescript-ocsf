@@ -5,7 +5,26 @@ import { z } from 'zod';
  *
  * OCSF Object: Ticket
  */
-export const Ticket = z.strictObject({
+export interface TicketType {
+  /** The url of a ticket in the ticket system. */
+  src_url?: string;
+  /** The status of the ticket normalized to the caption of the status_id value. In the case of 99, this value should as defined by the source. */
+  status?: string;
+  /** A list of contextual descriptions of the status, status_id values. */
+  status_details?: string[];
+  /** The normalized identifier for the ticket status. */
+  status_id?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  /** The title of the ticket. */
+  title?: string;
+  /** The linked ticket type determines whether the ticket is internal or in an external ticketing system. */
+  type?: string;
+  /** The normalized identifier for the ticket type. */
+  type_id?: 0 | 1 | 2 | 99;
+  /** Unique identifier of the ticket. */
+  uid?: string;
+}
+
+const TicketSchema: z.ZodType<TicketType> = z.strictObject({
   /** The url of a ticket in the ticket system. */
   src_url: z.string().optional(),
   /** The status of the ticket normalized to the caption of the status_id value. In the case of 99, this value should as defined by the source. */
@@ -24,4 +43,4 @@ export const Ticket = z.strictObject({
   uid: z.string().optional(),
 });
 
-export type TicketType = z.infer<typeof Ticket>;
+export const Ticket = TicketSchema;

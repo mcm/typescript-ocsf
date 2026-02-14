@@ -5,7 +5,16 @@ import { z } from 'zod';
  *
  * OCSF Object: Key:Value object
  */
-export const KeyValueObject = z.strictObject({
+export interface KeyValueObjectType {
+  /** The name of the key. */
+  name: string;
+  /** The value associated to the key. */
+  value?: string;
+  /** Optional, the values associated to the key. You can populate this attribute, when you have multiple values for the same key. */
+  values?: string[];
+}
+
+const KeyValueObjectSchema: z.ZodType<KeyValueObjectType> = z.strictObject({
   /** The name of the key. */
   name: z.string(),
   /** The value associated to the key. */
@@ -14,4 +23,4 @@ export const KeyValueObject = z.strictObject({
   values: z.array(z.string()).optional(),
 });
 
-export type KeyValueObjectType = z.infer<typeof KeyValueObject>;
+export const KeyValueObject = KeyValueObjectSchema;

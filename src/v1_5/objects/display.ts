@@ -5,7 +5,20 @@ import { z } from 'zod';
  *
  * OCSF Object: Display
  */
-export const Display = z.strictObject({
+export interface DisplayType {
+  /** The numeric color depth. */
+  color_depth?: number;
+  /** The numeric physical height of display. */
+  physical_height?: number;
+  /** The numeric physical orientation of display. */
+  physical_orientation?: number;
+  /** The numeric physical width of display. */
+  physical_width?: number;
+  /** The numeric scale factor of display. */
+  scale_factor?: number;
+}
+
+const DisplaySchema: z.ZodType<DisplayType> = z.strictObject({
   /** The numeric color depth. */
   color_depth: z.number().int().optional(),
   /** The numeric physical height of display. */
@@ -18,4 +31,4 @@ export const Display = z.strictObject({
   scale_factor: z.number().int().optional(),
 });
 
-export type DisplayType = z.infer<typeof Display>;
+export const Display = DisplaySchema;

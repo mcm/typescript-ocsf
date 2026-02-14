@@ -1,5 +1,79 @@
 import { z } from 'zod';
 
+import type { AgentType } from './agent.js';
+import type { DeviceHwInfoType } from './device_hw_info.js';
+import type { LocationType } from './location.js';
+import type { OsType } from './os.js';
+import type { UserType } from './user.js';
+import type { AutonomousSystemType } from './autonomous_system.js';
+import type { NetworkProxyType } from './network_proxy.js';
+
+/**
+ * The Network Endpoint object describes characteristics of a network endpoint. These can be a source or destination of a network connection.
+ *
+ * OCSF Object: Network Endpoint
+ */
+export interface NetworkEndpointType {
+  /** The short name of the endpoint. */
+  name?: string;
+  /** The unique identifier. See specific usage. */
+  uid?: string;
+  /** A list of agent objects associated with a device, endpoint, or resource. */
+  agent_list?: AgentType[];
+  /** The name of the domain that the endpoint belongs to or that corresponds to the endpoint. */
+  domain?: string;
+  /** The fully qualified name of the endpoint. */
+  hostname?: string;
+  /** The endpoint hardware information. */
+  hw_info?: DeviceHwInfoType;
+  /** The unique identifier of a VM instance. */
+  instance_uid?: string;
+  /** The name of the network interface (e.g. eth2). */
+  interface_name?: string;
+  /** The unique identifier of the network interface. */
+  interface_uid?: string;
+  /** The IP address of the endpoint, in either IPv4 or IPv6 format. */
+  ip?: string;
+  /** The geographical location of the endpoint. */
+  location?: LocationType;
+  /** The Media Access Control (MAC) address of the endpoint. */
+  mac?: string;
+  /** The endpoint operating system. */
+  os?: OsType;
+  /** The identity of the service or user account that owns the endpoint or was last logged into it. */
+  owner?: UserType;
+  /** The unique identifier of a virtual subnet. */
+  subnet_uid?: string;
+  /** The network endpoint type. For example: unknown, server, desktop, laptop, tablet, mobile, virtual, browser, or other. */
+  type?: string;
+  /** The network endpoint type ID. */
+  type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 99;
+  /** The Virtual LAN identifier. */
+  vlan_uid?: string;
+  /** The unique identifier of the Virtual Private Cloud (VPC). */
+  vpc_uid?: string;
+  /** The network zone or LAN segment. */
+  zone?: string;
+  /** The Autonomous System details associated with an IP address. */
+  autonomous_system?: AutonomousSystemType;
+  /** The intermediate IP Addresses. For example, the IP addresses in the HTTP X-Forwarded-For header. */
+  intermediate_ips?: string[];
+  /** The name of the Internet Service Provider (ISP). */
+  isp?: string;
+  /** The organization name of the Internet Service Provider (ISP). This represents the parent organization or company that owns/operates the ISP. For example, Comcast Corporation would be the ISP org for Xfinity internet service. This attribute helps identify the ultimate provider when ISPs operate under different brand names. */
+  isp_org?: string;
+  /** Indicates whether the endpoint resides inside the customer’s network, outside on the Internet, or if its location relative to the customer’s network cannot be determined. The value is normalized to the caption of the network_scope_id. */
+  network_scope?: string;
+  /** The normalized identifier of the endpoint’s network scope. The normalized network scope identifier indicates whether the endpoint resides inside the customer’s network, outside on the Internet, or if its location relative to the customer’s network cannot be determined. */
+  network_scope_id?: 0 | 1 | 2 | 99;
+  /** The port used for communication within the network connection. */
+  port?: number;
+  /** The network proxy information pertaining to a specific endpoint. This can be used to describe information pertaining to network address translation (NAT). */
+  proxy_endpoint?: NetworkProxyType;
+  /** The service name in service-to-service connections. For example, AWS VPC logs the pkt-src-aws-service and pkt-dst-aws-service fields identify the connection is coming from or going to an AWS service. */
+  svc_name?: string;
+}
+
 import { Agent } from './agent.js';
 import { DeviceHwInfo } from './device_hw_info.js';
 import { Location } from './location.js';
@@ -8,12 +82,7 @@ import { User } from './user.js';
 import { AutonomousSystem } from './autonomous_system.js';
 import { NetworkProxy } from './network_proxy.js';
 
-/**
- * The Network Endpoint object describes characteristics of a network endpoint. These can be a source or destination of a network connection.
- *
- * OCSF Object: Network Endpoint
- */
-export const NetworkEndpoint = z.strictObject({
+const NetworkEndpointSchema: z.ZodType<NetworkEndpointType> = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier. See specific usage. */
@@ -74,4 +143,4 @@ export const NetworkEndpoint = z.strictObject({
   svc_name: z.string().optional(),
 });
 
-export type NetworkEndpointType = z.infer<typeof NetworkEndpoint>;
+export const NetworkEndpoint = NetworkEndpointSchema;

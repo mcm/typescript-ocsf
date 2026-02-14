@@ -5,9 +5,10 @@ import type { ParsedAttribute, ParsedObject } from "./types.js";
 /**
  * Emit a TypeScript file for a single OCSF object schema.
  *
- * Objects use direct Zod schema definitions with type inference:
- * - Non-recursive objects: plain z.object() with z.infer<typeof X>
- * - Recursive objects: z.object() with getter pattern for self-references
+ * Objects use explicit TypeScript interfaces with type references:
+ * - Interface defined first with type references (e.g., MetadataType)
+ * - Schema typed as z.ZodType<InterfaceType>
+ * - Direct export of schema (no parser object for objects)
  *
  * All object schemas use .passthrough() to preserve unmapped fields.
  */
@@ -21,6 +22,7 @@ export function emitObjectFile(
   // Handle special case: "Object" shadows JavaScript's global Object
   const className = obj.className === "Object" ? "OcsfObject" : obj.className;
   const typeName = obj.className === "Object" ? "OcsfObjectType" : `${obj.className}Type`;
+  const schemaName = `${className}Schema`;
 
   // Imports
   lines.push("import { z } from 'zod';");
@@ -41,7 +43,34 @@ export function emitObjectFile(
   // Self-referencing check (e.g., file.parent_folder -> file)
   const selfReferencing = obj.attributes.some((a) => a.objectType === obj.name);
 
-  // Import referenced objects (schema only, not type)
+  // Import referenced object TYPES (for interface definition)
+  for (const refName of importedObjects) {
+    const refObj = allObjects.get(refName);
+    if (!refObj) continue;
+    const fileName = toFileName(refObj.className);
+    // Handle special case where Object is renamed to OcsfObject
+    const refTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+    lines.push(`import type { ${refTypeName} } from './${fileName}.js';`);
+  }
+
+  if (importedObjects.size > 0) lines.push("");
+
+  // Generate TypeScript interface with type references
+  lines.push("/**");
+  if (obj.description) {
+    lines.push(` * ${obj.description}`);
+    lines.push(" *");
+  }
+  if (obj.caption) {
+    lines.push(` * OCSF Object: ${obj.caption}`);
+  }
+  lines.push(" */");
+  lines.push(`export interface ${typeName} {`);
+  emitInterfaceFields(lines, obj, allObjects);
+  lines.push("}");
+  lines.push("");
+
+  // Import referenced object SCHEMAS (for schema definition)
   for (const refName of importedObjects) {
     const refObj = allObjects.get(refName);
     if (!refObj) continue;
@@ -53,39 +82,93 @@ export function emitObjectFile(
 
   if (importedObjects.size > 0) lines.push("");
 
-  // JSDoc
-  lines.push("/**");
-  if (obj.description) {
-    lines.push(` * ${obj.description}`);
-    lines.push(" *");
-  }
-  if (obj.caption) {
-    lines.push(` * OCSF Object: ${obj.caption}`);
-  }
-  lines.push(" */");
-
   // Detect if object is recursive
   const isRecursive = obj.isInCycle || selfReferencing;
 
+  // Generate Zod schema typed as z.ZodType<InterfaceType>
   if (isRecursive) {
     // Recursive: use getter pattern with strict validation
-    lines.push(`export const ${className} = z.strictObject({`);
+    lines.push(`const ${schemaName}: z.ZodType<${typeName}> = z.strictObject({`);
     emitFieldsWithGetters(lines, obj, allObjects);
     lines.push("});");
   } else {
     // Non-recursive: plain object with strict validation
-    lines.push(`export const ${className} = z.strictObject({`);
+    lines.push(`const ${schemaName}: z.ZodType<${typeName}> = z.strictObject({`);
     emitSimpleFields(lines, obj, allObjects);
     lines.push("});");
   }
 
   lines.push("");
 
-  // Type inference
-  lines.push(`export type ${typeName} = z.infer<typeof ${className}>;`);
+  // Export schema directly (no parser for objects)
+  lines.push(`export const ${className} = ${schemaName};`);
 
   lines.push("");
   return lines.join("\n");
+}
+
+/**
+ * Emit TypeScript interface field definitions with type references.
+ */
+function emitInterfaceFields(
+  lines: string[],
+  obj: ParsedObject,
+  allObjects: Map<string, ParsedObject>,
+): void {
+  for (const attr of obj.attributes) {
+    if (attr.description) {
+      lines.push(`  /** ${attr.description} */`);
+    }
+
+    let tsType = getTsTypeForInterface(attr, allObjects, obj.name);
+
+    // Apply optionality
+    const optional = attr.requirement !== "required" ? "?" : "";
+
+    lines.push(`  ${attr.name}${optional}: ${tsType};`);
+  }
+}
+
+/**
+ * Get the TypeScript type for an interface field.
+ */
+function getTsTypeForInterface(
+  attr: ParsedAttribute,
+  allObjects: Map<string, ParsedObject>,
+  currentObjName: string,
+): string {
+  let base: string;
+
+  if (attr.objectType) {
+    // Object reference - use type reference
+    const refObj = allObjects.get(attr.objectType);
+    if (!refObj) {
+      // Unknown: use Record<string, unknown>
+      base = "Record<string, unknown>";
+    } else if (attr.objectType === currentObjName) {
+      // Self-reference - use the type name directly (will be defined in same file)
+      const selfTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+      base = selfTypeName;
+    } else {
+      // Handle special case where Object is renamed to OcsfObject
+      const refTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+      base = refTypeName;
+    }
+  } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
+    // Generate enum validation using union of literals
+    const literals = attr.enumValues.map((v) => v.value).join(" | ");
+    base = literals;
+  } else {
+    // Primitive type
+    base = mapOcsfTypeToTs(attr.ocsfType);
+  }
+
+  // Wrap in array if needed
+  if (attr.isArray) {
+    base = `${base}[]`;
+  }
+
+  return base;
 }
 
 /**

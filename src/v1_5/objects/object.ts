@@ -5,7 +5,10 @@ import { z } from 'zod';
  *
  * OCSF Object: Object
  */
-export const OcsfObject = z.strictObject({
+export interface OcsfObjectType {
+}
+
+const OcsfObjectSchema: z.ZodType<OcsfObjectType> = z.strictObject({
 });
 
-export type OcsfObjectType = z.infer<typeof OcsfObject>;
+export const OcsfObject = OcsfObjectSchema;

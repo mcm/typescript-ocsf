@@ -5,11 +5,18 @@ import { z } from 'zod';
  *
  * OCSF Object: Metric
  */
-export const Metric = z.strictObject({
+export interface MetricType {
+  /** The name of the metric. */
+  name: string;
+  /** The value of the metric. */
+  value: string;
+}
+
+const MetricSchema: z.ZodType<MetricType> = z.strictObject({
   /** The name of the metric. */
   name: z.string(),
   /** The value of the metric. */
   value: z.string(),
 });
 
-export type MetricType = z.infer<typeof Metric>;
+export const Metric = MetricSchema;
