@@ -30,7 +30,7 @@ export interface DigitalSignatureType {
 import { Certificate } from './certificate.js';
 import { Fingerprint } from './fingerprint.js';
 
-const DigitalSignatureSchema: z.ZodType<DigitalSignatureType> = z.strictObject({
+const DigitalSignatureSchema = z.strictObject({
   /** The digital signature algorithm used to create the signature, normalized to the caption of 'algorithm_id'. In the case of 'Other', it is defined by the event source. */
   algorithm: z.string().optional(),
   /** The identifier of the normalized digital signature algorithm. */

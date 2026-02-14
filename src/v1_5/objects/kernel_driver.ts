@@ -14,7 +14,7 @@ export interface KernelDriverType {
 
 import { File } from './file.js';
 
-const KernelDriverSchema: z.ZodType<KernelDriverType> = z.strictObject({
+const KernelDriverSchema = z.strictObject({
   /** The driver/extension file object. */
   file: File,
 });

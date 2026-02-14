@@ -26,7 +26,7 @@ export interface DomainContactType {
 
 import { Location } from './location.js';
 
-const DomainContactSchema: z.ZodType<DomainContactType> = z.strictObject({
+const DomainContactSchema = z.strictObject({
   /** The user's primary email address. */
   email_addr: z.string().optional(),
   /** Location details for the contract such as the city, state/province, country, etc. */

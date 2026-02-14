@@ -34,7 +34,7 @@ export interface JobType {
 import { File } from './file.js';
 import { User } from './user.js';
 
-const JobSchema: z.ZodType<JobType> = z.strictObject({
+const JobSchema = z.strictObject({
   /** The job command line. */
   cmd_line: z.string().optional(),
   /** The time when the job was created. */

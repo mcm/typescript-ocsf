@@ -70,7 +70,7 @@ import { Product } from './product.js';
 import { KeyValueObject } from './key_value_object.js';
 import { TransformationInfo } from './transformation_info.js';
 
-const MetadataSchema: z.ZodType<MetadataType> = z.strictObject({
+const MetadataSchema = z.strictObject({
   /** The unique identifier used to correlate events. */
   correlation_uid: z.string().optional(),
   /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */

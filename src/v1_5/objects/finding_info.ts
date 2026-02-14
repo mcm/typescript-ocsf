@@ -66,7 +66,7 @@ import { RelatedEvent } from './related_event.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Trait } from './trait.js';
 
-const FindingInfoSchema: z.ZodType<FindingInfoType> = z.strictObject({
+const FindingInfoSchema = z.strictObject({
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** The MITRE ATT&CK® technique and associated tactics related to the finding. */

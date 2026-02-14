@@ -8,7 +8,7 @@ import { z } from 'zod';
 export interface OcsfObjectType {
 }
 
-const OcsfObjectSchema: z.ZodType<OcsfObjectType> = z.strictObject({
+const OcsfObjectSchema = z.strictObject({
 });
 
 export const OcsfObject = OcsfObjectSchema;

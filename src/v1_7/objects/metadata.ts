@@ -86,7 +86,7 @@ import { Reporter } from './reporter.js';
 import { KeyValueObject } from './key_value_object.js';
 import { TransformationInfo } from './transformation_info.js';
 
-const MetadataSchema: z.ZodType<MetadataType> = z.strictObject({
+const MetadataSchema = z.strictObject({
   /** A unique identifier used to correlate this OCSF event with other related OCSF events, distinct from the event's uid value. This enables linking multiple OCSF events that are part of the same activity, transaction, or security incident across different systems or time periods. */
   correlation_uid: z.string().optional(),
   /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */

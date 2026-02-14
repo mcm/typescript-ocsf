@@ -20,7 +20,7 @@ export interface QueryInfoType {
   query_time?: number;
 }
 
-const QueryInfoSchema: z.ZodType<QueryInfoType> = z.strictObject({
+const QueryInfoSchema = z.strictObject({
   /** The query name for a saved or scheduled query. */
   name: z.string().optional(),
   /** The unique identifier of the query. */

@@ -58,7 +58,7 @@ import { Location } from './location.js';
 import { User } from './user.js';
 import { KeyValueObject } from './key_value_object.js';
 
-const LdapPersonSchema: z.ZodType<LdapPersonType> = z.strictObject({
+const LdapPersonSchema = z.strictObject({
   /** The cost center associated with the user. */
   cost_center: z.string().optional(),
   /** The timestamp when the user was created. */

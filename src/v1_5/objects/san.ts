@@ -12,7 +12,7 @@ export interface SanType {
   type: string;
 }
 
-const SanSchema: z.ZodType<SanType> = z.strictObject({
+const SanSchema = z.strictObject({
   /** Name of SAN (e.g. The actual IP Address or domain.) */
   name: z.string(),
   /** Type descriptor of SAN (e.g. IP Address/domain/etc.) */

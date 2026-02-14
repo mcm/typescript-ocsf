@@ -64,7 +64,7 @@ import { Product } from './product.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Trait } from './trait.js';
 
-const RelatedEventSchema: z.ZodType<RelatedEventType> = z.strictObject({
+const RelatedEventSchema = z.strictObject({
   /** An array of MITRE ATT&CK® objects describing identified tactics, techniques & sub-techniques. The objects are compatible with MITRE ATLAS™ tactics, techniques & sub-techniques. */
   attacks: z.array(Attack).optional(),
   /** The number of times that activity in the same logical group occurred, as reported by the related Finding. */

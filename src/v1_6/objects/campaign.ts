@@ -10,7 +10,7 @@ export interface CampaignType {
   name: string;
 }
 
-const CampaignSchema: z.ZodType<CampaignType> = z.strictObject({
+const CampaignSchema = z.strictObject({
   /** The name of a specific campaign associated with a cyber threat. */
   name: z.string(),
 });

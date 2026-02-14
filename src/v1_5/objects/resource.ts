@@ -30,7 +30,7 @@ export interface ResourceType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const ResourceSchema: z.ZodType<ResourceType> = z.strictObject({
+const ResourceSchema = z.strictObject({
   /** The name of the resource. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */

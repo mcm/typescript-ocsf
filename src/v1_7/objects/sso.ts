@@ -42,7 +42,7 @@ export interface SsoType {
 
 import { Certificate } from './certificate.js';
 
-const SsoSchema: z.ZodType<SsoType> = z.strictObject({
+const SsoSchema = z.strictObject({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authentication protocol used by the SSO resource. */

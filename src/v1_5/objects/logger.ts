@@ -38,7 +38,7 @@ export interface LoggerType {
 import { Device } from './device.js';
 import { Product } from './product.js';
 
-const LoggerSchema: z.ZodType<LoggerType> = z.strictObject({
+const LoggerSchema = z.strictObject({
   /** The name of the logging product instance. */
   name: z.string().optional(),
   /** The unique identifier of the logging product instance. */

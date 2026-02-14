@@ -38,7 +38,7 @@ import { NetworkEndpoint } from './network_endpoint.js';
 import { EndpointConnection } from './endpoint_connection.js';
 import { Metric } from './metric.js';
 
-const LoadBalancerSchema: z.ZodType<LoadBalancerType> = z.strictObject({
+const LoadBalancerSchema = z.strictObject({
   /** The name of the load balancer. */
   name: z.string().optional(),
   /** The unique identifier for the load balancer. */

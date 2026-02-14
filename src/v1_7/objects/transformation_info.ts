@@ -24,7 +24,7 @@ export interface TransformationInfoType {
 
 import { Product } from './product.js';
 
-const TransformationInfoSchema: z.ZodType<TransformationInfoType> = z.strictObject({
+const TransformationInfoSchema = z.strictObject({
   /** The name of the transformation or mapping. */
   name: z.string().optional(),
   /** The unique identifier of the mapping or transformation. */

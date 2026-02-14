@@ -18,7 +18,7 @@ export interface AdditionalRestrictionType {
 
 import { Policy } from './policy.js';
 
-const AdditionalRestrictionSchema: z.ZodType<AdditionalRestrictionType> = z.strictObject({
+const AdditionalRestrictionSchema = z.strictObject({
   /** Detailed information about the policy document that defines this restriction, including policy metadata, type, scope, and the specific rules or conditions that implement the access control. */
   policy: Policy,
   /** The current status of the policy restriction, normalized to the caption of the status_id enum value. */

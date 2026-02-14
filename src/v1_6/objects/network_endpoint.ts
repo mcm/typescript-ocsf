@@ -78,7 +78,7 @@ import { User } from './user.js';
 import { AutonomousSystem } from './autonomous_system.js';
 import { NetworkProxy } from './network_proxy.js';
 
-const NetworkEndpointSchema: z.ZodType<NetworkEndpointType> = z.strictObject({
+const NetworkEndpointSchema = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier of the endpoint. */

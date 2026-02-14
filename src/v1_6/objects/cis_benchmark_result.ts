@@ -22,7 +22,7 @@ export interface CisBenchmarkResultType {
 import { Remediation } from './remediation.js';
 import { Rule } from './rule.js';
 
-const CisBenchmarkResultSchema: z.ZodType<CisBenchmarkResultType> = z.strictObject({
+const CisBenchmarkResultSchema = z.strictObject({
   /** The CIS benchmark description. */
   desc: z.string().optional(),
   /** The CIS benchmark name. */

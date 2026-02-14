@@ -14,7 +14,7 @@ export interface ExtensionType {
   version: string;
 }
 
-const ExtensionSchema: z.ZodType<ExtensionType> = z.strictObject({
+const ExtensionSchema = z.strictObject({
   /** The schema extension name. For example: dev. */
   name: z.string(),
   /** The schema extension unique identifier. For example: 999. */

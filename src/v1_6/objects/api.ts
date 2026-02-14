@@ -30,7 +30,7 @@ import { Request } from './request.js';
 import { Response } from './response.js';
 import { Service } from './service.js';
 
-const ApiSchema: z.ZodType<ApiType> = z.strictObject({
+const ApiSchema = z.strictObject({
   /** The information pertaining to the API group. */
   group: Group.optional(),
   /** Verb/Operation associated with the request */

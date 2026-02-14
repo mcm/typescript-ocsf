@@ -84,7 +84,7 @@ import { Graph } from './graph.js';
 import { EncryptionDetails } from './encryption_details.js';
 import { File } from './file.js';
 
-const DatabucketSchema: z.ZodType<DatabucketType> = z.strictObject({
+const DatabucketSchema = z.strictObject({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */

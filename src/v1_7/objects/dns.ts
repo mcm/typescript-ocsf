@@ -14,7 +14,7 @@ export interface DnsType {
   type?: string;
 }
 
-const DnsSchema: z.ZodType<DnsType> = z.strictObject({
+const DnsSchema = z.strictObject({
   /** The class of resource records being queried. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */

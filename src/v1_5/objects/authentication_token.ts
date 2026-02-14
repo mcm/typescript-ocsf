@@ -26,7 +26,7 @@ export interface AuthenticationTokenType {
 
 import { EncryptionDetails } from './encryption_details.js';
 
-const AuthenticationTokenSchema: z.ZodType<AuthenticationTokenType> = z.strictObject({
+const AuthenticationTokenSchema = z.strictObject({
   /** The time that the authentication token was created. */
   created_time: z.number().int().optional(),
   /** The encryption details of the authentication token. */

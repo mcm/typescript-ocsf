@@ -56,7 +56,7 @@ import { Product } from './product.js';
 import { Cve } from './cve.js';
 import { Cwe } from './cwe.js';
 
-const AdvisorySchema: z.ZodType<AdvisoryType> = z.strictObject({
+const AdvisorySchema = z.strictObject({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The Advisory bulletin identifier. */

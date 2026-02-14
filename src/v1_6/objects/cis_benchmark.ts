@@ -18,7 +18,7 @@ export interface CisBenchmarkType {
 
 import { CisControl } from './cis_control.js';
 
-const CisBenchmarkSchema: z.ZodType<CisBenchmarkType> = z.strictObject({
+const CisBenchmarkSchema = z.strictObject({
   /** The CIS Critical Security Controls is a prioritized set of actions to protect your organization and data from cyber-attack vectors. */
   cis_controls: z.array(CisControl).optional(),
   /** The CIS Benchmark description. For example: The cramfs filesystem type is a compressed read-only Linux filesystem embedded in small footprint systems. A cramfs image can be used without having to first decompress the image. */

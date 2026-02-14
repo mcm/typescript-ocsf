@@ -48,7 +48,7 @@ import { TlsExtension } from './tls_extension.js';
 import { Fingerprint } from './fingerprint.js';
 import { San } from './san.js';
 
-const TlsSchema: z.ZodType<TlsType> = z.strictObject({
+const TlsSchema = z.strictObject({
   /** The integer value of TLS alert if present. The alerts are defined in the TLS specification in RFC-2246. */
   alert: z.number().int().optional(),
   /** The certificate object containing information about the digital certificate. */

@@ -32,7 +32,7 @@ export interface TimespanType {
   type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 99;
 }
 
-const TimespanSchema: z.ZodType<TimespanType> = z.strictObject({
+const TimespanSchema = z.strictObject({
   /** The duration of the time span in milliseconds. */
   duration: z.number().int().optional(),
   /** The duration of the time span in days. */

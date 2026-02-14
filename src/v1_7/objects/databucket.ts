@@ -84,7 +84,7 @@ import { Group } from './group.js';
 import { User } from './user.js';
 import { Graph } from './graph.js';
 
-const DatabucketSchema: z.ZodType<DatabucketType> = z.strictObject({
+const DatabucketSchema = z.strictObject({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */

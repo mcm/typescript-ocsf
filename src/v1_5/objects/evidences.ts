@@ -106,7 +106,7 @@ import { Tls } from './tls.js';
 import { Url } from './url.js';
 import { User } from './user.js';
 
-const EvidencesSchema: z.ZodType<EvidencesType> = z.strictObject({
+const EvidencesSchema = z.strictObject({
   /** The naming convention or type identifier of the evidence associated with the security detection. For example, the @odata.type from Microsoft Graph Alerts V2 or display_name from CrowdStrike Falcon Incident Behaviors. */
   name: z.string().optional(),
   /** The unique identifier of the evidence associated with the security detection. For example, the activity_id from CrowdStrike Falcon Alerts or behavior_id from CrowdStrike Falcon Incident Behaviors. */

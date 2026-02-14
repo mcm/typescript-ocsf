@@ -146,7 +146,7 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const SessionQuerySchema: z.ZodType<SessionQueryType> = z.strictObject({
+const SessionQuerySchema = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */

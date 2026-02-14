@@ -18,7 +18,7 @@ export interface ObservationType {
 
 import { Timespan } from './timespan.js';
 
-const ObservationSchema: z.ZodType<ObservationType> = z.strictObject({
+const ObservationSchema = z.strictObject({
   /** The specific value, event, indicator or data point that was observed and recorded. This is the core piece of information being tracked. */
   value: z.string(),
   /** Integer representing the total number of times this specific value/event was observed across all occurrences. Helps establish prevalence and patterns. */

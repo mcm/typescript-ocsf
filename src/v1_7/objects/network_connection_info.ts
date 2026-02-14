@@ -38,7 +38,7 @@ export interface NetworkConnectionInfoType {
 
 import { Session } from './session.js';
 
-const NetworkConnectionInfoSchema: z.ZodType<NetworkConnectionInfoType> = z.strictObject({
+const NetworkConnectionInfoSchema = z.strictObject({
   /** The boundary of the connection, normalized to the caption of 'boundary_id'. In the case of 'Other', it is defined by the event source. For cloud connections, this translates to the traffic-boundary(same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */
   boundary: z.string().optional(),
   /** The normalized identifier of the boundary of the connection. For cloud connections, this translates to the traffic-boundary (same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */

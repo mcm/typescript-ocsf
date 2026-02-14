@@ -34,7 +34,7 @@ export interface CertificateType {
 import { Fingerprint } from './fingerprint.js';
 import { San } from './san.js';
 
-const CertificateSchema: z.ZodType<CertificateType> = z.strictObject({
+const CertificateSchema = z.strictObject({
   /** The time when the certificate was created. */
   created_time: z.number().int().optional(),
   /** The expiration time of the certificate. */

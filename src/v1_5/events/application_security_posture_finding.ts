@@ -173,7 +173,7 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const ApplicationSecurityPostureFindingSchema: z.ZodType<ApplicationSecurityPostureFindingType> = z.strictObject({
+const ApplicationSecurityPostureFindingSchema = z.strictObject({
   /** The normalized identifier of the finding activity. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The finding activity name, as defined by the activity_id. */

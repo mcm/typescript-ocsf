@@ -14,7 +14,7 @@ export interface ParameterType {
   pre_value?: string;
 }
 
-const ParameterSchema: z.ZodType<ParameterType> = z.strictObject({
+const ParameterSchema = z.strictObject({
   /** The parameter name. */
   name: z.string().optional(),
   /** The parameter value after function execution. */

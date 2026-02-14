@@ -22,7 +22,7 @@ export interface DiscoveryDetailsType {
 
 import { OccurrenceDetails } from './occurrence_details.js';
 
-const DiscoveryDetailsSchema: z.ZodType<DiscoveryDetailsType> = z.strictObject({
+const DiscoveryDetailsSchema = z.strictObject({
   /** The number of discovered entities of the specified type. */
   count: z.number().int().optional(),
   /** Details about where in the target entity, specified information was discovered. Only the attributes, relevant to the target entity type should be populuated. */

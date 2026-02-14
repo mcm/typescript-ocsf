@@ -44,7 +44,7 @@ import { Product } from './product.js';
 import { RelatedEvent } from './related_event.js';
 import { Remediation } from './remediation.js';
 
-const FindingSchema: z.ZodType<FindingType> = z.strictObject({
+const FindingSchema = z.strictObject({
   /** The time when the finding was created. */
   created_time: z.number().int().optional(),
   /** The description of the reported finding. */

@@ -16,7 +16,7 @@ export interface ScanType {
   type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 99;
 }
 
-const ScanSchema: z.ZodType<ScanType> = z.strictObject({
+const ScanSchema = z.strictObject({
   /** The administrator-supplied or application-generated name of the scan. For example: "Home office weekly user database scan", "Scan folders for viruses", "Full system virus scan" */
   name: z.string().optional(),
   /** The application-defined unique identifier assigned to an instance of a scan. */

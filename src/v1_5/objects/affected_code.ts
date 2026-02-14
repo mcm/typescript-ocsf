@@ -34,7 +34,7 @@ import { User } from './user.js';
 import { Remediation } from './remediation.js';
 import { Rule } from './rule.js';
 
-const AffectedCodeSchema: z.ZodType<AffectedCodeType> = z.strictObject({
+const AffectedCodeSchema = z.strictObject({
   /** The column number of the last part of the assessed code identified as vulnerable. */
   end_column: z.number().int().optional(),
   /** The line number of the last line of code block identified as vulnerable. */

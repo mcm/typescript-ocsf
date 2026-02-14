@@ -140,7 +140,7 @@ import { ThreatActor } from './threat_actor.js';
 import { Vulnerability } from './vulnerability.js';
 import { Whois } from './whois.js';
 
-const OsintSchema: z.ZodType<OsintType> = z.strictObject({
+const OsintSchema = z.strictObject({
   /** Any pertinent DNS answers information related to an indicator or OSINT analysis. */
   answers: z.array(DnsAnswer).optional(),
   /** MITRE ATT&CK Tactics, Techniques, and/or Procedures (TTPs) pertinent to an indicator or OSINT analysis. */

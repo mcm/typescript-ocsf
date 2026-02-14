@@ -34,7 +34,7 @@ export interface WebResourceType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const WebResourceSchema: z.ZodType<WebResourceType> = z.strictObject({
+const WebResourceSchema = z.strictObject({
   /** The name of the web resource. */
   name: z.string().optional(),
   /** The unique identifier of the web resource. */

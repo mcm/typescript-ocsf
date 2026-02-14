@@ -24,7 +24,7 @@ export interface RemediationType {
 import { CisControl } from './cis_control.js';
 import { KbArticle } from './kb_article.js';
 
-const RemediationSchema: z.ZodType<RemediationType> = z.strictObject({
+const RemediationSchema = z.strictObject({
   /** An array of Center for Internet Security (CIS) Controls that can be optionally mapped to provide additional remediation details. */
   cis_controls: z.array(CisControl).optional(),
   /** The description of the remediation strategy. */

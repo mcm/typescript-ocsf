@@ -106,7 +106,7 @@ import { KeyValueObject } from './key_value_object.js';
 import { Url } from './url.js';
 import { OcsfObject } from './object.js';
 
-const FileSchema: z.ZodType<FileType> = z.strictObject({
+const FileSchema = z.strictObject({
   /** The name of the file. For example: svchost.exe */
   name: z.string(),
   /** The unique identifier of the file as defined by the storage system, such the file system file ID. */

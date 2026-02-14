@@ -14,7 +14,7 @@ export interface TlsExtensionType {
   type_id: 0 | 1 | 5 | 10 | 13 | 14 | 15 | 16 | 18 | 19 | 20 | 21 | 41 | 42 | 43 | 44 | 45 | 47 | 48 | 49 | 50 | 51;
 }
 
-const TlsExtensionSchema: z.ZodType<TlsExtensionType> = z.strictObject({
+const TlsExtensionSchema = z.strictObject({
   /** The data contains information specific to the particular extension type. */
   data: z.record(z.string(), z.unknown()).optional(),
   /** The TLS extension type. For example: Server Name. */

@@ -12,7 +12,7 @@ export interface SecurityStateType {
   state_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 99;
 }
 
-const SecurityStateSchema: z.ZodType<SecurityStateType> = z.strictObject({
+const SecurityStateSchema = z.strictObject({
   /** The security state, normalized to the caption of the state_id value. In the case of 'Other', it is defined by the source. */
   state: z.string().optional(),
   /** The security state of the managed entity. */

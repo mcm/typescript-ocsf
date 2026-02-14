@@ -36,7 +36,7 @@ import { Process } from './process.js';
 import { Session } from './session.js';
 import { User } from './user.js';
 
-const ActorSchema: z.ZodType<ActorType> = z.strictObject({
+const ActorSchema = z.strictObject({
   /** The client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process if present. */
   app_name: z.string().optional(),
   /** The unique identifier of the client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process.pid or process.uid if present. */

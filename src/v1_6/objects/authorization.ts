@@ -16,7 +16,7 @@ export interface AuthorizationType {
 
 import { Policy } from './policy.js';
 
-const AuthorizationSchema: z.ZodType<AuthorizationType> = z.strictObject({
+const AuthorizationSchema = z.strictObject({
   /** Authorization Result/outcome, e.g. allowed, denied. */
   decision: z.string().optional(),
   /** Details about the Identity/Access management policies that are applicable. */

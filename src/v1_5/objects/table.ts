@@ -26,7 +26,7 @@ export interface TableType {
 
 import { Group } from './group.js';
 
-const TableSchema: z.ZodType<TableType> = z.strictObject({
+const TableSchema = z.strictObject({
   /** The table name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the table. */

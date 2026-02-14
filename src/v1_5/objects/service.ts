@@ -22,7 +22,7 @@ export interface ServiceType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const ServiceSchema: z.ZodType<ServiceType> = z.strictObject({
+const ServiceSchema = z.strictObject({
   /** The name of the service. */
   name: z.string().optional(),
   /** The unique identifier of the service. */

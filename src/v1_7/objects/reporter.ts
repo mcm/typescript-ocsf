@@ -22,7 +22,7 @@ export interface ReporterType {
 
 import { Organization } from './organization.js';
 
-const ReporterSchema: z.ZodType<ReporterType> = z.strictObject({
+const ReporterSchema = z.strictObject({
   /** The name of the entity from which the event or finding was reported. */
   name: z.string().optional(),
   /** The unique identifier of the entity from which the event or finding was reported. */

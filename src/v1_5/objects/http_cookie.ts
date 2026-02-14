@@ -28,7 +28,7 @@ export interface HttpCookieType {
   value: string;
 }
 
-const HttpCookieSchema: z.ZodType<HttpCookieType> = z.strictObject({
+const HttpCookieSchema = z.strictObject({
   /** The domain name for the server from which the http_cookie is served. */
   domain: z.string().optional(),
   /** The expiration time of the HTTP cookie. */

@@ -28,7 +28,7 @@ export interface HttpResponseType {
 
 import { HttpHeader } from './http_header.js';
 
-const HttpResponseSchema: z.ZodType<HttpResponseType> = z.strictObject({
+const HttpResponseSchema = z.strictObject({
   /** The actual length of the HTTP response body, in number of bytes, independent of a potentially existing Content-Length header. */
   body_length: z.number().int().optional(),
   /** The Hypertext Transfer Protocol (HTTP) status code returned from the web server to the client. For example, 200. */

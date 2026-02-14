@@ -22,7 +22,7 @@ export interface EmailAuthType {
   spf?: string;
 }
 
-const EmailAuthSchema: z.ZodType<EmailAuthType> = z.strictObject({
+const EmailAuthSchema = z.strictObject({
   /** The DomainKeys Identified Mail (DKIM) status of the email. */
   dkim: z.string().optional(),
   /** The DomainKeys Identified Mail (DKIM) signing domain of the email. */

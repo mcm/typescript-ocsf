@@ -46,7 +46,7 @@ import { Fingerprint } from './fingerprint.js';
 import { Scim } from './scim.js';
 import { Sso } from './sso.js';
 
-const IdpSchema: z.ZodType<IdpType> = z.strictObject({
+const IdpSchema = z.strictObject({
   /** The name of the Identity Provider. */
   name: z.string().optional(),
   /** The unique identifier of the Identity Provider. */

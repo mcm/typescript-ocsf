@@ -46,7 +46,7 @@ export interface WhoisType {
 import { AutonomousSystem } from './autonomous_system.js';
 import { DomainContact } from './domain_contact.js';
 
-const WhoisSchema: z.ZodType<WhoisType> = z.strictObject({
+const WhoisSchema = z.strictObject({
   /** The autonomous system information associated with a domain. */
   autonomous_system: AutonomousSystem.optional(),
   /** When the domain was registered or WHOIS entry was created. */

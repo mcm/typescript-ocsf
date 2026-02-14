@@ -48,7 +48,7 @@ export interface DeviceHwInfoType {
 import { Display } from './display.js';
 import { KeyboardInfo } from './keyboard_info.js';
 
-const DeviceHwInfoSchema: z.ZodType<DeviceHwInfoType> = z.strictObject({
+const DeviceHwInfoSchema = z.strictObject({
   /** The BIOS date. For example: 03/31/16. */
   bios_date: z.string().optional(),
   /** The BIOS manufacturer. For example: LENOVO. */

@@ -62,7 +62,7 @@ import { Sbom } from './sbom.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Url } from './url.js';
 
-const ApplicationSchema: z.ZodType<ApplicationType> = z.strictObject({
+const ApplicationSchema = z.strictObject({
   /** The criticality of the application as defined by the event source. */
   criticality: z.string().optional(),
   /** Additional data describing the application. */

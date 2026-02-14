@@ -22,7 +22,7 @@ export interface Ja4FingerprintType {
   value: string;
 }
 
-const Ja4FingerprintSchema: z.ZodType<Ja4FingerprintType> = z.strictObject({
+const Ja4FingerprintSchema = z.strictObject({
   /** The 'a' section of the JA4 fingerprint. */
   section_a: z.string().optional(),
   /** The 'b' section of the JA4 fingerprint. */

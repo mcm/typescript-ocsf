@@ -74,7 +74,7 @@ import { Session } from './session.js';
 import { StartupItem } from './startup_item.js';
 import { User } from './user.js';
 
-const QueryEvidenceSchema: z.ZodType<QueryEvidenceType> = z.strictObject({
+const QueryEvidenceSchema = z.strictObject({
   /** The network connection information related to a Network Connection query type. */
   connection_info: NetworkConnectionInfo.optional(),
   /** The file that is the target of the query when query_type_id indicates a File query. */

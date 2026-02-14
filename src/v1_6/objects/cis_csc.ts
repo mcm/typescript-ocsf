@@ -12,7 +12,7 @@ export interface CisCscType {
   version?: string;
 }
 
-const CisCscSchema: z.ZodType<CisCscType> = z.strictObject({
+const CisCscSchema = z.strictObject({
   /** A Control is prescriptive, prioritized, and simplified set of best practices that one can use to strengthen their cybersecurity posture. e.g. AWS SecurityHub Controls, CIS Controls. */
   control: z.string(),
   /** The CIS critical security control version. */

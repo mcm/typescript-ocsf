@@ -138,7 +138,7 @@ export function emitEventFile(
 
   // Base schema (no preprocessing)
   const schemaName = `${event.className}Schema`;
-  lines.push(`const ${schemaName}: z.ZodType<${event.className}Type> = z.strictObject({`);
+  lines.push(`const ${schemaName} = z.strictObject({`);
   for (const attr of event.attributes) {
     if (attr.description) {
       lines.push(`  /** ${attr.description} */`);

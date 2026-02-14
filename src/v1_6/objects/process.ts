@@ -68,7 +68,7 @@ import { Session } from './session.js';
 import { User } from './user.js';
 import { OcsfObject } from './object.js';
 
-const ProcessSchema: z.ZodType<ProcessType> = z.strictObject({
+const ProcessSchema = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */

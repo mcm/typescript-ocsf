@@ -26,7 +26,7 @@ export interface OccurrenceDetailsType {
   start_line?: number;
 }
 
-const OccurrenceDetailsSchema: z.ZodType<OccurrenceDetailsType> = z.strictObject({
+const OccurrenceDetailsSchema = z.strictObject({
   /** The cell name/reference in a spreadsheet. e.g A2 */
   cell_name: z.string().optional(),
   /** The column name in a spreadsheet, where the information was discovered. */

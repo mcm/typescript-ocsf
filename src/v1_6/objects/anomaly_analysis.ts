@@ -22,7 +22,7 @@ import { AnalysisTarget } from './analysis_target.js';
 import { Anomaly } from './anomaly.js';
 import { Baseline } from './baseline.js';
 
-const AnomalyAnalysisSchema: z.ZodType<AnomalyAnalysisType> = z.strictObject({
+const AnomalyAnalysisSchema = z.strictObject({
   /** The analysis targets define the scope of monitored activities, specifying what entities, systems or processes are analyzed for activity patterns. */
   analysis_targets: z.array(AnalysisTarget),
   /** List of detected activities that significantly deviate from the established baselines. This can include unusual access patterns, unexpected user-agents, abnormal API usage, suspicious traffic spikes, unauthorized access attempts, and other activities that may indicate potential security threats or system issues. */

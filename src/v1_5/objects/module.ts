@@ -26,7 +26,7 @@ export interface ModuleType {
 
 import { File } from './file.js';
 
-const ModuleSchema: z.ZodType<ModuleType> = z.strictObject({
+const ModuleSchema = z.strictObject({
   /** The memory address where the module was loaded. */
   base_address: z.string().optional(),
   /** The module file object. */

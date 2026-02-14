@@ -28,7 +28,7 @@ export interface NetworkTrafficType {
   packets_out?: number;
 }
 
-const NetworkTrafficSchema: z.ZodType<NetworkTrafficType> = z.strictObject({
+const NetworkTrafficSchema = z.strictObject({
   /** The total number of bytes (in and out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source. */

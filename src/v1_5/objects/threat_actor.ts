@@ -14,7 +14,7 @@ export interface ThreatActorType {
   type_id?: 0 | 1 | 2 | 3 | 4 | 99;
 }
 
-const ThreatActorSchema: z.ZodType<ThreatActorType> = z.strictObject({
+const ThreatActorSchema = z.strictObject({
   /** The name of the threat actor. */
   name: z.string(),
   /** The classification of the threat actor based on their motivations, capabilities, or affiliations. Common types include nation-state actors, cybercriminal groups, hacktivists, or insider threats. */

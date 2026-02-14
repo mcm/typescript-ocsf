@@ -18,7 +18,7 @@ export interface NodeType {
   uid: string;
 }
 
-const NodeSchema: z.ZodType<NodeType> = z.strictObject({
+const NodeSchema = z.strictObject({
   /** Additional data about the node stored as key-value pairs. Can include custom properties specific to the node. */
   data: z.record(z.string(), z.unknown()).optional(),
   /** A human-readable description of the node's purpose or meaning in the graph. */

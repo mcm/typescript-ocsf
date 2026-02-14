@@ -34,7 +34,7 @@ export interface SoftwareComponentType {
 
 import { Fingerprint } from './fingerprint.js';
 
-const SoftwareComponentSchema: z.ZodType<SoftwareComponentType> = z.strictObject({
+const SoftwareComponentSchema = z.strictObject({
   /** The author(s) who published the software component. */
   author: z.string().optional(),
   /** Cryptographic hash to identify the binary instance of a software component. */

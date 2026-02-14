@@ -56,7 +56,7 @@ import { ClassifierDetails } from './classifier_details.js';
 import { DiscoveryDetails } from './discovery_details.js';
 import { Policy } from './policy.js';
 
-const DataSecuritySchema: z.ZodType<DataSecurityType> = z.strictObject({
+const DataSecuritySchema = z.strictObject({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */

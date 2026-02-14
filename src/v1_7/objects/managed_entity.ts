@@ -50,7 +50,7 @@ import { Organization } from './organization.js';
 import { Policy } from './policy.js';
 import { User } from './user.js';
 
-const ManagedEntitySchema: z.ZodType<ManagedEntityType> = z.strictObject({
+const ManagedEntitySchema = z.strictObject({
   /** The name of the managed entity. It should match the name of the specific entity object's name if populated, or the name of the managed entity if the type_id is 'Other'. */
   name: z.string().optional(),
   /** The identifier of the managed entity. It should match the uid of the specific entity's object UID if populated, or the source specific ID if the type_id is 'Other'. */

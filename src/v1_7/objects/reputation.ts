@@ -16,7 +16,7 @@ export interface ReputationType {
   score_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 99;
 }
 
-const ReputationSchema: z.ZodType<ReputationType> = z.strictObject({
+const ReputationSchema = z.strictObject({
   /** The reputation score as reported by the event source. */
   base_score: z.number(),
   /** The provider of the reputation information. */

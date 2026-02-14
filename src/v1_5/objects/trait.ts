@@ -18,7 +18,7 @@ export interface TraitType {
   values?: string[];
 }
 
-const TraitSchema: z.ZodType<TraitType> = z.strictObject({
+const TraitSchema = z.strictObject({
   /** The name of the trait. */
   name: z.string().optional(),
   /** The unique identifier of the trait. */

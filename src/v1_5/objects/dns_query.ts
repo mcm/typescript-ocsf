@@ -20,7 +20,7 @@ export interface DnsQueryType {
   opcode_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
 }
 
-const DnsQuerySchema: z.ZodType<DnsQueryType> = z.strictObject({
+const DnsQuerySchema = z.strictObject({
   /** The class of resource records being queried. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */

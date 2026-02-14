@@ -89,12 +89,12 @@ export function emitObjectFile(
   // Generate Zod schema typed as z.ZodType<InterfaceType>
   if (isRecursive) {
     // Recursive: use getter pattern with strict validation
-    lines.push(`const ${schemaName}: z.ZodType<${typeName}> = z.strictObject({`);
+    lines.push(`const ${schemaName} = z.strictObject({`);
     emitFieldsWithGetters(lines, obj, allObjects);
     lines.push("});");
   } else {
     // Non-recursive: plain object with strict validation
-    lines.push(`const ${schemaName}: z.ZodType<${typeName}> = z.strictObject({`);
+    lines.push(`const ${schemaName} = z.strictObject({`);
     emitSimpleFields(lines, obj, allObjects);
     lines.push("});");
   }

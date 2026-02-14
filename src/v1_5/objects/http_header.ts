@@ -12,7 +12,7 @@ export interface HttpHeaderType {
   value: string;
 }
 
-const HttpHeaderSchema: z.ZodType<HttpHeaderType> = z.strictObject({
+const HttpHeaderSchema = z.strictObject({
   /** The name of the HTTP header. */
   name: z.string(),
   /** The value of the HTTP header. */

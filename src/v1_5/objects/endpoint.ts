@@ -60,7 +60,7 @@ import { Location } from './location.js';
 import { Os } from './os.js';
 import { User } from './user.js';
 
-const EndpointSchema: z.ZodType<EndpointType> = z.strictObject({
+const EndpointSchema = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier of the endpoint. */

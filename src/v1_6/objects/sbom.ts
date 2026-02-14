@@ -32,7 +32,7 @@ import { Package } from './package.js';
 import { Product } from './product.js';
 import { SoftwareComponent } from './software_component.js';
 
-const SbomSchema: z.ZodType<SbomType> = z.strictObject({
+const SbomSchema = z.strictObject({
   /** The time when the SBOM was created. */
   created_time: z.number().int().optional(),
   /** The software package or library that is being discovered or inventoried by an SBOM. */

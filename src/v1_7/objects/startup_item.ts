@@ -40,7 +40,7 @@ import { KernelDriver } from './kernel_driver.js';
 import { Job } from './job.js';
 import { Process } from './process.js';
 
-const StartupItemSchema: z.ZodType<StartupItemType> = z.strictObject({
+const StartupItemSchema = z.strictObject({
   /** The startup item kernel driver resource. */
   driver: KernelDriver.optional(),
   /** The startup item job resource. */

@@ -28,7 +28,7 @@ export interface AgentType {
 
 import { Policy } from './policy.js';
 
-const AgentSchema: z.ZodType<AgentType> = z.strictObject({
+const AgentSchema = z.strictObject({
   /** The name of the agent or sensor. For example: AWS SSM Agent. */
   name: z.string().optional(),
   /** Describes the various policies that may be applied or enforced by an agent or sensor. E.g., Conditional Access, prevention, auto-update, tamper protection, destination configuration, etc. */

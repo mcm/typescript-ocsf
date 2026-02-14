@@ -18,7 +18,7 @@ export interface EncryptionDetailsType {
   type?: string;
 }
 
-const EncryptionDetailsSchema: z.ZodType<EncryptionDetailsType> = z.strictObject({
+const EncryptionDetailsSchema = z.strictObject({
   /** The encryption algorithm used, normalized to the caption of 'algorithm_id */
   algorithm: z.string().optional(),
   /** The encryption algorithm used. */

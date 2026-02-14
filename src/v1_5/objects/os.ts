@@ -34,7 +34,7 @@ export interface OsType {
   version?: string;
 }
 
-const OsSchema: z.ZodType<OsType> = z.strictObject({
+const OsSchema = z.strictObject({
   /** The operating system build number. */
   build: z.string().optional(),
   /** The operating system country code, as defined by the ISO 3166-1 standard (Alpha-2 code).Note: The two letter country code should be capitalized. For example: US or CA. */

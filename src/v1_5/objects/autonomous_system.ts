@@ -12,7 +12,7 @@ export interface AutonomousSystemType {
   number?: number;
 }
 
-const AutonomousSystemSchema: z.ZodType<AutonomousSystemType> = z.strictObject({
+const AutonomousSystemSchema = z.strictObject({
   /** Organization name for the Autonomous System. */
   name: z.string().optional(),
   /** Unique number that the AS is identified by. */

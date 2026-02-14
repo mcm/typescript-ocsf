@@ -12,7 +12,7 @@ export interface AnalysisTargetType {
   type?: string;
 }
 
-const AnalysisTargetSchema: z.ZodType<AnalysisTargetType> = z.strictObject({
+const AnalysisTargetSchema = z.strictObject({
   /** The specific name or identifier of the analysis target, such as the username of a User Account, the name of a Kubernetes Cluster, the identifier of a Network Namespace, or the name of an Application Component. */
   name: z.string(),
   /** The category of the analysis target, such as User Account, Kubernetes Cluster, Network Namespace, or Application Component. */

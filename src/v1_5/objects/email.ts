@@ -60,7 +60,7 @@ import { File } from './file.js';
 import { HttpHeader } from './http_header.js';
 import { Url } from './url.js';
 
-const EmailSchema: z.ZodType<EmailType> = z.strictObject({
+const EmailSchema = z.strictObject({
   /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
   cc: z.array(z.string()).optional(),
   /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */

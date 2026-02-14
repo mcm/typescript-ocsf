@@ -48,7 +48,7 @@ import { Check } from './check.js';
 import { KbArticle } from './kb_article.js';
 import { KeyValueObject } from './key_value_object.js';
 
-const ComplianceSchema: z.ZodType<ComplianceType> = z.strictObject({
+const ComplianceSchema = z.strictObject({
   /** A list of assessments associated with the compliance requirements evaluation. */
   assessments: z.array(Assessment).optional(),
   /** The category a control framework pertains to, as reported by the source tool, such as Asset Management or Risk Assessment. */

@@ -22,7 +22,7 @@ export interface ObservableType {
 
 import { Reputation } from './reputation.js';
 
-const ObservableSchema: z.ZodType<ObservableType> = z.strictObject({
+const ObservableSchema = z.strictObject({
   /** The full name of the observable attribute. The name is a pointer/reference to an attribute within the OCSF event data. For example: file.name. */
   name: z.string().optional(),
   /** Contains the original and normalized reputation scores. */

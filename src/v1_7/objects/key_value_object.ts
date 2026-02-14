@@ -14,7 +14,7 @@ export interface KeyValueObjectType {
   values?: string[];
 }
 
-const KeyValueObjectSchema: z.ZodType<KeyValueObjectType> = z.strictObject({
+const KeyValueObjectSchema = z.strictObject({
   /** The name of the key. */
   name: z.string(),
   /** The value associated to the key. */

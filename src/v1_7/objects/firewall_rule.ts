@@ -32,7 +32,7 @@ export interface FirewallRuleType {
   sensitivity?: string;
 }
 
-const FirewallRuleSchema: z.ZodType<FirewallRuleType> = z.strictObject({
+const FirewallRuleSchema = z.strictObject({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */

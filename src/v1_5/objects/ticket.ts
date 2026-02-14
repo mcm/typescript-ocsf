@@ -24,7 +24,7 @@ export interface TicketType {
   uid?: string;
 }
 
-const TicketSchema: z.ZodType<TicketType> = z.strictObject({
+const TicketSchema = z.strictObject({
   /** The url of a ticket in the ticket system. */
   src_url: z.string().optional(),
   /** The status of the ticket normalized to the caption of the status_id value. In the case of 99, this value should as defined by the source. */

@@ -26,7 +26,7 @@ export interface ResponseType {
 
 import { Container } from './container.js';
 
-const ResponseSchema: z.ZodType<ResponseType> = z.strictObject({
+const ResponseSchema = z.strictObject({
   /** The numeric response sent to a request. */
   code: z.number().int().optional(),
   /** When working with containerized applications, the set of containers which write to the standard the output of a particular logging driver. For example, this may be the set of containers involved in handling api requests and responses for a containerized application. */

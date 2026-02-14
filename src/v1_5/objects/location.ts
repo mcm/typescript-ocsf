@@ -44,7 +44,7 @@ export interface LocationType {
   region?: string;
 }
 
-const LocationSchema: z.ZodType<LocationType> = z.strictObject({
+const LocationSchema = z.strictObject({
   /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
   aerial_height: z.string().optional(),
   /** The name of the city. */

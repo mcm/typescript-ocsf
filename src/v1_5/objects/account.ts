@@ -24,7 +24,7 @@ export interface AccountType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const AccountSchema: z.ZodType<AccountType> = z.strictObject({
+const AccountSchema = z.strictObject({
   /** The name of the account (e.g. GCP Project name , Linux Account name or AWS Account name). */
   name: z.string().optional(),
   /** The unique identifier of the account (e.g. AWS Account ID , OCID , GCP Project ID , Azure Subscription ID , Google Workspace Customer ID , or M365 Tenant UID). */

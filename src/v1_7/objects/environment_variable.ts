@@ -12,7 +12,7 @@ export interface EnvironmentVariableType {
   value: string;
 }
 
-const EnvironmentVariableSchema: z.ZodType<EnvironmentVariableType> = z.strictObject({
+const EnvironmentVariableSchema = z.strictObject({
   /** The name of the environment variable. */
   name: z.string(),
   /** The value of the environment variable. */

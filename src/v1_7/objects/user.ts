@@ -62,7 +62,7 @@ import { LdapPerson } from './ldap_person.js';
 import { Organization } from './organization.js';
 import { ProgrammaticCredential } from './programmatic_credential.js';
 
-const UserSchema: z.ZodType<UserType> = z.strictObject({
+const UserSchema = z.strictObject({
   /** The username. For example, janedoe1. */
   name: z.string().optional(),
   /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */

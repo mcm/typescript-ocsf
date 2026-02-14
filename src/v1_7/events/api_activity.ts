@@ -152,7 +152,7 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const ApiActivitySchema: z.ZodType<ApiActivityType> = z.strictObject({
+const ApiActivitySchema = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */

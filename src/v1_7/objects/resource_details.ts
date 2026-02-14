@@ -68,7 +68,7 @@ import { Group } from './group.js';
 import { User } from './user.js';
 import { Graph } from './graph.js';
 
-const ResourceDetailsSchema: z.ZodType<ResourceDetailsType> = z.strictObject({
+const ResourceDetailsSchema = z.strictObject({
   /** The name of the entity. See specific usage. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */

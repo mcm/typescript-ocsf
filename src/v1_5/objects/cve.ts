@@ -46,7 +46,7 @@ import { Cwe } from './cwe.js';
 import { Epss } from './epss.js';
 import { Product } from './product.js';
 
-const CveSchema: z.ZodType<CveType> = z.strictObject({
+const CveSchema = z.strictObject({
   /** The Record Creation Date identifies when the CVE ID was issued to a CVE Numbering Authority (CNA) or the CVE Record was published on the CVE List. Note that the Record Creation Date does not necessarily indicate when this vulnerability was discovered, shared with the affected vendor, publicly disclosed, or updated in CVE. */
   created_time: z.number().int().optional(),
   /** The CVSS object details Common Vulnerability Scoring System (CVSS) scores from the advisory that are related to the vulnerability. */

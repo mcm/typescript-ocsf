@@ -30,7 +30,7 @@ import { SubTechnique } from './sub_technique.js';
 import { Tactic } from './tactic.js';
 import { Technique } from './technique.js';
 
-const AttackSchema: z.ZodType<AttackType> = z.strictObject({
+const AttackSchema = z.strictObject({
   /** The Mitigation object describes the MITRE ATT&CK® or ATLAS™ Mitigation ID and/or name that is associated to an attack. */
   mitigation: Mitigation.optional(),
   /** The Sub-technique object describes the MITRE ATT&CK® or ATLAS™ Sub-technique ID and/or name associated to an attack. */

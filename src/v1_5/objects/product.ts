@@ -30,7 +30,7 @@ export interface ProductType {
 
 import { Feature } from './feature.js';
 
-const ProductSchema: z.ZodType<ProductType> = z.strictObject({
+const ProductSchema = z.strictObject({
   /** The name of the product. */
   name: z.string().optional(),
   /** The unique identifier of the product. */

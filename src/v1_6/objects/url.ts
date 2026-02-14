@@ -30,7 +30,7 @@ export interface UrlType {
   url_string?: string;
 }
 
-const UrlSchema: z.ZodType<UrlType> = z.strictObject({
+const UrlSchema = z.strictObject({
   /** The Website categorization names, as defined by category_ids enum values. */
   categories: z.array(z.string()).optional(),
   /** The Website categorization identifiers. */

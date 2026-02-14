@@ -34,7 +34,7 @@ export interface SessionType {
   uuid?: string;
 }
 
-const SessionSchema: z.ZodType<SessionType> = z.strictObject({
+const SessionSchema = z.strictObject({
   /** The number of identical sessions spawned from the same source IP, destination IP, application, and content/threat type seen over a period of time. */
   count: z.number().int().optional(),
   /** The time when the session was created. */

@@ -14,7 +14,7 @@ export interface ClassifierDetailsType {
   uid?: string;
 }
 
-const ClassifierDetailsSchema: z.ZodType<ClassifierDetailsType> = z.strictObject({
+const ClassifierDetailsSchema = z.strictObject({
   /** The name of the classifier. */
   name: z.string().optional(),
   /** The type of the classifier. */

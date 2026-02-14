@@ -48,7 +48,7 @@ export interface ScimType {
   version?: string;
 }
 
-const ScimSchema: z.ZodType<ScimType> = z.strictObject({
+const ScimSchema = z.strictObject({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authorization protocol used by the SCIM resource. */

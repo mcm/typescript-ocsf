@@ -26,7 +26,7 @@ export interface PeripheralDeviceType {
   vendor_name?: string;
 }
 
-const PeripheralDeviceSchema: z.ZodType<PeripheralDeviceType> = z.strictObject({
+const PeripheralDeviceSchema = z.strictObject({
   /** The name of the peripheral device. */
   name: z.string(),
   /** The unique identifier of the peripheral device. */

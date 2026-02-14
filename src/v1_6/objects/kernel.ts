@@ -20,7 +20,7 @@ export interface KernelType {
   type_id: 1 | 2;
 }
 
-const KernelSchema: z.ZodType<KernelType> = z.strictObject({
+const KernelSchema = z.strictObject({
   /** The indication of whether the object is part of the operating system. */
   is_system: z.boolean().optional(),
   /** The name of the kernel resource. */

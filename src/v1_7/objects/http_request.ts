@@ -36,7 +36,7 @@ export interface HttpRequestType {
 import { HttpHeader } from './http_header.js';
 import { Url } from './url.js';
 
-const HttpRequestSchema: z.ZodType<HttpRequestType> = z.strictObject({
+const HttpRequestSchema = z.strictObject({
   /** The arguments sent along with the HTTP request. */
   args: z.string().optional(),
   /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */

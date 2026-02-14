@@ -32,7 +32,7 @@ import { File } from './file.js';
 import { Fingerprint } from './fingerprint.js';
 import { LongString } from './long_string.js';
 
-const ScriptSchema: z.ZodType<ScriptType> = z.strictObject({
+const ScriptSchema = z.strictObject({
   /** Present if this script is associated with a file. Not present in the case of a file-less script. */
   file: File.optional(),
   /** An array of the script's cryptographic hashes. Note that these hashes are calculated on the script in its original encoding, and not on the normalized UTF-8 encoding found in the script_content attribute. */

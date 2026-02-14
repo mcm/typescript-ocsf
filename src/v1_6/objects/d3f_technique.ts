@@ -14,7 +14,7 @@ export interface D3fTechniqueType {
   src_url?: string;
 }
 
-const D3fTechniqueSchema: z.ZodType<D3fTechniqueType> = z.strictObject({
+const D3fTechniqueSchema = z.strictObject({
   /** The name of the defensive technique. For example: IO Port Restriction. */
   name: z.string().optional(),
   /** The unique identifier of the defensive technique. For example: D3-IOPR. */

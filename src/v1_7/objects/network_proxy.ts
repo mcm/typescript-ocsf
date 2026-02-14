@@ -80,7 +80,7 @@ import { Os } from './os.js';
 import { User } from './user.js';
 import { AutonomousSystem } from './autonomous_system.js';
 
-const NetworkProxySchema: z.ZodType<NetworkProxyType> = z.strictObject({
+const NetworkProxySchema = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier. See specific usage. */

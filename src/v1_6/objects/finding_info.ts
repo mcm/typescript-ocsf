@@ -70,7 +70,7 @@ import { RelatedEvent } from './related_event.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Trait } from './trait.js';
 
-const FindingInfoSchema: z.ZodType<FindingInfoType> = z.strictObject({
+const FindingInfoSchema = z.strictObject({
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** An Attack Graph describes possible routes an attacker could take through an environment. It describes relationships between resources and their findings, such as malware detections, vulnerabilities, misconfigurations, and other security actions. */

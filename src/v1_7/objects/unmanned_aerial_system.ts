@@ -42,7 +42,7 @@ export interface UnmannedAerialSystemType {
 import { Location } from './location.js';
 import { DeviceHwInfo } from './device_hw_info.js';
 
-const UnmannedAerialSystemSchema: z.ZodType<UnmannedAerialSystemType> = z.strictObject({
+const UnmannedAerialSystemSchema = z.strictObject({
   /** The name of the unmanned system as reported by tracking or sensing hardware. */
   name: z.string().optional(),
   /** The primary identification identifier for an unmanned system. This can be a Serial Number (in CTA-2063-A format, the Registration ID (provided by the CAA, a UTM, or a unique Session ID. */

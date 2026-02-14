@@ -44,7 +44,7 @@ import { Timespan } from './timespan.js';
 import { Os } from './os.js';
 import { Product } from './product.js';
 
-const KbArticleSchema: z.ZodType<KbArticleType> = z.strictObject({
+const KbArticleSchema = z.strictObject({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The kb article bulletin identifier. */

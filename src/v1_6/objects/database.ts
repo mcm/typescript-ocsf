@@ -30,7 +30,7 @@ export interface DatabaseType {
 
 import { Group } from './group.js';
 
-const DatabaseSchema: z.ZodType<DatabaseType> = z.strictObject({
+const DatabaseSchema = z.strictObject({
   /** The database name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the database. */

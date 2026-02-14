@@ -142,7 +142,7 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const PeripheralDeviceQuerySchema: z.ZodType<PeripheralDeviceQueryType> = z.strictObject({
+const PeripheralDeviceQuerySchema = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */

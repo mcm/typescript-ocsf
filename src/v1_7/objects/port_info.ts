@@ -14,7 +14,7 @@ export interface PortInfoType {
   protocol_num?: number;
 }
 
-const PortInfoSchema: z.ZodType<PortInfoType> = z.strictObject({
+const PortInfoSchema = z.strictObject({
   /** The port number. For example: 80, 443, 22. */
   port: z.number().int(),
   /** The IP protocol name in lowercase, as defined by the Internet Assigned Numbers Authority (IANA). For example: tcp or udp. */

@@ -22,7 +22,7 @@ export interface DceRpcType {
 
 import { RpcInterface } from './rpc_interface.js';
 
-const DceRpcSchema: z.ZodType<DceRpcType> = z.strictObject({
+const DceRpcSchema = z.strictObject({
   /** The request command (e.g. REQUEST, BIND). */
   command: z.string().optional(),
   /** The reply to the request command (e.g. RESPONSE, BINDACK or FAULT). */

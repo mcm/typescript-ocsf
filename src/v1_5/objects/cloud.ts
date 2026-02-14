@@ -28,7 +28,7 @@ export interface CloudType {
 import { Account } from './account.js';
 import { Organization } from './organization.js';
 
-const CloudSchema: z.ZodType<CloudType> = z.strictObject({
+const CloudSchema = z.strictObject({
   /** The account object describes details about the account that was the source or target of the activity. */
   account: Account.optional(),
   /** The canonical cloud partition name to which the region is assigned (e.g. AWS Partitions: aws, aws-cn, aws-us-gov). */

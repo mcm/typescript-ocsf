@@ -32,7 +32,7 @@ export interface GraphType {
 import { Edge } from './edge.js';
 import { Node } from './node.js';
 
-const GraphSchema: z.ZodType<GraphType> = z.strictObject({
+const GraphSchema = z.strictObject({
   /** The graph name - a human readable identifier for the graph. */
   name: z.string().optional(),
   /** Unique identifier of the graph - a unique ID to reference this specific graph. */

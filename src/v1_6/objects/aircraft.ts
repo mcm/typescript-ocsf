@@ -32,7 +32,7 @@ export interface AircraftType {
 
 import { Location } from './location.js';
 
-const AircraftSchema: z.ZodType<AircraftType> = z.strictObject({
+const AircraftSchema = z.strictObject({
   /** The name of the aircraft, such as the such as the flight name or callsign. */
   name: z.string().optional(),
   /** The primary identification identifier for an aircraft, such as the 24-bit International Civil Aviation Organization (ICAO) identifier of the aircraft, as 6 hex digits. */

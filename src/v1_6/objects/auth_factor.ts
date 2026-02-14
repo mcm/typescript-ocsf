@@ -30,7 +30,7 @@ export interface AuthFactorType {
 
 import { Device } from './device.js';
 
-const AuthFactorSchema: z.ZodType<AuthFactorType> = z.strictObject({
+const AuthFactorSchema = z.strictObject({
   /** Device used to complete an authentication request. */
   device: Device.optional(),
   /** The email address used in an email-based authentication factor. */

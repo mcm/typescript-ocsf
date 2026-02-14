@@ -26,7 +26,7 @@ export interface NetworkInterfaceType {
   type_id: 0 | 1 | 2 | 3 | 4 | 99;
 }
 
-const NetworkInterfaceSchema: z.ZodType<NetworkInterfaceType> = z.strictObject({
+const NetworkInterfaceSchema = z.strictObject({
   /** The name of the network interface. */
   name: z.string().optional(),
   /** The unique identifier for the network interface. */

@@ -54,7 +54,7 @@ export interface AffectedPackageType {
 import { Fingerprint } from './fingerprint.js';
 import { Remediation } from './remediation.js';
 
-const AffectedPackageSchema: z.ZodType<AffectedPackageType> = z.strictObject({
+const AffectedPackageSchema = z.strictObject({
   /** Architecture is a shorthand name describing the type of computer hardware the packaged software is meant to run on. */
   architecture: z.string().optional(),
   /** The Common Platform Enumeration (CPE) name as described by (NIST) For example: cpe:/a:apple:safari:16.2. */

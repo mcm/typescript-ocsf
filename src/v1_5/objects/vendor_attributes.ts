@@ -12,7 +12,7 @@ export interface VendorAttributesType {
   severity_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
 }
 
-const VendorAttributesSchema: z.ZodType<VendorAttributesType> = z.strictObject({
+const VendorAttributesSchema = z.strictObject({
   /** The finding severity, as reported by the Vendor (Finding Provider). The value should be normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
   severity: z.string().optional(),
   /** The finding severity ID, as reported by the Vendor (Finding Provider). */

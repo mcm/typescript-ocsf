@@ -26,7 +26,7 @@ export interface AnalyticType {
   version?: string;
 }
 
-const AnalyticSchema: z.ZodType<AnalyticType> = z.strictObject({
+const AnalyticSchema = z.strictObject({
   /** The name of the analytic that generated the finding. */
   name: z.string().optional(),
   /** The unique identifier of the analytic that generated the finding. */

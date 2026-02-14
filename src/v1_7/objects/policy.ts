@@ -28,7 +28,7 @@ export interface PolicyType {
 
 import { Group } from './group.js';
 
-const PolicySchema: z.ZodType<PolicyType> = z.strictObject({
+const PolicySchema = z.strictObject({
   /** The policy name. For example: AdministratorAccess Policy. */
   name: z.string().optional(),
   /** A unique identifier of the policy instance. */

@@ -16,7 +16,7 @@ export interface OrganizationType {
   ou_uid?: string;
 }
 
-const OrganizationSchema: z.ZodType<OrganizationType> = z.strictObject({
+const OrganizationSchema = z.strictObject({
   /** The name of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, Widget, Inc. or the AWS Organization name . */
   name: z.string().optional(),
   /** The unique identifier of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, an AWS Org ID or Oracle Cloud Domain ID . */
