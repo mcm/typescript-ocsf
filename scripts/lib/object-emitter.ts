@@ -49,7 +49,8 @@ export function emitObjectFile(
     if (!refObj) continue;
     const fileName = toFileName(refObj.className);
     // Handle special case where Object is renamed to OcsfObject
-    const refTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+    const refTypeName =
+      refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
     lines.push(`import type { ${refTypeName} } from './${fileName}.js';`);
   }
 
@@ -120,7 +121,7 @@ function emitInterfaceFields(
       lines.push(`  /** ${attr.description} */`);
     }
 
-    let tsType = getTsTypeForInterface(attr, allObjects, obj.name);
+    const tsType = getTsTypeForInterface(attr, allObjects, obj.name);
 
     // Apply optionality
     const optional = attr.requirement !== "required" ? "?" : "";
@@ -147,11 +148,13 @@ function getTsTypeForInterface(
       base = "Record<string, unknown>";
     } else if (attr.objectType === currentObjName) {
       // Self-reference - use the type name directly (will be defined in same file)
-      const selfTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+      const selfTypeName =
+        refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
       base = selfTypeName;
     } else {
       // Handle special case where Object is renamed to OcsfObject
-      const refTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+      const refTypeName =
+        refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
       base = refTypeName;
     }
   } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {

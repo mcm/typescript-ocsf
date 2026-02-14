@@ -58,7 +58,8 @@ export function emitEventFile(
     if (!refObj) continue;
     const fileName = toFileName(refObj.className);
     // Handle special case where Object is renamed to OcsfObject
-    const refTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+    const refTypeName =
+      refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
     lines.push(`import type { ${refTypeName} } from '../objects/${fileName}.js';`);
   }
 
@@ -177,9 +178,13 @@ export function emitEventFile(
 
   // Parser object with parse/safeParse/schema
   lines.push(`export const ${event.className} = {`);
-  lines.push(`  parse: (data: unknown): ${event.className}Type => ${schemaName}.parse(preprocess(data)),`);
+  lines.push(
+    `  parse: (data: unknown): ${event.className}Type => ${schemaName}.parse(preprocess(data)),`,
+  );
   lines.push("");
-  lines.push(`  safeParse: (data: unknown): { success: true; data: ${event.className}Type } | { success: false; error: z.ZodError } => {`);
+  lines.push(
+    `  safeParse: (data: unknown): { success: true; data: ${event.className}Type } | { success: false; error: z.ZodError } => {`,
+  );
   lines.push("    try {");
   lines.push("      const preprocessed = preprocess(data);");
   lines.push(`      return ${schemaName}.safeParse(preprocessed);`);
@@ -189,7 +194,7 @@ export function emitEventFile(
   lines.push("        success: false,");
   lines.push("        error: new z.ZodError([{");
   lines.push(`          code: "custom",`);
-  lines.push(`          path: [],`);
+  lines.push("          path: [],");
   lines.push(`          message: error instanceof Error ? error.message : "Preprocessing failed",`);
   lines.push("        }]),");
   lines.push("      };");
@@ -216,7 +221,7 @@ function emitInterfaceFields(
       lines.push(`  /** ${attr.description} */`);
     }
 
-    let tsType = getTsTypeForInterface(attr, allObjects);
+    const tsType = getTsTypeForInterface(attr, allObjects);
 
     // Apply optionality
     const optional = attr.requirement !== "required" ? "?" : "";
@@ -242,7 +247,8 @@ function getTsTypeForInterface(
       base = "Record<string, unknown>";
     } else {
       // Handle special case where Object is renamed to OcsfObject
-      const refTypeName = refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+      const refTypeName =
+        refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
       base = refTypeName;
     }
   } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
