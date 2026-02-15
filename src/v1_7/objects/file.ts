@@ -7,7 +7,6 @@ import type { ProductType } from './product.js';
 import type { DigitalSignatureType } from './digital_signature.js';
 import type { KeyValueObjectType } from './key_value_object.js';
 import type { UrlType } from './url.js';
-import type { OcsfObjectType } from './object.js';
 
 /**
  * The File object represents the metadata associated with a file stored in a computer system. It encompasses information about the file itself, including its attributes, properties, and organizational details.
@@ -96,7 +95,7 @@ export interface FileType {
   /** The volume on the storage device where the file is located. */
   volume?: string;
   /** An unordered collection of zero or more name/value pairs where each pair represents a file or folder extended attribute.For example: Windows alternate data stream attributes (ADS stream name, ADS size, etc.), user-defined or application-defined attributes, ACL, owner, primary group, etc. Examples from DCS: ads_nameads_sizedaclownerprimary_grouplink_name - name of the link associated to the file.hard_link_count - the number of links that are associated to the file. */
-  xattributes?: OcsfObjectType;
+  xattributes?: Record<string, unknown>;
 }
 
 import { User } from './user.js';
@@ -106,7 +105,6 @@ import { Product } from './product.js';
 import { DigitalSignature } from './digital_signature.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Url } from './url.js';
-import { OcsfObject } from './object.js';
 
 const FileSchema = z.strictObject({
   /** The name of the file. For example: svchost.exe */
@@ -190,7 +188,7 @@ const FileSchema = z.strictObject({
   /** The volume on the storage device where the file is located. */
   volume: z.string().optional(),
   /** An unordered collection of zero or more name/value pairs where each pair represents a file or folder extended attribute.For example: Windows alternate data stream attributes (ADS stream name, ADS size, etc.), user-defined or application-defined attributes, ACL, owner, primary group, etc. Examples from DCS: ads_nameads_sizedaclownerprimary_grouplink_name - name of the link associated to the file.hard_link_count - the number of links that are associated to the file. */
-  xattributes: OcsfObject.optional(),
+  xattributes: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const File = FileSchema;

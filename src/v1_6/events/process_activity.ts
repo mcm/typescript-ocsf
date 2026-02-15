@@ -6,7 +6,6 @@ import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { ModuleType } from '../objects/module.js';
@@ -75,7 +74,7 @@ export interface ProcessActivityType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The actor that performed the activity on the target process. For example, the process that started a new process or injected code into another process. */
   actor?: ActorType;
   /** An addressable device, computer system or host. */
@@ -100,7 +99,6 @@ import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
 import { Fingerprint } from '../objects/fingerprint.js';
-import { OcsfObject } from '../objects/object.js';
 import { Actor } from '../objects/actor.js';
 import { Device } from '../objects/device.js';
 import { Module } from '../objects/module.js';
@@ -218,7 +216,7 @@ const ProcessActivitySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The actor that performed the activity on the target process. For example, the process that started a new process or injected code into another process. */
   actor: Actor.optional(),
   /** An addressable device, computer system or host. */

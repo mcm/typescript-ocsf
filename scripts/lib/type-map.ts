@@ -14,6 +14,7 @@ export function mapOcsfTypeToZod(ocsfType: string): string {
     float_t: "z.number()",
     double_t: "z.number()",
     json_t: "z.record(z.string(), z.unknown())",
+    object: "z.record(z.string(), z.unknown())",
     bytestring_t: "z.string()",
 
     // Timestamp
@@ -57,6 +58,7 @@ export function mapOcsfTypeToTs(ocsfType: string): string {
     float_t: "number",
     double_t: "number",
     json_t: "Record<string, unknown>",
+    object: "Record<string, unknown>",
     bytestring_t: "string",
     timestamp_t: "number",
     ip_t: "string",
@@ -97,6 +99,7 @@ export function mapOcsfTypeToZodTypeName(ocsfType: string): string {
     float_t: "z.ZodNumber",
     double_t: "z.ZodNumber",
     json_t: "z.ZodRecord<z.ZodString, z.ZodUnknown>",
+    object: "z.ZodRecord<z.ZodString, z.ZodUnknown>",
     bytestring_t: "z.ZodString",
 
     // Timestamp

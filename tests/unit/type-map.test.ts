@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mapOcsfTypeToTs, mapOcsfTypeToZod } from "../../scripts/lib/type-map.js";
+import { mapOcsfTypeToTs, mapOcsfTypeToZod, mapOcsfTypeToZodTypeName } from "../../scripts/lib/type-map.js";
 
 describe("mapOcsfTypeToZod", () => {
   it("maps primitive types correctly", () => {
@@ -22,6 +22,10 @@ describe("mapOcsfTypeToZod", () => {
 
   it("maps json_t to record", () => {
     expect(mapOcsfTypeToZod("json_t")).toBe("z.record(z.string(), z.unknown())");
+  });
+
+  it("maps object to record", () => {
+    expect(mapOcsfTypeToZod("object")).toBe("z.record(z.string(), z.unknown())");
   });
 
   it("returns z.unknown() for unmapped types", () => {
@@ -52,8 +56,22 @@ describe("mapOcsfTypeToTs", () => {
     expect(mapOcsfTypeToTs("json_t")).toBe("Record<string, unknown>");
   });
 
+  it("maps object to Record type", () => {
+    expect(mapOcsfTypeToTs("object")).toBe("Record<string, unknown>");
+  });
+
   it("returns unknown for unmapped types", () => {
     expect(mapOcsfTypeToTs("unknown_type")).toBe("unknown");
     expect(mapOcsfTypeToTs("custom_t")).toBe("unknown");
+  });
+});
+
+describe("mapOcsfTypeToZodTypeName", () => {
+  it("maps json_t to Zod type name", () => {
+    expect(mapOcsfTypeToZodTypeName("json_t")).toBe("z.ZodRecord<z.ZodString, z.ZodUnknown>");
+  });
+
+  it("maps object to Zod type name", () => {
+    expect(mapOcsfTypeToZodTypeName("object")).toBe("z.ZodRecord<z.ZodString, z.ZodUnknown>");
   });
 });

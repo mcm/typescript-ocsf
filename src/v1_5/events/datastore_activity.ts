@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { ActorType } from '../objects/actor.js';
 import type { DatabaseType } from '../objects/database.js';
 import type { DatabucketType } from '../objects/databucket.js';
@@ -76,7 +75,7 @@ export interface DatastoreActivityType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The actor object describes details about the user/role/process that was the source of the activity. Note that this is not the threat actor of a campaign but may be part of a campaign. */
   actor: ActorType;
   /** The database object is used for databases which are typically datastore services that contain an organized collection of structured and unstructured data or a types of data. */
@@ -104,7 +103,6 @@ export interface DatastoreActivityType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { Actor } from '../objects/actor.js';
 import { Database } from '../objects/database.js';
 import { Databucket } from '../objects/databucket.js';
@@ -229,7 +227,7 @@ const DatastoreActivitySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The actor object describes details about the user/role/process that was the source of the activity. Note that this is not the threat actor of a campaign but may be part of a campaign. */
   actor: Actor,
   /** The database object is used for databases which are typically datastore services that contain an organized collection of structured and unstructured data or a types of data. */

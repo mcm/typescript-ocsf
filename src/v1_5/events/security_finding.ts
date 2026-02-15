@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { AnalyticType } from '../objects/analytic.js';
 import type { AttackType } from '../objects/attack.js';
 import type { CisCscType } from '../objects/cis_csc.js';
@@ -78,7 +77,7 @@ export interface SecurityFindingType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic?: AnalyticType;
   /** An array of MITRE ATT&CK® objects describing the tactics, techniques & sub-techniques associated to the Finding. */
@@ -132,7 +131,6 @@ export interface SecurityFindingType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { Analytic } from '../objects/analytic.js';
 import { Attack } from '../objects/attack.js';
 import { CisCsc } from '../objects/cis_csc.js';
@@ -280,7 +278,7 @@ const SecurityFindingSchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** An array of MITRE ATT&CK® objects describing the tactics, techniques & sub-techniques associated to the Finding. */

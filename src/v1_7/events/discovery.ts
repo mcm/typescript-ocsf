@@ -6,7 +6,6 @@ import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
-import type { OcsfObjectType } from '../objects/object.js';
 
 /**
  * The Discovery event is a generic event that defines a set of attributes available in Discovery category events. As a generic event, it could be used to log events that are not otherwise defined by the Discovery specific event classes.
@@ -71,14 +70,13 @@ export interface DiscoveryType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
 }
 
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
 import { Fingerprint } from '../objects/fingerprint.js';
-import { OcsfObject } from '../objects/object.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
   0: "Unknown",
@@ -180,7 +178,7 @@ const DiscoverySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const Discovery = {

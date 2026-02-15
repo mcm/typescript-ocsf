@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { ActorType } from '../objects/actor.js';
 import type { OsintType } from '../objects/osint.js';
 
@@ -70,7 +69,7 @@ export interface OsintInventoryInfoType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The actor describes the process that was the source of the inventory activity. In the case of OSINT inventory data, that could be a particular process or script that is run to scrape the OSINT or threat intelligence data. For example, it could be a Python process that runs to pull data from a MISP or Shodan API. */
   actor?: ActorType;
   /** The OSINT that is being discovered by an inventory process. */
@@ -80,7 +79,6 @@ export interface OsintInventoryInfoType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { Actor } from '../objects/actor.js';
 import { Osint } from '../objects/osint.js';
 
@@ -182,7 +180,7 @@ const OsintInventoryInfoSchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The actor describes the process that was the source of the inventory activity. In the case of OSINT inventory data, that could be a particular process or script that is run to scrape the OSINT or threat intelligence data. For example, it could be a Python process that runs to pull data from a MISP or Shodan API. */
   actor: Actor.optional(),
   /** The OSINT that is being discovered by an inventory process. */

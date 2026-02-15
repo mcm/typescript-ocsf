@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { PolicyType } from '../objects/policy.js';
 import type { ScanType } from '../objects/scan.js';
 
@@ -70,7 +69,7 @@ export interface ScanActivityType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The command identifier that is associated with this scan event. This ID uniquely identifies the proactive scan command, e.g., if remotely initiated. */
   command_uid?: string;
   /** The number of detections. */
@@ -104,7 +103,6 @@ export interface ScanActivityType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { Policy } from '../objects/policy.js';
 import { Scan } from '../objects/scan.js';
 
@@ -214,7 +212,7 @@ const ScanActivitySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The command identifier that is associated with this scan event. This ID uniquely identifies the proactive scan command, e.g., if remotely initiated. */
   command_uid: z.string().optional(),
   /** The number of detections. */

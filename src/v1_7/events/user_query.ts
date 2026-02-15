@@ -6,7 +6,6 @@ import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { UserType } from '../objects/user.js';
 
@@ -73,7 +72,7 @@ export interface UserQueryType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The search details associated with the query request. */
   query_info?: QueryInfoType;
   /** The result of the query. */
@@ -88,7 +87,6 @@ import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
 import { Fingerprint } from '../objects/fingerprint.js';
-import { OcsfObject } from '../objects/object.js';
 import { QueryInfo } from '../objects/query_info.js';
 import { User } from '../objects/user.js';
 
@@ -202,7 +200,7 @@ const UserQuerySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The search details associated with the query request. */
   query_info: QueryInfo.optional(),
   /** The result of the query. */

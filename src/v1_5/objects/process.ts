@@ -5,7 +5,6 @@ import type { EnvironmentVariableType } from './environment_variable.js';
 import type { FileType } from './file.js';
 import type { SessionType } from './session.js';
 import type { UserType } from './user.js';
-import type { OcsfObjectType } from './object.js';
 
 /**
  * The Process object describes a running instance of a launched program.
@@ -56,7 +55,7 @@ export interface ProcessType {
   /** The working directory of a process. */
   working_directory?: string;
   /** An unordered collection of zero or more name/value pairs that represent a process extended attribute. */
-  xattributes?: OcsfObjectType;
+  xattributes?: Record<string, unknown>;
 }
 
 import { ProcessEntity } from './process_entity.js';
@@ -64,7 +63,6 @@ import { EnvironmentVariable } from './environment_variable.js';
 import { File } from './file.js';
 import { Session } from './session.js';
 import { User } from './user.js';
-import { OcsfObject } from './object.js';
 
 const ProcessSchema = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
@@ -110,7 +108,7 @@ const ProcessSchema = z.strictObject({
   /** The working directory of a process. */
   working_directory: z.string().optional(),
   /** An unordered collection of zero or more name/value pairs that represent a process extended attribute. */
-  xattributes: OcsfObject.optional(),
+  xattributes: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const Process = ProcessSchema;

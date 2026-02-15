@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 
 /**
  * Application Error events describe issues with an applications. The error message should be put in the event's <code>message</code> attribute. The <code>metadata.product</code> attribute can be used to capture the originating application information. The <code>host</code> profile can used to include the generating device information. This class is helpful (and originally intended for) applications that generate and/or handle OCSF events. This class can also be used for errors in upstream products and services.
@@ -68,13 +67,12 @@ export interface ApplicationErrorType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
 }
 
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 
 const ACTIVITY_ID_LABELS: Record<number, string> = {
   0: "Unknown",
@@ -174,7 +172,7 @@ const ApplicationErrorSchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const ApplicationError = {

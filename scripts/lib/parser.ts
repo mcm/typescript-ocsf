@@ -195,7 +195,10 @@ function parseAttributes(
 
     // Check if this is an object reference
     let objectType: string | undefined;
-    if (!ocsfType.endsWith("_t")) {
+    if (ocsfType === "object") {
+      // Special case: "object" is a primitive type (arbitrary key-value object)
+      // Treat it like other primitive types, don't set objectType
+    } else if (!ocsfType.endsWith("_t")) {
       // Non-primitive type means it's an object reference
       objectType = ocsfType;
     }

@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-02-15
+
+### Fixed
+- **OCSF `object` Type Handling** - Fixed validation for OCSF `object` type fields (e.g., `unmapped`, `xattributes`)
+  - Added proper type mapping for OCSF `object` type to `z.record(z.string(), z.unknown())`
+  - Previously fell through to `z.unknown()` which didn't provide proper structure validation
+  - Fields like `unmapped` and `xattributes` now correctly accept arbitrary key-value pairs
+  - Affects 252 event schemas and 6 object schemas across all OCSF versions (v1.5.0, v1.6.0, v1.7.0)
+  - All 91 tests continue to pass
+
+### Technical Details
+- Updated type mappings in `scripts/lib/type-map.ts`:
+  - `mapOcsfTypeToZod("object")` → `"z.record(z.string(), z.unknown())"`
+  - `mapOcsfTypeToTs("object")` → `"Record<string, unknown>"`
+  - `mapOcsfTypeToZodTypeName("object")` → `"z.ZodRecord<z.ZodString, z.ZodUnknown>"`
+- Updated parser to treat `object` as primitive type (not object reference)
+- Regenerated all affected schemas to use inline `z.record()` instead of `OcsfObject` reference
+- Removed unnecessary `OcsfObject` imports from generated files
+
 ## [0.3.0] - 2026-02-14
 
 ### Added
@@ -203,6 +222,7 @@ All 752 schemas regenerated across OCSF v1.5.0, v1.6.0, and v1.7.0.
 - Full TypeScript inference
 - ESM and CommonJS dual output
 
+[0.3.1]: https://github.com/mcm/typescript-ocsf/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/mcm/typescript-ocsf/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/mcm/typescript-ocsf/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/mcm/typescript-ocsf/compare/v0.1.0...v0.1.1

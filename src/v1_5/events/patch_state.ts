@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { DeviceType } from '../objects/device.js';
 import type { KbArticleType } from '../objects/kb_article.js';
 
@@ -70,7 +69,7 @@ export interface PatchStateType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** An addressable device, computer system or host. */
   device: DeviceType;
   /** A list of KB articles or patches related to an endpoint. A KB Article contains metadata that describes the patch or an update. */
@@ -80,7 +79,6 @@ export interface PatchStateType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { Device } from '../objects/device.js';
 import { KbArticle } from '../objects/kb_article.js';
 
@@ -182,7 +180,7 @@ const PatchStateSchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** An addressable device, computer system or host. */
   device: Device,
   /** A list of KB articles or patches related to an endpoint. A KB Article contains metadata that describes the patch or an update. */

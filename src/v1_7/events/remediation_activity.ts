@@ -6,7 +6,6 @@ import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { D3fendType } from '../objects/d3fend.js';
 import type { RemediationType } from '../objects/remediation.js';
 import type { ScanType } from '../objects/scan.js';
@@ -74,7 +73,7 @@ export interface RemediationActivityType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The unique identifier of the remediation command that pertains to this event. */
   command_uid: string;
   /** The MITRE D3FEND™ Matrix Countermeasures associated with a remediation. */
@@ -89,7 +88,6 @@ import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
 import { Fingerprint } from '../objects/fingerprint.js';
-import { OcsfObject } from '../objects/object.js';
 import { D3fend } from '../objects/d3fend.js';
 import { Remediation } from '../objects/remediation.js';
 import { Scan } from '../objects/scan.js';
@@ -201,7 +199,7 @@ const RemediationActivitySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The unique identifier of the remediation command that pertains to this event. */
   command_uid: z.string(),
   /** The MITRE D3FEND™ Matrix Countermeasures associated with a remediation. */

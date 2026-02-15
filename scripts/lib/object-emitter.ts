@@ -10,7 +10,8 @@ import type { ParsedAttribute, ParsedObject } from "./types.js";
  * - Schema typed as z.ZodType<InterfaceType>
  * - Direct export of schema (no parser object for objects)
  *
- * All object schemas use .passthrough() to preserve unmapped fields.
+ * All object schemas use strict validation. Arbitrary fields should
+ * go in the 'unmapped' field (OCSF type 'object').
  */
 export function emitObjectFile(
   obj: ParsedObject,

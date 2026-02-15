@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { NetworkConnectionInfoType } from '../objects/network_connection_info.js';
 import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { Ja4FingerprintType } from '../objects/ja4_fingerprint.js';
@@ -75,7 +74,7 @@ export interface FtpActivityType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The name of the application associated with the event or object. */
   app_name?: string;
   /** The network connection information. */
@@ -111,7 +110,6 @@ export interface FtpActivityType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { NetworkConnectionInfo } from '../objects/network_connection_info.js';
 import { NetworkEndpoint } from '../objects/network_endpoint.js';
 import { Ja4Fingerprint } from '../objects/ja4_fingerprint.js';
@@ -222,7 +220,7 @@ const FtpActivitySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The name of the application associated with the event or object. */
   app_name: z.string().optional(),
   /** The network connection information. */

@@ -5,7 +5,6 @@ import { prefillUids, type UidConfig } from '../../uid.js';
 import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { NetworkConnectionInfoType } from '../objects/network_connection_info.js';
 import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { NetworkProxyType } from '../objects/network_proxy.js';
@@ -77,7 +76,7 @@ export interface AirborneBroadcastActivityType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The network connection information. */
   connection_info?: NetworkConnectionInfoType;
   /** The destination network endpoint for the ADS-B system, if telemetry is being remotely broadcasted. */
@@ -107,7 +106,6 @@ export interface AirborneBroadcastActivityType {
 import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
-import { OcsfObject } from '../objects/object.js';
 import { NetworkConnectionInfo } from '../objects/network_connection_info.js';
 import { NetworkEndpoint } from '../objects/network_endpoint.js';
 import { NetworkProxy } from '../objects/network_proxy.js';
@@ -216,7 +214,7 @@ const AirborneBroadcastActivitySchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The network connection information. */
   connection_info: NetworkConnectionInfo.optional(),
   /** The destination network endpoint for the ADS-B system, if telemetry is being remotely broadcasted. */

@@ -6,7 +6,6 @@ import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
-import type { OcsfObjectType } from '../objects/object.js';
 import type { UserType } from '../objects/user.js';
 import type { GroupType } from '../objects/group.js';
 import type { AttackType } from '../objects/attack.js';
@@ -77,7 +76,7 @@ export interface IncidentFindingType {
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: number;
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped?: OcsfObjectType;
+  unmapped?: Record<string, unknown>;
   /** The details of the user assigned to an Incident. */
   assignee?: UserType;
   /** The details of the group assigned to an Incident. */
@@ -126,7 +125,6 @@ import { Enrichment } from '../objects/enrichment.js';
 import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
 import { Fingerprint } from '../objects/fingerprint.js';
-import { OcsfObject } from '../objects/object.js';
 import { User } from '../objects/user.js';
 import { Group } from '../objects/group.js';
 import { Attack } from '../objects/attack.js';
@@ -283,7 +281,7 @@ const IncidentFindingSchema = z.strictObject({
   /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
   type_uid: z.number().int(),
   /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
-  unmapped: OcsfObject.optional(),
+  unmapped: z.record(z.string(), z.unknown()).optional(),
   /** The details of the user assigned to an Incident. */
   assignee: User.optional(),
   /** The details of the group assigned to an Incident. */
