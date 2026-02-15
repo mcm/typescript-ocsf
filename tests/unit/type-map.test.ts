@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { mapOcsfTypeToTs, mapOcsfTypeToZod, mapOcsfTypeToZodTypeName } from "../../scripts/lib/type-map.js";
+import {
+  mapOcsfTypeToTs,
+  mapOcsfTypeToZod,
+  mapOcsfTypeToZodTypeName,
+} from "../../scripts/lib/type-map.js";
 
 describe("mapOcsfTypeToZod", () => {
   it("maps primitive types correctly", () => {
