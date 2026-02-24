@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { NetworkInterfaceType } from '../objects/network_interface.js';
 
+import { NetworksQueryActivityId } from '../enums/networks_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Networks Query events report information about network adapters.
  *
@@ -226,4 +231,10 @@ export const NetworksQuery = {
   },
 
   schema: NetworksQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: NetworksQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

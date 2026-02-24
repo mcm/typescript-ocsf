@@ -13,6 +13,12 @@ import type { Ja4FingerprintType } from '../objects/ja4_fingerprint.js';
 import type { NetworkProxyType } from '../objects/network_proxy.js';
 import type { TlsType } from '../objects/tls.js';
 
+import { NtpActivityActivityId } from '../enums/ntp_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ObservationPointId } from '../enums/index.js';
+import { StratumId } from '../enums/index.js';
+
 /**
  * The Network Time Protocol (NTP) Activity events report instances of remote clients synchronizing their clocks with an NTP server, as observed on the network.
  *
@@ -307,4 +313,11 @@ export const NtpActivity = {
   },
 
   schema: NtpActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: NtpActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ObservationPointId: ObservationPointId,
+  StratumId: StratumId,
+} as const;

@@ -8,6 +8,10 @@ import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
 import type { ProductType } from '../objects/product.js';
 
+import { ApplicationLifecycleActivityId } from '../enums/application_lifecycle_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Application Lifecycle events report installation, removal, start, stop of an application or service.
  *
@@ -214,4 +218,9 @@ export const ApplicationLifecycle = {
   },
 
   schema: ApplicationLifecycleSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ApplicationLifecycleActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

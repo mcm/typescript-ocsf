@@ -10,6 +10,10 @@ import type { HttpRequestType } from '../objects/http_request.js';
 import type { HttpResponseType } from '../objects/http_response.js';
 import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 
+import { ActivityId } from '../enums/index.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * The Identity & Access Management event is a generic event that defines a set of attributes available in the access control events. As a generic event, it could be used to log events that are not otherwise defined by the IAM category.
  *
@@ -218,4 +222,9 @@ export const Iam = {
   },
 
   schema: IamSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

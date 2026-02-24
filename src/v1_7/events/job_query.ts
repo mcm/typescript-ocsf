@@ -9,6 +9,11 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { JobType } from '../objects/job.js';
 
+import { JobQueryActivityId } from '../enums/job_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Job Query events report information about scheduled jobs.
  *
@@ -232,4 +237,10 @@ export const JobQuery = {
   },
 
   schema: JobQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: JobQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

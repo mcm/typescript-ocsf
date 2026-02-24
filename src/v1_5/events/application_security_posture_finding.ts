@@ -14,6 +14,11 @@ import type { RemediationType } from '../objects/remediation.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 import type { VulnerabilityType } from '../objects/vulnerability.js';
 
+import { ApplicationSecurityPostureFindingActivityId } from '../enums/application_security_posture_finding_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ConfidenceId } from '../enums/index.js';
+
 /**
  * The Application Security Posture Finding event is a notification about any bug, defect, deficiency, exploit, vulnerability, weakness or any other issue with software and related systems. Application Security Posture Findings typically involve reporting on the greater context including compliance, impacted resources, remediation guidance, specific code defects, and/or vulnerability metadata. Application Security Posture Findings can be reported by Threat & Vulnerability Management (TVM) tools, Application Security Posture Management (ASPM) tools, or other similar tools. Note: if the event producer is a security control, the <code>security_control</code> profile should be applied and its <code>attacks</code> information, if present, should be duplicated into the <code>finding_info</code> object. <br><strong>Note: </strong>If the Finding is an incident, i.e. requires incident workflow, also apply the <code>incident</code> profile or aggregate this finding into an <code>Incident Finding</code>.
  *
@@ -273,4 +278,10 @@ export const ApplicationSecurityPostureFinding = {
   },
 
   schema: ApplicationSecurityPostureFindingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ApplicationSecurityPostureFindingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ConfidenceId: ConfidenceId,
+} as const;

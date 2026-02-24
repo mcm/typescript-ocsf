@@ -13,6 +13,14 @@ import type { FindingInfoType } from '../objects/finding_info.js';
 import type { TicketType } from '../objects/ticket.js';
 import type { VendorAttributesType } from '../objects/vendor_attributes.js';
 
+import { IncidentFindingActivityId } from '../enums/incident_finding_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ConfidenceId } from '../enums/index.js';
+import { ImpactId } from '../enums/index.js';
+import { PriorityId } from '../enums/index.js';
+import { VerdictId } from '../enums/index.js';
+
 /**
  * An Incident Finding reports the creation, update, or closure of security incidents as a result of detections and/or analytics. <br><strong>Note: </strong><code>Incident Finding</code> implicitly includes the <code>incident</code> profile and it should be added to the <code>metadata.profiles[]</code> array.
  *
@@ -347,4 +355,13 @@ export const IncidentFinding = {
   },
 
   schema: IncidentFindingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: IncidentFindingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ConfidenceId: ConfidenceId,
+  ImpactId: ImpactId,
+  PriorityId: PriorityId,
+  VerdictId: VerdictId,
+} as const;

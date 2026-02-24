@@ -11,6 +11,11 @@ import type { DeviceType } from '../objects/device.js';
 import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { FileType } from '../objects/file.js';
 
+import { EventLogActvityActivityId } from '../enums/event_log_actvity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { LogTypeId } from '../enums/index.js';
+
 /**
  * Event Log Activity events report actions pertaining to the system's event logging service(s), such as disabling logging or clearing the log data.
  *
@@ -262,4 +267,10 @@ export const EventLogActvity = {
   },
 
   schema: EventLogActvitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: EventLogActvityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  LogTypeId: LogTypeId,
+} as const;

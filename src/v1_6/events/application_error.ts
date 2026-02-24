@@ -7,6 +7,10 @@ import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
 
+import { ApplicationErrorActivityId } from '../enums/application_error_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Application Error events describe issues with an applications. The error message should be put in the event's <code>message</code> attribute. The <code>metadata.product</code> attribute can be used to capture the originating application information. The <code>host</code> profile can used to include the generating device information. This class is helpful for applications that generate or handle OCSF events and can also be used for errors in upstream products and services.
  *
@@ -202,4 +206,9 @@ export const ApplicationError = {
   },
 
   schema: ApplicationErrorSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ApplicationErrorActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

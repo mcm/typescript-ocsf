@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 
+import { DiscoveryResultActivityId } from '../enums/discovery_result_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Discovery Result events report the results of a discovery request.
  *
@@ -226,4 +231,10 @@ export const DiscoveryResult = {
   },
 
   schema: DiscoveryResultSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DiscoveryResultActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

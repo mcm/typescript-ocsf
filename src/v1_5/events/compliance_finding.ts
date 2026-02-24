@@ -13,6 +13,11 @@ import type { EvidencesType } from '../objects/evidences.js';
 import type { RemediationType } from '../objects/remediation.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 
+import { ComplianceFindingActivityId } from '../enums/compliance_finding_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ConfidenceId } from '../enums/index.js';
+
 /**
  * Compliance Finding events describe results of evaluations performed against resources, to check compliance with various Industry Frameworks or Security Standards such as <code>NIST SP 800-53, CIS AWS Foundations Benchmark v1.4.0, ISO/IEC 27001</code> etc. Note: if the event producer is a security control, the <code>security_control</code> profile should be applied and its <code>attacks</code> information, if present, should be duplicated into the <code>finding_info</code> object. <br><strong>Note: </strong>If the Finding is an incident, i.e. requires incident workflow, also apply the <code>incident</code> profile or aggregate this finding into an <code>Incident Finding</code>.
  *
@@ -271,4 +276,10 @@ export const ComplianceFinding = {
   },
 
   schema: ComplianceFindingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ComplianceFindingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ConfidenceId: ConfidenceId,
+} as const;

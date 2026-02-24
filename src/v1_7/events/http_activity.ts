@@ -17,6 +17,11 @@ import type { HttpCookieType } from '../objects/http_cookie.js';
 import type { HttpRequestType } from '../objects/http_request.js';
 import type { HttpResponseType } from '../objects/http_response.js';
 
+import { HttpActivityActivityId } from '../enums/http_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ObservationPointId } from '../enums/index.js';
+
 /**
  * HTTP Activity events report HTTP connection and traffic information.
  *
@@ -303,4 +308,10 @@ export const HttpActivity = {
   },
 
   schema: HttpActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: HttpActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ObservationPointId: ObservationPointId,
+} as const;

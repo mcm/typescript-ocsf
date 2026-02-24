@@ -9,6 +9,10 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { ActorType } from '../objects/actor.js';
 import type { OsintType } from '../objects/osint.js';
 
+import { OsintInventoryInfoActivityId } from '../enums/osint_inventory_info_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * OSINT Inventory Info events report open source intelligence or threat intelligence inventory data that is either logged or proactively collected. For example, when collecting OSINT information from Threat Intelligence Platforms (TIPs) or Extended Detection and Response (XDR) platforms, or collecting data from OSINT or other generic threat intelligence and enrichment feeds such as APIs and datastores.
  *
@@ -214,4 +218,9 @@ export const OsintInventoryInfo = {
   },
 
   schema: OsintInventoryInfoSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: OsintInventoryInfoActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

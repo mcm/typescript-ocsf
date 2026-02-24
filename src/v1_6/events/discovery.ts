@@ -7,6 +7,10 @@ import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
 
+import { DiscoveryActivityId } from '../enums/discovery_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * The Discovery event is a generic event that defines a set of attributes available in Discovery category events. As a generic event, it could be used to log events that are not otherwise defined by the Discovery specific event classes.
  *
@@ -202,4 +206,9 @@ export const Discovery = {
   },
 
   schema: DiscoverySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DiscoveryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

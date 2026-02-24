@@ -14,6 +14,10 @@ import type { TlsType } from '../objects/tls.js';
 import type { NetworkTrafficType } from '../objects/network_traffic.js';
 import type { NetworkInterfaceType } from '../objects/network_interface.js';
 
+import { DhcpActivityActivityId } from '../enums/dhcp_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * DHCP Activity events report MAC to IP assignment via DHCP from a client or server.
  *
@@ -271,4 +275,9 @@ export const DhcpActivity = {
   },
 
   schema: DhcpActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DhcpActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -31,8 +31,12 @@ export function emitEventFile(
   event: ParsedEvent,
   allObjects: Map<string, ParsedObject>,
   versionSlug: string,
+  sharedEnums?: Set<string>,
 ): string {
   const lines: string[] = [];
+
+  // Detect which enums this event uses
+  const enumRefs = detectEnumAttributes(event, sharedEnums);
 
   // Imports
   lines.push("import { z } from 'zod';");
@@ -64,6 +68,21 @@ export function emitEventFile(
   }
 
   if (importedObjects.size > 0) lines.push("");
+
+  // Import enums for static properties
+  if (enumRefs.length > 0) {
+    for (const enumRef of enumRefs) {
+      if (enumRef.isEventSpecific) {
+        // Event-specific enum from enums directory
+        const fileName = `${toFileName(event.className)}_activity_id`;
+        lines.push(`import { ${enumRef.importName} } from '../enums/${fileName}.js';`);
+      } else {
+        // Shared enum from enums/index
+        lines.push(`import { ${enumRef.importName} } from '../enums/index.js';`);
+      }
+    }
+    lines.push("");
+  }
 
   // Generate TypeScript interface with type references
   lines.push("/**");
@@ -176,7 +195,7 @@ export function emitEventFile(
   lines.push("});");
   lines.push("");
 
-  // Parser object with parse/safeParse/schema
+  // Parser object with parse/safeParse/schema/enums
   lines.push(`export const ${event.className} = {`);
   lines.push(
     `  parse: (data: unknown): ${event.className}Type => ${schemaName}.parse(preprocess(data)),`,
@@ -202,7 +221,17 @@ export function emitEventFile(
   lines.push("  },");
   lines.push("");
   lines.push(`  schema: ${schemaName},`);
-  lines.push("};");
+
+  // Add static enum properties
+  if (enumRefs.length > 0) {
+    lines.push("");
+    lines.push("  // Static enum references for convenience");
+    for (const enumRef of enumRefs) {
+      lines.push(`  ${enumRef.exportName}: ${enumRef.importName},`);
+    }
+  }
+
+  lines.push("} as const;");
   lines.push("");
 
   return lines.join("\n");
@@ -271,4 +300,58 @@ function getTsTypeForInterface(
 /** Convert an attribute name to a SCREAMING_SNAKE_CASE constant name. */
 function toConstName(attrName: string): string {
   return attrName.toUpperCase();
+}
+
+/**
+ * Detect which enum attributes an event uses for static property exports.
+ * Returns both shared enums (like SeverityId) and event-specific enums (like ActivityId).
+ */
+interface EnumReference {
+  /** The attribute name, e.g., "severity_id" */
+  attributeName: string;
+  /** The enum name to import, e.g., "SeverityId" or "FileActivityActivityId" */
+  importName: string;
+  /** The property name to export, e.g., "SeverityId" or "ActivityId" */
+  exportName: string;
+  /** Whether this is an event-specific enum that needs special import path */
+  isEventSpecific: boolean;
+}
+
+function detectEnumAttributes(event: ParsedEvent, sharedEnums?: Set<string>): EnumReference[] {
+  const enumRefs: EnumReference[] = [];
+
+  for (const attr of event.attributes) {
+    // Only process _id fields that have enum values
+    if (!attr.name.endsWith("_id") || !attr.enumValues || attr.enumValues.length === 0) {
+      continue;
+    }
+
+    // Convert attribute name to enum name (e.g., "severity_id" -> "SeverityId")
+    const enumBaseName = toClassName(attr.name);
+
+    // Check if this is an event-specific enum (has more than just UNKNOWN/OTHER)
+    const hasCustomValues = attr.enumValues.length > 2;
+
+    if (attr.name === "activity_id" && hasCustomValues) {
+      // Event-specific activity_id enum
+      const eventSpecificName = `${event.className}ActivityId`;
+      enumRefs.push({
+        attributeName: attr.name,
+        importName: eventSpecificName,
+        exportName: "ActivityId", // Alias to simple name
+        isEventSpecific: true,
+      });
+    } else if (sharedEnums && sharedEnums.has(enumBaseName)) {
+      // Shared enum that exists in the enums barrel
+      enumRefs.push({
+        attributeName: attr.name,
+        importName: enumBaseName,
+        exportName: enumBaseName,
+        isEventSpecific: false,
+      });
+    }
+    // If sharedEnums is not provided or enum doesn't exist, skip it
+  }
+
+  return enumRefs;
 }

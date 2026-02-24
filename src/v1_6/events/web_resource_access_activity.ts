@@ -13,6 +13,10 @@ import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { TlsType } from '../objects/tls.js';
 import type { WebResourceType } from '../objects/web_resource.js';
 
+import { WebResourceAccessActivityActivityId } from '../enums/web_resource_access_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Web Resource Access Activity events describe successful/failed attempts to access a web resource over HTTP.
  *
@@ -240,4 +244,9 @@ export const WebResourceAccessActivity = {
   },
 
   schema: WebResourceAccessActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: WebResourceAccessActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

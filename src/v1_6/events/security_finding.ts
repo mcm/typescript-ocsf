@@ -17,6 +17,14 @@ import type { ProcessType } from '../objects/process.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 import type { VulnerabilityType } from '../objects/vulnerability.js';
 
+import { SecurityFindingActivityId } from '../enums/security_finding_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ConfidenceId } from '../enums/index.js';
+import { ImpactId } from '../enums/index.js';
+import { RiskLevelId } from '../enums/index.js';
+import { StateId } from '../enums/index.js';
+
 /**
  * Security Finding events describe findings, detections, anomalies, alerts and/or actions performed by security products
  *
@@ -356,4 +364,13 @@ export const SecurityFinding = {
   },
 
   schema: SecurityFindingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: SecurityFindingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ConfidenceId: ConfidenceId,
+  ImpactId: ImpactId,
+  RiskLevelId: RiskLevelId,
+  StateId: StateId,
+} as const;

@@ -15,6 +15,11 @@ import type { UnmannedAerialSystemType } from '../objects/unmanned_aerial_system
 import type { UnmannedSystemOperatingAreaType } from '../objects/unmanned_system_operating_area.js';
 import type { UserType } from '../objects/user.js';
 
+import { DroneFlightsActivityActivityId } from '../enums/drone_flights_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { AuthProtocolId } from '../enums/index.js';
+
 /**
  * Drone Flights Activity events report the activity of Unmanned Aerial Systems (UAS), their Operators, and mission-planning and authorization metadata as reported by the UAS platforms themselves, by Counter-UAS (CUAS) systems, or other remote monitoring or sensing infrastructure. Based on the Remote ID defined in Standard Specification for Remote ID and Tracking (ASTM Designation: F3411-22a) <a target='_blank' href='https://cdn.standards.iteh.ai/samples/112830/71297057ac42432880a203654f213709/ASTM-F3411-22a.pdf'>ASTM F3411-22a</a>
  *
@@ -292,4 +297,10 @@ export const DroneFlightsActivity = {
   },
 
   schema: DroneFlightsActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DroneFlightsActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  AuthProtocolId: AuthProtocolId,
+} as const;

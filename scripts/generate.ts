@@ -96,8 +96,12 @@ function main(): void {
     // Emit events
     const publicEvents = Array.from(schema.events.values()).filter((evt) => evt.classUid > 0);
     console.log(`  Emitting ${publicEvents.length} events...`);
+
+    // Create set of shared enum names for validation
+    const sharedEnumNames = new Set(Array.from(schema.enums.values()).map((e) => e.name));
+
     for (const event of publicEvents) {
-      const content = emitEventFile(event, schema.objects, slug);
+      const content = emitEventFile(event, schema.objects, slug, sharedEnumNames);
       const fileName = `${toFileName(event.className)}.ts`;
       writeFileSync(join(eventsDir, fileName), content);
     }

@@ -13,6 +13,10 @@ import type { TlsType } from '../objects/tls.js';
 import type { NetworkTrafficType } from '../objects/network_traffic.js';
 import type { FileType } from '../objects/file.js';
 
+import { FtpActivityActivityId } from '../enums/ftp_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * File Transfer Protocol (FTP) Activity events report file transfers between a server and a client as seen on the network.
  *
@@ -274,4 +278,9 @@ export const FtpActivity = {
   },
 
   schema: FtpActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FtpActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -9,6 +9,12 @@ import type { QueryInfoType } from '../objects/query_info.js';
 import type { NetworkConnectionInfoType } from '../objects/network_connection_info.js';
 import type { ProcessType } from '../objects/process.js';
 
+import { NetworkConnectionQueryActivityId } from '../enums/network_connection_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+import { StateId } from '../enums/index.js';
+
 /**
  * Network Connection Query events report information about active network connections.
  *
@@ -256,4 +262,11 @@ export const NetworkConnectionQuery = {
   },
 
   schema: NetworkConnectionQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: NetworkConnectionQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+  StateId: StateId,
+} as const;

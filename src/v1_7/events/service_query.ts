@@ -9,6 +9,11 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { ServiceType } from '../objects/service.js';
 
+import { ServiceQueryActivityId } from '../enums/service_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Service Query events report information about running services.
  *
@@ -232,4 +237,10 @@ export const ServiceQuery = {
   },
 
   schema: ServiceQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ServiceQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

@@ -6,6 +6,10 @@ import type { EnrichmentType } from '../objects/enrichment.js';
 import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 
+import { ActivityId } from '../enums/index.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * OCSF Class UID: 6000
  * Category: Application Activity
@@ -192,4 +196,9 @@ export const Application = {
   },
 
   schema: ApplicationSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

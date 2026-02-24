@@ -12,6 +12,10 @@ import type { PackageType } from '../objects/package.js';
 import type { ProductType } from '../objects/product.js';
 import type { SbomType } from '../objects/sbom.js';
 
+import { SoftwareInfoActivityId } from '../enums/software_info_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Software Inventory Info events report device software inventory data that is either logged or proactively collected. For example, when collecting device information from a CMDB or running a network sweep of connected devices.
  *
@@ -232,4 +236,9 @@ export const SoftwareInfo = {
   },
 
   schema: SoftwareInfoSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: SoftwareInfoActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

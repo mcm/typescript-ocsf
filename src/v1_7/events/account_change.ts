@@ -14,6 +14,10 @@ import type { AuthFactorType } from '../objects/auth_factor.js';
 import type { PolicyType } from '../objects/policy.js';
 import type { UserType } from '../objects/user.js';
 
+import { AccountChangeActivityId } from '../enums/account_change_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Account Change events report when specific user account management tasks are performed, such as a user/role being created, changed, deleted, renamed, disabled, enabled, locked out or unlocked.
  *
@@ -262,4 +266,9 @@ export const AccountChange = {
   },
 
   schema: AccountChangeSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: AccountChangeActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

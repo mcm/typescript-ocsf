@@ -9,6 +9,10 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { DeviceType } from '../objects/device.js';
 import type { KbArticleType } from '../objects/kb_article.js';
 
+import { PatchStateActivityId } from '../enums/patch_state_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Operating System Patch State reports the installation of an OS patch to a device and any associated knowledgebase articles.
  *
@@ -214,4 +218,9 @@ export const PatchState = {
   },
 
   schema: PatchStateSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: PatchStateActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { StartupItemType } from '../objects/startup_item.js';
 
+import { StartupItemQueryActivityId } from '../enums/startup_item_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Startup Item Query events report information about discovered items, e.g., application components that are generally configured to run automatically.
  *
@@ -226,4 +231,10 @@ export const StartupItemQuery = {
   },
 
   schema: StartupItemQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: StartupItemQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

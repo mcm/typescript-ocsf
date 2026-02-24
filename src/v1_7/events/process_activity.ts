@@ -11,6 +11,12 @@ import type { DeviceType } from '../objects/device.js';
 import type { ModuleType } from '../objects/module.js';
 import type { ProcessType } from '../objects/process.js';
 
+import { ProcessActivityActivityId } from '../enums/process_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { InjectionTypeId } from '../enums/index.js';
+import { LaunchTypeId } from '../enums/index.js';
+
 /**
  * Process Activity events report when a process launches, injects, opens or terminates another process, successful or otherwise.
  *
@@ -275,4 +281,11 @@ export const ProcessActivity = {
   },
 
   schema: ProcessActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ProcessActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  InjectionTypeId: InjectionTypeId,
+  LaunchTypeId: LaunchTypeId,
+} as const;

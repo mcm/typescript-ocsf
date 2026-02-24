@@ -9,6 +9,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { JobType } from '../objects/job.js';
 
+import { ScheduledJobActivityActivityId } from '../enums/scheduled_job_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Scheduled Job Activity events report activities related to scheduled jobs or tasks.
  *
@@ -218,4 +222,9 @@ export const ScheduledJobActivity = {
   },
 
   schema: ScheduledJobActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ScheduledJobActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

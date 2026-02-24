@@ -11,6 +11,10 @@ import type { RemediationType } from '../objects/remediation.js';
 import type { ScanType } from '../objects/scan.js';
 import type { ProcessType } from '../objects/process.js';
 
+import { ProcessRemediationActivityActivityId } from '../enums/process_remediation_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Process Remediation Activity events report on attempts at remediating processes. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>. Sub-techniques will include Process, such as Process Termination or Kernel-based Process Isolation.
  *
@@ -237,4 +241,9 @@ export const ProcessRemediationActivity = {
   },
 
   schema: ProcessRemediationActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ProcessRemediationActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

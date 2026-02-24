@@ -10,6 +10,13 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { SecurityStateType } from '../objects/security_state.js';
 
+import { DeviceConfigStateChangeActivityId } from '../enums/device_config_state_change_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { PrevSecurityLevelId } from '../enums/index.js';
+import { SecurityLevelId } from '../enums/index.js';
+import { StateId } from '../enums/index.js';
+
 /**
  * Device Config State Change events report state changes that impact the security of the device.
  *
@@ -274,4 +281,12 @@ export const DeviceConfigStateChange = {
   },
 
   schema: DeviceConfigStateChangeSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DeviceConfigStateChangeActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  PrevSecurityLevelId: PrevSecurityLevelId,
+  SecurityLevelId: SecurityLevelId,
+  StateId: StateId,
+} as const;

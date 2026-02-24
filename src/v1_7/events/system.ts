@@ -9,6 +9,10 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 
+import { ActivityId } from '../enums/index.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * The System Activity event is a generic event that defines a set of attributes available in the system activity events. As a generic event, it could be used to log events that are not otherwise defined by the System Activity category.
  *
@@ -212,4 +216,9 @@ export const System = {
   },
 
   schema: SystemSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

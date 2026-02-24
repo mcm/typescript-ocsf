@@ -13,6 +13,11 @@ import type { FileType } from '../objects/file.js';
 import type { HttpRequestType } from '../objects/http_request.js';
 import type { HttpResponseType } from '../objects/http_response.js';
 
+import { FileHostingActivityId } from '../enums/file_hosting_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ShareTypeId } from '../enums/index.js';
+
 /**
  * File Hosting Activity events report the actions taken by file management applications, including file sharing servers like Sharepoint and services such as Box, MS OneDrive, Google Drive, or network file share services.
  *
@@ -298,4 +303,10 @@ export const FileHosting = {
   },
 
   schema: FileHostingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FileHostingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ShareTypeId: ShareTypeId,
+} as const;

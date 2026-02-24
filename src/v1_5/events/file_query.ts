@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { FileType } from '../objects/file.js';
 
+import { FileQueryActivityId } from '../enums/file_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * File Query events report information about files that are present on the system.
  *
@@ -226,4 +231,10 @@ export const FileQuery = {
   },
 
   schema: FileQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FileQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

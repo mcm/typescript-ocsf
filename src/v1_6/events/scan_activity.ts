@@ -9,6 +9,10 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { PolicyType } from '../objects/policy.js';
 import type { ScanType } from '../objects/scan.js';
 
+import { ScanActivityActivityId } from '../enums/scan_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Scan events report the start, completion, and results of a scan job. The scan event includes the number of items that were scanned and the number of detections that were resolved.
  *
@@ -270,4 +274,9 @@ export const ScanActivity = {
   },
 
   schema: ScanActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ScanActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -15,6 +15,12 @@ import type { TlsType } from '../objects/tls.js';
 import type { HasshType } from '../objects/hassh.js';
 import type { FileType } from '../objects/file.js';
 
+import { SshActivityActivityId } from '../enums/ssh_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ObservationPointId } from '../enums/index.js';
+import { AuthTypeId } from '../enums/index.js';
+
 /**
  * SSH Activity events report remote client connections to a server using the Secure Shell (SSH) Protocol.
  *
@@ -313,4 +319,11 @@ export const SshActivity = {
   },
 
   schema: SshActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: SshActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ObservationPointId: ObservationPointId,
+  AuthTypeId: AuthTypeId,
+} as const;

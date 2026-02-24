@@ -9,6 +9,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { ModuleType } from '../objects/module.js';
 
+import { ModuleActivityActivityId } from '../enums/module_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Module  Activity events report when a process loads or unloads the <code>module</code>.
  *
@@ -214,4 +218,9 @@ export const ModuleActivity = {
   },
 
   schema: ModuleActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ModuleActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

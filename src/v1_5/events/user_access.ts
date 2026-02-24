@@ -12,6 +12,10 @@ import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 import type { UserType } from '../objects/user.js';
 
+import { UserAccessActivityId } from '../enums/user_access_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * User Access Management events report management updates to a user's privileges.
  *
@@ -240,4 +244,9 @@ export const UserAccess = {
   },
 
   schema: UserAccessSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: UserAccessActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -15,6 +15,11 @@ import type { DceRpcType } from '../objects/dce_rpc.js';
 import type { FileType } from '../objects/file.js';
 import type { ResponseType } from '../objects/response.js';
 
+import { SmbActivityActivityId } from '../enums/smb_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ShareTypeId } from '../enums/index.js';
+
 /**
  * Server Message Block (SMB) Protocol Activity events report client/server connections sharing resources within the network.
  *
@@ -303,4 +308,10 @@ export const SmbActivity = {
   },
 
   schema: SmbActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: SmbActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ShareTypeId: ShareTypeId,
+} as const;

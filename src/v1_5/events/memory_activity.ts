@@ -9,6 +9,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { ProcessType } from '../objects/process.js';
 
+import { MemoryActivityActivityId } from '../enums/memory_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Memory Activity events report when a process has memory allocated, read/modified, or other manipulation activities - such as a buffer overflow or turning off data execution protection (DEP).
  *
@@ -237,4 +241,9 @@ export const MemoryActivity = {
   },
 
   schema: MemoryActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: MemoryActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

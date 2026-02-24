@@ -10,6 +10,11 @@ import type { QueryInfoType } from '../objects/query_info.js';
 import type { GroupType } from '../objects/group.js';
 import type { UserType } from '../objects/user.js';
 
+import { AdminGroupQueryActivityId } from '../enums/admin_group_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Admin Group Query events report information about administrative groups.
  *
@@ -238,4 +243,10 @@ export const AdminGroupQuery = {
   },
 
   schema: AdminGroupQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: AdminGroupQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

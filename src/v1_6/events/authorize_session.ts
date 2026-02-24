@@ -14,6 +14,10 @@ import type { GroupType } from '../objects/group.js';
 import type { SessionType } from '../objects/session.js';
 import type { UserType } from '../objects/user.js';
 
+import { AuthorizeSessionActivityId } from '../enums/authorize_session_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Authorize Session events report privileges or groups assigned to a new user session, usually at login time.
  *
@@ -252,4 +256,9 @@ export const AuthorizeSession = {
   },
 
   schema: AuthorizeSessionSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: AuthorizeSessionActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

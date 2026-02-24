@@ -10,6 +10,11 @@ import type { QueryInfoType } from '../objects/query_info.js';
 import type { DeviceType } from '../objects/device.js';
 import type { QueryEvidenceType } from '../objects/query_evidence.js';
 
+import { EvidenceInfoActivityId } from '../enums/evidence_info_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Data collected directly from devices that represents forensic information pulled, queried, or discovered from devices that may indicate malicious activity. It contains a number of child objects, each representing a distinct evidence domain (network connections, file artifacts, registry entries, etc.). When mapping raw telemetry data users should select Query Evidence and then the appropriate child object that best matches the evidence type.
  *
@@ -238,4 +243,10 @@ export const EvidenceInfo = {
   },
 
   schema: EvidenceInfoSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: EvidenceInfoActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

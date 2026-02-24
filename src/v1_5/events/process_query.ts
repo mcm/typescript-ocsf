@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { ProcessType } from '../objects/process.js';
 
+import { ProcessQueryActivityId } from '../enums/process_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Process Query events report information about running processes.
  *
@@ -226,4 +231,10 @@ export const ProcessQuery = {
   },
 
   schema: ProcessQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ProcessQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

@@ -12,6 +12,10 @@ import type { HttpRequestType } from '../objects/http_request.js';
 import type { HttpResponseType } from '../objects/http_response.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 
+import { ApiActivityActivityId } from '../enums/api_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * API events describe general CRUD (Create, Read, Update, Delete) API activities, e.g. (AWS Cloudtrail)
  *
@@ -238,4 +242,9 @@ export const ApiActivity = {
   },
 
   schema: ApiActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ApiActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

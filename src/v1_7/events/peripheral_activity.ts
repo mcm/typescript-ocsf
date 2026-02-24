@@ -10,6 +10,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { PeripheralDeviceType } from '../objects/peripheral_device.js';
 
+import { PeripheralActivityActivityId } from '../enums/peripheral_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Peripheral Activity events log a system's interactions with external, connectable, and detachable hardware. These events provide visibility into the external devices connected to and used by a system.
  *
@@ -223,4 +227,9 @@ export const PeripheralActivity = {
   },
 
   schema: PeripheralActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: PeripheralActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

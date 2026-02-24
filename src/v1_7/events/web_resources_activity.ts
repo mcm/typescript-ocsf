@@ -12,6 +12,10 @@ import type { HttpResponseType } from '../objects/http_response.js';
 import type { TlsType } from '../objects/tls.js';
 import type { WebResourceType } from '../objects/web_resource.js';
 
+import { WebResourcesActivityActivityId } from '../enums/web_resources_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Web Resources Activity events describe actions executed on a set of Web Resources.
  *
@@ -246,4 +250,9 @@ export const WebResourcesActivity = {
   },
 
   schema: WebResourcesActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: WebResourcesActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { KernelType } from '../objects/kernel.js';
 
+import { KernelObjectQueryActivityId } from '../enums/kernel_object_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Kernel Object Query events report information about discovered kernel resources.
  *
@@ -226,4 +231,10 @@ export const KernelObjectQuery = {
   },
 
   schema: KernelObjectQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: KernelObjectQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

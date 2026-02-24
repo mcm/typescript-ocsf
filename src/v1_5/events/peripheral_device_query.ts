@@ -8,6 +8,11 @@ import type { ObservableType } from '../objects/observable.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { PeripheralDeviceType } from '../objects/peripheral_device.js';
 
+import { PeripheralDeviceQueryActivityId } from '../enums/peripheral_device_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Peripheral Device Query events report information about peripheral devices.
  *
@@ -226,4 +231,10 @@ export const PeripheralDeviceQuery = {
   },
 
   schema: PeripheralDeviceQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: PeripheralDeviceQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

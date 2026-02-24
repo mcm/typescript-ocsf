@@ -252,6 +252,53 @@ try {
 - Validation ensures only defined enum values are accepted
 - Sibling reconciliation works with validated enums (e.g., `status_id: 1` auto-fills `status: "New"`)
 
+### Accessing Enums via Static Properties
+
+Event parsers export enum constants as static properties for convenient access:
+
+```typescript
+import { IncidentFinding } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_7/events";
+
+// Access enums directly from event classes
+const incident = IncidentFinding.parse({
+  time: Date.now(),
+  severity_id: IncidentFinding.SeverityId.LOW,        // Shared enum
+  activity_id: IncidentFinding.ActivityId.CREATE,     // Event-specific enum
+  status_id: IncidentFinding.StatusId.SUCCESS,
+  finding_info_list: [],
+  metadata: {
+    version: "1.7.0",
+    product: { name: "Security Platform", vendor_name: "ACME" },
+  },
+});
+
+const fileEvent = FileActivity.parse({
+  time: Date.now(),
+  severity_id: FileActivity.SeverityId.HIGH,          // Shared enum
+  activity_id: FileActivity.ActivityId.DELETE,        // Event-specific enum
+  metadata: {
+    version: "1.7.0",
+    product: { name: "EDR", vendor_name: "Security Corp" },
+  },
+  file: { name: "malware.exe", type_id: 1 },
+  device: { type_id: 0 },
+  actor: {},
+});
+```
+
+**Available Static Properties:**
+- Shared enums (like `SeverityId`, `StatusId`, `ConfidenceId`) are available on all events that use them
+- Event-specific `ActivityId` enums are aliased to the simple name for convenience
+  - `IncidentFinding.ActivityId` → `IncidentFindingActivityId` (CREATE, UPDATE, CLOSE)
+  - `FileActivity.ActivityId` → `FileActivityActivityId` (CREATE, READ, UPDATE, DELETE, etc.)
+
+**Why use static properties?**
+- **Discoverability**: IDE autocomplete shows available enums for each event
+- **Type safety**: Full TypeScript type checking and inference
+- **Convenience**: No need to import enums separately
+- **Consistency**: Similar to patterns in other typed libraries (Python's pydantic-ocsf)
+
 ### Safe Parsing with Error Handling
 
 ```typescript

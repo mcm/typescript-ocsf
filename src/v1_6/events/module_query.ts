@@ -10,6 +10,11 @@ import type { QueryInfoType } from '../objects/query_info.js';
 import type { ModuleType } from '../objects/module.js';
 import type { ProcessType } from '../objects/process.js';
 
+import { ModuleQueryActivityId } from '../enums/module_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Module Query events report information about loaded modules.
  *
@@ -238,4 +243,10 @@ export const ModuleQuery = {
   },
 
   schema: ModuleQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ModuleQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

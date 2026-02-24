@@ -14,6 +14,11 @@ import type { NetworkTrafficType } from '../objects/network_traffic.js';
 import type { DnsAnswerType } from '../objects/dns_answer.js';
 import type { DnsQueryType } from '../objects/dns_query.js';
 
+import { DnsActivityActivityId } from '../enums/dns_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { RcodeId } from '../enums/index.js';
+
 /**
  * DNS Activity events report DNS queries and answers as seen on the network.
  *
@@ -296,4 +301,10 @@ export const DnsActivity = {
   },
 
   schema: DnsActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DnsActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  RcodeId: RcodeId,
+} as const;

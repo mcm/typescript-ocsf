@@ -17,6 +17,11 @@ import type { RemediationType } from '../objects/remediation.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 import type { UserType } from '../objects/user.js';
 
+import { IamAnalysisFindingActivityId } from '../enums/iam_analysis_finding_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ConfidenceId } from '../enums/index.js';
+
 /**
  * This finding represents an IAM analysis result, which evaluates IAM policies, access patterns, and IAM configurations for potential security risks. The analysis can focus on either an identity (user, role, service account) or a resource to assess permissions, access patterns, and security posture within the IAM domain. <br><strong>Note:</strong> Use <code>permission_analysis_results</code> for identity-centric analysis (evaluating what an identity can do) and <code>access_analysis_result</code> for resource-centric analysis (evaluating who can access a resource). These complement each other for comprehensive IAM security assessment.<br><strong>Note:</strong> If the Finding is an incident, i.e. requires incident workflow, also apply the <code>incident</code> profile or aggregate this finding into an <code>Incident Finding</code>.
  *
@@ -292,4 +297,10 @@ export const IamAnalysisFinding = {
   },
 
   schema: IamAnalysisFindingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: IamAnalysisFindingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ConfidenceId: ConfidenceId,
+} as const;

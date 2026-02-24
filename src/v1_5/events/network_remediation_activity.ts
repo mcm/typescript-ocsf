@@ -10,6 +10,10 @@ import type { RemediationType } from '../objects/remediation.js';
 import type { ScanType } from '../objects/scan.js';
 import type { NetworkConnectionInfoType } from '../objects/network_connection_info.js';
 
+import { NetworkRemediationActivityActivityId } from '../enums/network_remediation_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Network Remediation Activity events report on attempts at remediating computer networks. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>. Techniques and Sub-techniques will include Network, such as Network Isolation or Network Traffic Filtering.
  *
@@ -231,4 +235,9 @@ export const NetworkRemediationActivity = {
   },
 
   schema: NetworkRemediationActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: NetworkRemediationActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

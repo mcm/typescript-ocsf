@@ -9,6 +9,11 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { FileType } from '../objects/file.js';
 
+import { FolderQueryActivityId } from '../enums/folder_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * Folder Query events report information about folders that are present on the system.
  *
@@ -232,4 +237,10 @@ export const FolderQuery = {
   },
 
   schema: FolderQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FolderQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

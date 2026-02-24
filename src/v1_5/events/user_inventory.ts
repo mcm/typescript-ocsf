@@ -8,6 +8,10 @@ import type { ObservableType } from '../objects/observable.js';
 import type { ActorType } from '../objects/actor.js';
 import type { UserType } from '../objects/user.js';
 
+import { UserInventoryActivityId } from '../enums/user_inventory_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * User Inventory Info events report user inventory data that is either logged or proactively collected. For example, when collecting user information from Active Directory entries.
  *
@@ -208,4 +212,9 @@ export const UserInventory = {
   },
 
   schema: UserInventorySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: UserInventoryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

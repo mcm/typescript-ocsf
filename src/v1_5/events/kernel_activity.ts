@@ -9,6 +9,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { KernelType } from '../objects/kernel.js';
 
+import { KernelActivityActivityId } from '../enums/kernel_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Kernel Activity events report when an process creates, reads, or deletes a kernel resource.
  *
@@ -216,4 +220,9 @@ export const KernelActivity = {
   },
 
   schema: KernelActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: KernelActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

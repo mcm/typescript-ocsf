@@ -11,6 +11,10 @@ import type { HttpResponseType } from '../objects/http_response.js';
 import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { ManagedEntityType } from '../objects/managed_entity.js';
 
+import { EntityManagementActivityId } from '../enums/entity_management_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Entity Management events report activity by a managed client, a micro service, or a user at a management console. The activity can be a create, read, update, and delete operation on a managed entity.
  *
@@ -253,4 +257,9 @@ export const EntityManagement = {
   },
 
   schema: EntityManagementSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: EntityManagementActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

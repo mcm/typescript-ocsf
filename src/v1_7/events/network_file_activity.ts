@@ -15,6 +15,11 @@ import type { TlsType } from '../objects/tls.js';
 import type { ActorType } from '../objects/actor.js';
 import type { FileType } from '../objects/file.js';
 
+import { NetworkFileActivityActivityId } from '../enums/network_file_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ObservationPointId } from '../enums/index.js';
+
 /**
  * Network File Activity events report file activities traversing the network, including file storage services such as Box, MS OneDrive, or Google Drive.
  *
@@ -298,4 +303,10 @@ export const NetworkFileActivity = {
   },
 
   schema: NetworkFileActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: NetworkFileActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ObservationPointId: ObservationPointId,
+} as const;

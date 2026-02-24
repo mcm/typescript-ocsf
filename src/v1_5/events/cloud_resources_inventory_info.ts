@@ -13,6 +13,10 @@ import type { IdpType } from '../objects/idp.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 import type { TableType } from '../objects/table.js';
 
+import { CloudResourcesInventoryInfoActivityId } from '../enums/cloud_resources_inventory_info_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Cloud Resources Inventory Info events report cloud asset inventory data. This data can be either logged or proactively collected. For example, use this event class when creating an inventory of cloud resource information from a Configuration Management Database (CMDB), Cyber Asset Attack Surface Management (CAASM), direct public cloud service provider APIs, Software-as-a-Service (SaaS) APIs, or otherwise.
  *
@@ -242,4 +246,9 @@ export const CloudResourcesInventoryInfo = {
   },
 
   schema: CloudResourcesInventoryInfoSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: CloudResourcesInventoryInfoActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

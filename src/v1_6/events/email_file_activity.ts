@@ -8,6 +8,10 @@ import type { ObservableType } from '../objects/observable.js';
 import type { FingerprintType } from '../objects/fingerprint.js';
 import type { FileType } from '../objects/file.js';
 
+import { EmailFileActivityActivityId } from '../enums/email_file_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Email File Activity events report files within emails.
  *
@@ -213,4 +217,9 @@ export const EmailFileActivity = {
   },
 
   schema: EmailFileActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: EmailFileActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

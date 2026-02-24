@@ -8,6 +8,10 @@ import type { ObservableType } from '../objects/observable.js';
 import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 
+import { InventoryInfoActivityId } from '../enums/inventory_info_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Device Inventory Info events report device inventory data that is either logged or proactively collected. For example, when collecting device information from a CMDB or running a network sweep of connected devices.
  *
@@ -208,4 +212,9 @@ export const InventoryInfo = {
   },
 
   schema: InventoryInfoSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: InventoryInfoActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -13,6 +13,10 @@ import type { NetworkProxyType } from '../objects/network_proxy.js';
 import type { TlsType } from '../objects/tls.js';
 import type { NetworkTrafficType } from '../objects/network_traffic.js';
 
+import { ActivityId } from '../enums/index.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Network event is a generic event that defines a set of attributes available in the Network category.
  *
@@ -244,4 +248,9 @@ export const Network = {
   },
 
   schema: NetworkSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

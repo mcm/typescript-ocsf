@@ -10,6 +10,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { KernelDriverType } from '../objects/kernel_driver.js';
 
+import { KernelExtensionActivityActivityId } from '../enums/kernel_extension_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Kernel Extension events report when a driver/extension is loaded or unloaded into the kernel
  *
@@ -220,4 +224,9 @@ export const KernelExtensionActivity = {
   },
 
   schema: KernelExtensionActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: KernelExtensionActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -14,6 +14,11 @@ import type { HttpResponseType } from '../objects/http_response.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { TableType } from '../objects/table.js';
 
+import { DatastoreActivityActivityId } from '../enums/datastore_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { TypeId } from '../enums/index.js';
+
 /**
  * Datastore events describe general activities (Read, Update, Query, Delete, etc.) which affect datastores or data within those datastores, e.g. (AWS RDS, AWS S3).
  *
@@ -273,4 +278,10 @@ export const DatastoreActivity = {
   },
 
   schema: DatastoreActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: DatastoreActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  TypeId: TypeId,
+} as const;

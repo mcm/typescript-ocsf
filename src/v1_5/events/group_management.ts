@@ -13,6 +13,10 @@ import type { GroupType } from '../objects/group.js';
 import type { ResourceDetailsType } from '../objects/resource_details.js';
 import type { UserType } from '../objects/user.js';
 
+import { GroupManagementActivityId } from '../enums/group_management_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Group Management events report management updates to a group, including updates to membership and permissions.
  *
@@ -246,4 +250,9 @@ export const GroupManagement = {
   },
 
   schema: GroupManagementSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: GroupManagementActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

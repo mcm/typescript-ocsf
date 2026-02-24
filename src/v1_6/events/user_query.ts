@@ -9,6 +9,11 @@ import type { FingerprintType } from '../objects/fingerprint.js';
 import type { QueryInfoType } from '../objects/query_info.js';
 import type { UserType } from '../objects/user.js';
 
+import { UserQueryActivityId } from '../enums/user_query_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { QueryResultId } from '../enums/index.js';
+
 /**
  * User Query events report user data that have been discovered, queried, polled or searched. This event differs from User Inventory as it describes the result of a targeted search by filtering a subset of user attributes.
  *
@@ -232,4 +237,10 @@ export const UserQuery = {
   },
 
   schema: UserQuerySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: UserQueryActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  QueryResultId: QueryResultId,
+} as const;

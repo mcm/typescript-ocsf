@@ -9,6 +9,10 @@ import type { D3fendType } from '../objects/d3fend.js';
 import type { RemediationType } from '../objects/remediation.js';
 import type { ScanType } from '../objects/scan.js';
 
+import { RemediationActivityActivityId } from '../enums/remediation_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Remediation Activity events report on attempts at remediating a compromised device or computer network. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>.
  *
@@ -225,4 +229,9 @@ export const RemediationActivity = {
   },
 
   schema: RemediationActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: RemediationActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

@@ -9,6 +9,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { ScriptType } from '../objects/script.js';
 
+import { ScriptActivityActivityId } from '../enums/script_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Script Activity events report when a process executes a script.
  *
@@ -213,4 +217,9 @@ export const ScriptActivity = {
   },
 
   schema: ScriptActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ScriptActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

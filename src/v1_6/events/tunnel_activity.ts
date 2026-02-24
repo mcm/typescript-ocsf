@@ -17,6 +17,10 @@ import type { SessionType } from '../objects/session.js';
 import type { NetworkInterfaceType } from '../objects/network_interface.js';
 import type { UserType } from '../objects/user.js';
 
+import { TunnelActivityActivityId } from '../enums/tunnel_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Tunnel Activity events report secure tunnel establishment (such as VPN), teardowns, renewals, and other network tunnel specific actions.
  *
@@ -291,4 +295,9 @@ export const TunnelActivity = {
   },
 
   schema: TunnelActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: TunnelActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

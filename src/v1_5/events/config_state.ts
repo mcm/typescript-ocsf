@@ -10,6 +10,10 @@ import type { AssessmentType } from '../objects/assessment.js';
 import type { CisBenchmarkResultType } from '../objects/cis_benchmark_result.js';
 import type { DeviceType } from '../objects/device.js';
 
+import { ConfigStateActivityId } from '../enums/config_state_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Device Config State events report device configuration data, device assessments, and/or CIS Benchmark results.
  *
@@ -220,4 +224,9 @@ export const ConfigState = {
   },
 
   schema: ConfigStateSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: ConfigStateActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

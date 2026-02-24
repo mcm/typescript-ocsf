@@ -10,6 +10,10 @@ import type { ActorType } from '../objects/actor.js';
 import type { DeviceType } from '../objects/device.js';
 import type { FileType } from '../objects/file.js';
 
+import { FileActivityActivityId } from '../enums/file_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * File System Activity events report when a process performs an action on a file or folder.
  *
@@ -256,4 +260,9 @@ export const FileActivity = {
   },
 
   schema: FileActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FileActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

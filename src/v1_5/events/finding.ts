@@ -9,6 +9,11 @@ import type { DeviceType } from '../objects/device.js';
 import type { FindingInfoType } from '../objects/finding_info.js';
 import type { VendorAttributesType } from '../objects/vendor_attributes.js';
 
+import { FindingActivityId } from '../enums/finding_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ConfidenceId } from '../enums/index.js';
+
 /**
  * The Finding event is a generic event that defines a set of attributes available in the Findings category.
  *
@@ -243,4 +248,10 @@ export const Finding = {
   },
 
   schema: FindingSchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FindingActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ConfidenceId: ConfidenceId,
+} as const;

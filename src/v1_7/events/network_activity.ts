@@ -14,6 +14,11 @@ import type { NetworkProxyType } from '../objects/network_proxy.js';
 import type { TlsType } from '../objects/tls.js';
 import type { UrlType } from '../objects/url.js';
 
+import { NetworkActivityActivityId } from '../enums/network_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { ObservationPointId } from '../enums/index.js';
+
 /**
  * Network Activity events report network connection and traffic activity.
  *
@@ -283,4 +288,10 @@ export const NetworkActivity = {
   },
 
   schema: NetworkActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: NetworkActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  ObservationPointId: ObservationPointId,
+} as const;

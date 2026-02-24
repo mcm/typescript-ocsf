@@ -18,6 +18,10 @@ import type { DisplayType } from '../objects/display.js';
 import type { RequestType } from '../objects/request.js';
 import type { ResponseType } from '../objects/response.js';
 
+import { RdpActivityActivityId } from '../enums/rdp_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Remote Desktop Protocol (RDP) Activity events report remote client connections to a server as seen on the network.
  *
@@ -296,4 +300,9 @@ export const RdpActivity = {
   },
 
   schema: RdpActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: RdpActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

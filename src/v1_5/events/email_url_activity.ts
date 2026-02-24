@@ -7,6 +7,10 @@ import type { MetadataType } from '../objects/metadata.js';
 import type { ObservableType } from '../objects/observable.js';
 import type { UrlType } from '../objects/url.js';
 
+import { EmailUrlActivityActivityId } from '../enums/email_url_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Email URL Activity events report URLs within an email.
  *
@@ -207,4 +211,9 @@ export const EmailUrlActivity = {
   },
 
   schema: EmailUrlActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: EmailUrlActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

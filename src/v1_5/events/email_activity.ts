@@ -9,6 +9,11 @@ import type { NetworkEndpointType } from '../objects/network_endpoint.js';
 import type { EmailType } from '../objects/email.js';
 import type { EmailAuthType } from '../objects/email_auth.js';
 
+import { EmailActivityActivityId } from '../enums/email_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+import { DirectionId } from '../enums/index.js';
+
 /**
  * Email Activity events report SMTP protocol and email activities including those with embedded URLs and files. See the <code>Email</code> object for details.
  *
@@ -261,4 +266,10 @@ export const EmailActivity = {
   },
 
   schema: EmailActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: EmailActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+  DirectionId: DirectionId,
+} as const;

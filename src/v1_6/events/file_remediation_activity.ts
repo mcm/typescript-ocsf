@@ -11,6 +11,10 @@ import type { RemediationType } from '../objects/remediation.js';
 import type { ScanType } from '../objects/scan.js';
 import type { FileType } from '../objects/file.js';
 
+import { FileRemediationActivityActivityId } from '../enums/file_remediation_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * File Remediation Activity events report on attempts at remediating files. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>. Sub-techniques will include File, such as File Removal or Restore File.
  *
@@ -237,4 +241,9 @@ export const FileRemediationActivity = {
   },
 
   schema: FileRemediationActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: FileRemediationActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

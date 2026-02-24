@@ -15,6 +15,10 @@ import type { UnmannedAerialSystemType } from '../objects/unmanned_aerial_system
 import type { UnmannedSystemOperatingAreaType } from '../objects/unmanned_system_operating_area.js';
 import type { UserType } from '../objects/user.js';
 
+import { AirborneBroadcastActivityActivityId } from '../enums/airborne_broadcast_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
 /**
  * Airborne Broadcast Activity events report the activity of any aircraft or unmanned system as reported and tracked by Automatic Dependent Surveillance - Broadcast (ADS-B) receivers. Based on the ADS-B standards described in <a target='_blank' href='https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91#91.225'>Code of Federal Regulations (CFR) Title 14 Chapter I Subchapter F Part 91</a> and in other general Federal Aviation Administration (FAA) supplemental orders and guidance described <a target='_blank' href='https://www.faa.gov/about/office_org/headquarters_offices/avs/offices/afx/afs/afs400/afs410/ads-b'>here</a>.
  *
@@ -262,4 +266,9 @@ export const AirborneBroadcastActivity = {
   },
 
   schema: AirborneBroadcastActivitySchema,
-};
+
+  // Static enum references for convenience
+  ActivityId: AirborneBroadcastActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;
