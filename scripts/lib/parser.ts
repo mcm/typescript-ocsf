@@ -390,9 +390,10 @@ function extractObservableTypeIds(
           // Create a more descriptive caption using object name + attribute name
           const objectCaption = raw.caption || raw.name || "";
           const attrCaption = def.caption || attrName;
-          const caption = attrCaption.toLowerCase() === "uid" || attrCaption.toLowerCase() === "name"
-            ? `${objectCaption} ${attrCaption}`
-            : attrCaption;
+          const caption =
+            attrCaption.toLowerCase() === "uid" || attrCaption.toLowerCase() === "name"
+              ? `${objectCaption} ${attrCaption}`
+              : attrCaption;
           observableTypes.set(def.observable, caption);
         }
       }

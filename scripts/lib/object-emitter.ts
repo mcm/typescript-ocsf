@@ -32,7 +32,9 @@ export function emitObjectFile(
   // Imports
   lines.push("import { z } from 'zod';");
   if (isObservable) {
-    lines.push("import { ObservableTypeId, ObservableTypeIdLabels } from '../enums/observable_type_id.js';");
+    lines.push(
+      "import { ObservableTypeId, ObservableTypeIdLabels } from '../enums/observable_type_id.js';",
+    );
   }
   lines.push("");
 
@@ -131,7 +133,12 @@ function emitInterfaceFields(
       lines.push(`  /** ${attr.description} */`);
     }
 
-    const tsType = getTsTypeForInterface(attr, allObjects, obj.name, isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined);
+    const tsType = getTsTypeForInterface(
+      attr,
+      allObjects,
+      obj.name,
+      isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined,
+    );
 
     // Apply optionality
     const optional = attr.requirement !== "required" ? "?" : "";
@@ -204,7 +211,11 @@ function emitSimpleFields(
       lines.push(`  /** ${attr.description} */`);
     }
 
-    let zodType = getZodTypeSimple(attr, allObjects, isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined);
+    let zodType = getZodTypeSimple(
+      attr,
+      allObjects,
+      isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined,
+    );
 
     // Apply optionality
     if (attr.requirement !== "required") {
@@ -240,7 +251,11 @@ function emitFieldsWithGetters(
       lines.push(`  get ${attr.name}() { return ${finalType}; },`);
     } else {
       // Regular field
-      let zodType = getZodTypeSimple(attr, allObjects, isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined);
+      let zodType = getZodTypeSimple(
+        attr,
+        allObjects,
+        isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined,
+      );
       if (attr.requirement !== "required") {
         zodType += ".optional()";
       }
@@ -277,7 +292,11 @@ function shouldUseGetter(
 /**
  * Get the Zod type expression for a simple (non-getter) field.
  */
-function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>, observableTypeIdEnum?: ParsedEnum): string {
+function getZodTypeSimple(
+  attr: ParsedAttribute,
+  allObjects: Map<string, ParsedObject>,
+  observableTypeIdEnum?: ParsedEnum,
+): string {
   let base: string;
 
   // Special case: Observable.type_id uses the derived ObservableTypeId enum

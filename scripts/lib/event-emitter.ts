@@ -341,7 +341,7 @@ function detectEnumAttributes(event: ParsedEvent, sharedEnums?: Set<string>): En
         exportName: "ActivityId", // Alias to simple name
         isEventSpecific: true,
       });
-    } else if (sharedEnums && sharedEnums.has(enumBaseName)) {
+    } else if (sharedEnums?.has(enumBaseName)) {
       // Shared enum that exists in the enums barrel
       enumRefs.push({
         attributeName: attr.name,
