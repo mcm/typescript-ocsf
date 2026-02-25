@@ -326,6 +326,10 @@ const value = SeverityIdByLabel["Low"];  // 2
 const label2 = getEnumLabel(SeverityIdLabels, SeverityId.CRITICAL);  // "Critical"
 const value2 = getEnumValue(SeverityIdByLabel, "High");  // 4
 
+// Label → value conversion is case-insensitive
+const value3 = getEnumValue(SeverityIdByLabel, "low");  // 2
+const value4 = getEnumValue(SeverityIdByLabel, "CRITICAL");  // 5
+
 // With fallbacks for missing values
 const unknownLabel = getEnumLabelOr(SeverityIdLabels, 999, "N/A");  // "N/A"
 const unknownValue = getEnumValueOr(SeverityIdByLabel, "Invalid", -1);  // -1
@@ -338,9 +342,9 @@ const unknownValue = getEnumValueOr(SeverityIdByLabel, "Invalid", -1);  // -1
 
 **Helper Functions:**
 - `getEnumLabel(labels, value)` — Get label for value, returns `string | undefined`
-- `getEnumValue(byLabel, label)` — Get value for label, returns `number | undefined`
+- `getEnumValue(byLabel, label)` — Get value for label (case-insensitive), returns `number | undefined`
 - `getEnumLabelOr(labels, value, fallback)` — Get label with fallback (default: `"Unknown"`)
-- `getEnumValueOr(byLabel, label, fallback)` — Get value with fallback (default: `0`)
+- `getEnumValueOr(byLabel, label, fallback)` — Get value with fallback (case-insensitive, default: `0`)
 
 ### Safe Parsing with Error Handling
 

@@ -42,6 +42,13 @@ describe("getEnumValue", () => {
     expect(getEnumValue(SeverityIdByLabel, "Critical")).toBe(5);
   });
 
+  it("should be case-insensitive", () => {
+    expect(getEnumValue(SeverityIdByLabel, "low")).toBe(2);
+    expect(getEnumValue(SeverityIdByLabel, "LOW")).toBe(2);
+    expect(getEnumValue(SeverityIdByLabel, "critical")).toBe(5);
+    expect(getEnumValue(SeverityIdByLabel, "CRITICAL")).toBe(5);
+  });
+
   it("should return undefined for invalid label", () => {
     expect(getEnumValue(SeverityIdByLabel, "InvalidLabel")).toBeUndefined();
   });
@@ -64,6 +71,11 @@ describe("getEnumLabelOr", () => {
 describe("getEnumValueOr", () => {
   it("should get value for valid label", () => {
     expect(getEnumValueOr(SeverityIdByLabel, "Low")).toBe(2);
+  });
+
+  it("should be case-insensitive", () => {
+    expect(getEnumValueOr(SeverityIdByLabel, "low")).toBe(2);
+    expect(getEnumValueOr(SeverityIdByLabel, "MEDIUM")).toBe(3);
   });
 
   it("should return default fallback for invalid label", () => {

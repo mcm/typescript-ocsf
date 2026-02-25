@@ -25,10 +25,10 @@ export function getEnumLabel(labels: Record<number, string>, value: number): str
 }
 
 /**
- * Get the enum value for a label.
+ * Get the enum value for a label (case-insensitive).
  *
  * @param byLabel - The enum's ByLabel object (e.g., SeverityIdByLabel)
- * @param label - The label string
+ * @param label - The label string (case-insensitive)
  * @returns The numeric enum value, or undefined if not found
  *
  * @example
@@ -38,10 +38,26 @@ export function getEnumLabel(labels: Record<number, string>, value: number): str
  *
  * const value = getEnumValue(SeverityIdByLabel, "Low");
  * // => 2
+ *
+ * const value2 = getEnumValue(SeverityIdByLabel, "low");
+ * // => 2 (case-insensitive)
  * ```
  */
 export function getEnumValue(byLabel: Record<string, number>, label: string): number | undefined {
-  return byLabel[label];
+  // Try exact match first for performance
+  if (label in byLabel) {
+    return byLabel[label];
+  }
+
+  // Fall back to case-insensitive search
+  const lowerLabel = label.toLowerCase();
+  for (const [key, value] of Object.entries(byLabel)) {
+    if (key.toLowerCase() === lowerLabel) {
+      return value;
+    }
+  }
+
+  return undefined;
 }
 
 /**
@@ -70,10 +86,10 @@ export function getEnumLabelOr(
 }
 
 /**
- * Get the enum value for a label with a fallback.
+ * Get the enum value for a label with a fallback (case-insensitive).
  *
  * @param byLabel - The enum's ByLabel object (e.g., SeverityIdByLabel)
- * @param label - The label string
+ * @param label - The label string (case-insensitive)
  * @param fallback - Fallback value if label not found (default: 0)
  * @returns The numeric enum value, or fallback if not found
  *
@@ -84,6 +100,9 @@ export function getEnumLabelOr(
  *
  * const value = getEnumValueOr(SeverityIdByLabel, "InvalidLabel", -1);
  * // => -1
+ *
+ * const value2 = getEnumValueOr(SeverityIdByLabel, "critical");
+ * // => 5 (case-insensitive)
  * ```
  */
 export function getEnumValueOr(
@@ -91,5 +110,5 @@ export function getEnumValueOr(
   label: string,
   fallback = 0,
 ): number {
-  return byLabel[label] ?? fallback;
+  return getEnumValue(byLabel, label) ?? fallback;
 }
