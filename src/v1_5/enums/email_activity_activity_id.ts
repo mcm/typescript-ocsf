@@ -20,3 +20,12 @@ export const EmailActivityActivityIdLabels: Record<number, string> = {
   4: "Trace",
   99: "Other",
 };
+
+export const EmailActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Send": 1,
+  "Receive": 2,
+  "Scan": 3,
+  "Trace": 4,
+  "Other": 99,
+};

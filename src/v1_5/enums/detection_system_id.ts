@@ -49,3 +49,21 @@ export const DetectionSystemIdLabels: Record<number, string> = {
   12: "Data Security Posture Management",
   99: "Other",
 };
+
+/** Reverse mapping from label to DetectionSystemId value. */
+export const DetectionSystemIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Endpoint": 1,
+  "DLP Gateway": 2,
+  "Mobile Device Management": 3,
+  "Data Discovery & Classification": 4,
+  "Secure Web Gateway": 5,
+  "Secure Email Gateway": 6,
+  "Digital Rights Management": 7,
+  "Cloud Access Security Broker": 8,
+  "Database Activity Monitoring": 9,
+  "Application-Level DLP": 10,
+  "Developer Security": 11,
+  "Data Security Posture Management": 12,
+  "Other": 99,
+};

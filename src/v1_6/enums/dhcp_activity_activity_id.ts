@@ -37,3 +37,17 @@ export const DhcpActivityActivityIdLabels: Record<number, string> = {
   9: "Expire",
   99: "Other",
 };
+
+export const DhcpActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Discover": 1,
+  "Offer": 2,
+  "Request": 3,
+  "Decline": 4,
+  "Ack": 5,
+  "Nak": 6,
+  "Release": 7,
+  "Inform": 8,
+  "Expire": 9,
+  "Other": 99,
+};

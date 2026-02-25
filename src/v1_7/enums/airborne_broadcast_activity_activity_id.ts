@@ -18,3 +18,10 @@ export const AirborneBroadcastActivityActivityIdLabels: Record<number, string> =
   2: "Record",
   99: "Other",
 };
+
+export const AirborneBroadcastActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Capture": 1,
+  "Record": 2,
+  "Other": 99,
+};

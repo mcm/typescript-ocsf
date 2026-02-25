@@ -12,3 +12,9 @@ export const ScriptActivityActivityIdLabels: Record<number, string> = {
   1: "Execute",
   99: "Other",
 };
+
+export const ScriptActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Execute": 1,
+  "Other": 99,
+};

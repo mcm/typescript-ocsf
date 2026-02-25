@@ -37,3 +37,17 @@ export const StartTypeIdLabels: Record<number, string> = {
   8: "System Changed",
   99: "Other",
 };
+
+/** Reverse mapping from label to StartTypeId value. */
+export const StartTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Auto": 1,
+  "Boot": 2,
+  "On Demand": 3,
+  "Disabled": 4,
+  "All Logins": 5,
+  "Specific User Login": 6,
+  "Scheduled": 7,
+  "System Changed": 8,
+  "Other": 99,
+};

@@ -11,3 +11,9 @@ export const ObservationPointIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to ObservationPointId value. */
+export const ObservationPointIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

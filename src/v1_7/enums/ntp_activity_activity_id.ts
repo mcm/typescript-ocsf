@@ -33,3 +33,15 @@ export const NtpActivityActivityIdLabels: Record<number, string> = {
   7: "Private Use Case",
   99: "Other",
 };
+
+export const NtpActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Symmetric Active Exchange": 1,
+  "Symmetric Passive Response": 2,
+  "Client Synchronization": 3,
+  "Server Response": 4,
+  "Broadcast": 5,
+  "Control": 6,
+  "Private Use Case": 7,
+  "Other": 99,
+};

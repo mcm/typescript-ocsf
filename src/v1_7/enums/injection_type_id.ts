@@ -19,3 +19,12 @@ export const InjectionTypeIdLabels: Record<number, string> = {
   3: "Queue APC",
   99: "Other",
 };
+
+/** Reverse mapping from label to InjectionTypeId value. */
+export const InjectionTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Remote Thread": 1,
+  "Load Library": 2,
+  "Queue APC": 3,
+  "Other": 99,
+};

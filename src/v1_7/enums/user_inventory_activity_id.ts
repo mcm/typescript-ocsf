@@ -16,3 +16,10 @@ export const UserInventoryActivityIdLabels: Record<number, string> = {
   2: "Collect",
   99: "Other",
 };
+
+export const UserInventoryActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Log": 1,
+  "Collect": 2,
+  "Other": 99,
+};

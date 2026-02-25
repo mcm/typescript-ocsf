@@ -19,3 +19,11 @@ export const ActionIdLabels: Record<number, string> = {
   2: "Denied",
   99: "Other",
 };
+
+/** Reverse mapping from label to ActionId value. */
+export const ActionIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Allowed": 1,
+  "Denied": 2,
+  "Other": 99,
+};

@@ -13,3 +13,9 @@ export const QueryLanguageIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to QueryLanguageId value. */
+export const QueryLanguageIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

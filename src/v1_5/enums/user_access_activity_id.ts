@@ -16,3 +16,10 @@ export const UserAccessActivityIdLabels: Record<number, string> = {
   2: "Revoke Privileges",
   99: "Other",
 };
+
+export const UserAccessActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Assign Privileges": 1,
+  "Revoke Privileges": 2,
+  "Other": 99,
+};

@@ -13,3 +13,9 @@ export const FixCoverageIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to FixCoverageId value. */
+export const FixCoverageIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

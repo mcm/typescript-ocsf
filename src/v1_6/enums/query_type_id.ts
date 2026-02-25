@@ -67,3 +67,27 @@ export const QueryTypeIdLabels: Record<number, string> = {
   18: "Prefetch",
   99: "Other",
 };
+
+/** Reverse mapping from label to QueryTypeId value. */
+export const QueryTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Kernel": 1,
+  "File": 2,
+  "Folder": 3,
+  "Admin Group": 4,
+  "Job": 5,
+  "Module": 6,
+  "Network Connection": 7,
+  "Network Interfaces": 8,
+  "Peripheral Device": 9,
+  "Process": 10,
+  "Service": 11,
+  "Session": 12,
+  "User": 13,
+  "Users": 14,
+  "Startup Item": 15,
+  "Registry Key": 16,
+  "Registry Value": 17,
+  "Prefetch": 18,
+  "Other": 99,
+};

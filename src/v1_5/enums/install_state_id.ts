@@ -22,3 +22,12 @@ export const InstallStateIdLabels: Record<number, string> = {
   3: "Installed Pending Reboot",
   99: "Other",
 };
+
+/** Reverse mapping from label to InstallStateId value. */
+export const InstallStateIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Installed": 1,
+  "Not Installed": 2,
+  "Installed Pending Reboot": 3,
+  "Other": 99,
+};

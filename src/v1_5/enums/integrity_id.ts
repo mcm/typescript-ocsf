@@ -25,3 +25,15 @@ export const IntegrityIdLabels: Record<number, string> = {
   6: "Protected",
   99: "Other",
 };
+
+/** Reverse mapping from label to IntegrityId value. */
+export const IntegrityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Untrusted": 1,
+  "Low": 2,
+  "Medium": 3,
+  "High": 4,
+  "System": 5,
+  "Protected": 6,
+  "Other": 99,
+};

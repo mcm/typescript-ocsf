@@ -22,3 +22,12 @@ export const DirectionIdLabels: Record<number, string> = {
   3: "Lateral",
   99: "Other",
 };
+
+/** Reverse mapping from label to DirectionId value. */
+export const DirectionIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Inbound": 1,
+  "Outbound": 2,
+  "Lateral": 3,
+  "Other": 99,
+};

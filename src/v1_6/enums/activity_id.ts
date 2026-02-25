@@ -13,3 +13,9 @@ export const ActivityIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to ActivityId value. */
+export const ActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

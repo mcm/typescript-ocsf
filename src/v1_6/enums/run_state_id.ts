@@ -13,3 +13,9 @@ export const RunStateIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to RunStateId value. */
+export const RunStateIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

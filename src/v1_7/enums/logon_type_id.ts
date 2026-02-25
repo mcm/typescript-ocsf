@@ -49,3 +49,21 @@ export const LogonTypeIdLabels: Record<number, string> = {
   13: "Cached Unlock",
   99: "Other",
 };
+
+/** Reverse mapping from label to LogonTypeId value. */
+export const LogonTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "System": 1,
+  "Interactive": 2,
+  "Network": 3,
+  "Batch": 4,
+  "OS Service": 5,
+  "Unlock": 7,
+  "Network Cleartext": 8,
+  "New Credentials": 9,
+  "Remote Interactive": 10,
+  "Cached Interactive": 11,
+  "Cached Remote Interactive": 12,
+  "Cached Unlock": 13,
+  "Other": 99,
+};

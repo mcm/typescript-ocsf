@@ -34,3 +34,16 @@ export const ApplicationLifecycleActivityIdLabels: Record<number, string> = {
   8: "Update",
   99: "Other",
 };
+
+export const ApplicationLifecycleActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Install": 1,
+  "Remove": 2,
+  "Start": 3,
+  "Stop": 4,
+  "Restart": 5,
+  "Enable": 6,
+  "Disable": 7,
+  "Update": 8,
+  "Other": 99,
+};

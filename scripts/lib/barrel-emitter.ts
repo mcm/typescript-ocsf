@@ -74,7 +74,9 @@ export function emitEnumsBarrel(schema: ParsedSchema): string {
 
   for (const enumDef of sortedEnums) {
     const fileName = toFileName(enumDef.name);
-    lines.push(`export { ${enumDef.name}, ${enumDef.name}Labels } from "./${fileName}.js";`);
+    lines.push(
+      `export { ${enumDef.name}, ${enumDef.name}Labels, ${enumDef.name}ByLabel } from "./${fileName}.js";`,
+    );
     lines.push(`export type { ${enumDef.name} as ${enumDef.name}Type } from "./${fileName}.js";`);
   }
 

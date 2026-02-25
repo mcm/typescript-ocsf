@@ -20,3 +20,13 @@ export const RiskLevelIdLabels: Record<number, string> = {
   4: "Critical",
   99: "Other",
 };
+
+/** Reverse mapping from label to RiskLevelId value. */
+export const RiskLevelIdByLabel: Record<string, number> = {
+  "Info": 0,
+  "Low": 1,
+  "Medium": 2,
+  "High": 3,
+  "Critical": 4,
+  "Other": 99,
+};

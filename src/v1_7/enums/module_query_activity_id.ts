@@ -13,3 +13,9 @@ export const ModuleQueryActivityIdLabels: Record<number, string> = {
   1: "Query",
   99: "Other",
 };
+
+export const ModuleQueryActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Query": 1,
+  "Other": 99,
+};

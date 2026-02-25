@@ -13,3 +13,9 @@ export const LoadTypeIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to LoadTypeId value. */
+export const LoadTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

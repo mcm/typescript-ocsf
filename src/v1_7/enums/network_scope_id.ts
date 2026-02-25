@@ -19,3 +19,11 @@ export const NetworkScopeIdLabels: Record<number, string> = {
   2: "External",
   99: "Other",
 };
+
+/** Reverse mapping from label to NetworkScopeId value. */
+export const NetworkScopeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Internal": 1,
+  "External": 2,
+  "Other": 99,
+};

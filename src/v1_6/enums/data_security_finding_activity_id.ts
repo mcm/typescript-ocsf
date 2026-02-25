@@ -22,3 +22,12 @@ export const DataSecurityFindingActivityIdLabels: Record<number, string> = {
   4: "Suppressed",
   99: "Other",
 };
+
+export const DataSecurityFindingActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Update": 2,
+  "Close": 3,
+  "Suppressed": 4,
+  "Other": 99,
+};

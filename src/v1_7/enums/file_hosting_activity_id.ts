@@ -61,3 +61,25 @@ export const FileHostingActivityIdLabels: Record<number, string> = {
   17: "Access Check",
   99: "Other",
 };
+
+export const FileHostingActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Upload": 1,
+  "Download": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Rename": 5,
+  "Copy": 6,
+  "Move": 7,
+  "Restore": 8,
+  "Preview": 9,
+  "Lock": 10,
+  "Unlock": 11,
+  "Share": 12,
+  "Unshare": 13,
+  "Open": 14,
+  "Sync": 15,
+  "Unsync": 16,
+  "Access Check": 17,
+  "Other": 99,
+};

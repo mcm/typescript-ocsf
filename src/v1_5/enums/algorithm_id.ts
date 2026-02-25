@@ -13,3 +13,9 @@ export const AlgorithmIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to AlgorithmId value. */
+export const AlgorithmIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

@@ -16,3 +16,10 @@ export const AuthorizeSessionActivityIdLabels: Record<number, string> = {
   2: "Assign Groups",
   99: "Other",
 };
+
+export const AuthorizeSessionActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Assign Privileges": 1,
+  "Assign Groups": 2,
+  "Other": 99,
+};

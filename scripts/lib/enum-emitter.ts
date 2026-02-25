@@ -27,6 +27,13 @@ import type { ParsedEnum, ParsedEnumValue } from "./types.js";
  *   1: 'Informational',
  *   ...
  * };
+ *
+ * /** Reverse mapping from label to SeverityId value. *\/
+ * export const SeverityIdByLabel: Record<string, number> = {
+ *   'Unknown': 0,
+ *   'Informational': 1,
+ *   ...
+ * };
  * ```
  */
 export function emitEnumFile(enumDef: ParsedEnum): string {
@@ -53,11 +60,20 @@ export function emitEnumFile(enumDef: ParsedEnum): string {
   );
   lines.push("");
 
-  // Label mapping (used by sibling reconciliation)
+  // Label mapping (value → label)
   lines.push(`/** Label mapping for ${enumDef.name} values. */`);
   lines.push(`export const ${enumDef.name}Labels: Record<number, string> = {`);
   for (const val of enumDef.values) {
     lines.push(`  ${val.value}: ${JSON.stringify(val.caption)},`);
+  }
+  lines.push("};");
+  lines.push("");
+
+  // Reverse mapping (label → value)
+  lines.push(`/** Reverse mapping from label to ${enumDef.name} value. */`);
+  lines.push(`export const ${enumDef.name}ByLabel: Record<string, number> = {`);
+  for (const val of enumDef.values) {
+    lines.push(`  ${JSON.stringify(val.caption)}: ${val.value},`);
   }
   lines.push("};");
   lines.push("");
@@ -108,7 +124,7 @@ export function emitEventEnumFile(
   lines.push(`export type ${enumName} = (typeof ${enumName})[keyof typeof ${enumName}];`);
   lines.push("");
 
-  // Label mapping
+  // Label mapping (value → label)
   lines.push(`export const ${enumName}Labels: Record<number, string> = {`);
   if (!valueMap.has(0)) {
     lines.push('  0: "Unknown",');
@@ -118,6 +134,20 @@ export function emitEventEnumFile(
   }
   if (!valueMap.has(99)) {
     lines.push('  99: "Other",');
+  }
+  lines.push("};");
+  lines.push("");
+
+  // Reverse mapping (label → value)
+  lines.push(`export const ${enumName}ByLabel: Record<string, number> = {`);
+  if (!valueMap.has(0)) {
+    lines.push('  "Unknown": 0,');
+  }
+  for (const val of values) {
+    lines.push(`  ${JSON.stringify(val.caption)}: ${val.value},`);
+  }
+  if (!valueMap.has(99)) {
+    lines.push('  "Other": 99,');
   }
   lines.push("};");
   lines.push("");

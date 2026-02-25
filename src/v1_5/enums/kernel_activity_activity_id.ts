@@ -18,3 +18,12 @@ export const KernelActivityActivityIdLabels: Record<number, string> = {
   4: "Invoke",
   99: "Other",
 };
+
+export const KernelActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Read": 2,
+  "Delete": 3,
+  "Invoke": 4,
+  "Other": 99,
+};

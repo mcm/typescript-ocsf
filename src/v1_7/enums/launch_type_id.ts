@@ -22,3 +22,12 @@ export const LaunchTypeIdLabels: Record<number, string> = {
   3: "Exec",
   99: "Other",
 };
+
+/** Reverse mapping from label to LaunchTypeId value. */
+export const LaunchTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Spawn": 1,
+  "Fork": 2,
+  "Exec": 3,
+  "Other": 99,
+};

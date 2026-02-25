@@ -21,3 +21,11 @@ export const TunnelActivityActivityIdLabels: Record<number, string> = {
   3: "Renew",
   99: "Other",
 };
+
+export const TunnelActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Open": 1,
+  "Close": 2,
+  "Renew": 3,
+  "Other": 99,
+};

@@ -25,3 +25,13 @@ export const ImpactIdLabels: Record<number, string> = {
   4: "Critical",
   99: "Other",
 };
+
+/** Reverse mapping from label to ImpactId value. */
+export const ImpactIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Low": 1,
+  "Medium": 2,
+  "High": 3,
+  "Critical": 4,
+  "Other": 99,
+};

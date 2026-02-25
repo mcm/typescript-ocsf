@@ -22,3 +22,12 @@ export const WebResourceAccessActivityActivityIdLabels: Record<number, string> =
   4: "Access Error",
   99: "Other",
 };
+
+export const WebResourceAccessActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Access Grant": 1,
+  "Access Deny": 2,
+  "Access Revoke": 3,
+  "Access Error": 4,
+  "Other": 99,
+};

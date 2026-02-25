@@ -31,3 +31,15 @@ export const NetworkActivityActivityIdLabels: Record<number, string> = {
   7: "Listen",
   99: "Other",
 };
+
+export const NetworkActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Open": 1,
+  "Close": 2,
+  "Reset": 3,
+  "Fail": 4,
+  "Refuse": 5,
+  "Traffic": 6,
+  "Listen": 7,
+  "Other": 99,
+};

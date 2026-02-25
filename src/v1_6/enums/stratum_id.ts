@@ -24,3 +24,13 @@ export const StratumIdLabels: Record<number, string> = {
   17: "Reserved",
   99: "Other",
 };
+
+/** Reverse mapping from label to StratumId value. */
+export const StratumIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Primary Server": 1,
+  "Secondary Server": 2,
+  "Unsynchronized": 16,
+  "Reserved": 17,
+  "Other": 99,
+};

@@ -37,3 +37,21 @@ export const AuthProtocolIdLabels: Record<number, string> = {
   12: "LDAP",
   99: "Other",
 };
+
+/** Reverse mapping from label to AuthProtocolId value. */
+export const AuthProtocolIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "NTLM": 1,
+  "Kerberos": 2,
+  "Digest": 3,
+  "OpenID": 4,
+  "SAML": 5,
+  "OAUTH 2.0": 6,
+  "PAP": 7,
+  "CHAP": 8,
+  "EAP": 9,
+  "RADIUS": 10,
+  "Basic Authentication": 11,
+  "LDAP": 12,
+  "Other": 99,
+};

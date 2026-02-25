@@ -43,3 +43,19 @@ export const TcpStateIdLabels: Record<number, string> = {
   10: "LISTEN",
   11: "CLOSING",
 };
+
+/** Reverse mapping from label to TcpStateId value. */
+export const TcpStateIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "ESTABLISHED": 1,
+  "SYN-SENT": 2,
+  "SYN-RECEIVED": 3,
+  "FIN-WAIT-1": 4,
+  "FIN-WAIT-2": 5,
+  "TIME-WAIT": 6,
+  "CLOSED": 7,
+  "CLOSE-WAIT": 8,
+  "LAST-ACK": 9,
+  "LISTEN": 10,
+  "CLOSING": 11,
+};

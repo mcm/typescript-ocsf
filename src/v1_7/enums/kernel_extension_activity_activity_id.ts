@@ -16,3 +16,10 @@ export const KernelExtensionActivityActivityIdLabels: Record<number, string> = {
   2: "Unload",
   99: "Other",
 };
+
+export const KernelExtensionActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Load": 1,
+  "Unload": 2,
+  "Other": 99,
+};

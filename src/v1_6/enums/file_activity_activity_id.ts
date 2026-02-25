@@ -52,3 +52,22 @@ export const FileActivityActivityIdLabels: Record<number, string> = {
   14: "Open",
   99: "Other",
 };
+
+export const FileActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Read": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Rename": 5,
+  "Set Attributes": 6,
+  "Set Security": 7,
+  "Get Attributes": 8,
+  "Get Security": 9,
+  "Encrypt": 10,
+  "Decrypt": 11,
+  "Mount": 12,
+  "Unmount": 13,
+  "Open": 14,
+  "Other": 99,
+};

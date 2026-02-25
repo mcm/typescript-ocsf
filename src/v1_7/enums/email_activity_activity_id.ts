@@ -23,3 +23,13 @@ export const EmailActivityActivityIdLabels: Record<number, string> = {
   5: "MTA Relay",
   99: "Other",
 };
+
+export const EmailActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Send": 1,
+  "Receive": 2,
+  "Scan": 3,
+  "Trace": 4,
+  "MTA Relay": 5,
+  "Other": 99,
+};

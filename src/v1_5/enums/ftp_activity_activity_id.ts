@@ -28,3 +28,14 @@ export const FtpActivityActivityIdLabels: Record<number, string> = {
   6: "List",
   99: "Other",
 };
+
+export const FtpActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Put": 1,
+  "Get": 2,
+  "Poll": 3,
+  "Delete": 4,
+  "Rename": 5,
+  "List": 6,
+  "Other": 99,
+};

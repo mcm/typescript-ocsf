@@ -43,3 +43,19 @@ export const VerdictIdLabels: Record<number, string> = {
   10: "Duplicate",
   99: "Other",
 };
+
+/** Reverse mapping from label to VerdictId value. */
+export const VerdictIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "False Positive": 1,
+  "True Positive": 2,
+  "Disregard": 3,
+  "Suspicious": 4,
+  "Benign": 5,
+  "Test": 6,
+  "Insufficient Data": 7,
+  "Security Risk": 8,
+  "Managed Externally": 9,
+  "Duplicate": 10,
+  "Other": 99,
+};

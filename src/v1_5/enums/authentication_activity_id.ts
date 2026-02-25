@@ -28,3 +28,14 @@ export const AuthenticationActivityIdLabels: Record<number, string> = {
   6: "Preauth",
   99: "Other",
 };
+
+export const AuthenticationActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Logon": 1,
+  "Logoff": 2,
+  "Authentication Ticket": 3,
+  "Service Ticket Request": 4,
+  "Service Ticket Renew": 5,
+  "Preauth": 6,
+  "Other": 99,
+};

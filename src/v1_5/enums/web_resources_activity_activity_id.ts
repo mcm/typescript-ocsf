@@ -34,3 +34,16 @@ export const WebResourcesActivityActivityIdLabels: Record<number, string> = {
   8: "Share",
   99: "Other",
 };
+
+export const WebResourcesActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Read": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Search": 5,
+  "Import": 6,
+  "Export": 7,
+  "Share": 8,
+  "Other": 99,
+};

@@ -22,3 +22,12 @@ export const CpuArchitectureIdLabels: Record<number, string> = {
   3: "RISC-V",
   99: "Other",
 };
+
+/** Reverse mapping from label to CpuArchitectureId value. */
+export const CpuArchitectureIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "x86": 1,
+  "ARM": 2,
+  "RISC-V": 3,
+  "Other": 99,
+};

@@ -22,3 +22,12 @@ export const DataLifecycleStateIdLabels: Record<number, string> = {
   3: "Data in-Use",
   99: "Other",
 };
+
+/** Reverse mapping from label to DataLifecycleStateId value. */
+export const DataLifecycleStateIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Data at-Rest": 1,
+  "Data in-Transit": 2,
+  "Data in-Use": 3,
+  "Other": 99,
+};

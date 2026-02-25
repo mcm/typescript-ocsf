@@ -25,3 +25,15 @@ export const ConfidentialityIdLabels: Record<number, string> = {
   6: "Restricted",
   99: "Other",
 };
+
+/** Reverse mapping from label to ConfidentialityId value. */
+export const ConfidentialityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Not Confidential": 1,
+  "Confidential": 2,
+  "Secret": 3,
+  "Top Secret": 4,
+  "Private": 5,
+  "Restricted": 6,
+  "Other": 99,
+};

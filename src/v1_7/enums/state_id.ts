@@ -13,3 +13,9 @@ export const StateIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to StateId value. */
+export const StateIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

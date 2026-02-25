@@ -299,6 +299,49 @@ const fileEvent = FileActivity.parse({
 - **Convenience**: No need to import enums separately
 - **Consistency**: Similar to patterns in other typed libraries (Python's pydantic-ocsf)
 
+### Converting Between Enum Values and Labels
+
+Each enum provides bidirectional mappings and utility functions for converting between numeric values and human-readable labels:
+
+```typescript
+import {
+  SeverityId,
+  SeverityIdLabels,
+  SeverityIdByLabel
+} from "@mcm/ocsf/v1_7/enums";
+import {
+  getEnumLabel,
+  getEnumValue,
+  getEnumLabelOr,
+  getEnumValueOr
+} from "@mcm/ocsf/enum-utils";
+
+// Value to Label (using Labels object)
+const label = SeverityIdLabels[SeverityId.LOW];  // "Low"
+
+// Label to Value (using ByLabel object)
+const value = SeverityIdByLabel["Low"];  // 2
+
+// Using helper functions for type-safe conversion
+const label2 = getEnumLabel(SeverityIdLabels, SeverityId.CRITICAL);  // "Critical"
+const value2 = getEnumValue(SeverityIdByLabel, "High");  // 4
+
+// With fallbacks for missing values
+const unknownLabel = getEnumLabelOr(SeverityIdLabels, 999, "N/A");  // "N/A"
+const unknownValue = getEnumValueOr(SeverityIdByLabel, "Invalid", -1);  // -1
+```
+
+**Available Mappings for Each Enum:**
+- `{EnumName}` — Constant enum object (e.g., `SeverityId.LOW`)
+- `{EnumName}Labels` — Value → Label mapping (e.g., `SeverityIdLabels[2]` → `"Low"`)
+- `{EnumName}ByLabel` — Label → Value mapping (e.g., `SeverityIdByLabel["Low"]` → `2`)
+
+**Helper Functions:**
+- `getEnumLabel(labels, value)` — Get label for value, returns `string | undefined`
+- `getEnumValue(byLabel, label)` — Get value for label, returns `number | undefined`
+- `getEnumLabelOr(labels, value, fallback)` — Get label with fallback (default: `"Unknown"`)
+- `getEnumValueOr(byLabel, label, fallback)` — Get value with fallback (default: `0`)
+
 ### Safe Parsing with Error Handling
 
 ```typescript

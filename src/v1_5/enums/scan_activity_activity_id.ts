@@ -40,3 +40,18 @@ export const ScanActivityActivityIdLabels: Record<number, string> = {
   10: "Delayed",
   99: "Other",
 };
+
+export const ScanActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Started": 1,
+  "Completed": 2,
+  "Cancelled": 3,
+  "Duration Violation": 4,
+  "Pause Violation": 5,
+  "Error": 6,
+  "Paused": 7,
+  "Resumed": 8,
+  "Restarted": 9,
+  "Delayed": 10,
+  "Other": 99,
+};

@@ -46,3 +46,20 @@ export const BoundaryIdLabels: Record<number, string> = {
   11: "Internet Gateway",
   99: "Other",
 };
+
+/** Reverse mapping from label to BoundaryId value. */
+export const BoundaryIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Localhost": 1,
+  "Internal": 2,
+  "External": 3,
+  "Same VPC": 4,
+  "Internet/VPC Gateway": 5,
+  "Virtual Private Gateway": 6,
+  "Intra-region VPC": 7,
+  "Inter-region VPC": 8,
+  "Local Gateway": 9,
+  "Gateway VPC": 10,
+  "Internet Gateway": 11,
+  "Other": 99,
+};

@@ -19,3 +19,11 @@ export const DnssecStatusIdLabels: Record<number, string> = {
   2: "Unsigned",
   99: "Other",
 };
+
+/** Reverse mapping from label to DnssecStatusId value. */
+export const DnssecStatusIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Signed": 1,
+  "Unsigned": 2,
+  "Other": 99,
+};

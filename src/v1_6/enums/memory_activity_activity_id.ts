@@ -33,3 +33,17 @@ export const MemoryActivityActivityIdLabels: Record<number, string> = {
   9: "Map View",
   99: "Other",
 };
+
+export const MemoryActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Allocate Page": 1,
+  "Modify Page": 2,
+  "Delete Page": 3,
+  "Buffer Overflow": 4,
+  "Disable DEP": 5,
+  "Enable DEP": 6,
+  "Read": 7,
+  "Write": 8,
+  "Map View": 9,
+  "Other": 99,
+};

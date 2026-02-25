@@ -28,3 +28,14 @@ export const QueryResultIdLabels: Record<number, string> = {
   5: "Unsupported",
   99: "Other",
 };
+
+/** Reverse mapping from label to QueryResultId value. */
+export const QueryResultIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Exists": 1,
+  "Partial": 2,
+  "Does not exist": 3,
+  "Error": 4,
+  "Unsupported": 5,
+  "Other": 99,
+};

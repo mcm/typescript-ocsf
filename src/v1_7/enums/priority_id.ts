@@ -25,3 +25,13 @@ export const PriorityIdLabels: Record<number, string> = {
   4: "Critical",
   99: "Other",
 };
+
+/** Reverse mapping from label to PriorityId value. */
+export const PriorityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Low": 1,
+  "Medium": 2,
+  "High": 3,
+  "Critical": 4,
+  "Other": 99,
+};

@@ -19,3 +19,11 @@ export const IncidentFindingActivityIdLabels: Record<number, string> = {
   3: "Close",
   99: "Other",
 };
+
+export const IncidentFindingActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Update": 2,
+  "Close": 3,
+  "Other": 99,
+};

@@ -58,3 +58,24 @@ export const NetworkFileActivityActivityIdLabels: Record<number, string> = {
   16: "Unsync",
   99: "Other",
 };
+
+export const NetworkFileActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Upload": 1,
+  "Download": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Rename": 5,
+  "Copy": 6,
+  "Move": 7,
+  "Restore": 8,
+  "Preview": 9,
+  "Lock": 10,
+  "Unlock": 11,
+  "Share": 12,
+  "Unshare": 13,
+  "Open": 14,
+  "Sync": 15,
+  "Unsync": 16,
+  "Other": 99,
+};

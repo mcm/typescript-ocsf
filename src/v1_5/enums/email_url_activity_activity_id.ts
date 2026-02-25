@@ -17,3 +17,11 @@ export const EmailUrlActivityActivityIdLabels: Record<number, string> = {
   3: "Scan",
   99: "Other",
 };
+
+export const EmailUrlActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Send": 1,
+  "Receive": 2,
+  "Scan": 3,
+  "Other": 99,
+};

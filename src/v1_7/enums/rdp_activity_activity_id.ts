@@ -34,3 +34,16 @@ export const RdpActivityActivityIdLabels: Record<number, string> = {
   8: "Reconnect",
   99: "Other",
 };
+
+export const RdpActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Initial Request": 1,
+  "Initial Response": 2,
+  "Connect Request": 3,
+  "Connect Response": 4,
+  "TLS Handshake": 5,
+  "Traffic": 6,
+  "Disconnect": 7,
+  "Reconnect": 8,
+  "Other": 99,
+};

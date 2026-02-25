@@ -34,3 +34,16 @@ export const GroupManagementActivityIdLabels: Record<number, string> = {
   8: "Remove Subgroup",
   99: "Other",
 };
+
+export const GroupManagementActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Assign Privileges": 1,
+  "Revoke Privileges": 2,
+  "Add User": 3,
+  "Remove User": 4,
+  "Delete": 5,
+  "Create": 6,
+  "Add Subgroup": 7,
+  "Remove Subgroup": 8,
+  "Other": 99,
+};

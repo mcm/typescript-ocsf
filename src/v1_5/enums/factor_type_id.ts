@@ -44,3 +44,20 @@ export const FactorTypeIdLabels: Record<number, string> = {
   11: "Password",
   99: "Other",
 };
+
+/** Reverse mapping from label to FactorTypeId value. */
+export const FactorTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "SMS": 1,
+  "Security Question": 2,
+  "Phone Call": 3,
+  "Biometric": 4,
+  "Push Notification": 5,
+  "Hardware Token": 6,
+  "OTP": 7,
+  "Email": 8,
+  "U2F": 9,
+  "WebAuthn": 10,
+  "Password": 11,
+  "Other": 99,
+};

@@ -25,3 +25,13 @@ export const ProcessActivityActivityIdLabels: Record<number, string> = {
   5: "Set User ID",
   99: "Other",
 };
+
+export const ProcessActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Launch": 1,
+  "Terminate": 2,
+  "Open": 3,
+  "Inject": 4,
+  "Set User ID": 5,
+  "Other": 99,
+};

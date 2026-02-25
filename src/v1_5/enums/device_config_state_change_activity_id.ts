@@ -16,3 +16,10 @@ export const DeviceConfigStateChangeActivityIdLabels: Record<number, string> = {
   2: "Collect",
   99: "Other",
 };
+
+export const DeviceConfigStateChangeActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Log": 1,
+  "Collect": 2,
+  "Other": 99,
+};

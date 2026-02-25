@@ -34,3 +34,16 @@ export const PhaseIdLabels: Record<number, string> = {
   7: "Actions on Objectives",
   99: "Other",
 };
+
+/** Reverse mapping from label to PhaseId value. */
+export const PhaseIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Reconnaissance": 1,
+  "Weaponization": 2,
+  "Delivery": 3,
+  "Exploitation": 4,
+  "Installation": 5,
+  "Command & Control": 6,
+  "Actions on Objectives": 7,
+  "Other": 99,
+};

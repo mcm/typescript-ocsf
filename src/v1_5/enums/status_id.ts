@@ -17,3 +17,11 @@ export const StatusIdLabels: Record<number, string> = {
   2: "Failure",
   99: "Other",
 };
+
+/** Reverse mapping from label to StatusId value. */
+export const StatusIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Success": 1,
+  "Failure": 2,
+  "Other": 99,
+};

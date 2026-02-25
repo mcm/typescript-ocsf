@@ -19,3 +19,11 @@ export const DnsActivityActivityIdLabels: Record<number, string> = {
   6: "Traffic",
   99: "Other",
 };
+
+export const DnsActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Query": 1,
+  "Response": 2,
+  "Traffic": 6,
+  "Other": 99,
+};

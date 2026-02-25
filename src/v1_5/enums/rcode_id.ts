@@ -13,3 +13,9 @@ export const RcodeIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to RcodeId value. */
+export const RcodeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

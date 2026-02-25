@@ -19,3 +19,12 @@ export const ConfidenceIdLabels: Record<number, string> = {
   3: "High",
   99: "Other",
 };
+
+/** Reverse mapping from label to ConfidenceId value. */
+export const ConfidenceIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Low": 1,
+  "Medium": 2,
+  "High": 3,
+  "Other": 99,
+};

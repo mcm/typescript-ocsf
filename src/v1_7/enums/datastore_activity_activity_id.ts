@@ -40,3 +40,18 @@ export const DatastoreActivityActivityIdLabels: Record<number, string> = {
   10: "Decrypt",
   99: "Other",
 };
+
+export const DatastoreActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Read": 1,
+  "Update": 2,
+  "Connect": 3,
+  "Query": 4,
+  "Write": 5,
+  "Create": 6,
+  "Delete": 7,
+  "List": 8,
+  "Encrypt": 9,
+  "Decrypt": 10,
+  "Other": 99,
+};

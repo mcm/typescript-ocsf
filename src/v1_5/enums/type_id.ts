@@ -13,3 +13,9 @@ export const TypeIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to TypeId value. */
+export const TypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

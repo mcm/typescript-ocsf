@@ -25,3 +25,15 @@ export const DetectionPatternTypeIdLabels: Record<number, string> = {
   6: "YARA",
   99: "Other",
 };
+
+/** Reverse mapping from label to DetectionPatternTypeId value. */
+export const DetectionPatternTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "STIX": 1,
+  "PCRE": 2,
+  "SIGMA": 3,
+  "Snort": 4,
+  "Suricata": 5,
+  "YARA": 6,
+  "Other": 99,
+};

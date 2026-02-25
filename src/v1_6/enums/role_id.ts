@@ -13,3 +13,9 @@ export const RoleIdLabels: Record<number, string> = {
   0: "Unknown",
   99: "Other",
 };
+
+/** Reverse mapping from label to RoleId value. */
+export const RoleIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Other": 99,
+};

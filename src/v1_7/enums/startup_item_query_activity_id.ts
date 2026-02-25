@@ -13,3 +13,9 @@ export const StartupItemQueryActivityIdLabels: Record<number, string> = {
   1: "Query",
   99: "Other",
 };
+
+export const StartupItemQueryActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Query": 1,
+  "Other": 99,
+};

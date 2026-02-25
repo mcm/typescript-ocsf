@@ -19,3 +19,11 @@ export const ModuleActivityActivityIdLabels: Record<number, string> = {
   3: "Invoke",
   99: "Other",
 };
+
+export const ModuleActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Load": 1,
+  "Unload": 2,
+  "Invoke": 3,
+  "Other": 99,
+};

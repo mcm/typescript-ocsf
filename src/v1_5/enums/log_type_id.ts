@@ -19,3 +19,11 @@ export const LogTypeIdLabels: Record<number, string> = {
   2: "Application",
   99: "Other",
 };
+
+/** Reverse mapping from label to LogTypeId value. */
+export const LogTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "OS": 1,
+  "Application": 2,
+  "Other": 99,
+};

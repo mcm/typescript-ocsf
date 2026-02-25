@@ -43,3 +43,19 @@ export const ScoreIdLabels: Record<number, string> = {
   10: "Malicious",
   99: "Other",
 };
+
+/** Reverse mapping from label to ScoreId value. */
+export const ScoreIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Very Safe": 1,
+  "Safe": 2,
+  "Probably Safe": 3,
+  "Leans Safe": 4,
+  "May not be Safe": 5,
+  "Exercise Caution": 6,
+  "Suspicious/Risky": 7,
+  "Possibly Malicious": 8,
+  "Probably Malicious": 9,
+  "Malicious": 10,
+  "Other": 99,
+};

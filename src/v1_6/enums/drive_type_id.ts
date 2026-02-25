@@ -28,3 +28,14 @@ export const DriveTypeIdLabels: Record<number, string> = {
   5: "RAM Disk",
   99: "Other",
 };
+
+/** Reverse mapping from label to DriveTypeId value. */
+export const DriveTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Removable": 1,
+  "Fixed": 2,
+  "Remote": 3,
+  "CD-ROM": 4,
+  "RAM Disk": 5,
+  "Other": 99,
+};

@@ -22,3 +22,14 @@ export const ScheduledJobActivityActivityIdLabels: Record<number, string> = {
   6: "Start",
   99: "Other",
 };
+
+export const ScheduledJobActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Update": 2,
+  "Delete": 3,
+  "Enable": 4,
+  "Disable": 5,
+  "Start": 6,
+  "Other": 99,
+};

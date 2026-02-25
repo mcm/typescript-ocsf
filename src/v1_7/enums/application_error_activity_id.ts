@@ -16,3 +16,10 @@ export const ApplicationErrorActivityIdLabels: Record<number, string> = {
   2: "Translation Error",
   99: "Other",
 };
+
+export const ApplicationErrorActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "General Error": 1,
+  "Translation Error": 2,
+  "Other": 99,
+};

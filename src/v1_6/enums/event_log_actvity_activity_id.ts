@@ -40,3 +40,18 @@ export const EventLogActvityActivityIdLabels: Record<number, string> = {
   10: "Disable",
   99: "Other",
 };
+
+export const EventLogActvityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Clear": 1,
+  "Delete": 2,
+  "Export": 3,
+  "Archive": 4,
+  "Rotate": 5,
+  "Start": 6,
+  "Stop": 7,
+  "Restart": 8,
+  "Enable": 9,
+  "Disable": 10,
+  "Other": 99,
+};

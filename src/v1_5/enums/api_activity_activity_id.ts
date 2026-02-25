@@ -22,3 +22,12 @@ export const ApiActivityActivityIdLabels: Record<number, string> = {
   4: "Delete",
   99: "Other",
 };
+
+export const ApiActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Read": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Other": 99,
+};

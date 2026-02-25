@@ -34,3 +34,16 @@ export const HttpActivityActivityIdLabels: Record<number, string> = {
   8: "Trace",
   99: "Other",
 };
+
+export const HttpActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Connect": 1,
+  "Delete": 2,
+  "Get": 3,
+  "Head": 4,
+  "Options": 5,
+  "Post": 6,
+  "Put": 7,
+  "Trace": 8,
+  "Other": 99,
+};

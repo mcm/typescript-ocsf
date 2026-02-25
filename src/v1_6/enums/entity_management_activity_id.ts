@@ -49,3 +49,21 @@ export const EntityManagementActivityIdLabels: Record<number, string> = {
   13: "Resume",
   99: "Other",
 };
+
+export const EntityManagementActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Read": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Move": 5,
+  "Enroll": 6,
+  "Unenroll": 7,
+  "Enable": 8,
+  "Disable": 9,
+  "Activate": 10,
+  "Deactivate": 11,
+  "Suspend": 12,
+  "Resume": 13,
+  "Other": 99,
+};

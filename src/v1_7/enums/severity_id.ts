@@ -31,3 +31,15 @@ export const SeverityIdLabels: Record<number, string> = {
   6: "Fatal",
   99: "Other",
 };
+
+/** Reverse mapping from label to SeverityId value. */
+export const SeverityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Informational": 1,
+  "Low": 2,
+  "Medium": 3,
+  "High": 4,
+  "Critical": 5,
+  "Fatal": 6,
+  "Other": 99,
+};

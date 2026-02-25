@@ -46,3 +46,20 @@ export const AccountChangeActivityIdLabels: Record<number, string> = {
   12: "Unlock",
   99: "Other",
 };
+
+export const AccountChangeActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Enable": 2,
+  "Password Change": 3,
+  "Password Reset": 4,
+  "Disable": 5,
+  "Delete": 6,
+  "Attach Policy": 7,
+  "Detach Policy": 8,
+  "Lock": 9,
+  "MFA Factor Enable": 10,
+  "MFA Factor Disable": 11,
+  "Unlock": 12,
+  "Other": 99,
+};

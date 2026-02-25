@@ -25,3 +25,13 @@ export const PeripheralActivityActivityIdLabels: Record<number, string> = {
   5: "Eject",
   99: "Other",
 };
+
+export const PeripheralActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Connect": 1,
+  "Disconnect": 2,
+  "Enable": 3,
+  "Disable": 4,
+  "Eject": 5,
+  "Other": 99,
+};

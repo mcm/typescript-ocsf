@@ -19,3 +19,11 @@ export const AccountSwitchTypeIdLabels: Record<number, string> = {
   2: "Impersonate",
   99: "Other",
 };
+
+/** Reverse mapping from label to AccountSwitchTypeId value. */
+export const AccountSwitchTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Substitute User": 1,
+  "Impersonate": 2,
+  "Other": 99,
+};

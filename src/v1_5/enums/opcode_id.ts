@@ -31,3 +31,15 @@ export const OpcodeIdLabels: Record<number, string> = {
   6: "DSO Message",
   99: "Other",
 };
+
+/** Reverse mapping from label to OpcodeId value. */
+export const OpcodeIdByLabel: Record<string, number> = {
+  "Query": 0,
+  "Inverse Query": 1,
+  "Status": 2,
+  "Reserved": 3,
+  "Notify": 4,
+  "Update": 5,
+  "DSO Message": 6,
+  "Other": 99,
+};

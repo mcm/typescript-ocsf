@@ -19,3 +19,12 @@ export const ShareTypeIdLabels: Record<number, string> = {
   3: "Print",
   99: "Other",
 };
+
+/** Reverse mapping from label to ShareTypeId value. */
+export const ShareTypeIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "File": 1,
+  "Pipe": 2,
+  "Print": 3,
+  "Other": 99,
+};

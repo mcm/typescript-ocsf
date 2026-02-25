@@ -28,3 +28,14 @@ export const SmbActivityActivityIdLabels: Record<number, string> = {
   6: "File Overwrite If",
   99: "Other",
 };
+
+export const SmbActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "File Supersede": 1,
+  "File Open": 2,
+  "File Create": 3,
+  "File Open If": 4,
+  "File Overwrite": 5,
+  "File Overwrite If": 6,
+  "Other": 99,
+};

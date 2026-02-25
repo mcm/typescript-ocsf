@@ -16,3 +16,10 @@ export const RelationshipIdLabels: Record<number, string> = {
   1: "Depends On",
   99: "Other",
 };
+
+/** Reverse mapping from label to RelationshipId value. */
+export const RelationshipIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Depends On": 1,
+  "Other": 99,
+};

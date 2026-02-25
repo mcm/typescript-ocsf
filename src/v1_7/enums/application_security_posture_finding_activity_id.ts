@@ -19,3 +19,11 @@ export const ApplicationSecurityPostureFindingActivityIdLabels: Record<number, s
   3: "Close",
   99: "Other",
 };
+
+export const ApplicationSecurityPostureFindingActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Update": 2,
+  "Close": 3,
+  "Other": 99,
+};

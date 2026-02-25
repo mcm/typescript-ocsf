@@ -25,3 +25,13 @@ export const FileRemediationActivityActivityIdLabels: Record<number, string> = {
   5: "Detect",
   99: "Other",
 };
+
+export const FileRemediationActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Isolate": 1,
+  "Evict": 2,
+  "Restore": 3,
+  "Harden": 4,
+  "Detect": 5,
+  "Other": 99,
+};

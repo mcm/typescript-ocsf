@@ -19,3 +19,11 @@ export const IamAnalysisFindingActivityIdLabels: Record<number, string> = {
   3: "Close",
   99: "Other",
 };
+
+export const IamAnalysisFindingActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Update": 2,
+  "Close": 3,
+  "Other": 99,
+};

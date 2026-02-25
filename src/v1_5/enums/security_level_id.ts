@@ -18,3 +18,12 @@ export const SecurityLevelIdLabels: Record<number, string> = {
   3: "Compromised",
   99: "Other",
 };
+
+/** Reverse mapping from label to SecurityLevelId value. */
+export const SecurityLevelIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Secure": 1,
+  "At Risk": 2,
+  "Compromised": 3,
+  "Other": 99,
+};
