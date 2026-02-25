@@ -87,8 +87,12 @@ function main(): void {
     const allObjectsList = Array.from(schema.objects.values());
     const publicObjects = allObjectsList.filter((obj) => !obj.name.startsWith("_"));
     console.log(`  Emitting ${allObjectsList.length} objects (${publicObjects.length} public)...`);
+
+    // Get the ObservableTypeId enum for special-casing Observable object
+    const observableTypeIdEnum = schema.enums.get("type_id_observable");
+
     for (const obj of allObjectsList) {
-      const content = emitObjectFile(obj, schema.objects, slug);
+      const content = emitObjectFile(obj, schema.objects, slug, observableTypeIdEnum);
       const fileName = `${toFileName(obj.className)}.ts`;
       writeFileSync(join(objectsDir, fileName), content);
     }

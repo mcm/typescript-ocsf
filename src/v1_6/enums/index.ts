@@ -53,6 +53,8 @@ export { LogonTypeId, LogonTypeIdLabels } from "./logon_type_id.js";
 export type { LogonTypeId as LogonTypeIdType } from "./logon_type_id.js";
 export { LogTypeId, LogTypeIdLabels } from "./log_type_id.js";
 export type { LogTypeId as LogTypeIdType } from "./log_type_id.js";
+export { ObservableTypeId, ObservableTypeIdLabels } from "./observable_type_id.js";
+export type { ObservableTypeId as ObservableTypeIdType } from "./observable_type_id.js";
 export { OpcodeId, OpcodeIdLabels } from "./opcode_id.js";
 export type { OpcodeId as OpcodeIdType } from "./opcode_id.js";
 export { PhaseId, PhaseIdLabels } from "./phase_id.js";

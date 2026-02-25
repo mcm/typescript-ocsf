@@ -57,6 +57,8 @@ export { LogTypeId, LogTypeIdLabels } from "./log_type_id.js";
 export type { LogTypeId as LogTypeIdType } from "./log_type_id.js";
 export { NetworkScopeId, NetworkScopeIdLabels } from "./network_scope_id.js";
 export type { NetworkScopeId as NetworkScopeIdType } from "./network_scope_id.js";
+export { ObservableTypeId, ObservableTypeIdLabels } from "./observable_type_id.js";
+export type { ObservableTypeId as ObservableTypeIdType } from "./observable_type_id.js";
 export { ObservationPointId, ObservationPointIdLabels } from "./observation_point_id.js";
 export type { ObservationPointId as ObservationPointIdType } from "./observation_point_id.js";
 export { OpcodeId, OpcodeIdLabels } from "./opcode_id.js";

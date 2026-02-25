@@ -25,6 +25,12 @@ export function parseOcsfSchema(schemaDir: string, version: string): ParsedSchem
   const events = parseEvents(schemaDir, dictionary, categories);
   const enums = extractSharedEnums(dictionary);
 
+  // Extract Observable.TypeId as a special derived enum
+  const observableTypeIds = extractObservableTypeIds(schemaDir, dictionary, objects, events);
+  if (observableTypeIds.values.length > 0) {
+    enums.set("type_id_observable", observableTypeIds);
+  }
+
   return {
     version,
     versionSlug: toVersionSlug(version),
@@ -315,4 +321,126 @@ function extractSharedEnums(dictionary: Record<string, any>): Map<string, Parsed
   }
 
   return result;
+}
+
+/**
+ * Extract Observable.TypeId enum by scanning the entire schema for "observable" field definitions.
+ *
+ * This is a special derived enum that aggregates values from:
+ * - Dictionary types (e.g., email_t with observable: 5)
+ * - Dictionary attributes (e.g., cmd_line with observable: 13)
+ * - Objects (e.g., container with observable: 27)
+ * - Object attributes (e.g., cve.uid with observable: 18)
+ * - Event attributes with observable fields
+ *
+ * See: https://github.com/ocsf/ocsf-docs/blob/main/articles/defining-and-using-observables.md
+ */
+function extractObservableTypeIds(
+  schemaDir: string,
+  dictionary: Record<string, any>,
+  objects: Map<string, ParsedObject>,
+  events: Map<string, ParsedEvent>,
+): ParsedEnum {
+  const observableTypes = new Map<number, string>();
+
+  // Always include standard values
+  observableTypes.set(0, "Unknown");
+  observableTypes.set(99, "Other");
+
+  // Scan dictionary types (e.g., email_t with observable field)
+  const typesPath = join(schemaDir, "dictionary.json");
+  if (existsSync(typesPath)) {
+    const raw = JSON.parse(readFileSync(typesPath, "utf-8"));
+    const types = raw.types?.attributes ?? {};
+    for (const [typeName, typeDef] of Object.entries(types)) {
+      const def = typeDef as any;
+      if (def.observable && typeof def.observable === "number") {
+        observableTypes.set(def.observable, def.caption || typeName);
+      }
+    }
+  }
+
+  // Scan dictionary attributes (e.g., cmd_line with observable: 13)
+  for (const [attrName, attrDef] of Object.entries(dictionary)) {
+    const def = attrDef as any;
+    if (def.observable && typeof def.observable === "number") {
+      observableTypes.set(def.observable, def.caption || attrName);
+    }
+  }
+
+  // Scan object files for observable definitions
+  const objectsPath = join(schemaDir, "objects");
+  if (existsSync(objectsPath)) {
+    const objectFiles = readdirSync(objectsPath).filter((f) => f.endsWith(".json"));
+    for (const file of objectFiles) {
+      const objPath = join(objectsPath, file);
+      const raw = JSON.parse(readFileSync(objPath, "utf-8"));
+
+      // Top-level object observable
+      if (raw.observable && typeof raw.observable === "number") {
+        const caption = raw.caption || raw.name;
+        observableTypes.set(raw.observable, caption);
+      }
+
+      // Object attributes - use context to create better captions
+      const attrs = raw.attributes ?? {};
+      for (const [attrName, attrDef] of Object.entries(attrs)) {
+        const def = attrDef as any;
+        if (def.observable && typeof def.observable === "number") {
+          // Create a more descriptive caption using object name + attribute name
+          const objectCaption = raw.caption || raw.name || "";
+          const attrCaption = def.caption || attrName;
+          const caption = attrCaption.toLowerCase() === "uid" || attrCaption.toLowerCase() === "name"
+            ? `${objectCaption} ${attrCaption}`
+            : attrCaption;
+          observableTypes.set(def.observable, caption);
+        }
+      }
+    }
+  }
+
+  // Scan event files for observable definitions
+  const eventsPath = join(schemaDir, "events");
+  if (existsSync(eventsPath)) {
+    const eventFiles = readdirSync(eventsPath).filter((f) => f.endsWith(".json"));
+    for (const file of eventFiles) {
+      const evtPath = join(eventsPath, file);
+      const raw = JSON.parse(readFileSync(evtPath, "utf-8"));
+
+      // Event attributes
+      const attrs = raw.attributes ?? {};
+      for (const [attrName, attrDef] of Object.entries(attrs)) {
+        const def = attrDef as any;
+        if (def.observable && typeof def.observable === "number") {
+          observableTypes.set(def.observable, def.caption || attrName);
+        }
+      }
+
+      // Class-specific path observables
+      if (raw.observables && typeof raw.observables === "object") {
+        for (const [path, obsId] of Object.entries(raw.observables)) {
+          const id = obsId as number;
+          if (typeof id === "number" && !observableTypes.has(id)) {
+            observableTypes.set(id, `Observable ${id}`);
+          }
+        }
+      }
+    }
+  }
+
+  // Convert to ParsedEnumValue array
+  const values: ParsedEnumValue[] = Array.from(observableTypes.entries())
+    .map(([value, caption]) => ({
+      value,
+      caption: caption || `Observable ${value}`,
+      description: undefined,
+    }))
+    .sort((a, b) => a.value - b.value);
+
+  return {
+    name: "ObservableTypeId",
+    attributeName: "type_id",
+    caption: "Observable Type ID",
+    values,
+  };
 }

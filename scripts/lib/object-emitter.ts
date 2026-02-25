@@ -1,6 +1,6 @@
 import { toClassName, toFileName } from "./naming.js";
 import { mapOcsfTypeToTs, mapOcsfTypeToZod, mapOcsfTypeToZodTypeName } from "./type-map.js";
-import type { ParsedAttribute, ParsedObject } from "./types.js";
+import type { ParsedAttribute, ParsedEnum, ParsedObject } from "./types.js";
 
 /**
  * Emit a TypeScript file for a single OCSF object schema.
@@ -17,6 +17,7 @@ export function emitObjectFile(
   obj: ParsedObject,
   allObjects: Map<string, ParsedObject>,
   versionSlug: string,
+  observableTypeIdEnum?: ParsedEnum,
 ): string {
   const lines: string[] = [];
 
@@ -25,8 +26,14 @@ export function emitObjectFile(
   const typeName = obj.className === "Object" ? "OcsfObjectType" : `${obj.className}Type`;
   const schemaName = `${className}Schema`;
 
+  // Special case: Observable needs ObservableTypeId enum
+  const isObservable = obj.className === "Observable";
+
   // Imports
   lines.push("import { z } from 'zod';");
+  if (isObservable) {
+    lines.push("import { ObservableTypeId, ObservableTypeIdLabels } from '../enums/observable_type_id.js';");
+  }
   lines.push("");
 
   // Collect object imports needed for this object's attributes
@@ -68,7 +75,7 @@ export function emitObjectFile(
   }
   lines.push(" */");
   lines.push(`export interface ${typeName} {`);
-  emitInterfaceFields(lines, obj, allObjects);
+  emitInterfaceFields(lines, obj, allObjects, isObservable, observableTypeIdEnum);
   lines.push("}");
   lines.push("");
 
@@ -91,12 +98,12 @@ export function emitObjectFile(
   if (isRecursive) {
     // Recursive: use getter pattern with strict validation
     lines.push(`const ${schemaName} = z.strictObject({`);
-    emitFieldsWithGetters(lines, obj, allObjects);
+    emitFieldsWithGetters(lines, obj, allObjects, isObservable, observableTypeIdEnum);
     lines.push("});");
   } else {
     // Non-recursive: plain object with strict validation
     lines.push(`const ${schemaName} = z.strictObject({`);
-    emitSimpleFields(lines, obj, allObjects);
+    emitSimpleFields(lines, obj, allObjects, isObservable, observableTypeIdEnum);
     lines.push("});");
   }
 
@@ -116,13 +123,15 @@ function emitInterfaceFields(
   lines: string[],
   obj: ParsedObject,
   allObjects: Map<string, ParsedObject>,
+  isObservable = false,
+  observableTypeIdEnum?: ParsedEnum,
 ): void {
   for (const attr of obj.attributes) {
     if (attr.description) {
       lines.push(`  /** ${attr.description} */`);
     }
 
-    const tsType = getTsTypeForInterface(attr, allObjects, obj.name);
+    const tsType = getTsTypeForInterface(attr, allObjects, obj.name, isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined);
 
     // Apply optionality
     const optional = attr.requirement !== "required" ? "?" : "";
@@ -138,10 +147,15 @@ function getTsTypeForInterface(
   attr: ParsedAttribute,
   allObjects: Map<string, ParsedObject>,
   currentObjName: string,
+  observableTypeIdEnum?: ParsedEnum,
 ): string {
   let base: string;
 
-  if (attr.objectType) {
+  // Special case: Observable.type_id uses the derived ObservableTypeId enum
+  if (observableTypeIdEnum) {
+    const literals = observableTypeIdEnum.values.map((v) => v.value).join(" | ");
+    base = literals;
+  } else if (attr.objectType) {
     // Object reference - use type reference
     const refObj = allObjects.get(attr.objectType);
     if (!refObj) {
@@ -182,13 +196,15 @@ function emitSimpleFields(
   lines: string[],
   obj: ParsedObject,
   allObjects: Map<string, ParsedObject>,
+  isObservable = false,
+  observableTypeIdEnum?: ParsedEnum,
 ): void {
   for (const attr of obj.attributes) {
     if (attr.description) {
       lines.push(`  /** ${attr.description} */`);
     }
 
-    let zodType = getZodTypeSimple(attr, allObjects);
+    let zodType = getZodTypeSimple(attr, allObjects, isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined);
 
     // Apply optionality
     if (attr.requirement !== "required") {
@@ -206,6 +222,8 @@ function emitFieldsWithGetters(
   lines: string[],
   obj: ParsedObject,
   allObjects: Map<string, ParsedObject>,
+  isObservable = false,
+  observableTypeIdEnum?: ParsedEnum,
 ): void {
   for (const attr of obj.attributes) {
     if (attr.description) {
@@ -222,7 +240,7 @@ function emitFieldsWithGetters(
       lines.push(`  get ${attr.name}() { return ${finalType}; },`);
     } else {
       // Regular field
-      let zodType = getZodTypeSimple(attr, allObjects);
+      let zodType = getZodTypeSimple(attr, allObjects, isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined);
       if (attr.requirement !== "required") {
         zodType += ".optional()";
       }
@@ -259,10 +277,14 @@ function shouldUseGetter(
 /**
  * Get the Zod type expression for a simple (non-getter) field.
  */
-function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
+function getZodTypeSimple(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>, observableTypeIdEnum?: ParsedEnum): string {
   let base: string;
 
-  if (attr.objectType) {
+  // Special case: Observable.type_id uses the derived ObservableTypeId enum
+  if (observableTypeIdEnum) {
+    const literals = observableTypeIdEnum.values.map((v) => `z.literal(${v.value})`).join(", ");
+    base = `z.union([${literals}])`;
+  } else if (attr.objectType) {
     // Object reference
     const refObj = allObjects.get(attr.objectType);
     if (!refObj) {
