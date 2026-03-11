@@ -1,5 +1,5 @@
 {
-  "name": "@mcm/ocsf",
+  "name": "@iamthemcmaster/ocsf",
   "version": "0.5.0",
   "description": "Zod schemas for the Open Cybersecurity Schema Framework (OCSF)",
   "license": "Apache-2.0",
@@ -147,7 +147,7 @@
   "scripts": {
     "download": "tsx scripts/download-schemas.ts",
     "generate": "tsx scripts/generate.ts",
-    "build": "tsup && tsc --emitDeclarationOnly",
+    "build": "tsdown && tsc --emitDeclarationOnly",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -162,11 +162,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.0",
-    "@vitest/coverage-v8": "^1.0.0",
-    "tsup": "^8.0.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "tsdown": "^0.12.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.0",
-    "vitest": "^1.0.0"
+    "vitest": "^4.0.18"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -184,6 +184,7 @@
     "url": "https://github.com/mcm/typescript-ocsf.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }
