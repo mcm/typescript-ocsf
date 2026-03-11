@@ -3,6 +3,7 @@ import { defineConfig } from 'tsdown';
 export default defineConfig({
   entry: {
     'index': 'src/index.ts',
+    'enum-utils': 'src/enum-utils.ts',
     'v1_7/index': 'src/v1_7/index.ts',
     'v1_7/objects/index': 'src/v1_7/objects/index.ts',
     'v1_7/events/index': 'src/v1_7/events/index.ts',

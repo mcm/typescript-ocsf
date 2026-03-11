@@ -1,6 +1,6 @@
 {
   "name": "@iamthemcmaster/ocsf",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Zod schemas for the Open Cybersecurity Schema Framework (OCSF)",
   "license": "Apache-2.0",
   "type": "module",
@@ -16,6 +16,16 @@
       "require": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./enum-utils": {
+      "import": {
+        "types": "./dist/enum-utils.d.ts",
+        "default": "./dist/enum-utils.js"
+      },
+      "require": {
+        "types": "./dist/enum-utils.d.ts",
+        "default": "./dist/enum-utils.cjs"
       }
     },
     "./v1_7": {
