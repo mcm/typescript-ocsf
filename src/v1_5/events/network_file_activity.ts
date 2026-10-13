@@ -175,7 +175,48 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const NetworkFileActivitySchema = z.strictObject({
+type NetworkFileActivityShape = {
+  activity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<16>, z.ZodLiteral<99>]>>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  app_name: z.ZodOptional<z.ZodString>;
+  connection_info: z.ZodOptional<typeof NetworkConnectionInfo>;
+  dst_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  ja4_fingerprint_list: z.ZodOptional<z.ZodArray<typeof Ja4Fingerprint>>;
+  proxy: z.ZodOptional<typeof NetworkProxy>;
+  src_endpoint: typeof NetworkEndpoint;
+  tls: z.ZodOptional<typeof Tls>;
+  traffic: z.ZodOptional<typeof NetworkTraffic>;
+  actor: typeof Actor;
+  expiration_time: z.ZodOptional<z.ZodNumber>;
+  file: typeof File;
+};
+
+const NetworkFileActivitySchema: z.ZodObject<NetworkFileActivityShape, z.core.$strict> = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(15), z.literal(16), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */

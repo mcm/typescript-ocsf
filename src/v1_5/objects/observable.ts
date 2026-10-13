@@ -23,7 +23,15 @@ export interface ObservableType {
 
 import { Reputation } from './reputation.js';
 
-const ObservableSchema = z.strictObject({
+type ObservableShape = {
+  name: z.ZodOptional<z.ZodString>;
+  reputation: z.ZodOptional<typeof Reputation>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<16>, z.ZodLiteral<17>, z.ZodLiteral<18>, z.ZodLiteral<19>, z.ZodLiteral<20>, z.ZodLiteral<21>, z.ZodLiteral<22>, z.ZodLiteral<23>, z.ZodLiteral<24>, z.ZodLiteral<25>, z.ZodLiteral<26>, z.ZodLiteral<27>, z.ZodLiteral<30>, z.ZodLiteral<31>, z.ZodLiteral<32>, z.ZodLiteral<33>, z.ZodLiteral<34>, z.ZodLiteral<35>, z.ZodLiteral<36>, z.ZodLiteral<37>, z.ZodLiteral<38>, z.ZodLiteral<39>, z.ZodLiteral<40>, z.ZodLiteral<41>, z.ZodLiteral<42>, z.ZodLiteral<44>, z.ZodLiteral<45>, z.ZodLiteral<99>]>;
+  value: z.ZodOptional<z.ZodString>;
+};
+
+const ObservableSchema: z.ZodObject<ObservableShape, z.core.$strict> = z.strictObject({
   /** The full name of the observable attribute. The name is a pointer/reference to an attribute within the OCSF event data. For example: file.name. */
   name: z.string().optional(),
   /** Contains the original and normalized reputation scores. */

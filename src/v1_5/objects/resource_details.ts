@@ -64,7 +64,32 @@ import { Group } from './group.js';
 import { User } from './user.js';
 import { Graph } from './graph.js';
 
-const ResourceDetailsSchema = z.strictObject({
+type ResourceDetailsShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  cloud_partition: z.ZodOptional<z.ZodString>;
+  criticality: z.ZodOptional<z.ZodString>;
+  group: z.ZodOptional<typeof Group>;
+  hostname: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  is_backed_up: z.ZodOptional<z.ZodBoolean>;
+  namespace: z.ZodOptional<z.ZodString>;
+  owner: z.ZodOptional<typeof User>;
+  region: z.ZodOptional<z.ZodString>;
+  resource_relationship: z.ZodOptional<typeof Graph>;
+  version: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+};
+
+const ResourceDetailsSchema: z.ZodObject<ResourceDetailsShape, z.core.$strict> = z.strictObject({
   /** The name of the entity. See specific usage. */
   name: z.string().optional(),
   /** The unique identifier of the resource. */

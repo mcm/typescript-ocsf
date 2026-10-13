@@ -44,7 +44,24 @@ import { Timespan } from './timespan.js';
 import { Os } from './os.js';
 import { Product } from './product.js';
 
-const KbArticleSchema = z.strictObject({
+type KbArticleShape = {
+  avg_timespan: z.ZodOptional<typeof Timespan>;
+  bulletin: z.ZodOptional<z.ZodString>;
+  classification: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  install_state: z.ZodOptional<z.ZodString>;
+  install_state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  is_superseded: z.ZodOptional<z.ZodBoolean>;
+  os: z.ZodOptional<typeof Os>;
+  product: z.ZodOptional<typeof Product>;
+  severity: z.ZodOptional<z.ZodString>;
+  size: z.ZodOptional<z.ZodNumber>;
+  src_url: z.ZodOptional<z.ZodString>;
+  title: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+};
+
+const KbArticleSchema: z.ZodObject<KbArticleShape, z.core.$strict> = z.strictObject({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The kb article bulletin identifier. */

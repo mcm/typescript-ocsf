@@ -62,7 +62,30 @@ import { Sbom } from './sbom.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Url } from './url.js';
 
-const ApplicationSchema = z.strictObject({
+type ApplicationShape = {
+  criticality: z.ZodOptional<z.ZodString>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  desc: z.ZodOptional<z.ZodString>;
+  group: z.ZodOptional<typeof Group>;
+  hostname: z.ZodOptional<z.ZodString>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  name: z.ZodOptional<z.ZodString>;
+  owner: z.ZodOptional<typeof User>;
+  region: z.ZodOptional<z.ZodString>;
+  resource_relationship: z.ZodOptional<typeof Graph>;
+  risk_level: z.ZodOptional<z.ZodString>;
+  risk_level_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  risk_score: z.ZodOptional<z.ZodNumber>;
+  sbom: z.ZodOptional<typeof Sbom>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  url: z.ZodOptional<typeof Url>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const ApplicationSchema: z.ZodObject<ApplicationShape, z.core.$strict> = z.strictObject({
   /** The criticality of the application as defined by the event source. */
   criticality: z.string().optional(),
   /** Additional data describing the application. */

@@ -32,7 +32,22 @@ export interface TimespanType {
   type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 99;
 }
 
-const TimespanSchema = z.strictObject({
+type TimespanShape = {
+  duration: z.ZodOptional<z.ZodNumber>;
+  duration_days: z.ZodOptional<z.ZodNumber>;
+  duration_hours: z.ZodOptional<z.ZodNumber>;
+  duration_mins: z.ZodOptional<z.ZodNumber>;
+  duration_months: z.ZodOptional<z.ZodNumber>;
+  duration_secs: z.ZodOptional<z.ZodNumber>;
+  duration_weeks: z.ZodOptional<z.ZodNumber>;
+  duration_years: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<99>]>>;
+};
+
+const TimespanSchema: z.ZodObject<TimespanShape, z.core.$strict> = z.strictObject({
   /** The duration of the time span in milliseconds. */
   duration: z.number().int().optional(),
   /** The duration of the time span in days. */

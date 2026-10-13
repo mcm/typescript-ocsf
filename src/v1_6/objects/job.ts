@@ -34,7 +34,20 @@ export interface JobType {
 import { File } from './file.js';
 import { User } from './user.js';
 
-const JobSchema = z.strictObject({
+type JobShape = {
+  cmd_line: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  file: typeof File;
+  last_run_time: z.ZodOptional<z.ZodNumber>;
+  name: z.ZodString;
+  next_run_time: z.ZodOptional<z.ZodNumber>;
+  run_state: z.ZodOptional<z.ZodString>;
+  run_state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  user: z.ZodOptional<typeof User>;
+};
+
+const JobSchema: z.ZodObject<JobShape, z.core.$strict> = z.strictObject({
   /** The job command line. */
   cmd_line: z.string().optional(),
   /** The time when the job was created. */

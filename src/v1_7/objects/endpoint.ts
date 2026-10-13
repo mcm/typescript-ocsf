@@ -45,7 +45,7 @@ export interface EndpointType {
   /** The endpoint type. For example: unknown, server, desktop, laptop, tablet, mobile, virtual, browser, or other. */
   type?: string;
   /** The endpoint type ID. */
-  type_id?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
+  type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 99;
   /** The Virtual LAN identifier. */
   vlan_uid?: string;
   /** The unique identifier of the Virtual Private Cloud (VPC). */
@@ -60,7 +60,30 @@ import { Location } from './location.js';
 import { Os } from './os.js';
 import { User } from './user.js';
 
-const EndpointSchema = z.strictObject({
+type EndpointShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  domain: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  hw_info: z.ZodOptional<typeof DeviceHwInfo>;
+  instance_uid: z.ZodOptional<z.ZodString>;
+  interface_name: z.ZodOptional<z.ZodString>;
+  interface_uid: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  mac: z.ZodOptional<z.ZodString>;
+  os: z.ZodOptional<typeof Os>;
+  owner: z.ZodOptional<typeof User>;
+  subnet_uid: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<99>]>>;
+  vlan_uid: z.ZodOptional<z.ZodString>;
+  vpc_uid: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+};
+
+const EndpointSchema: z.ZodObject<EndpointShape, z.core.$strict> = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier of the endpoint. */
@@ -94,7 +117,7 @@ const EndpointSchema = z.strictObject({
   /** The endpoint type. For example: unknown, server, desktop, laptop, tablet, mobile, virtual, browser, or other. */
   type: z.string().optional(),
   /** The endpoint type ID. */
-  type_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(15)]).optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(15), z.literal(99)]).optional(),
   /** The Virtual LAN identifier. */
   vlan_uid: z.string().optional(),
   /** The unique identifier of the Virtual Private Cloud (VPC). */
@@ -108,6 +131,7 @@ export const Endpoint = EndpointSchema;
 /** Value → label mappings for each enum field of Endpoint. */
 export const EndpointLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
   type_id: {
+    0: "Unknown",
     1: "Server",
     2: "Desktop",
     3: "Laptop",
@@ -123,5 +147,6 @@ export const EndpointLabels: Readonly<Record<"type_id", Readonly<Record<number, 
     13: "IDS",
     14: "IPS",
     15: "Load Balancer",
+    99: "Other",
   },
 };

@@ -24,6 +24,8 @@ export const NetworkConnectionQueryStateId = {
   LISTEN: 10,
   /** The socket connection has been closed by the local application and the remote peer simultaneously, and the remote peer has not yet acknowledged the close attempt of the local application. */
   CLOSING: 11,
+  /** The state is not mapped. See the <code>state</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
 } as const;
 
 export type NetworkConnectionQueryStateId = (typeof NetworkConnectionQueryStateId)[keyof typeof NetworkConnectionQueryStateId];
@@ -41,6 +43,7 @@ export const NetworkConnectionQueryStateIdLabels: Record<number, string> = {
   9: "LAST_ACK",
   10: "LISTEN",
   11: "CLOSING",
+  99: "Other",
 };
 
 export const NetworkConnectionQueryStateIdByLabel: Record<string, number> = {
@@ -56,4 +59,5 @@ export const NetworkConnectionQueryStateIdByLabel: Record<string, number> = {
   "LAST_ACK": 9,
   "LISTEN": 10,
   "CLOSING": 11,
+  "Other": 99,
 };

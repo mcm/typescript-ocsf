@@ -14,7 +14,13 @@ export interface TechniqueType {
   src_url?: string;
 }
 
-const TechniqueSchema = z.strictObject({
+type TechniqueShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+};
+
+const TechniqueSchema: z.ZodObject<TechniqueShape, z.core.$strict> = z.strictObject({
   /** The name of the attack technique. For example: Active Scanning or AI Model Inference API Access. */
   name: z.string().optional(),
   /** The unique identifier of the attack technique. For example: T1595 or AML.T0040. */

@@ -88,7 +88,7 @@ export interface EmailActivityType {
   /** The direction of the email, as defined by the direction_id value. */
   direction?: string;
   /** The direction of the email relative to the scanning host or organization.Email scanned at an internet gateway might be characterized as inbound to the organization from the Internet, outbound from the organization to the Internet, or internal within the organization. Email scanned at a workstation might be characterized as inbound to, or outbound from the workstation. */
-  direction_id: 0 | 1 | 2 | 3 | 99;
+  direction_id: 0 | 1 | 2 | 3 | 4 | 99;
   /** The responder (server) receiving the email. */
   dst_endpoint?: NetworkEndpointType;
   /** The email object. */
@@ -149,6 +149,7 @@ export const EmailActivityLabels: Readonly<Record<"activity_id" | "severity_id" 
     1: "Inbound",
     2: "Outbound",
     3: "Internal",
+    4: "Local",
     99: "Other",
   },
 };
@@ -173,7 +174,52 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const EmailActivitySchema = z.strictObject({
+type EmailActivityShape = {
+  activity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<99>]>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_hash: z.ZodOptional<typeof Fingerprint>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  attempt: z.ZodOptional<z.ZodNumber>;
+  banner: z.ZodOptional<z.ZodString>;
+  command: z.ZodOptional<z.ZodString>;
+  direction: z.ZodOptional<z.ZodString>;
+  direction_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>;
+  dst_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  email: typeof Email;
+  email_auth: z.ZodOptional<typeof EmailAuth>;
+  from: z.ZodOptional<z.ZodString>;
+  message_trace_uid: z.ZodOptional<z.ZodString>;
+  protocol_name: z.ZodOptional<z.ZodString>;
+  smtp_hello: z.ZodOptional<z.ZodString>;
+  src_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  to: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const EmailActivitySchema: z.ZodObject<EmailActivityShape, z.core.$strict> = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(99)]),
   /** The event activity name, as defined by the activity_id. */
@@ -239,7 +285,7 @@ const EmailActivitySchema = z.strictObject({
   /** The direction of the email, as defined by the direction_id value. */
   direction: z.string().optional(),
   /** The direction of the email relative to the scanning host or organization.Email scanned at an internet gateway might be characterized as inbound to the organization from the Internet, outbound from the organization to the Internet, or internal within the organization. Email scanned at a workstation might be characterized as inbound to, or outbound from the workstation. */
-  direction_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
+  direction_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]),
   /** The responder (server) receiving the email. */
   dst_endpoint: NetworkEndpoint.optional(),
   /** The email object. */

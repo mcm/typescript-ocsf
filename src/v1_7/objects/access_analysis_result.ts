@@ -28,7 +28,16 @@ import { User } from './user.js';
 import { AdditionalRestriction } from './additional_restriction.js';
 import { KeyValueObject } from './key_value_object.js';
 
-const AccessAnalysisResultSchema = z.strictObject({
+type AccessAnalysisResultShape = {
+  access_level: z.ZodOptional<z.ZodString>;
+  access_type: z.ZodOptional<z.ZodString>;
+  accessors: z.ZodArray<typeof User>;
+  additional_restrictions: z.ZodOptional<z.ZodArray<typeof AdditionalRestriction>>;
+  condition_keys: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  granted_privileges: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const AccessAnalysisResultSchema: z.ZodObject<AccessAnalysisResultShape, z.core.$strict> = z.strictObject({
   /** The generalized access level or permission scope granted to the identity through the analyzed policy configuration. Common examples include Read, Write, List, Delete, Admin, or custom permission levels. */
   access_level: z.string().optional(),
   /** The type or category of access being granted to the identity. This describes the nature of the access relationship, such as cross-account access, public access, federated access, or third-party integration access. Examples include 'Cross-Account', 'Public', 'Federated', 'Service-to-Service', etc. */

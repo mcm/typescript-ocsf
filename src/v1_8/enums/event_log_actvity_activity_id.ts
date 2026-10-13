@@ -1,0 +1,59 @@
+/** EventLogActvity activity_id values. */
+export const EventLogActvityActivityId = {
+  /** The event activity is unknown. */
+  UNKNOWN: 0,
+  /** Clear the event log database, file, or cache. */
+  CLEAR: 1,
+  /** Delete the event log database, file, or cache. */
+  DELETE: 2,
+  /** Export the event log database, file, or cache. */
+  EXPORT: 3,
+  /** Archive the event log database, file, or cache. */
+  ARCHIVE: 4,
+  /** Rotate the event log database, file, or cache. */
+  ROTATE: 5,
+  /** Start the event logging service. */
+  START: 6,
+  /** Stop the event logging service. */
+  STOP: 7,
+  /** Restart the event logging service. */
+  RESTART: 8,
+  /** Enable the event logging service. */
+  ENABLE: 9,
+  /** Disable the event logging service. */
+  DISABLE: 10,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
+} as const;
+
+export type EventLogActvityActivityId = (typeof EventLogActvityActivityId)[keyof typeof EventLogActvityActivityId];
+
+export const EventLogActvityActivityIdLabels: Record<number, string> = {
+  0: "Unknown",
+  1: "Clear",
+  2: "Delete",
+  3: "Export",
+  4: "Archive",
+  5: "Rotate",
+  6: "Start",
+  7: "Stop",
+  8: "Restart",
+  9: "Enable",
+  10: "Disable",
+  99: "Other",
+};
+
+export const EventLogActvityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Clear": 1,
+  "Delete": 2,
+  "Export": 3,
+  "Archive": 4,
+  "Rotate": 5,
+  "Start": 6,
+  "Stop": 7,
+  "Restart": 8,
+  "Enable": 9,
+  "Disable": 10,
+  "Other": 99,
+};

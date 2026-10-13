@@ -1,0 +1,75 @@
+import { z } from 'zod';
+
+import type { LocationType } from './location.js';
+
+/**
+ * The Aircraft object represents any aircraft or otherwise airborne asset such as an unmanned system, airplane, balloon, spacecraft, or otherwise. The Aircraft object is intended to normalized data captured or otherwise logged from active radar, passive radar, multi-spectral systems, or the Automatic Dependant Broadcast - Surveillance (ADS-B), and/or Mode S systems.
+ *
+ * OCSF Object: Aircraft
+ */
+export interface AircraftType {
+  /** The name of the aircraft, such as the such as the flight name or callsign. */
+  name?: string;
+  /** The primary identification identifier for an aircraft, such as the 24-bit International Civil Aviation Organization (ICAO) identifier of the aircraft, as 6 hex digits. */
+  uid?: string;
+  /** The detailed geographical location usually associated with an IP address. */
+  location?: LocationType;
+  /** The model name of the aircraft or unmanned system. */
+  model?: string;
+  /** The serial number of the aircraft. */
+  serial_number?: string;
+  /** Ground speed of flight. This value is provided in meters per second with a minimum resolution of 0.25 m/s. Special Values: Invalid, No Value, or Unknown: 255 m/s. */
+  speed?: string;
+  /** Provides quality/containment on horizontal ground speed. Measured in meters/second. */
+  speed_accuracy?: string;
+  /** Direction of flight expressed as a “True North-based” ground track angle. This value is provided in clockwise degrees with a minimum resolution of 1 degree. If aircraft is not moving horizontally, use the “Unknown” value */
+  track_direction?: string;
+  /** A secondary identification identifier for an aircraft, such as the 4-digit squawk (octal representation). */
+  uid_alt?: string;
+  /** Vertical speed upward relative to the WGS-84 datum, measured in meters per second. Special Values: Invalid, No Value, or Unknown: 63 m/s. */
+  vertical_speed?: string;
+}
+
+import { Location } from './location.js';
+
+type AircraftShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  model: z.ZodOptional<z.ZodString>;
+  serial_number: z.ZodOptional<z.ZodString>;
+  speed: z.ZodOptional<z.ZodString>;
+  speed_accuracy: z.ZodOptional<z.ZodString>;
+  track_direction: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  vertical_speed: z.ZodOptional<z.ZodString>;
+};
+
+const AircraftSchema: z.ZodObject<AircraftShape, z.core.$strict> = z.strictObject({
+  /** The name of the aircraft, such as the such as the flight name or callsign. */
+  name: z.string().optional(),
+  /** The primary identification identifier for an aircraft, such as the 24-bit International Civil Aviation Organization (ICAO) identifier of the aircraft, as 6 hex digits. */
+  uid: z.string().optional(),
+  /** The detailed geographical location usually associated with an IP address. */
+  location: Location.optional(),
+  /** The model name of the aircraft or unmanned system. */
+  model: z.string().optional(),
+  /** The serial number of the aircraft. */
+  serial_number: z.string().optional(),
+  /** Ground speed of flight. This value is provided in meters per second with a minimum resolution of 0.25 m/s. Special Values: Invalid, No Value, or Unknown: 255 m/s. */
+  speed: z.string().optional(),
+  /** Provides quality/containment on horizontal ground speed. Measured in meters/second. */
+  speed_accuracy: z.string().optional(),
+  /** Direction of flight expressed as a “True North-based” ground track angle. This value is provided in clockwise degrees with a minimum resolution of 1 degree. If aircraft is not moving horizontally, use the “Unknown” value */
+  track_direction: z.string().optional(),
+  /** A secondary identification identifier for an aircraft, such as the 4-digit squawk (octal representation). */
+  uid_alt: z.string().optional(),
+  /** Vertical speed upward relative to the WGS-84 datum, measured in meters per second. Special Values: Invalid, No Value, or Unknown: 63 m/s. */
+  vertical_speed: z.string().optional(),
+});
+
+export const Aircraft = AircraftSchema;
+
+/** Value → label mappings for each enum field of Aircraft. */
+export const AircraftLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

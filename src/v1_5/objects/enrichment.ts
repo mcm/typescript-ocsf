@@ -32,7 +32,20 @@ export interface EnrichmentType {
 
 import { Reputation } from './reputation.js';
 
-const EnrichmentSchema = z.strictObject({
+type EnrichmentShape = {
+  created_time: z.ZodOptional<z.ZodNumber>;
+  data: z.ZodRecord<z.ZodString, z.ZodUnknown>;
+  desc: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  provider: z.ZodOptional<z.ZodString>;
+  reputation: z.ZodOptional<typeof Reputation>;
+  short_desc: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  value: z.ZodString;
+};
+
+const EnrichmentSchema: z.ZodObject<EnrichmentShape, z.core.$strict> = z.strictObject({
   /** The time when the enrichment data was generated. */
   created_time: z.number().int().optional(),
   /** The enrichment data associated with the attribute and value. The meaning of this data depends on the type the enrichment record. */

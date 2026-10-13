@@ -44,7 +44,28 @@ export interface LocationType {
   region?: string;
 }
 
-const LocationSchema = z.strictObject({
+type LocationShape = {
+  aerial_height: z.ZodOptional<z.ZodString>;
+  city: z.ZodOptional<z.ZodString>;
+  continent: z.ZodOptional<z.ZodString>;
+  coordinates: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  country: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  geodetic_altitude: z.ZodOptional<z.ZodString>;
+  geodetic_vertical_accuracy: z.ZodOptional<z.ZodString>;
+  geohash: z.ZodOptional<z.ZodString>;
+  horizontal_accuracy: z.ZodOptional<z.ZodString>;
+  is_on_premises: z.ZodOptional<z.ZodBoolean>;
+  isp: z.ZodOptional<z.ZodString>;
+  lat: z.ZodOptional<z.ZodNumber>;
+  long: z.ZodOptional<z.ZodNumber>;
+  postal_code: z.ZodOptional<z.ZodString>;
+  pressure_altitude: z.ZodOptional<z.ZodString>;
+  provider: z.ZodOptional<z.ZodString>;
+  region: z.ZodOptional<z.ZodString>;
+};
+
+const LocationSchema: z.ZodObject<LocationShape, z.core.$strict> = z.strictObject({
   /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
   aerial_height: z.string().optional(),
   /** The name of the city. */

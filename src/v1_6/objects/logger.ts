@@ -42,7 +42,24 @@ export interface LoggerType {
 import { Device } from './device.js';
 import { Product } from './product.js';
 
-const LoggerSchema = z.strictObject({
+type LoggerShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  device: z.ZodOptional<typeof Device>;
+  event_uid: z.ZodOptional<z.ZodString>;
+  is_truncated: z.ZodOptional<z.ZodBoolean>;
+  log_level: z.ZodOptional<z.ZodString>;
+  log_name: z.ZodOptional<z.ZodString>;
+  log_provider: z.ZodOptional<z.ZodString>;
+  log_version: z.ZodOptional<z.ZodString>;
+  logged_time: z.ZodOptional<z.ZodNumber>;
+  product: z.ZodOptional<typeof Product>;
+  transmit_time: z.ZodOptional<z.ZodNumber>;
+  untruncated_size: z.ZodOptional<z.ZodNumber>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const LoggerSchema: z.ZodObject<LoggerShape, z.core.$strict> = z.strictObject({
   /** The name of the logging product instance. */
   name: z.string().optional(),
   /** The unique identifier of the logging product instance. */

@@ -1,0 +1,154 @@
+import { z } from 'zod';
+
+import type { AccountType } from './account.js';
+import type { GroupType } from './group.js';
+import type { LdapPersonType } from './ldap_person.js';
+import type { OrganizationType } from './organization.js';
+import type { ProgrammaticCredentialType } from './programmatic_credential.js';
+
+/**
+ * The User object describes the characteristics of a user/person or a security principal.
+ *
+ * OCSF Object: User
+ */
+export interface UserType {
+  /** The username. For example, janedoe1. */
+  name?: string;
+  /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */
+  uid?: string;
+  /** The user's account or the account associated with the user. */
+  account?: AccountType;
+  /** The unique identifier of the user's credential. For example, AWS Access Key ID. */
+  credential_uid?: string;
+  /** The display name of the user, as reported by the product. */
+  display_name?: string;
+  /** The domain where the user is defined. For example: the LDAP or Active Directory domain. */
+  domain?: string;
+  /** The user's primary email address. */
+  email_addr?: string;
+  /** The user's forwarding email address. */
+  forward_addr?: string;
+  /** The full name of the user, as reported by the product. */
+  full_name?: string;
+  /** The administrative groups to which the user belongs. */
+  groups?: GroupType[];
+  /** The user has a multi-factor or secondary-factor device assigned. */
+  has_mfa?: boolean;
+  /** The additional LDAP attributes that describe a person. */
+  ldap_person?: LdapPersonType;
+  /** Organization and org unit related to the user. */
+  org?: OrganizationType;
+  /** The telephone number of the user. */
+  phone_number?: string;
+  /** Details about the programmatic credential (API keys, access tokens, certificates, etc) associated to the user. */
+  programmatic_credentials?: ProgrammaticCredentialType[];
+  /** The risk level, normalized to the caption of the risk_level_id value. */
+  risk_level?: string;
+  /** The normalized risk level id. */
+  risk_level_id?: 0 | 1 | 2 | 3 | 4 | 99;
+  /** The risk score as reported by the event source. */
+  risk_score?: number;
+  /** The type of the user. For example, System, AWS IAM User, etc. */
+  type?: string;
+  /** The account type identifier. */
+  type_id?: 0 | 1 | 2 | 3 | 4 | 99;
+  /** The alternate user identifier. For example, the Active Directory user GUID or AWS user Principal ID. */
+  uid_alt?: string;
+}
+
+import { Account } from './account.js';
+import { Group } from './group.js';
+import { LdapPerson } from './ldap_person.js';
+import { Organization } from './organization.js';
+import { ProgrammaticCredential } from './programmatic_credential.js';
+
+type UserShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  account: z.ZodOptional<typeof Account>;
+  credential_uid: z.ZodOptional<z.ZodString>;
+  display_name: z.ZodOptional<z.ZodString>;
+  domain: z.ZodOptional<z.ZodString>;
+  email_addr: z.ZodOptional<z.ZodString>;
+  forward_addr: z.ZodOptional<z.ZodString>;
+  full_name: z.ZodOptional<z.ZodString>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  has_mfa: z.ZodOptional<z.ZodBoolean>;
+  ldap_person: z.ZodOptional<z.ZodLazy<z.ZodType<LdapPersonType>>>;
+  org: z.ZodOptional<typeof Organization>;
+  phone_number: z.ZodOptional<z.ZodString>;
+  programmatic_credentials: z.ZodOptional<z.ZodArray<typeof ProgrammaticCredential>>;
+  risk_level: z.ZodOptional<z.ZodString>;
+  risk_level_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  risk_score: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+};
+
+const UserSchema: z.ZodObject<UserShape, z.core.$strict> = z.strictObject({
+  /** The username. For example, janedoe1. */
+  name: z.string().optional(),
+  /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */
+  uid: z.string().optional(),
+  /** The user's account or the account associated with the user. */
+  account: Account.optional(),
+  /** The unique identifier of the user's credential. For example, AWS Access Key ID. */
+  credential_uid: z.string().optional(),
+  /** The display name of the user, as reported by the product. */
+  display_name: z.string().optional(),
+  /** The domain where the user is defined. For example: the LDAP or Active Directory domain. */
+  domain: z.string().optional(),
+  /** The user's primary email address. */
+  email_addr: z.string().optional(),
+  /** The user's forwarding email address. */
+  forward_addr: z.string().optional(),
+  /** The full name of the user, as reported by the product. */
+  full_name: z.string().optional(),
+  /** The administrative groups to which the user belongs. */
+  groups: z.array(Group).optional(),
+  /** The user has a multi-factor or secondary-factor device assigned. */
+  has_mfa: z.boolean().optional(),
+  /** The additional LDAP attributes that describe a person. */
+  get ldap_person() { return z.lazy(() => LdapPerson).optional(); },
+  /** Organization and org unit related to the user. */
+  org: Organization.optional(),
+  /** The telephone number of the user. */
+  phone_number: z.string().optional(),
+  /** Details about the programmatic credential (API keys, access tokens, certificates, etc) associated to the user. */
+  programmatic_credentials: z.array(ProgrammaticCredential).optional(),
+  /** The risk level, normalized to the caption of the risk_level_id value. */
+  risk_level: z.string().optional(),
+  /** The normalized risk level id. */
+  risk_level_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
+  /** The risk score as reported by the event source. */
+  risk_score: z.number().int().optional(),
+  /** The type of the user. For example, System, AWS IAM User, etc. */
+  type: z.string().optional(),
+  /** The account type identifier. */
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
+  /** The alternate user identifier. For example, the Active Directory user GUID or AWS user Principal ID. */
+  uid_alt: z.string().optional(),
+});
+
+export const User = UserSchema;
+
+/** Value → label mappings for each enum field of User. */
+export const UserLabels: Readonly<Record<"risk_level_id" | "type_id", Readonly<Record<number, string>>>> = {
+  risk_level_id: {
+    0: "Info",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "User",
+    2: "Admin",
+    3: "System",
+    4: "Service",
+    99: "Other",
+  },
+};

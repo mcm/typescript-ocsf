@@ -66,7 +66,37 @@ export interface UnmannedSystemOperatingAreaType {
 
 import { Location } from './location.js';
 
-const UnmannedSystemOperatingAreaSchema = z.strictObject({
+type UnmannedSystemOperatingAreaShape = {
+  aerial_height: z.ZodOptional<z.ZodString>;
+  city: z.ZodOptional<z.ZodString>;
+  continent: z.ZodOptional<z.ZodString>;
+  coordinates: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  country: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  geodetic_altitude: z.ZodOptional<z.ZodString>;
+  geodetic_vertical_accuracy: z.ZodOptional<z.ZodString>;
+  geohash: z.ZodOptional<z.ZodString>;
+  horizontal_accuracy: z.ZodOptional<z.ZodString>;
+  is_on_premises: z.ZodOptional<z.ZodBoolean>;
+  isp: z.ZodOptional<z.ZodString>;
+  lat: z.ZodOptional<z.ZodNumber>;
+  long: z.ZodOptional<z.ZodNumber>;
+  postal_code: z.ZodOptional<z.ZodString>;
+  pressure_altitude: z.ZodOptional<z.ZodString>;
+  provider: z.ZodOptional<z.ZodString>;
+  region: z.ZodOptional<z.ZodString>;
+  altitude_ceiling: z.ZodOptional<z.ZodString>;
+  altitude_floor: z.ZodOptional<z.ZodString>;
+  count: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  locations: z.ZodOptional<z.ZodArray<typeof Location>>;
+  radius: z.ZodOptional<z.ZodString>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+};
+
+const UnmannedSystemOperatingAreaSchema: z.ZodObject<UnmannedSystemOperatingAreaShape, z.core.$strict> = z.strictObject({
   /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
   aerial_height: z.string().optional(),
   /** The name of the city. */

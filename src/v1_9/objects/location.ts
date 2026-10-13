@@ -1,0 +1,111 @@
+import { z } from 'zod';
+
+/**
+ * The Geo Location object describes a geographical location, usually associated with an IP address.
+ *
+ * OCSF Object: Geo Location
+ */
+export interface LocationType {
+  /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
+  aerial_height?: string;
+  /** The name of the city. */
+  city?: string;
+  /** The name of the continent. */
+  continent?: string;
+  /** A two-element array, containing a longitude/latitude pair. The format conforms with GeoJSON. For example: [-73.983, 40.719]. */
+  coordinates?: number[];
+  /** The ISO 3166-1 Alpha-2 country code.Note: The two letter country code should be capitalized. For example: US or CA. */
+  country?: string;
+  /** The description of the geographical location. */
+  desc?: string;
+  /** The aircraft distance above or below the ellipsoid as measured along a line that passes through the aircraft and is normal to the surface of the WGS-84 ellipsoid. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
+  geodetic_altitude?: string;
+  /** Provides quality/containment on geodetic altitude. This is based on ADS-B Geodetic Vertical Accuracy (GVA). Measured in meters. */
+  geodetic_vertical_accuracy?: string;
+  /** Geohash of the geo-coordinates (latitude and longitude).Geohashing is a geocoding system used to encode geographic coordinates in decimal degrees, to a single string. */
+  geohash?: string;
+  /** Provides quality/containment on horizontal position. This is based on ADS-B NACp. Measured in meters. */
+  horizontal_accuracy?: string;
+  /** Indicates whether the location is on-premises. */
+  is_on_premises?: boolean;
+  /** The name of the Internet Service Provider (ISP). */
+  isp?: string;
+  /** The geographical Latitude coordinate represented in Decimal Degrees (DD). For example: 42.361145. */
+  lat?: number;
+  /** The geographical Longitude coordinate represented in Decimal Degrees (DD). For example: -71.057083. */
+  long?: number;
+  /** The postal code of the location. */
+  postal_code?: string;
+  /** The uncorrected barometric pressure altitude (based on reference standard 29.92 inHg, 1013.25 mb) provides a reference for algorithms that utilize 'altitude deltas' between aircraft. This value is provided in meters and must have a minimum resolution of 1 m.. Special Values: Invalid, No Value, or Unknown: -1000 m. */
+  pressure_altitude?: string;
+  /** The provider of the geographical location data. */
+  provider?: string;
+  /** The alphanumeric code that identifies the principal subdivision (e.g. province or state) of the country. For example, 'CH-VD' for the Canton of Vaud, Switzerland */
+  region?: string;
+}
+
+type LocationShape = {
+  aerial_height: z.ZodOptional<z.ZodString>;
+  city: z.ZodOptional<z.ZodString>;
+  continent: z.ZodOptional<z.ZodString>;
+  coordinates: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  country: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  geodetic_altitude: z.ZodOptional<z.ZodString>;
+  geodetic_vertical_accuracy: z.ZodOptional<z.ZodString>;
+  geohash: z.ZodOptional<z.ZodString>;
+  horizontal_accuracy: z.ZodOptional<z.ZodString>;
+  is_on_premises: z.ZodOptional<z.ZodBoolean>;
+  isp: z.ZodOptional<z.ZodString>;
+  lat: z.ZodOptional<z.ZodNumber>;
+  long: z.ZodOptional<z.ZodNumber>;
+  postal_code: z.ZodOptional<z.ZodString>;
+  pressure_altitude: z.ZodOptional<z.ZodString>;
+  provider: z.ZodOptional<z.ZodString>;
+  region: z.ZodOptional<z.ZodString>;
+};
+
+const LocationSchema: z.ZodObject<LocationShape, z.core.$strict> = z.strictObject({
+  /** Expressed as either height above takeoff location or height above ground level (AGL) for a UAS current location. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
+  aerial_height: z.string().optional(),
+  /** The name of the city. */
+  city: z.string().optional(),
+  /** The name of the continent. */
+  continent: z.string().optional(),
+  /** A two-element array, containing a longitude/latitude pair. The format conforms with GeoJSON. For example: [-73.983, 40.719]. */
+  coordinates: z.array(z.number()).optional(),
+  /** The ISO 3166-1 Alpha-2 country code.Note: The two letter country code should be capitalized. For example: US or CA. */
+  country: z.string().optional(),
+  /** The description of the geographical location. */
+  desc: z.string().optional(),
+  /** The aircraft distance above or below the ellipsoid as measured along a line that passes through the aircraft and is normal to the surface of the WGS-84 ellipsoid. This value is provided in meters and must have a minimum resolution of 1 m. Special Values: Invalid, No Value, or Unknown: -1000 m. */
+  geodetic_altitude: z.string().optional(),
+  /** Provides quality/containment on geodetic altitude. This is based on ADS-B Geodetic Vertical Accuracy (GVA). Measured in meters. */
+  geodetic_vertical_accuracy: z.string().optional(),
+  /** Geohash of the geo-coordinates (latitude and longitude).Geohashing is a geocoding system used to encode geographic coordinates in decimal degrees, to a single string. */
+  geohash: z.string().optional(),
+  /** Provides quality/containment on horizontal position. This is based on ADS-B NACp. Measured in meters. */
+  horizontal_accuracy: z.string().optional(),
+  /** Indicates whether the location is on-premises. */
+  is_on_premises: z.boolean().optional(),
+  /** The name of the Internet Service Provider (ISP). */
+  isp: z.string().optional(),
+  /** The geographical Latitude coordinate represented in Decimal Degrees (DD). For example: 42.361145. */
+  lat: z.number().optional(),
+  /** The geographical Longitude coordinate represented in Decimal Degrees (DD). For example: -71.057083. */
+  long: z.number().optional(),
+  /** The postal code of the location. */
+  postal_code: z.string().optional(),
+  /** The uncorrected barometric pressure altitude (based on reference standard 29.92 inHg, 1013.25 mb) provides a reference for algorithms that utilize 'altitude deltas' between aircraft. This value is provided in meters and must have a minimum resolution of 1 m.. Special Values: Invalid, No Value, or Unknown: -1000 m. */
+  pressure_altitude: z.string().optional(),
+  /** The provider of the geographical location data. */
+  provider: z.string().optional(),
+  /** The alphanumeric code that identifies the principal subdivision (e.g. province or state) of the country. For example, 'CH-VD' for the Canton of Vaud, Switzerland */
+  region: z.string().optional(),
+});
+
+export const Location = LocationSchema;
+
+/** Value → label mappings for each enum field of Location. */
+export const LocationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

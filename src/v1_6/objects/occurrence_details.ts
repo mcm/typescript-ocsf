@@ -26,7 +26,19 @@ export interface OccurrenceDetailsType {
   start_line?: number;
 }
 
-const OccurrenceDetailsSchema = z.strictObject({
+type OccurrenceDetailsShape = {
+  cell_name: z.ZodOptional<z.ZodString>;
+  column_name: z.ZodOptional<z.ZodString>;
+  column_number: z.ZodOptional<z.ZodNumber>;
+  end_line: z.ZodOptional<z.ZodNumber>;
+  json_path: z.ZodOptional<z.ZodString>;
+  page_number: z.ZodOptional<z.ZodNumber>;
+  record_index_in_array: z.ZodOptional<z.ZodNumber>;
+  row_number: z.ZodOptional<z.ZodNumber>;
+  start_line: z.ZodOptional<z.ZodNumber>;
+};
+
+const OccurrenceDetailsSchema: z.ZodObject<OccurrenceDetailsShape, z.core.$strict> = z.strictObject({
   /** The cell name/reference in a spreadsheet. e.g A2 */
   cell_name: z.string().optional(),
   /** The column name in a spreadsheet, where the information was discovered. */

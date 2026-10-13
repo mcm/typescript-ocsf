@@ -1,0 +1,45 @@
+import { z } from 'zod';
+
+import type { ObservationType } from './observation.js';
+
+/**
+ * Describes an anomaly or deviation detected in a system. Anomalies are unexpected activity patterns that could indicate potential issues needing attention.
+ *
+ * OCSF Object: Anomaly
+ */
+export interface AnomalyType {
+  /** The specific parameter, metric or property where the anomaly was observed. Examples include: CPU usage percentage, API response time in milliseconds, HTTP error rate, memory utilization, network latency, transaction volume, etc. This helps identify the exact aspect of the system exhibiting anomalous behavior. */
+  observation_parameter: string;
+  /** The type of analysis methodology used to detect the anomaly. This indicates how the anomaly was identified through different analytical approaches. Common types include: Frequency Analysis, Time Pattern Analysis, Volume Analysis, Sequence Analysis, Distribution Analysis, etc. */
+  observation_type?: string;
+  /** Details about the observed anomaly or observations that were flagged as anomalous compared to expected baseline behavior. */
+  observations: ObservationType[];
+  /** The specific pattern identified within the observation type. For Frequency Analysis, this could be 'FREQUENT', 'INFREQUENT', 'RARE', or 'UNSEEN'. For Time Pattern Analysis, this could be 'BUSINESS_HOURS', 'OFF_HOURS', or 'UNUSUAL_TIME'. For Volume Analysis, this could be 'NORMAL_VOLUME', 'HIGH_VOLUME', or 'SURGE'. The pattern values are specific to each observation type and indicate how the observed behavior relates to the baseline. */
+  observed_pattern?: string;
+}
+
+import { Observation } from './observation.js';
+
+type AnomalyShape = {
+  observation_parameter: z.ZodString;
+  observation_type: z.ZodOptional<z.ZodString>;
+  observations: z.ZodArray<typeof Observation>;
+  observed_pattern: z.ZodOptional<z.ZodString>;
+};
+
+const AnomalySchema: z.ZodObject<AnomalyShape, z.core.$strict> = z.strictObject({
+  /** The specific parameter, metric or property where the anomaly was observed. Examples include: CPU usage percentage, API response time in milliseconds, HTTP error rate, memory utilization, network latency, transaction volume, etc. This helps identify the exact aspect of the system exhibiting anomalous behavior. */
+  observation_parameter: z.string(),
+  /** The type of analysis methodology used to detect the anomaly. This indicates how the anomaly was identified through different analytical approaches. Common types include: Frequency Analysis, Time Pattern Analysis, Volume Analysis, Sequence Analysis, Distribution Analysis, etc. */
+  observation_type: z.string().optional(),
+  /** Details about the observed anomaly or observations that were flagged as anomalous compared to expected baseline behavior. */
+  observations: z.array(Observation),
+  /** The specific pattern identified within the observation type. For Frequency Analysis, this could be 'FREQUENT', 'INFREQUENT', 'RARE', or 'UNSEEN'. For Time Pattern Analysis, this could be 'BUSINESS_HOURS', 'OFF_HOURS', or 'UNUSUAL_TIME'. For Volume Analysis, this could be 'NORMAL_VOLUME', 'HIGH_VOLUME', or 'SURGE'. The pattern values are specific to each observation type and indicate how the observed behavior relates to the baseline. */
+  observed_pattern: z.string().optional(),
+});
+
+export const Anomaly = AnomalySchema;
+
+/** Value → label mappings for each enum field of Anomaly. */
+export const AnomalyLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

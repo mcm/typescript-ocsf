@@ -20,7 +20,16 @@ export interface RuleType {
   version?: string;
 }
 
-const RuleSchema = z.strictObject({
+type RuleShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  category: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const RuleSchema: z.ZodObject<RuleShape, z.core.$strict> = z.strictObject({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */

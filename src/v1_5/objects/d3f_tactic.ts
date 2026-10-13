@@ -14,7 +14,13 @@ export interface D3fTacticType {
   src_url?: string;
 }
 
-const D3fTacticSchema = z.strictObject({
+type D3fTacticShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+};
+
+const D3fTacticSchema: z.ZodObject<D3fTacticShape, z.core.$strict> = z.strictObject({
   /** The tactic name that is associated with the defensive technique. For example: Isolate. */
   name: z.string().optional(),
   /** The unique identifier of the defensive tactic. */

@@ -1,5 +1,6 @@
 /** SmbActivity activity_id values. */
 export const SmbActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The event pertains to file superseded activity (overwritten if it exists and created if not). */
   FILE_SUPERSEDE: 1,
@@ -13,6 +14,7 @@ export const SmbActivityActivityId = {
   FILE_OVERWRITE: 5,
   /** The event pertains to file overwrite activity (the file is opened in a truncated form if it exists and created otherwise) */
   FILE_OVERWRITE_IF: 6,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

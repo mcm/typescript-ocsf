@@ -1,0 +1,224 @@
+import { z } from 'zod';
+
+import type { AgentType } from './agent.js';
+import type { DeviceHwInfoType } from './device_hw_info.js';
+import type { LocationType } from './location.js';
+import type { OsType } from './os.js';
+import type { UserType } from './user.js';
+import type { GroupType } from './group.js';
+import type { AutonomousSystemType } from './autonomous_system.js';
+import type { FingerprintType } from './fingerprint.js';
+
+/**
+ * The network proxy endpoint object describes a proxy server, which acts as an intermediary between a client requesting a resource and the server providing that resource.
+ *
+ * OCSF Object: Network Proxy Endpoint
+ */
+export interface NetworkProxyType {
+  /** The short name of the endpoint. */
+  name?: string;
+  /** The unique identifier. See specific usage. */
+  uid?: string;
+  /** A list of agent objects associated with a device, endpoint, or resource. */
+  agent_list?: AgentType[];
+  /** The name of the domain that the endpoint belongs to or that corresponds to the endpoint. */
+  domain?: string;
+  /** The fully qualified name of the endpoint. */
+  hostname?: string;
+  /** The endpoint hardware information. */
+  hw_info?: DeviceHwInfoType;
+  /** The unique identifier of a VM instance. */
+  instance_uid?: string;
+  /** The name of the network interface (e.g. eth2). */
+  interface_name?: string;
+  /** The unique identifier of the network interface. */
+  interface_uid?: string;
+  /** The IP address of the endpoint, in either IPv4 or IPv6 format. */
+  ip?: string;
+  /** The geographical location of the endpoint. */
+  location?: LocationType;
+  /** The Media Access Control (MAC) address of the endpoint. */
+  mac?: string;
+  /** The vendor or manufacturer of the endpoint's network interface controller (NIC), as identified from the MAC address. */
+  mac_vendor?: string;
+  /** The endpoint operating system. */
+  os?: OsType;
+  /** The identity of the service or user account that owns the endpoint or was last logged into it. */
+  owner?: UserType;
+  /** The pool of desktops or virtual machines to which the endpoint belongs. */
+  pool?: GroupType;
+  /** The unique identifier of a virtual subnet. */
+  subnet_uid?: string;
+  /** The network endpoint type. For example: unknown, server, desktop, laptop, tablet, mobile, virtual, browser, or other. */
+  type?: string;
+  /** The network endpoint type ID. */
+  type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 99;
+  /** The Virtual LAN identifier. */
+  vlan_uid?: string;
+  /** The unique identifier of the Virtual Private Cloud (VPC). */
+  vpc_uid?: string;
+  /** The network zone or LAN segment. */
+  zone?: string;
+  /** The Autonomous System details associated with an IP address. */
+  autonomous_system?: AutonomousSystemType;
+  /** Fingerprints that identify the specific application implementation on this endpoint, such as Cisco NPF or HASSH. */
+  fingerprints?: FingerprintType[];
+  /** The intermediate IP Addresses. For example, the IP addresses in the HTTP X-Forwarded-For header. */
+  intermediate_ips?: string[];
+  /** The name of the Internet Service Provider (ISP). */
+  isp?: string;
+  /** The organization name of the Internet Service Provider (ISP). This represents the parent organization or company that owns/operates the ISP. For example, Comcast Corporation would be the ISP org for Xfinity internet service. This attribute helps identify the ultimate provider when ISPs operate under different brand names. */
+  isp_org?: string;
+  /** Indicates whether the endpoint resides inside the customer’s network, outside on the Internet, or if its location relative to the customer’s network cannot be determined. The value is normalized to the caption of the network_scope_id. */
+  network_scope?: string;
+  /** The normalized identifier of the endpoint’s network scope. The normalized network scope identifier indicates whether the endpoint resides inside the customer’s network, outside on the Internet, or if its location relative to the customer’s network cannot be determined. */
+  network_scope_id?: 0 | 1 | 2 | 99;
+  /** The port used for communication within the network connection. */
+  port?: number;
+  /** The network proxy information pertaining to a specific endpoint. This can be used to describe information pertaining to network address translation (NAT). */
+  proxy_endpoint?: NetworkProxyType;
+  /** The service name in service-to-service connections. For example, AWS VPC logs the pkt-src-aws-service and pkt-dst-aws-service fields identify the connection is coming from or going to an AWS service. */
+  svc_name?: string;
+}
+
+import { Agent } from './agent.js';
+import { DeviceHwInfo } from './device_hw_info.js';
+import { Location } from './location.js';
+import { Os } from './os.js';
+import { User } from './user.js';
+import { Group } from './group.js';
+import { AutonomousSystem } from './autonomous_system.js';
+import { Fingerprint } from './fingerprint.js';
+
+type NetworkProxyShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  domain: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  hw_info: z.ZodOptional<typeof DeviceHwInfo>;
+  instance_uid: z.ZodOptional<z.ZodString>;
+  interface_name: z.ZodOptional<z.ZodString>;
+  interface_uid: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  mac: z.ZodOptional<z.ZodString>;
+  mac_vendor: z.ZodOptional<z.ZodString>;
+  os: z.ZodOptional<typeof Os>;
+  owner: z.ZodOptional<typeof User>;
+  pool: z.ZodOptional<typeof Group>;
+  subnet_uid: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<99>]>>;
+  vlan_uid: z.ZodOptional<z.ZodString>;
+  vpc_uid: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+  autonomous_system: z.ZodOptional<typeof AutonomousSystem>;
+  fingerprints: z.ZodOptional<z.ZodArray<typeof Fingerprint>>;
+  intermediate_ips: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  isp: z.ZodOptional<z.ZodString>;
+  isp_org: z.ZodOptional<z.ZodString>;
+  network_scope: z.ZodOptional<z.ZodString>;
+  network_scope_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  port: z.ZodOptional<z.ZodNumber>;
+  proxy_endpoint: z.ZodOptional<z.ZodLazy<z.ZodType<NetworkProxyType>>>;
+  svc_name: z.ZodOptional<z.ZodString>;
+};
+
+const NetworkProxySchema: z.ZodObject<NetworkProxyShape, z.core.$strict> = z.strictObject({
+  /** The short name of the endpoint. */
+  name: z.string().optional(),
+  /** The unique identifier. See specific usage. */
+  uid: z.string().optional(),
+  /** A list of agent objects associated with a device, endpoint, or resource. */
+  agent_list: z.array(Agent).optional(),
+  /** The name of the domain that the endpoint belongs to or that corresponds to the endpoint. */
+  domain: z.string().optional(),
+  /** The fully qualified name of the endpoint. */
+  hostname: z.string().optional(),
+  /** The endpoint hardware information. */
+  hw_info: DeviceHwInfo.optional(),
+  /** The unique identifier of a VM instance. */
+  instance_uid: z.string().optional(),
+  /** The name of the network interface (e.g. eth2). */
+  interface_name: z.string().optional(),
+  /** The unique identifier of the network interface. */
+  interface_uid: z.string().optional(),
+  /** The IP address of the endpoint, in either IPv4 or IPv6 format. */
+  ip: z.string().optional(),
+  /** The geographical location of the endpoint. */
+  location: Location.optional(),
+  /** The Media Access Control (MAC) address of the endpoint. */
+  mac: z.string().optional(),
+  /** The vendor or manufacturer of the endpoint's network interface controller (NIC), as identified from the MAC address. */
+  mac_vendor: z.string().optional(),
+  /** The endpoint operating system. */
+  os: Os.optional(),
+  /** The identity of the service or user account that owns the endpoint or was last logged into it. */
+  owner: User.optional(),
+  /** The pool of desktops or virtual machines to which the endpoint belongs. */
+  pool: Group.optional(),
+  /** The unique identifier of a virtual subnet. */
+  subnet_uid: z.string().optional(),
+  /** The network endpoint type. For example: unknown, server, desktop, laptop, tablet, mobile, virtual, browser, or other. */
+  type: z.string().optional(),
+  /** The network endpoint type ID. */
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(15), z.literal(99)]).optional(),
+  /** The Virtual LAN identifier. */
+  vlan_uid: z.string().optional(),
+  /** The unique identifier of the Virtual Private Cloud (VPC). */
+  vpc_uid: z.string().optional(),
+  /** The network zone or LAN segment. */
+  zone: z.string().optional(),
+  /** The Autonomous System details associated with an IP address. */
+  autonomous_system: AutonomousSystem.optional(),
+  /** Fingerprints that identify the specific application implementation on this endpoint, such as Cisco NPF or HASSH. */
+  fingerprints: z.array(Fingerprint).optional(),
+  /** The intermediate IP Addresses. For example, the IP addresses in the HTTP X-Forwarded-For header. */
+  intermediate_ips: z.array(z.string()).optional(),
+  /** The name of the Internet Service Provider (ISP). */
+  isp: z.string().optional(),
+  /** The organization name of the Internet Service Provider (ISP). This represents the parent organization or company that owns/operates the ISP. For example, Comcast Corporation would be the ISP org for Xfinity internet service. This attribute helps identify the ultimate provider when ISPs operate under different brand names. */
+  isp_org: z.string().optional(),
+  /** Indicates whether the endpoint resides inside the customer’s network, outside on the Internet, or if its location relative to the customer’s network cannot be determined. The value is normalized to the caption of the network_scope_id. */
+  network_scope: z.string().optional(),
+  /** The normalized identifier of the endpoint’s network scope. The normalized network scope identifier indicates whether the endpoint resides inside the customer’s network, outside on the Internet, or if its location relative to the customer’s network cannot be determined. */
+  network_scope_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
+  /** The port used for communication within the network connection. */
+  port: z.number().int().optional(),
+  /** The network proxy information pertaining to a specific endpoint. This can be used to describe information pertaining to network address translation (NAT). */
+  get proxy_endpoint() { return z.lazy(() => NetworkProxy).optional(); },
+  /** The service name in service-to-service connections. For example, AWS VPC logs the pkt-src-aws-service and pkt-dst-aws-service fields identify the connection is coming from or going to an AWS service. */
+  svc_name: z.string().optional(),
+});
+
+export const NetworkProxy = NetworkProxySchema;
+
+/** Value → label mappings for each enum field of NetworkProxy. */
+export const NetworkProxyLabels: Readonly<Record<"type_id" | "network_scope_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Server",
+    2: "Desktop",
+    3: "Laptop",
+    4: "Tablet",
+    5: "Mobile",
+    6: "Virtual",
+    7: "IOT",
+    8: "Browser",
+    9: "Firewall",
+    10: "Switch",
+    11: "Hub",
+    12: "Router",
+    13: "IDS",
+    14: "IPS",
+    15: "Load Balancer",
+    99: "Other",
+  },
+  network_scope_id: {
+    0: "Unknown",
+    1: "Internal",
+    2: "External",
+    99: "Other",
+  },
+};

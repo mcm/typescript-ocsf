@@ -1,5 +1,6 @@
 /** MemoryActivity activity_id values. */
 export const MemoryActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   ALLOCATE_PAGE: 1,
   MODIFY_PAGE: 2,
@@ -15,6 +16,7 @@ export const MemoryActivityActivityId = {
   WRITE: 8,
   /** Map View (Example: <code>MapViewOfFile2</code>) */
   MAP_VIEW: 9,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

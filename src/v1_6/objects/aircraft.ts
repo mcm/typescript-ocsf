@@ -32,7 +32,20 @@ export interface AircraftType {
 
 import { Location } from './location.js';
 
-const AircraftSchema = z.strictObject({
+type AircraftShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  model: z.ZodOptional<z.ZodString>;
+  serial_number: z.ZodOptional<z.ZodString>;
+  speed: z.ZodOptional<z.ZodString>;
+  speed_accuracy: z.ZodOptional<z.ZodString>;
+  track_direction: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  vertical_speed: z.ZodOptional<z.ZodString>;
+};
+
+const AircraftSchema: z.ZodObject<AircraftShape, z.core.$strict> = z.strictObject({
   /** The name of the aircraft, such as the such as the flight name or callsign. */
   name: z.string().optional(),
   /** The primary identification identifier for an aircraft, such as the 24-bit International Civil Aviation Organization (ICAO) identifier of the aircraft, as 6 hex digits. */

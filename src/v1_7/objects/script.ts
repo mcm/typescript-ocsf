@@ -32,7 +32,18 @@ import { File } from './file.js';
 import { Fingerprint } from './fingerprint.js';
 import { LongString } from './long_string.js';
 
-const ScriptSchema = z.strictObject({
+type ScriptShape = {
+  file: z.ZodOptional<typeof File>;
+  hashes: z.ZodOptional<z.ZodArray<typeof Fingerprint>>;
+  name: z.ZodOptional<z.ZodString>;
+  parent_uid: z.ZodOptional<z.ZodString>;
+  script_content: typeof LongString;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>;
+  uid: z.ZodOptional<z.ZodString>;
+};
+
+const ScriptSchema: z.ZodObject<ScriptShape, z.core.$strict> = z.strictObject({
   /** Present if this script is associated with a file. Not present in the case of a file-less script. */
   file: File.optional(),
   /** An array of the script's cryptographic hashes. Note that these hashes are calculated on the script in its original encoding, and not on the normalized UTF-8 encoding found in the script_content attribute. */

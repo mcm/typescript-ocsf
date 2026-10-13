@@ -22,9 +22,11 @@ const VERSIONS = [
   { version: "1.5.0", slug: "v1_5" },
   { version: "1.6.0", slug: "v1_6" },
   { version: "1.7.0", slug: "v1_7" },
+  { version: "1.8.0", slug: "v1_8" },
+  { version: "1.9.0", slug: "v1_9" },
 ];
 
-const LATEST_SLUG = "v1_7";
+const LATEST_SLUG = "v1_9";
 
 const ROOT = resolve(__dirname, "..");
 const SRC_DIR = join(ROOT, "src");

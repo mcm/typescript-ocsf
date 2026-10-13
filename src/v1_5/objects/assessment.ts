@@ -24,7 +24,16 @@ export interface AssessmentType {
 
 import { Policy } from './policy.js';
 
-const AssessmentSchema = z.strictObject({
+type AssessmentShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  category: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  meets_criteria: z.ZodBoolean;
+  policy: z.ZodOptional<typeof Policy>;
+};
+
+const AssessmentSchema: z.ZodObject<AssessmentShape, z.core.$strict> = z.strictObject({
   /** The name of the configuration or signal being assessed. For example: Kernel Mode Code Integrity (KMCI) or publicAccessibilityState. */
   name: z.string().optional(),
   /** The unique identifier of the configuration or signal being assessed. For example: the signal_id. */

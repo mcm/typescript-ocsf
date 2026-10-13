@@ -1,0 +1,92 @@
+import { z } from 'zod';
+
+import type { FingerprintType } from './fingerprint.js';
+
+/**
+ * The Software Component object describes characteristics of a software component within a software package.
+ *
+ * OCSF Object: Software Component
+ */
+export interface SoftwareComponentType {
+  /** The author(s) who published the software component. */
+  author?: string;
+  /** Cryptographic hash to identify the binary instance of a software component. */
+  hash?: FingerprintType;
+  /** The software license applied to this component. */
+  license?: string;
+  /** The software component name. */
+  name: string;
+  /** The Package URL (PURL) to identify the software component. This is a URL that uniquely identifies the component, including the component's name, version, and type. The URL is used to locate and retrieve the component's metadata and content. */
+  purl?: string;
+  /** The package URL (PURL) of the component that this software component has a relationship with. */
+  related_component?: string;
+  /** The relationship between two software components, normalized to the caption of the relationship_id value. In the case of 'Other', it is defined by the source. */
+  relationship?: string;
+  /** The normalized identifier of the relationship between two software components. */
+  relationship_id?: 0 | 1 | 99;
+  /** The type of software component, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
+  type?: string;
+  /** The type of software component. */
+  type_id?: 0 | 1 | 2 | 3 | 99;
+  /** The software component version. */
+  version: string;
+}
+
+import { Fingerprint } from './fingerprint.js';
+
+type SoftwareComponentShape = {
+  author: z.ZodOptional<z.ZodString>;
+  hash: z.ZodOptional<typeof Fingerprint>;
+  license: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  purl: z.ZodOptional<z.ZodString>;
+  related_component: z.ZodOptional<z.ZodString>;
+  relationship: z.ZodOptional<z.ZodString>;
+  relationship_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<99>]>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  version: z.ZodString;
+};
+
+const SoftwareComponentSchema: z.ZodObject<SoftwareComponentShape, z.core.$strict> = z.strictObject({
+  /** The author(s) who published the software component. */
+  author: z.string().optional(),
+  /** Cryptographic hash to identify the binary instance of a software component. */
+  hash: Fingerprint.optional(),
+  /** The software license applied to this component. */
+  license: z.string().optional(),
+  /** The software component name. */
+  name: z.string(),
+  /** The Package URL (PURL) to identify the software component. This is a URL that uniquely identifies the component, including the component's name, version, and type. The URL is used to locate and retrieve the component's metadata and content. */
+  purl: z.string().optional(),
+  /** The package URL (PURL) of the component that this software component has a relationship with. */
+  related_component: z.string().optional(),
+  /** The relationship between two software components, normalized to the caption of the relationship_id value. In the case of 'Other', it is defined by the source. */
+  relationship: z.string().optional(),
+  /** The normalized identifier of the relationship between two software components. */
+  relationship_id: z.union([z.literal(0), z.literal(1), z.literal(99)]).optional(),
+  /** The type of software component, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
+  type: z.string().optional(),
+  /** The type of software component. */
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
+  /** The software component version. */
+  version: z.string(),
+});
+
+export const SoftwareComponent = SoftwareComponentSchema;
+
+/** Value → label mappings for each enum field of SoftwareComponent. */
+export const SoftwareComponentLabels: Readonly<Record<"relationship_id" | "type_id", Readonly<Record<number, string>>>> = {
+  relationship_id: {
+    0: "Unknown",
+    1: "Depends On",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Framework",
+    2: "Library",
+    3: "Operating System",
+    99: "Other",
+  },
+};

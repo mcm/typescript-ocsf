@@ -242,7 +242,60 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const AuthenticationSchema = z.strictObject({
+type AuthenticationShape = {
+  activity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_hash: z.ZodOptional<typeof Fingerprint>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  actor: z.ZodOptional<typeof Actor>;
+  http_request: z.ZodOptional<typeof HttpRequest>;
+  http_response: z.ZodOptional<typeof HttpResponse>;
+  src_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  account_switch_type: z.ZodOptional<z.ZodString>;
+  account_switch_type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  auth_factors: z.ZodOptional<z.ZodArray<typeof AuthFactor>>;
+  auth_protocol: z.ZodOptional<z.ZodString>;
+  auth_protocol_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<99>]>>;
+  authentication_token: z.ZodOptional<typeof AuthenticationToken>;
+  certificate: z.ZodOptional<typeof Certificate>;
+  dst_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  is_cleartext: z.ZodOptional<z.ZodBoolean>;
+  is_mfa: z.ZodOptional<z.ZodBoolean>;
+  is_new_logon: z.ZodOptional<z.ZodBoolean>;
+  is_remote: z.ZodOptional<z.ZodBoolean>;
+  logon_process: z.ZodOptional<typeof Process>;
+  logon_type: z.ZodOptional<z.ZodString>;
+  logon_type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<99>]>>;
+  service: z.ZodOptional<typeof Service>;
+  session: z.ZodOptional<typeof Session>;
+  user: typeof User;
+};
+
+const AuthenticationSchema: z.ZodObject<AuthenticationShape, z.core.$strict> = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */

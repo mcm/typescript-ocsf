@@ -21,7 +21,7 @@ export interface AnalyticType {
   /** The Analytic state. */
   state?: string;
   /** The Analytic state identifier. */
-  state_id?: 1 | 2 | 3;
+  state_id?: 0 | 1 | 2 | 3 | 99;
   /** The analytic type. */
   type?: string;
   /** The analytic type ID. */
@@ -30,7 +30,21 @@ export interface AnalyticType {
   version?: string;
 }
 
-const AnalyticSchema = z.strictObject({
+type AnalyticShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  algorithm: z.ZodOptional<z.ZodString>;
+  category: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  related_analytics: z.ZodOptional<z.ZodLazy<z.ZodArray<z.ZodType<AnalyticType>>>>;
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<99>]>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const AnalyticSchema: z.ZodObject<AnalyticShape, z.core.$strict> = z.strictObject({
   /** The name of the analytic that generated the finding. */
   name: z.string().optional(),
   /** The unique identifier of the analytic that generated the finding. */
@@ -46,7 +60,7 @@ const AnalyticSchema = z.strictObject({
   /** The Analytic state. */
   state: z.string().optional(),
   /** The Analytic state identifier. */
-  state_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
+  state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The analytic type. */
   type: z.string().optional(),
   /** The analytic type ID. */
@@ -60,9 +74,11 @@ export const Analytic = AnalyticSchema;
 /** Value → label mappings for each enum field of Analytic. */
 export const AnalyticLabels: Readonly<Record<"state_id" | "type_id", Readonly<Record<number, string>>>> = {
   state_id: {
+    0: "Unknown",
     1: "Active",
     2: "Suppressed",
     3: "Experimental",
+    99: "Other",
   },
   type_id: {
     0: "Unknown",

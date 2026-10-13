@@ -1,5 +1,6 @@
 /** GroupManagement activity_id values. */
 export const GroupManagementActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Assign privileges to a group. */
   ASSIGN_PRIVILEGES: 1,
@@ -17,6 +18,7 @@ export const GroupManagementActivityId = {
   ADD_SUBGROUP: 7,
   /** Remove subgroup from a group. */
   REMOVE_SUBGROUP: 8,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

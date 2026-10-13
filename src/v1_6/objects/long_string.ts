@@ -14,7 +14,13 @@ export interface LongStringType {
   value: string;
 }
 
-const LongStringSchema = z.strictObject({
+type LongStringShape = {
+  is_truncated: z.ZodOptional<z.ZodBoolean>;
+  untruncated_size: z.ZodOptional<z.ZodNumber>;
+  value: z.ZodString;
+};
+
+const LongStringSchema: z.ZodObject<LongStringShape, z.core.$strict> = z.strictObject({
   /** Indicates that value has been truncated. May be omitted if truncation has not occurred. */
   is_truncated: z.boolean().optional(),
   /** The size in bytes of the string represented by value before truncation. Should be omitted if truncation has not occurred. */

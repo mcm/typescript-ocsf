@@ -34,7 +34,23 @@ export interface SessionType {
   uuid?: string;
 }
 
-const SessionSchema = z.strictObject({
+type SessionShape = {
+  count: z.ZodOptional<z.ZodNumber>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  credential_uid: z.ZodOptional<z.ZodString>;
+  expiration_reason: z.ZodOptional<z.ZodString>;
+  expiration_time: z.ZodOptional<z.ZodNumber>;
+  is_mfa: z.ZodOptional<z.ZodBoolean>;
+  is_remote: z.ZodOptional<z.ZodBoolean>;
+  is_vpn: z.ZodOptional<z.ZodBoolean>;
+  issuer: z.ZodOptional<z.ZodString>;
+  terminal: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  uuid: z.ZodOptional<z.ZodString>;
+};
+
+const SessionSchema: z.ZodObject<SessionShape, z.core.$strict> = z.strictObject({
   /** The number of identical sessions spawned from the same source IP, destination IP, application, and content/threat type seen over a period of time. */
   count: z.number().int().optional(),
   /** The time when the session was created. */

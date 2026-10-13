@@ -1,5 +1,6 @@
 /** ScanActivity activity_id values. */
 export const ScanActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The scan was started. */
   STARTED: 1,
@@ -21,6 +22,7 @@ export const ScanActivityActivityId = {
   RESTARTED: 9,
   /** The user delayed the scan. */
   DELAYED: 10,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

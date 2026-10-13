@@ -1,5 +1,6 @@
 /** SshActivity activity_id values. */
 export const SshActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** A new network connection was opened. */
   OPEN: 1,
@@ -15,6 +16,7 @@ export const SshActivityActivityId = {
   TRAFFIC: 6,
   /** A network endpoint began listening for new network connections. */
   LISTEN: 7,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

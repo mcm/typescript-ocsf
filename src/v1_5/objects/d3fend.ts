@@ -20,7 +20,13 @@ export interface D3fendType {
 import { D3fTactic } from './d3f_tactic.js';
 import { D3fTechnique } from './d3f_technique.js';
 
-const D3fendSchema = z.strictObject({
+type D3fendShape = {
+  d3f_tactic: z.ZodOptional<typeof D3fTactic>;
+  d3f_technique: z.ZodOptional<typeof D3fTechnique>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const D3fendSchema: z.ZodObject<D3fendShape, z.core.$strict> = z.strictObject({
   /** The Tactic object describes the tactic ID and/or name that is associated with a countermeasure. */
   d3f_tactic: D3fTactic.optional(),
   /** The Technique object describes the technique ID and/or name associated with a countermeasure. */

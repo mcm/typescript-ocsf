@@ -32,7 +32,20 @@ export interface NetworkInterfaceType {
 
 import { PortInfo } from './port_info.js';
 
-const NetworkInterfaceSchema = z.strictObject({
+type NetworkInterfaceShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  mac: z.ZodOptional<z.ZodString>;
+  namespace: z.ZodOptional<z.ZodString>;
+  open_ports: z.ZodOptional<z.ZodArray<typeof PortInfo>>;
+  subnet_prefix: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+};
+
+const NetworkInterfaceSchema: z.ZodObject<NetworkInterfaceShape, z.core.$strict> = z.strictObject({
   /** The name of the network interface. */
   name: z.string().optional(),
   /** The unique identifier for the network interface. */

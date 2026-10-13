@@ -106,7 +106,37 @@ import { Tls } from './tls.js';
 import { Url } from './url.js';
 import { User } from './user.js';
 
-const EvidencesSchema = z.strictObject({
+type EvidencesShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  actor: z.ZodOptional<typeof Actor>;
+  api: z.ZodOptional<typeof Api>;
+  connection_info: z.ZodOptional<typeof NetworkConnectionInfo>;
+  container: z.ZodOptional<typeof Container>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  database: z.ZodOptional<typeof Database>;
+  databucket: z.ZodOptional<typeof Databucket>;
+  device: z.ZodOptional<typeof Device>;
+  dst_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  email: z.ZodOptional<typeof Email>;
+  file: z.ZodOptional<typeof File>;
+  http_request: z.ZodOptional<typeof HttpRequest>;
+  http_response: z.ZodOptional<typeof HttpResponse>;
+  ja4_fingerprint_list: z.ZodOptional<z.ZodArray<typeof Ja4Fingerprint>>;
+  job: z.ZodOptional<typeof Job>;
+  process: z.ZodOptional<typeof Process>;
+  query: z.ZodOptional<typeof DnsQuery>;
+  resources: z.ZodOptional<z.ZodArray<typeof ResourceDetails>>;
+  script: z.ZodOptional<typeof Script>;
+  src_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  tls: z.ZodOptional<typeof Tls>;
+  url: z.ZodOptional<typeof Url>;
+  user: z.ZodOptional<typeof User>;
+  verdict: z.ZodOptional<z.ZodString>;
+  verdict_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<99>]>>;
+};
+
+const EvidencesSchema: z.ZodObject<EvidencesShape, z.core.$strict> = z.strictObject({
   /** The naming convention or type identifier of the evidence associated with the security detection. For example, the @odata.type from Microsoft Graph Alerts V2 or display_name from CrowdStrike Falcon Incident Behaviors. */
   name: z.string().optional(),
   /** The unique identifier of the evidence associated with the security detection. For example, the activity_id from CrowdStrike Falcon Alerts or behavior_id from CrowdStrike Falcon Incident Behaviors. */

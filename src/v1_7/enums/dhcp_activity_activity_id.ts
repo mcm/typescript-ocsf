@@ -1,5 +1,6 @@
 /** DhcpActivity activity_id values. */
 export const DhcpActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** DHCPDISCOVER */
   DISCOVER: 1,
@@ -19,6 +20,7 @@ export const DhcpActivityActivityId = {
   INFORM: 8,
   /** DHCPEXPIRE: A DHCP lease expired. */
   EXPIRE: 9,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

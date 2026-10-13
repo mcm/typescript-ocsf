@@ -30,7 +30,19 @@ export interface CvssType {
 
 import { Metric } from './metric.js';
 
-const CvssSchema = z.strictObject({
+type CvssShape = {
+  base_score: z.ZodNumber;
+  depth: z.ZodOptional<z.ZodString>;
+  metrics: z.ZodOptional<z.ZodArray<typeof Metric>>;
+  overall_score: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+  vector_string: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  version: z.ZodString;
+};
+
+const CvssSchema: z.ZodObject<CvssShape, z.core.$strict> = z.strictObject({
   /** The CVSS base score. For example: 9.1. */
   base_score: z.number(),
   /** The CVSS depth represents a depth of the equation used to calculate CVSS score. */

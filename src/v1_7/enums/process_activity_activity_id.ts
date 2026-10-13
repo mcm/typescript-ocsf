@@ -1,5 +1,6 @@
 /** ProcessActivity activity_id values. */
 export const ProcessActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** A request by the actor to launch another process. Refer to the <code>launch_type_id</code> attribute for details of the specific launch type. */
   LAUNCH: 1,
@@ -11,6 +12,7 @@ export const ProcessActivityActivityId = {
   INJECT: 4,
   /** A request by the actor to change its user identity by invoking the <code>setuid()</code> system call. Common programs like <code>su</code> and <code>sudo</code> use this mechanism. Note that the <em>impersonation</em> mechanism on Windows is not directly equivalent because it acts at the thread level. */
   SET_USER_ID: 5,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

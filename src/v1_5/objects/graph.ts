@@ -24,7 +24,7 @@ export interface GraphType {
   /** The graph query language, normalized to the caption of the query_language_id value. */
   query_language?: string;
   /** The normalized identifier of a graph query language that can be used to interact with the graph. */
-  query_language_id?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  query_language_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 99;
   /** The graph type. Typically useful to represent the specifc type of graph that is used. */
   type?: string;
 }
@@ -32,7 +32,19 @@ export interface GraphType {
 import { Edge } from './edge.js';
 import { Node } from './node.js';
 
-const GraphSchema = z.strictObject({
+type GraphShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  edges: z.ZodOptional<z.ZodArray<typeof Edge>>;
+  is_directed: z.ZodOptional<z.ZodBoolean>;
+  nodes: z.ZodArray<typeof Node>;
+  query_language: z.ZodOptional<z.ZodString>;
+  query_language_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>>;
+  type: z.ZodOptional<z.ZodString>;
+};
+
+const GraphSchema: z.ZodObject<GraphShape, z.core.$strict> = z.strictObject({
   /** The graph name - a human readable identifier for the graph. */
   name: z.string().optional(),
   /** Unique identifier of the graph - a unique ID to reference this specific graph. */
@@ -48,7 +60,7 @@ const GraphSchema = z.strictObject({
   /** The graph query language, normalized to the caption of the query_language_id value. */
   query_language: z.string().optional(),
   /** The normalized identifier of a graph query language that can be used to interact with the graph. */
-  query_language_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]).optional(),
+  query_language_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]).optional(),
   /** The graph type. Typically useful to represent the specifc type of graph that is used. */
   type: z.string().optional(),
 });
@@ -58,6 +70,7 @@ export const Graph = GraphSchema;
 /** Value → label mappings for each enum field of Graph. */
 export const GraphLabels: Readonly<Record<"query_language_id", Readonly<Record<number, string>>>> = {
   query_language_id: {
+    0: "Unknown",
     1: "Cypher",
     2: "GraphQL",
     3: "Gremlin",
@@ -65,5 +78,6 @@ export const GraphLabels: Readonly<Record<"query_language_id", Readonly<Record<n
     5: "G-CORE",
     6: "PGQL",
     7: "SPARQL",
+    99: "Other",
   },
 };

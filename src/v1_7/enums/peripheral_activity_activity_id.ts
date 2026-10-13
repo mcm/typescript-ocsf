@@ -1,5 +1,6 @@
 /** PeripheralActivity activity_id values. */
 export const PeripheralActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** A peripheral device was connected to the system. */
   CONNECT: 1,
@@ -11,6 +12,7 @@ export const PeripheralActivityActivityId = {
   DISABLE: 4,
   /** A peripheral device was ejected from the system. This is typically used for removable media devices. Note: For <code>Mount</code> and <code>Unmount</code> events, see the <a target='_blank' href='file_activity'>File System Activity</a> event class. */
   EJECT: 5,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

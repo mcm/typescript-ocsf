@@ -18,7 +18,15 @@ export interface NodeType {
   uid: string;
 }
 
-const NodeSchema = z.strictObject({
+type NodeShape = {
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  desc: z.ZodOptional<z.ZodString>;
+  name: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+};
+
+const NodeSchema: z.ZodObject<NodeShape, z.core.$strict> = z.strictObject({
   /** Additional data about the node stored as key-value pairs. Can include custom properties specific to the node. */
   data: z.record(z.string(), z.unknown()).optional(),
   /** A human-readable description of the node's purpose or meaning in the graph. */

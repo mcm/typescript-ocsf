@@ -18,7 +18,15 @@ export interface DisplayType {
   scale_factor?: number;
 }
 
-const DisplaySchema = z.strictObject({
+type DisplayShape = {
+  color_depth: z.ZodOptional<z.ZodNumber>;
+  physical_height: z.ZodOptional<z.ZodNumber>;
+  physical_orientation: z.ZodOptional<z.ZodNumber>;
+  physical_width: z.ZodOptional<z.ZodNumber>;
+  scale_factor: z.ZodOptional<z.ZodNumber>;
+};
+
+const DisplaySchema: z.ZodObject<DisplayShape, z.core.$strict> = z.strictObject({
   /** The numeric color depth. */
   color_depth: z.number().int().optional(),
   /** The numeric physical height of display. */

@@ -1,8 +1,10 @@
 /** ModuleActivity activity_id values. */
 export const ModuleActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   LOAD: 1,
   UNLOAD: 2,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

@@ -38,7 +38,23 @@ export interface NetworkTrafficType {
 
 import { Timespan } from './timespan.js';
 
-const NetworkTrafficSchema = z.strictObject({
+type NetworkTrafficShape = {
+  bytes: z.ZodOptional<z.ZodNumber>;
+  bytes_in: z.ZodOptional<z.ZodNumber>;
+  bytes_missed: z.ZodOptional<z.ZodNumber>;
+  bytes_out: z.ZodOptional<z.ZodNumber>;
+  chunks: z.ZodOptional<z.ZodNumber>;
+  chunks_in: z.ZodOptional<z.ZodNumber>;
+  chunks_out: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  packets: z.ZodOptional<z.ZodNumber>;
+  packets_in: z.ZodOptional<z.ZodNumber>;
+  packets_out: z.ZodOptional<z.ZodNumber>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  timespan: z.ZodOptional<typeof Timespan>;
+};
+
+const NetworkTrafficSchema: z.ZodObject<NetworkTrafficShape, z.core.$strict> = z.strictObject({
   /** The total number of bytes transferred in both directions (sum of bytes_in and bytes_out). */
   bytes: z.number().int().optional(),
   /** The number of bytes sent from the destination to the source (inbound direction). */

@@ -1,5 +1,6 @@
 /** EmailActivity activity_id values. */
 export const EmailActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   SEND: 1,
   RECEIVE: 2,
@@ -7,6 +8,7 @@ export const EmailActivityActivityId = {
   SCAN: 3,
   /** Follow an email message as it travels through an organization. The <code>message_trace_uid</code> should be populated when selected. */
   TRACE: 4,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

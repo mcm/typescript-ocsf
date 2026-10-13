@@ -1,0 +1,40 @@
+import { z } from 'zod';
+
+import type { TimespanType } from './timespan.js';
+
+/**
+ * A record of an observed value or event that captures the timing and frequency of its occurrence. Used to track when values/events were first detected, last detected, and their total occurrence count.
+ *
+ * OCSF Object: Observation
+ */
+export interface ObservationType {
+  /** Integer representing the total number of times this specific value/event was observed across all occurrences. Helps establish prevalence and patterns. */
+  count?: number;
+  /** The time window when the value or event was first observed. It is used to analyze activity patterns, detect trends, or correlate events within a specific timeframe. */
+  timespan?: TimespanType;
+  /** The specific value, event, indicator or data point that was observed and recorded. This is the core piece of information being tracked. */
+  value: string;
+}
+
+import { Timespan } from './timespan.js';
+
+type ObservationShape = {
+  count: z.ZodOptional<z.ZodNumber>;
+  timespan: z.ZodOptional<typeof Timespan>;
+  value: z.ZodString;
+};
+
+const ObservationSchema: z.ZodObject<ObservationShape, z.core.$strict> = z.strictObject({
+  /** Integer representing the total number of times this specific value/event was observed across all occurrences. Helps establish prevalence and patterns. */
+  count: z.number().int().optional(),
+  /** The time window when the value or event was first observed. It is used to analyze activity patterns, detect trends, or correlate events within a specific timeframe. */
+  timespan: Timespan.optional(),
+  /** The specific value, event, indicator or data point that was observed and recorded. This is the core piece of information being tracked. */
+  value: z.string(),
+});
+
+export const Observation = ObservationSchema;
+
+/** Value → label mappings for each enum field of Observation. */
+export const ObservationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

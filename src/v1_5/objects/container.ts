@@ -40,7 +40,22 @@ import { Fingerprint } from './fingerprint.js';
 import { Image } from './image.js';
 import { KeyValueObject } from './key_value_object.js';
 
-const ContainerSchema = z.strictObject({
+type ContainerShape = {
+  hash: z.ZodOptional<typeof Fingerprint>;
+  image: z.ZodOptional<typeof Image>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  name: z.ZodOptional<z.ZodString>;
+  network_driver: z.ZodOptional<z.ZodString>;
+  orchestrator: z.ZodOptional<z.ZodString>;
+  pod_uuid: z.ZodOptional<z.ZodString>;
+  runtime: z.ZodOptional<z.ZodString>;
+  size: z.ZodOptional<z.ZodNumber>;
+  tag: z.ZodOptional<z.ZodString>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  uid: z.ZodOptional<z.ZodString>;
+};
+
+const ContainerSchema: z.ZodObject<ContainerShape, z.core.$strict> = z.strictObject({
   /** Commit hash of image created for docker or the SHA256 hash of the container. For example: 13550340a8681c84c861aac2e5b440161c2b33a3e4f302ac680ca5b686de48de. */
   hash: Fingerprint.optional(),
   /** The container image used as a template to run the container. */

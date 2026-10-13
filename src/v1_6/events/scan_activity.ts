@@ -167,7 +167,52 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const ScanActivitySchema = z.strictObject({
+type ScanActivityShape = {
+  activity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<99>]>>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_hash: z.ZodOptional<typeof Fingerprint>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  command_uid: z.ZodOptional<z.ZodString>;
+  num_detections: z.ZodOptional<z.ZodNumber>;
+  num_files: z.ZodOptional<z.ZodNumber>;
+  num_folders: z.ZodOptional<z.ZodNumber>;
+  num_network_items: z.ZodOptional<z.ZodNumber>;
+  num_processes: z.ZodOptional<z.ZodNumber>;
+  num_registry_items: z.ZodOptional<z.ZodNumber>;
+  num_resolutions: z.ZodOptional<z.ZodNumber>;
+  num_skipped_items: z.ZodOptional<z.ZodNumber>;
+  num_trusted_items: z.ZodOptional<z.ZodNumber>;
+  policy: z.ZodOptional<typeof Policy>;
+  scan: typeof Scan;
+  schedule_uid: z.ZodOptional<z.ZodString>;
+  total: z.ZodOptional<z.ZodNumber>;
+};
+
+const ScanActivitySchema: z.ZodObject<ScanActivityShape, z.core.$strict> = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */

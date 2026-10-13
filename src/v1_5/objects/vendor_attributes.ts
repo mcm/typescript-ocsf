@@ -12,7 +12,12 @@ export interface VendorAttributesType {
   severity_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
 }
 
-const VendorAttributesSchema = z.strictObject({
+type VendorAttributesShape = {
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+};
+
+const VendorAttributesSchema: z.ZodObject<VendorAttributesShape, z.core.$strict> = z.strictObject({
   /** The finding severity, as reported by the Vendor (Finding Provider). The value should be normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
   severity: z.string().optional(),
   /** The finding severity ID, as reported by the Vendor (Finding Provider). */

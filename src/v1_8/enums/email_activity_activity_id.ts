@@ -1,0 +1,37 @@
+/** EmailActivity activity_id values. */
+export const EmailActivityActivityId = {
+  /** The event activity is unknown. */
+  UNKNOWN: 0,
+  SEND: 1,
+  RECEIVE: 2,
+  /** Email being scanned (example: security scanning) */
+  SCAN: 3,
+  /** Follow an email message as it travels through an organization. The <code>message_trace_uid</code> should be populated when selected. */
+  TRACE: 4,
+  /** Email processed by an MTA, typically combining send, receive, and scan operations into a single activity. */
+  MTA_RELAY: 5,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
+} as const;
+
+export type EmailActivityActivityId = (typeof EmailActivityActivityId)[keyof typeof EmailActivityActivityId];
+
+export const EmailActivityActivityIdLabels: Record<number, string> = {
+  0: "Unknown",
+  1: "Send",
+  2: "Receive",
+  3: "Scan",
+  4: "Trace",
+  5: "MTA Relay",
+  99: "Other",
+};
+
+export const EmailActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Send": 1,
+  "Receive": 2,
+  "Scan": 3,
+  "Trace": 4,
+  "MTA Relay": 5,
+  "Other": 99,
+};

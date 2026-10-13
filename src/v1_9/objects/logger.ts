@@ -1,0 +1,107 @@
+import { z } from 'zod';
+
+import type { DeviceType } from './device.js';
+import type { ProductType } from './product.js';
+
+/**
+ * The Logger object represents the device and product where events are stored with times for receipt and transmission.  This may be at the source device where the event occurred, a remote scanning device, intermediate hops, or the ultimate destination.
+ *
+ * OCSF Object: Logger
+ */
+export interface LoggerType {
+  /** The name of the logging product instance. */
+  name?: string;
+  /** The unique identifier of the logging product instance. */
+  uid?: string;
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric?: number;
+  /** The device where the events are logged. */
+  device?: DeviceType;
+  /** The unique identifier of the event assigned by the logger. */
+  event_uid?: string;
+  /** Indicates whether the OCSF event data has been truncated due to size limitations. When true, some event data may have been omitted to fit within system constraints. */
+  is_truncated?: boolean;
+  /** The format of data in the log. For example JSON, syslog or CSV. */
+  log_format?: string;
+  /** The level at which an event was logged. This can be log provider specific. For example the audit level. */
+  log_level?: string;
+  /** The log name for the logging provider log, or the file name of the system log. This may be an intermediate store-and-forward log or a vendor destination log. For example /archive/server1/var/log/messages.0 or /var/log/. */
+  log_name?: string;
+  /** The logging provider or logging service that logged the event. This may be an intermediate application store-and-forward log or a vendor destination log. */
+  log_provider?: string;
+  /** The event log schema version of the original event. For example the syslog version or the Cisco Log Schema version */
+  log_version?: string;
+  /** The time when this logger received and logged the event. For the last logger in the pipeline, this value should match metadata.logged_time. */
+  logged_time?: number;
+  /** The product logging the event. This may be the event source product, a management server product, a scanning product, a SIEM, etc. */
+  product?: ProductType;
+  /** The time when the event was transmitted from the logging device to it's next destination. */
+  transmit_time?: number;
+  /** The original size of the OCSF event data in kilobytes before any truncation occurred. This field is typically populated when is_truncated is true to indicate the full size of the original event. */
+  untruncated_size?: number;
+  /** The version of the logging provider. */
+  version?: string;
+}
+
+import { Device } from './device.js';
+import { Product } from './product.js';
+
+type LoggerShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_numeric: z.ZodOptional<z.ZodNumber>;
+  device: z.ZodOptional<typeof Device>;
+  event_uid: z.ZodOptional<z.ZodString>;
+  is_truncated: z.ZodOptional<z.ZodBoolean>;
+  log_format: z.ZodOptional<z.ZodString>;
+  log_level: z.ZodOptional<z.ZodString>;
+  log_name: z.ZodOptional<z.ZodString>;
+  log_provider: z.ZodOptional<z.ZodString>;
+  log_version: z.ZodOptional<z.ZodString>;
+  logged_time: z.ZodOptional<z.ZodNumber>;
+  product: z.ZodOptional<typeof Product>;
+  transmit_time: z.ZodOptional<z.ZodNumber>;
+  untruncated_size: z.ZodOptional<z.ZodNumber>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const LoggerSchema: z.ZodObject<LoggerShape, z.core.$strict> = z.strictObject({
+  /** The name of the logging product instance. */
+  name: z.string().optional(),
+  /** The unique identifier of the logging product instance. */
+  uid: z.string().optional(),
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric: z.number().int().optional(),
+  /** The device where the events are logged. */
+  device: Device.optional(),
+  /** The unique identifier of the event assigned by the logger. */
+  event_uid: z.string().optional(),
+  /** Indicates whether the OCSF event data has been truncated due to size limitations. When true, some event data may have been omitted to fit within system constraints. */
+  is_truncated: z.boolean().optional(),
+  /** The format of data in the log. For example JSON, syslog or CSV. */
+  log_format: z.string().optional(),
+  /** The level at which an event was logged. This can be log provider specific. For example the audit level. */
+  log_level: z.string().optional(),
+  /** The log name for the logging provider log, or the file name of the system log. This may be an intermediate store-and-forward log or a vendor destination log. For example /archive/server1/var/log/messages.0 or /var/log/. */
+  log_name: z.string().optional(),
+  /** The logging provider or logging service that logged the event. This may be an intermediate application store-and-forward log or a vendor destination log. */
+  log_provider: z.string().optional(),
+  /** The event log schema version of the original event. For example the syslog version or the Cisco Log Schema version */
+  log_version: z.string().optional(),
+  /** The time when this logger received and logged the event. For the last logger in the pipeline, this value should match metadata.logged_time. */
+  logged_time: z.number().int().optional(),
+  /** The product logging the event. This may be the event source product, a management server product, a scanning product, a SIEM, etc. */
+  product: Product.optional(),
+  /** The time when the event was transmitted from the logging device to it's next destination. */
+  transmit_time: z.number().int().optional(),
+  /** The original size of the OCSF event data in kilobytes before any truncation occurred. This field is typically populated when is_truncated is true to indicate the full size of the original event. */
+  untruncated_size: z.number().int().optional(),
+  /** The version of the logging provider. */
+  version: z.string().optional(),
+});
+
+export const Logger = LoggerSchema;
+
+/** Value → label mappings for each enum field of Logger. */
+export const LoggerLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

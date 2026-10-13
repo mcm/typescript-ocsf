@@ -1,5 +1,6 @@
 /** EmailActivity activity_id values. */
 export const EmailActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   SEND: 1,
   RECEIVE: 2,
@@ -9,6 +10,7 @@ export const EmailActivityActivityId = {
   TRACE: 4,
   /** Email processed by an MTA, typically combining send, receive, and scan operations into a single activity. */
   MTA_RELAY: 5,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

@@ -28,7 +28,18 @@ export interface HttpResponseType {
 
 import { HttpHeader } from './http_header.js';
 
-const HttpResponseSchema = z.strictObject({
+type HttpResponseShape = {
+  body_length: z.ZodOptional<z.ZodNumber>;
+  code: z.ZodNumber;
+  content_type: z.ZodOptional<z.ZodString>;
+  http_headers: z.ZodOptional<z.ZodArray<typeof HttpHeader>>;
+  latency: z.ZodOptional<z.ZodNumber>;
+  length: z.ZodOptional<z.ZodNumber>;
+  message: z.ZodOptional<z.ZodString>;
+  status: z.ZodOptional<z.ZodString>;
+};
+
+const HttpResponseSchema: z.ZodObject<HttpResponseShape, z.core.$strict> = z.strictObject({
   /** The actual length of the HTTP response body, in number of bytes, independent of a potentially existing Content-Length header. */
   body_length: z.number().int().optional(),
   /** The Hypertext Transfer Protocol (HTTP) status code returned from the web server to the client. For example, 200. */

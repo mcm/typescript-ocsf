@@ -1,0 +1,92 @@
+import { z } from 'zod';
+
+import type { ResourceDetailsType } from './resource_details.js';
+
+/**
+ * The check object defines a specific, testable compliance verification point that evaluates a target device against a standard, framework, or custom requirement. While checks are typically associated with formal standards (like CIS, NIST, or ISO), they can also represent custom or organizational requirements. When mapped to controls, checks can evaluate specific control_parameters to determine compliance status, but neither the control mapping nor control_parameters are required for a valid check.
+ *
+ * OCSF Object: Check
+ */
+export interface CheckType {
+  /** The detailed description of the compliance check, explaining the security requirement, vulnerability, or configuration being assessed. For example, CIS: The cramfs filesystem type is a compressed read-only Linux filesystem. Removing support for unneeded filesystem types reduces the local attack surface. or DISA STIG: Unauthorized access to the information system by foreign entities may result in loss or compromise of data. */
+  desc?: string;
+  /** The name or title of the compliance check. For example, CIS: Ensure mounting of cramfs filesystems is disabled or DISA STIG: The Ubuntu operating system must implement DoD-approved encryption to protect the confidentiality of remote access sessions. */
+  name?: string;
+  /** Describes details about the resource that this check evaluated. */
+  resource?: ResourceDetailsType;
+  /** The severity level as defined in the source document. For example CIS Benchmarks, valid values are: Level 1 (security-forward, essential settings), Level 2 (security-focused environment, more restrictive), or Scored/Not Scored (whether compliance can be automatically checked). For DISA STIG, valid values are: CAT I (maps to severity_id 5/Critical), CAT II (maps to severity_id 4/High), or CAT III (maps to severity_id 3/Medium). */
+  severity?: string;
+  /** The normalized severity identifier that maps severity levels to standard severity levels. For example CIS Benchmark: Level 2 maps to 4 (High), Level 1 maps to 3 (Medium). For DISA STIG: CAT I maps to 5 (Critical), CAT II maps to 4 (High), and CAT III maps to 3 (Medium). */
+  severity_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
+  /** The regulatory or industry standard this check is associated with. E.g., PCI DSS 3.2.1, HIPAA Security Rule, NIST SP 800-53 Rev. 5, or ISO/IEC 27001:2013. */
+  standards?: string[];
+  /** The resultant status of the compliance check normalized to the caption of the status_id value. For example, CIS Benchmark: Pass when all requirements are met, Fail when requirements are not met, or DISA STIG: NotAFinding (maps to status_id 1/Pass), Open (maps to status_id 3/Fail). */
+  status?: string;
+  /** The normalized status identifier of the compliance check. */
+  status_id?: 0 | 1 | 2 | 3 | 99;
+  /** The unique identifier of the compliance check within its standard or framework. For example, CIS Benchmark identifier 1.1.1.1, DISA STIG identifier V-230234, or NIST control identifier AC-17(2). */
+  uid?: string;
+  /** The check version. For example, CIS Benchmark: 1.1.0 for Amazon Linux 2 or DISA STIG: V2R1 for Windows 10. */
+  version?: string;
+}
+
+import { ResourceDetails } from './resource_details.js';
+
+type CheckShape = {
+  desc: z.ZodOptional<z.ZodString>;
+  name: z.ZodOptional<z.ZodString>;
+  resource: z.ZodOptional<typeof ResourceDetails>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  standards: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  status: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  uid: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const CheckSchema: z.ZodObject<CheckShape, z.core.$strict> = z.strictObject({
+  /** The detailed description of the compliance check, explaining the security requirement, vulnerability, or configuration being assessed. For example, CIS: The cramfs filesystem type is a compressed read-only Linux filesystem. Removing support for unneeded filesystem types reduces the local attack surface. or DISA STIG: Unauthorized access to the information system by foreign entities may result in loss or compromise of data. */
+  desc: z.string().optional(),
+  /** The name or title of the compliance check. For example, CIS: Ensure mounting of cramfs filesystems is disabled or DISA STIG: The Ubuntu operating system must implement DoD-approved encryption to protect the confidentiality of remote access sessions. */
+  name: z.string().optional(),
+  /** Describes details about the resource that this check evaluated. */
+  resource: ResourceDetails.optional(),
+  /** The severity level as defined in the source document. For example CIS Benchmarks, valid values are: Level 1 (security-forward, essential settings), Level 2 (security-focused environment, more restrictive), or Scored/Not Scored (whether compliance can be automatically checked). For DISA STIG, valid values are: CAT I (maps to severity_id 5/Critical), CAT II (maps to severity_id 4/High), or CAT III (maps to severity_id 3/Medium). */
+  severity: z.string().optional(),
+  /** The normalized severity identifier that maps severity levels to standard severity levels. For example CIS Benchmark: Level 2 maps to 4 (High), Level 1 maps to 3 (Medium). For DISA STIG: CAT I maps to 5 (Critical), CAT II maps to 4 (High), and CAT III maps to 3 (Medium). */
+  severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
+  /** The regulatory or industry standard this check is associated with. E.g., PCI DSS 3.2.1, HIPAA Security Rule, NIST SP 800-53 Rev. 5, or ISO/IEC 27001:2013. */
+  standards: z.array(z.string()).optional(),
+  /** The resultant status of the compliance check normalized to the caption of the status_id value. For example, CIS Benchmark: Pass when all requirements are met, Fail when requirements are not met, or DISA STIG: NotAFinding (maps to status_id 1/Pass), Open (maps to status_id 3/Fail). */
+  status: z.string().optional(),
+  /** The normalized status identifier of the compliance check. */
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
+  /** The unique identifier of the compliance check within its standard or framework. For example, CIS Benchmark identifier 1.1.1.1, DISA STIG identifier V-230234, or NIST control identifier AC-17(2). */
+  uid: z.string().optional(),
+  /** The check version. For example, CIS Benchmark: 1.1.0 for Amazon Linux 2 or DISA STIG: V2R1 for Windows 10. */
+  version: z.string().optional(),
+});
+
+export const Check = CheckSchema;
+
+/** Value → label mappings for each enum field of Check. */
+export const CheckLabels: Readonly<Record<"severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Pass",
+    2: "Warning",
+    3: "Fail",
+    99: "Other",
+  },
+};

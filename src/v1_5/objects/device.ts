@@ -140,7 +140,66 @@ import { Image } from './image.js';
 import { NetworkInterface } from './network_interface.js';
 import { Organization } from './organization.js';
 
-const DeviceSchema = z.strictObject({
+type DeviceShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  domain: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  hw_info: z.ZodOptional<typeof DeviceHwInfo>;
+  instance_uid: z.ZodOptional<z.ZodString>;
+  interface_name: z.ZodOptional<z.ZodString>;
+  interface_uid: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  mac: z.ZodOptional<z.ZodString>;
+  os: z.ZodOptional<typeof Os>;
+  owner: z.ZodOptional<typeof User>;
+  subnet_uid: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<99>]>;
+  vlan_uid: z.ZodOptional<z.ZodString>;
+  vpc_uid: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+  autoscale_uid: z.ZodOptional<z.ZodString>;
+  boot_time: z.ZodOptional<z.ZodNumber>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  eid: z.ZodOptional<z.ZodString>;
+  first_seen_time: z.ZodOptional<z.ZodNumber>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  hypervisor: z.ZodOptional<z.ZodString>;
+  image: z.ZodOptional<typeof Image>;
+  iccid: z.ZodOptional<z.ZodString>;
+  imei: z.ZodOptional<z.ZodString>;
+  imei_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  is_backed_up: z.ZodOptional<z.ZodBoolean>;
+  is_compliant: z.ZodOptional<z.ZodBoolean>;
+  is_managed: z.ZodOptional<z.ZodBoolean>;
+  is_mobile_account_active: z.ZodOptional<z.ZodBoolean>;
+  is_personal: z.ZodOptional<z.ZodBoolean>;
+  is_shared: z.ZodOptional<z.ZodBoolean>;
+  is_supervised: z.ZodOptional<z.ZodBoolean>;
+  is_trusted: z.ZodOptional<z.ZodBoolean>;
+  last_seen_time: z.ZodOptional<z.ZodNumber>;
+  meid: z.ZodOptional<z.ZodString>;
+  model: z.ZodOptional<z.ZodString>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  network_interfaces: z.ZodOptional<z.ZodArray<typeof NetworkInterface>>;
+  org: z.ZodOptional<typeof Organization>;
+  os_machine_uuid: z.ZodOptional<z.ZodString>;
+  region: z.ZodOptional<z.ZodString>;
+  risk_level: z.ZodOptional<z.ZodString>;
+  risk_level_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  risk_score: z.ZodOptional<z.ZodNumber>;
+  subnet: z.ZodOptional<z.ZodString>;
+  udid: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  boot_uid: z.ZodOptional<z.ZodString>;
+};
+
+const DeviceSchema: z.ZodObject<DeviceShape, z.core.$strict> = z.strictObject({
   /** The alternate device name, ordinarily as assigned by an administrator. Note: The Name could be any other string that helps to identify the device, such as a phone number; for example 310-555-1234. */
   name: z.string().optional(),
   /** The unique identifier of the device. For example the Windows TargetSID or AWS EC2 ARN. */

@@ -1,10 +1,12 @@
 /** KernelActivity activity_id values. */
 export const KernelActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   CREATE: 1,
   READ: 2,
   DELETE: 3,
   INVOKE: 4,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

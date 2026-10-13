@@ -1,0 +1,35 @@
+/** WebResourceAccessActivity activity_id values. */
+export const WebResourceAccessActivityActivityId = {
+  /** The event activity is unknown. */
+  UNKNOWN: 0,
+  /** The incoming request has permission to the web resource. */
+  ACCESS_GRANT: 1,
+  /** The incoming request does not have permission to the web resource. */
+  ACCESS_DENY: 2,
+  /** The incoming request's access has been revoked due to security policy enforcements. */
+  ACCESS_REVOKE: 3,
+  /** An error occurred during processing the request. */
+  ACCESS_ERROR: 4,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
+} as const;
+
+export type WebResourceAccessActivityActivityId = (typeof WebResourceAccessActivityActivityId)[keyof typeof WebResourceAccessActivityActivityId];
+
+export const WebResourceAccessActivityActivityIdLabels: Record<number, string> = {
+  0: "Unknown",
+  1: "Access Grant",
+  2: "Access Deny",
+  3: "Access Revoke",
+  4: "Access Error",
+  99: "Other",
+};
+
+export const WebResourceAccessActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Access Grant": 1,
+  "Access Deny": 2,
+  "Access Revoke": 3,
+  "Access Error": 4,
+  "Other": 99,
+};

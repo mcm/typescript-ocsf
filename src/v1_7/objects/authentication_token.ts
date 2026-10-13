@@ -26,7 +26,17 @@ export interface AuthenticationTokenType {
 
 import { EncryptionDetails } from './encryption_details.js';
 
-const AuthenticationTokenSchema = z.strictObject({
+type AuthenticationTokenShape = {
+  created_time: z.ZodOptional<z.ZodNumber>;
+  encryption_details: z.ZodOptional<typeof EncryptionDetails>;
+  expiration_time: z.ZodOptional<z.ZodNumber>;
+  is_renewable: z.ZodOptional<z.ZodBoolean>;
+  kerberos_flags: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<99>]>>;
+};
+
+const AuthenticationTokenSchema: z.ZodObject<AuthenticationTokenShape, z.core.$strict> = z.strictObject({
   /** The time that the authentication token was created. */
   created_time: z.number().int().optional(),
   /** The encryption details of the authentication token. */

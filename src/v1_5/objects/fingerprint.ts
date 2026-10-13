@@ -14,7 +14,13 @@ export interface FingerprintType {
   value: string;
 }
 
-const FingerprintSchema = z.strictObject({
+type FingerprintShape = {
+  algorithm: z.ZodOptional<z.ZodString>;
+  algorithm_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>;
+  value: z.ZodString;
+};
+
+const FingerprintSchema: z.ZodObject<FingerprintShape, z.core.$strict> = z.strictObject({
   /** The hash algorithm used to create the digital fingerprint, normalized to the caption of algorithm_id. In the case of Other, it is defined by the event source. */
   algorithm: z.string().optional(),
   /** The identifier of the normalized hash algorithm, which was used to create the digital fingerprint. */

@@ -129,3 +129,18 @@ export function mapOcsfTypeToZodTypeName(ocsfType: string): string {
 
   return TYPE_MAP[ocsfType] ?? "z.ZodUnknown";
 }
+
+/**
+ * Build the Zod type name for an enum `_id` field validated as a union of literals,
+ * matching `z.union([z.literal(0), ...])`.
+ */
+export function enumUnionZodTypeName(values: number[]): string {
+  return `z.ZodUnion<readonly [${values.map((v) => `z.ZodLiteral<${v}>`).join(", ")}]>`;
+}
+
+/** Wrap a Zod type name for array and optional attributes. */
+export function wrapZodTypeName(base: string, isArray: boolean, optional: boolean): string {
+  let result = isArray ? `z.ZodArray<${base}>` : base;
+  if (optional) result = `z.ZodOptional<${result}>`;
+  return result;
+}

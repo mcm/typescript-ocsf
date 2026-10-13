@@ -14,7 +14,13 @@ export interface FeatureType {
   version?: string;
 }
 
-const FeatureSchema = z.strictObject({
+type FeatureShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const FeatureSchema: z.ZodObject<FeatureShape, z.core.$strict> = z.strictObject({
   /** The name of the feature. */
   name: z.string().optional(),
   /** The unique identifier of the feature. */

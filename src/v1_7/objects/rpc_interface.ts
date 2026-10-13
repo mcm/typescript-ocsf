@@ -16,7 +16,14 @@ export interface RpcInterfaceType {
   version: string;
 }
 
-const RpcInterfaceSchema = z.strictObject({
+type RpcInterfaceShape = {
+  ack_reason: z.ZodOptional<z.ZodNumber>;
+  ack_result: z.ZodOptional<z.ZodNumber>;
+  uuid: z.ZodString;
+  version: z.ZodString;
+};
+
+const RpcInterfaceSchema: z.ZodObject<RpcInterfaceShape, z.core.$strict> = z.strictObject({
   /** An integer that provides a reason code or additional information about the acknowledgment result. */
   ack_reason: z.number().int().optional(),
   /** An integer that denotes the acknowledgment result of the DCE/RPC call. */

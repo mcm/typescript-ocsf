@@ -66,7 +66,33 @@ import { File } from './file.js';
 import { Session } from './session.js';
 import { User } from './user.js';
 
-const ProcessSchema = z.strictObject({
+type ProcessShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  cmd_line: z.ZodOptional<z.ZodString>;
+  cpid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  path: z.ZodOptional<z.ZodString>;
+  pid: z.ZodOptional<z.ZodNumber>;
+  ancestry: z.ZodOptional<z.ZodArray<typeof ProcessEntity>>;
+  environment_variables: z.ZodOptional<z.ZodArray<typeof EnvironmentVariable>>;
+  file: z.ZodOptional<typeof File>;
+  integrity: z.ZodOptional<z.ZodString>;
+  integrity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  lineage: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  loaded_modules: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  parent_process: z.ZodOptional<z.ZodLazy<z.ZodType<ProcessType>>>;
+  ptid: z.ZodOptional<z.ZodNumber>;
+  sandbox: z.ZodOptional<z.ZodString>;
+  session: z.ZodOptional<typeof Session>;
+  terminated_time: z.ZodOptional<z.ZodNumber>;
+  tid: z.ZodOptional<z.ZodNumber>;
+  user: z.ZodOptional<z.ZodLazy<z.ZodType<UserType>>>;
+  working_directory: z.ZodOptional<z.ZodString>;
+  xattributes: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+};
+
+const ProcessSchema: z.ZodObject<ProcessShape, z.core.$strict> = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */

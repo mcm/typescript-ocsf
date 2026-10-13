@@ -12,7 +12,12 @@ export interface EntityType {
   uid?: string;
 }
 
-const EntitySchema = z.strictObject({
+type EntityShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+};
+
+const EntitySchema: z.ZodObject<EntityShape, z.core.$strict> = z.strictObject({
   /** The name of the entity. */
   name: z.string().optional(),
   /** The unique identifier of the entity. */

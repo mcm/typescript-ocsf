@@ -84,7 +84,40 @@ import { Graph } from './graph.js';
 import { EncryptionDetails } from './encryption_details.js';
 import { File } from './file.js';
 
-const DatabucketSchema = z.strictObject({
+type DatabucketShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  cloud_partition: z.ZodOptional<z.ZodString>;
+  criticality: z.ZodOptional<z.ZodString>;
+  group: z.ZodOptional<typeof Group>;
+  hostname: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  is_backed_up: z.ZodOptional<z.ZodBoolean>;
+  namespace: z.ZodOptional<z.ZodString>;
+  owner: z.ZodOptional<typeof User>;
+  region: z.ZodOptional<z.ZodString>;
+  resource_relationship: z.ZodOptional<typeof Graph>;
+  version: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  encryption_details: z.ZodOptional<typeof EncryptionDetails>;
+  file: z.ZodOptional<typeof File>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  is_encrypted: z.ZodOptional<z.ZodBoolean>;
+  is_public: z.ZodOptional<z.ZodBoolean>;
+  size: z.ZodOptional<z.ZodNumber>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>;
+};
+
+const DatabucketSchema: z.ZodObject<DatabucketShape, z.core.$strict> = z.strictObject({
   /** The databucket name. */
   name: z.string().optional(),
   /** The unique identifier of the databucket. */

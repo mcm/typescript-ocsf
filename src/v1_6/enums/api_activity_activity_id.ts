@@ -1,5 +1,6 @@
 /** ApiActivity activity_id values. */
 export const ApiActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The API call in the event pertains to a 'create' activity. */
   CREATE: 1,
@@ -9,6 +10,7 @@ export const ApiActivityActivityId = {
   UPDATE: 3,
   /** The API call in the event pertains to a 'delete' activity. */
   DELETE: 4,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

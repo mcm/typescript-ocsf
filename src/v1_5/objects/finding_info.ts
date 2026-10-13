@@ -66,7 +66,31 @@ import { RelatedEvent } from './related_event.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Trait } from './trait.js';
 
-const FindingInfoSchema = z.strictObject({
+type FindingInfoShape = {
+  analytic: z.ZodOptional<typeof Analytic>;
+  attacks: z.ZodOptional<z.ZodArray<typeof Attack>>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  data_sources: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  desc: z.ZodOptional<z.ZodString>;
+  first_seen_time: z.ZodOptional<z.ZodNumber>;
+  kill_chain: z.ZodOptional<z.ZodArray<typeof KillChainPhase>>;
+  last_seen_time: z.ZodOptional<z.ZodNumber>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  product: z.ZodOptional<typeof Product>;
+  product_uid: z.ZodOptional<z.ZodString>;
+  related_analytics: z.ZodOptional<z.ZodArray<typeof Analytic>>;
+  related_events: z.ZodOptional<z.ZodArray<typeof RelatedEvent>>;
+  related_events_count: z.ZodOptional<z.ZodNumber>;
+  src_url: z.ZodOptional<z.ZodString>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  title: z.ZodOptional<z.ZodString>;
+  traits: z.ZodOptional<z.ZodArray<typeof Trait>>;
+  types: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  uid: z.ZodString;
+  uid_alt: z.ZodOptional<z.ZodString>;
+};
+
+const FindingInfoSchema: z.ZodObject<FindingInfoShape, z.core.$strict> = z.strictObject({
   /** The analytic technique used to analyze and derive insights from the data or information that led to the finding or conclusion. */
   analytic: Analytic.optional(),
   /** The MITRE ATT&CK® technique and associated tactics related to the finding. */

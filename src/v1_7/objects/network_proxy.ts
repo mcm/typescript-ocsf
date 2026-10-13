@@ -80,7 +80,39 @@ import { Os } from './os.js';
 import { User } from './user.js';
 import { AutonomousSystem } from './autonomous_system.js';
 
-const NetworkProxySchema = z.strictObject({
+type NetworkProxyShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  domain: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  hw_info: z.ZodOptional<typeof DeviceHwInfo>;
+  instance_uid: z.ZodOptional<z.ZodString>;
+  interface_name: z.ZodOptional<z.ZodString>;
+  interface_uid: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  mac: z.ZodOptional<z.ZodString>;
+  os: z.ZodOptional<typeof Os>;
+  owner: z.ZodOptional<typeof User>;
+  subnet_uid: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<99>]>>;
+  vlan_uid: z.ZodOptional<z.ZodString>;
+  vpc_uid: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+  autonomous_system: z.ZodOptional<typeof AutonomousSystem>;
+  intermediate_ips: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  isp: z.ZodOptional<z.ZodString>;
+  isp_org: z.ZodOptional<z.ZodString>;
+  network_scope: z.ZodOptional<z.ZodString>;
+  network_scope_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  port: z.ZodOptional<z.ZodNumber>;
+  proxy_endpoint: z.ZodOptional<z.ZodLazy<z.ZodType<NetworkProxyType>>>;
+  svc_name: z.ZodOptional<z.ZodString>;
+};
+
+const NetworkProxySchema: z.ZodObject<NetworkProxyShape, z.core.$strict> = z.strictObject({
   /** The short name of the endpoint. */
   name: z.string().optional(),
   /** The unique identifier. See specific usage. */

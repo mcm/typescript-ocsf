@@ -16,7 +16,14 @@ export interface EpssType {
   version?: string;
 }
 
-const EpssSchema = z.strictObject({
+type EpssShape = {
+  created_time: z.ZodOptional<z.ZodNumber>;
+  percentile: z.ZodOptional<z.ZodNumber>;
+  score: z.ZodString;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const EpssSchema: z.ZodObject<EpssShape, z.core.$strict> = z.strictObject({
   /** The timestamp indicating when the EPSS score was calculated. */
   created_time: z.number().int().optional(),
   /** The EPSS score's percentile representing relative importance and ranking of the score in the larger EPSS dataset. */

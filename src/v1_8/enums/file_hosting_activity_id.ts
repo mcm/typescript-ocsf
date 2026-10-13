@@ -1,0 +1,87 @@
+/** FileHosting activity_id values. */
+export const FileHostingActivityId = {
+  /** The event activity is unknown. */
+  UNKNOWN: 0,
+  /** Upload a file. */
+  UPLOAD: 1,
+  /** Download a file. */
+  DOWNLOAD: 2,
+  /** Update a file. */
+  UPDATE: 3,
+  /** Delete a file. */
+  DELETE: 4,
+  /** Rename a file. */
+  RENAME: 5,
+  /** Copy a file. */
+  COPY: 6,
+  /** Move a file. */
+  MOVE: 7,
+  /** Restore a file. */
+  RESTORE: 8,
+  /** Preview a file. */
+  PREVIEW: 9,
+  /** Lock a file. */
+  LOCK: 10,
+  /** Unlock a file. */
+  UNLOCK: 11,
+  /** Share a file. */
+  SHARE: 12,
+  /** Unshare a file. */
+  UNSHARE: 13,
+  /** Open a file. */
+  OPEN: 14,
+  /** Mark a file or folder to sync with a computer. */
+  SYNC: 15,
+  /** Mark a file or folder to not sync with a computer. */
+  UNSYNC: 16,
+  /** Access check for a file. The <code>security_control</code> profile can be used to add the access check results. */
+  ACCESS_CHECK: 17,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
+} as const;
+
+export type FileHostingActivityId = (typeof FileHostingActivityId)[keyof typeof FileHostingActivityId];
+
+export const FileHostingActivityIdLabels: Record<number, string> = {
+  0: "Unknown",
+  1: "Upload",
+  2: "Download",
+  3: "Update",
+  4: "Delete",
+  5: "Rename",
+  6: "Copy",
+  7: "Move",
+  8: "Restore",
+  9: "Preview",
+  10: "Lock",
+  11: "Unlock",
+  12: "Share",
+  13: "Unshare",
+  14: "Open",
+  15: "Sync",
+  16: "Unsync",
+  17: "Access Check",
+  99: "Other",
+};
+
+export const FileHostingActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Upload": 1,
+  "Download": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Rename": 5,
+  "Copy": 6,
+  "Move": 7,
+  "Restore": 8,
+  "Preview": 9,
+  "Lock": 10,
+  "Unlock": 11,
+  "Share": 12,
+  "Unshare": 13,
+  "Open": 14,
+  "Sync": 15,
+  "Unsync": 16,
+  "Access Check": 17,
+  "Other": 99,
+};

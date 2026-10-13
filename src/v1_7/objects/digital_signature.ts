@@ -24,13 +24,24 @@ export interface DigitalSignatureType {
   /** The digital signature state defines the signature state, normalized to the caption of 'state_id'. In the case of 'Other', it is defined by the event source. */
   state?: string;
   /** The normalized identifier of the signature state. */
-  state_id?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  state_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 99;
 }
 
 import { Certificate } from './certificate.js';
 import { Fingerprint } from './fingerprint.js';
 
-const DigitalSignatureSchema = z.strictObject({
+type DigitalSignatureShape = {
+  algorithm: z.ZodOptional<z.ZodString>;
+  algorithm_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>;
+  certificate: z.ZodOptional<typeof Certificate>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  developer_uid: z.ZodOptional<z.ZodString>;
+  digest: z.ZodOptional<typeof Fingerprint>;
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<99>]>>;
+};
+
+const DigitalSignatureSchema: z.ZodObject<DigitalSignatureShape, z.core.$strict> = z.strictObject({
   /** The digital signature algorithm used to create the signature, normalized to the caption of 'algorithm_id'. In the case of 'Other', it is defined by the event source. */
   algorithm: z.string().optional(),
   /** The identifier of the normalized digital signature algorithm. */
@@ -46,7 +57,7 @@ const DigitalSignatureSchema = z.strictObject({
   /** The digital signature state defines the signature state, normalized to the caption of 'state_id'. In the case of 'Other', it is defined by the event source. */
   state: z.string().optional(),
   /** The normalized identifier of the signature state. */
-  state_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10)]).optional(),
+  state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(99)]).optional(),
 });
 
 export const DigitalSignature = DigitalSignatureSchema;
@@ -62,6 +73,7 @@ export const DigitalSignatureLabels: Readonly<Record<"algorithm_id" | "state_id"
     99: "Other",
   },
   state_id: {
+    0: "Unknown",
     1: "Valid",
     2: "Expired",
     3: "Revoked",
@@ -72,5 +84,6 @@ export const DigitalSignatureLabels: Readonly<Record<"algorithm_id" | "state_id"
     8: "WrongUsage",
     9: "Bad",
     10: "Broken",
+    99: "Other",
   },
 };

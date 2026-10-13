@@ -48,7 +48,27 @@ export interface DeviceHwInfoType {
 import { Display } from './display.js';
 import { KeyboardInfo } from './keyboard_info.js';
 
-const DeviceHwInfoSchema = z.strictObject({
+type DeviceHwInfoShape = {
+  bios_date: z.ZodOptional<z.ZodString>;
+  bios_manufacturer: z.ZodOptional<z.ZodString>;
+  bios_ver: z.ZodOptional<z.ZodString>;
+  chassis: z.ZodOptional<z.ZodString>;
+  cpu_architecture: z.ZodOptional<z.ZodString>;
+  cpu_architecture_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  cpu_bits: z.ZodOptional<z.ZodNumber>;
+  cpu_cores: z.ZodOptional<z.ZodNumber>;
+  cpu_count: z.ZodOptional<z.ZodNumber>;
+  cpu_speed: z.ZodOptional<z.ZodNumber>;
+  cpu_type: z.ZodOptional<z.ZodString>;
+  desktop_display: z.ZodOptional<typeof Display>;
+  keyboard_info: z.ZodOptional<typeof KeyboardInfo>;
+  ram_size: z.ZodOptional<z.ZodNumber>;
+  serial_number: z.ZodOptional<z.ZodString>;
+  uuid: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+};
+
+const DeviceHwInfoSchema: z.ZodObject<DeviceHwInfoShape, z.core.$strict> = z.strictObject({
   /** The BIOS date. For example: 03/31/16. */
   bios_date: z.string().optional(),
   /** The BIOS manufacturer. For example: LENOVO. */

@@ -1,0 +1,82 @@
+import { z } from 'zod';
+
+import type { HttpHeaderType } from './http_header.js';
+import type { UrlType } from './url.js';
+
+/**
+ * The HTTP Request object represents the attributes of a request made to a web server. It encapsulates the details and metadata associated with an HTTP request, including the request method, headers, URL, query parameters, body content, and other relevant information.
+ *
+ * OCSF Object: HTTP Request
+ */
+export interface HttpRequestType {
+  /** The arguments sent along with the HTTP request. */
+  args?: string;
+  /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */
+  body_length?: number;
+  /** Additional HTTP headers of an HTTP request or response. */
+  http_headers?: HttpHeaderType[];
+  /** The HTTP request method indicates the desired action to be performed for a given resource. */
+  http_method?: string;
+  /** The length of the entire HTTP request, in number of bytes. */
+  length?: number;
+  /** The request header that identifies the address of the previous web page, which is linked to the current web page or resource being requested. */
+  referrer?: string;
+  /** The unique identifier of the http request. */
+  uid?: string;
+  /** The URL object that pertains to the request. */
+  url?: UrlType;
+  /** The request header that identifies the operating system and web browser. */
+  user_agent?: string;
+  /** The Hypertext Transfer Protocol (HTTP) version. */
+  version?: string;
+  /** The X-Forwarded-For header identifying the originating IP address(es) of a client connecting to a web server through an HTTP proxy or a load balancer. */
+  x_forwarded_for?: string[];
+}
+
+import { HttpHeader } from './http_header.js';
+import { Url } from './url.js';
+
+type HttpRequestShape = {
+  args: z.ZodOptional<z.ZodString>;
+  body_length: z.ZodOptional<z.ZodNumber>;
+  http_headers: z.ZodOptional<z.ZodArray<typeof HttpHeader>>;
+  http_method: z.ZodOptional<z.ZodString>;
+  length: z.ZodOptional<z.ZodNumber>;
+  referrer: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  url: z.ZodOptional<typeof Url>;
+  user_agent: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+  x_forwarded_for: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const HttpRequestSchema: z.ZodObject<HttpRequestShape, z.core.$strict> = z.strictObject({
+  /** The arguments sent along with the HTTP request. */
+  args: z.string().optional(),
+  /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */
+  body_length: z.number().int().optional(),
+  /** Additional HTTP headers of an HTTP request or response. */
+  http_headers: z.array(HttpHeader).optional(),
+  /** The HTTP request method indicates the desired action to be performed for a given resource. */
+  http_method: z.string().optional(),
+  /** The length of the entire HTTP request, in number of bytes. */
+  length: z.number().int().optional(),
+  /** The request header that identifies the address of the previous web page, which is linked to the current web page or resource being requested. */
+  referrer: z.string().optional(),
+  /** The unique identifier of the http request. */
+  uid: z.string().optional(),
+  /** The URL object that pertains to the request. */
+  url: Url.optional(),
+  /** The request header that identifies the operating system and web browser. */
+  user_agent: z.string().optional(),
+  /** The Hypertext Transfer Protocol (HTTP) version. */
+  version: z.string().optional(),
+  /** The X-Forwarded-For header identifying the originating IP address(es) of a client connecting to a web server through an HTTP proxy or a load balancer. */
+  x_forwarded_for: z.array(z.string()).optional(),
+});
+
+export const HttpRequest = HttpRequestSchema;
+
+/** Value → label mappings for each enum field of HttpRequest. */
+export const HttpRequestLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -27,14 +27,28 @@ export interface SoftwareComponentType {
   /** The type of software component, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type?: string;
   /** The type of software component. */
-  type_id?: 1 | 2 | 3;
+  type_id?: 0 | 1 | 2 | 3 | 99;
   /** The software component version. */
   version: string;
 }
 
 import { Fingerprint } from './fingerprint.js';
 
-const SoftwareComponentSchema = z.strictObject({
+type SoftwareComponentShape = {
+  author: z.ZodOptional<z.ZodString>;
+  hash: z.ZodOptional<typeof Fingerprint>;
+  license: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  purl: z.ZodOptional<z.ZodString>;
+  related_component: z.ZodOptional<z.ZodString>;
+  relationship: z.ZodOptional<z.ZodString>;
+  relationship_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<99>]>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  version: z.ZodString;
+};
+
+const SoftwareComponentSchema: z.ZodObject<SoftwareComponentShape, z.core.$strict> = z.strictObject({
   /** The author(s) who published the software component. */
   author: z.string().optional(),
   /** Cryptographic hash to identify the binary instance of a software component. */
@@ -54,7 +68,7 @@ const SoftwareComponentSchema = z.strictObject({
   /** The type of software component, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type: z.string().optional(),
   /** The type of software component. */
-  type_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The software component version. */
   version: z.string(),
 });
@@ -69,8 +83,10 @@ export const SoftwareComponentLabels: Readonly<Record<"relationship_id" | "type_
     99: "Other",
   },
   type_id: {
+    0: "Unknown",
     1: "Framework",
     2: "Library",
     3: "Operating System",
+    99: "Other",
   },
 };

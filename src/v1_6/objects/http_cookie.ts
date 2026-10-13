@@ -28,7 +28,20 @@ export interface HttpCookieType {
   value: string;
 }
 
-const HttpCookieSchema = z.strictObject({
+type HttpCookieShape = {
+  domain: z.ZodOptional<z.ZodString>;
+  expiration_time: z.ZodOptional<z.ZodNumber>;
+  http_only: z.ZodOptional<z.ZodBoolean>;
+  is_http_only: z.ZodOptional<z.ZodBoolean>;
+  is_secure: z.ZodOptional<z.ZodBoolean>;
+  name: z.ZodString;
+  path: z.ZodOptional<z.ZodString>;
+  samesite: z.ZodOptional<z.ZodString>;
+  secure: z.ZodOptional<z.ZodBoolean>;
+  value: z.ZodString;
+};
+
+const HttpCookieSchema: z.ZodObject<HttpCookieShape, z.core.$strict> = z.strictObject({
   /** The domain name for the server from which the http_cookie is served. */
   domain: z.string().optional(),
   /** The expiration time of the HTTP cookie. */

@@ -1,5 +1,6 @@
 /** FileHosting activity_id values. */
 export const FileHostingActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Upload a file. */
   UPLOAD: 1,
@@ -35,6 +36,7 @@ export const FileHostingActivityId = {
   UNSYNC: 16,
   /** Access check for a file. The <code>security_control</code> profile can be used to add the access check results. */
   ACCESS_CHECK: 17,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

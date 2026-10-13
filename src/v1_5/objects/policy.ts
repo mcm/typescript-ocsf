@@ -26,7 +26,17 @@ export interface PolicyType {
 
 import { Group } from './group.js';
 
-const PolicySchema = z.strictObject({
+type PolicyShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  desc: z.ZodOptional<z.ZodString>;
+  group: z.ZodOptional<typeof Group>;
+  is_applied: z.ZodOptional<z.ZodBoolean>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const PolicySchema: z.ZodObject<PolicyShape, z.core.$strict> = z.strictObject({
   /** The policy name. For example: IAM Policy. */
   name: z.string().optional(),
   /** A unique identifier of the policy instance. */

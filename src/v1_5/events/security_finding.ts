@@ -131,7 +131,7 @@ export interface SecurityFindingType {
   /** The normalized state of a security finding. */
   state?: string;
   /** The normalized state identifier of a security finding. */
-  state_id: 1 | 2 | 3 | 4;
+  state_id: 0 | 1 | 2 | 3 | 4 | 99;
   /** This object describes vulnerabilities reported in a security finding. */
   vulnerabilities?: VulnerabilityType[];
 }
@@ -199,10 +199,12 @@ export const SecurityFindingLabels: Readonly<Record<"activity_id" | "severity_id
     99: "Other",
   },
   state_id: {
+    0: "Unknown",
     1: "New",
     2: "In Progress",
     3: "Suppressed",
     4: "Resolved",
+    99: "Other",
   },
 };
 
@@ -229,7 +231,61 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const SecurityFindingSchema = z.strictObject({
+type SecurityFindingShape = {
+  activity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  analytic: z.ZodOptional<typeof Analytic>;
+  attacks: z.ZodOptional<z.ZodArray<typeof Attack>>;
+  cis_csc: z.ZodOptional<z.ZodArray<typeof CisCsc>>;
+  compliance: z.ZodOptional<typeof Compliance>;
+  confidence: z.ZodOptional<z.ZodString>;
+  confidence_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  confidence_score: z.ZodOptional<z.ZodNumber>;
+  data_sources: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  evidence: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  finding: typeof Finding;
+  impact: z.ZodOptional<z.ZodString>;
+  impact_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  impact_score: z.ZodOptional<z.ZodNumber>;
+  kill_chain: z.ZodOptional<z.ZodArray<typeof KillChainPhase>>;
+  malware: z.ZodOptional<z.ZodArray<typeof Malware>>;
+  nist: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  process: z.ZodOptional<typeof Process>;
+  resources: z.ZodOptional<z.ZodArray<typeof ResourceDetails>>;
+  risk_level: z.ZodOptional<z.ZodString>;
+  risk_level_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  risk_score: z.ZodOptional<z.ZodNumber>;
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>;
+  vulnerabilities: z.ZodOptional<z.ZodArray<typeof Vulnerability>>;
+};
+
+const SecurityFindingSchema: z.ZodObject<SecurityFindingShape, z.core.$strict> = z.strictObject({
   /** The normalized identifier of the activity that triggered the event. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
   /** The event activity name, as defined by the activity_id. */
@@ -329,7 +385,7 @@ const SecurityFindingSchema = z.strictObject({
   /** The normalized state of a security finding. */
   state: z.string().optional(),
   /** The normalized state identifier of a security finding. */
-  state_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+  state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]),
   /** This object describes vulnerabilities reported in a security finding. */
   vulnerabilities: z.array(Vulnerability).optional(),
 });

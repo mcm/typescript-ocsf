@@ -1,5 +1,6 @@
 /** WebResourcesActivity activity_id values. */
 export const WebResourcesActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** One or more web resources were created. */
   CREATE: 1,
@@ -17,6 +18,7 @@ export const WebResourcesActivityActivityId = {
   EXPORT: 7,
   /** One or more web resources were shared. */
   SHARE: 8,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

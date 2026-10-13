@@ -22,7 +22,17 @@ export interface EdgeType {
   target: string;
 }
 
-const EdgeSchema = z.strictObject({
+type EdgeShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  is_directed: z.ZodOptional<z.ZodBoolean>;
+  relation: z.ZodOptional<z.ZodString>;
+  source: z.ZodString;
+  target: z.ZodString;
+};
+
+const EdgeSchema: z.ZodObject<EdgeShape, z.core.$strict> = z.strictObject({
   /** The human-readable name or label for the edge. */
   name: z.string().optional(),
   /** Unique identifier of the edge. */

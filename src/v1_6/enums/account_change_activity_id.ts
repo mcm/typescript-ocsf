@@ -1,5 +1,6 @@
 /** AccountChange activity_id values. */
 export const AccountChangeActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** A user/role was created. */
   CREATE: 1,
@@ -25,6 +26,7 @@ export const AccountChangeActivityId = {
   MFA_FACTOR_DISABLE: 11,
   /** A user account was unlocked. */
   UNLOCK: 12,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

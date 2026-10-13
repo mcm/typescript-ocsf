@@ -24,7 +24,16 @@ export interface ImageType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const ImageSchema = z.strictObject({
+type ImageShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  path: z.ZodOptional<z.ZodString>;
+  tag: z.ZodOptional<z.ZodString>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+};
+
+const ImageSchema: z.ZodObject<ImageShape, z.core.$strict> = z.strictObject({
   /** The image name. For example: elixir. */
   name: z.string().optional(),
   /** The unique image ID. For example: 77af4d6b9913. */

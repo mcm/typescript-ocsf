@@ -12,7 +12,12 @@ export interface KillChainPhaseType {
   phase_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 99;
 }
 
-const KillChainPhaseSchema = z.strictObject({
+type KillChainPhaseShape = {
+  phase: z.ZodOptional<z.ZodString>;
+  phase_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>;
+};
+
+const KillChainPhaseSchema: z.ZodObject<KillChainPhaseShape, z.core.$strict> = z.strictObject({
   /** The cyber kill chain phase. */
   phase: z.string().optional(),
   /** The cyber kill chain phase identifier. */

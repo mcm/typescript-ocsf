@@ -72,7 +72,38 @@ import { File } from './file.js';
 import { HttpHeader } from './http_header.js';
 import { Url } from './url.js';
 
-const EmailSchema = z.strictObject({
+type EmailShape = {
+  cc: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  cc_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  delivered_to: z.ZodOptional<z.ZodString>;
+  delivered_to_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  files: z.ZodOptional<z.ZodArray<typeof File>>;
+  from: z.ZodOptional<z.ZodString>;
+  from_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  from_mailbox: z.ZodOptional<z.ZodString>;
+  from_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  http_headers: z.ZodOptional<z.ZodArray<typeof HttpHeader>>;
+  is_read: z.ZodOptional<z.ZodBoolean>;
+  message_uid: z.ZodOptional<z.ZodString>;
+  raw_header: z.ZodOptional<z.ZodString>;
+  reply_to: z.ZodOptional<z.ZodString>;
+  reply_to_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  reply_to_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  return_path: z.ZodOptional<z.ZodString>;
+  sender: z.ZodOptional<z.ZodString>;
+  sender_mailbox: z.ZodOptional<z.ZodString>;
+  size: z.ZodOptional<z.ZodNumber>;
+  smtp_from: z.ZodOptional<z.ZodString>;
+  smtp_to: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  subject: z.ZodOptional<z.ZodString>;
+  to: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  to_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  uid: z.ZodOptional<z.ZodString>;
+  urls: z.ZodOptional<z.ZodArray<typeof Url>>;
+  x_originating_ip: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const EmailSchema: z.ZodObject<EmailShape, z.core.$strict> = z.strictObject({
   /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
   cc: z.array(z.string()).optional(),
   /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */

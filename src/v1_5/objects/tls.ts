@@ -48,7 +48,25 @@ import { TlsExtension } from './tls_extension.js';
 import { Fingerprint } from './fingerprint.js';
 import { San } from './san.js';
 
-const TlsSchema = z.strictObject({
+type TlsShape = {
+  alert: z.ZodOptional<z.ZodNumber>;
+  certificate: z.ZodOptional<typeof Certificate>;
+  certificate_chain: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  cipher: z.ZodOptional<z.ZodString>;
+  client_ciphers: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  extension_list: z.ZodOptional<z.ZodArray<typeof TlsExtension>>;
+  handshake_dur: z.ZodOptional<z.ZodNumber>;
+  ja3_hash: z.ZodOptional<typeof Fingerprint>;
+  ja3s_hash: z.ZodOptional<typeof Fingerprint>;
+  key_length: z.ZodOptional<z.ZodNumber>;
+  sans: z.ZodOptional<z.ZodArray<typeof San>>;
+  server_ciphers: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  sni: z.ZodOptional<z.ZodString>;
+  tls_extension_list: z.ZodOptional<z.ZodArray<typeof TlsExtension>>;
+  version: z.ZodString;
+};
+
+const TlsSchema: z.ZodObject<TlsShape, z.core.$strict> = z.strictObject({
   /** The integer value of TLS alert if present. The alerts are defined in the TLS specification in RFC-2246. */
   alert: z.number().int().optional(),
   /** The certificate object containing information about the digital certificate. */

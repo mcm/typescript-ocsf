@@ -74,7 +74,29 @@ import { Session } from './session.js';
 import { StartupItem } from './startup_item.js';
 import { User } from './user.js';
 
-const QueryEvidenceSchema = z.strictObject({
+type QueryEvidenceShape = {
+  connection_info: z.ZodOptional<typeof NetworkConnectionInfo>;
+  file: z.ZodOptional<typeof File>;
+  folder: z.ZodOptional<typeof File>;
+  group: z.ZodOptional<typeof Group>;
+  job: z.ZodOptional<typeof Job>;
+  kernel: z.ZodOptional<typeof Kernel>;
+  module: z.ZodOptional<typeof Module>;
+  network_interfaces: z.ZodOptional<z.ZodArray<typeof NetworkInterface>>;
+  peripheral_device: z.ZodOptional<typeof PeripheralDevice>;
+  process: z.ZodOptional<typeof Process>;
+  service: z.ZodOptional<typeof Service>;
+  session: z.ZodOptional<typeof Session>;
+  startup_item: z.ZodOptional<typeof StartupItem>;
+  state: z.ZodOptional<z.ZodString>;
+  tcp_state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>]>>;
+  user: z.ZodOptional<typeof User>;
+  users: z.ZodOptional<z.ZodArray<typeof User>>;
+  query_type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<16>, z.ZodLiteral<17>, z.ZodLiteral<18>, z.ZodLiteral<99>]>;
+  query_type: z.ZodOptional<z.ZodString>;
+};
+
+const QueryEvidenceSchema: z.ZodObject<QueryEvidenceShape, z.core.$strict> = z.strictObject({
   /** The network connection information related to a Network Connection query type. */
   connection_info: NetworkConnectionInfo.optional(),
   /** The file that is the target of the query when query_type_id indicates a File query. */

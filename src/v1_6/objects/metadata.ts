@@ -70,7 +70,35 @@ import { Product } from './product.js';
 import { KeyValueObject } from './key_value_object.js';
 import { TransformationInfo } from './transformation_info.js';
 
-const MetadataSchema = z.strictObject({
+type MetadataShape = {
+  correlation_uid: z.ZodOptional<z.ZodString>;
+  debug: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  event_code: z.ZodOptional<z.ZodString>;
+  extension: z.ZodOptional<typeof Extension>;
+  extensions: z.ZodOptional<z.ZodArray<typeof Extension>>;
+  is_truncated: z.ZodOptional<z.ZodBoolean>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  log_level: z.ZodOptional<z.ZodString>;
+  log_name: z.ZodOptional<z.ZodString>;
+  log_provider: z.ZodOptional<z.ZodString>;
+  log_version: z.ZodOptional<z.ZodString>;
+  logged_time: z.ZodOptional<z.ZodNumber>;
+  loggers: z.ZodOptional<z.ZodArray<typeof Logger>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  original_time: z.ZodOptional<z.ZodString>;
+  processed_time: z.ZodOptional<z.ZodNumber>;
+  product: typeof Product;
+  profiles: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  sequence: z.ZodOptional<z.ZodNumber>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  tenant_uid: z.ZodOptional<z.ZodString>;
+  transformation_info_list: z.ZodOptional<z.ZodArray<typeof TransformationInfo>>;
+  uid: z.ZodOptional<z.ZodString>;
+  untruncated_size: z.ZodOptional<z.ZodNumber>;
+  version: z.ZodString;
+};
+
+const MetadataSchema: z.ZodObject<MetadataShape, z.core.$strict> = z.strictObject({
   /** The unique identifier used to correlate events. */
   correlation_uid: z.string().optional(),
   /** Debug information about non-fatal issues with this OCSF event. Each issue is a line in this string array. */

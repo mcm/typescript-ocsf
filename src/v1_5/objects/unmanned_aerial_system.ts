@@ -42,7 +42,24 @@ export interface UnmannedAerialSystemType {
 import { Location } from './location.js';
 import { DeviceHwInfo } from './device_hw_info.js';
 
-const UnmannedAerialSystemSchema = z.strictObject({
+type UnmannedAerialSystemShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  location: z.ZodOptional<typeof Location>;
+  model: z.ZodOptional<z.ZodString>;
+  serial_number: z.ZodOptional<z.ZodString>;
+  speed: z.ZodOptional<z.ZodString>;
+  speed_accuracy: z.ZodOptional<z.ZodString>;
+  track_direction: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  vertical_speed: z.ZodOptional<z.ZodString>;
+  hw_info: z.ZodOptional<typeof DeviceHwInfo>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<99>]>>;
+  uuid: z.ZodOptional<z.ZodString>;
+};
+
+const UnmannedAerialSystemSchema: z.ZodObject<UnmannedAerialSystemShape, z.core.$strict> = z.strictObject({
   /** The name of the unmanned system as reported by tracking or sensing hardware. */
   name: z.string().optional(),
   /** The primary identification identifier for an unmanned system. This can be a Serial Number (in CTA-2063-A format, the Registration ID (provided by the CAA, a UTM, or a unique Session ID. */

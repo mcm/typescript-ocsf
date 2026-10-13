@@ -16,7 +16,14 @@ export interface OrganizationType {
   ou_uid?: string;
 }
 
-const OrganizationSchema = z.strictObject({
+type OrganizationShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  ou_name: z.ZodOptional<z.ZodString>;
+  ou_uid: z.ZodOptional<z.ZodString>;
+};
+
+const OrganizationSchema: z.ZodObject<OrganizationShape, z.core.$strict> = z.strictObject({
   /** The name of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, Widget, Inc. or the AWS Organization name . */
   name: z.string().optional(),
   /** The unique identifier of the organization, Oracle Cloud Tenancy, Google Cloud Organization, or AWS Organization. For example, an AWS Org ID or Oracle Cloud Domain ID . */

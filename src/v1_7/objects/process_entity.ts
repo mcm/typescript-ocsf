@@ -22,7 +22,17 @@ export interface ProcessEntityType {
   pid?: number;
 }
 
-const ProcessEntitySchema = z.strictObject({
+type ProcessEntityShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  cmd_line: z.ZodOptional<z.ZodString>;
+  cpid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  path: z.ZodOptional<z.ZodString>;
+  pid: z.ZodOptional<z.ZodNumber>;
+};
+
+const ProcessEntitySchema: z.ZodObject<ProcessEntityShape, z.core.$strict> = z.strictObject({
   /** The friendly name of the process, for example: Notepad++. */
   name: z.string().optional(),
   /** A unique identifier for this process assigned by the producer (tool). Facilitates correlation of a process event with other events for that process. */

@@ -1,0 +1,99 @@
+import { z } from 'zod';
+
+/**
+ * The Fingerprint object provides detailed information about a fingerprint, which is a compact representation of data used to identify a longer piece of information, such as a public key, file content, or application implementation. It contains the algorithm or scheme and value of the fingerprint, enabling efficient and reliable identification of the associated data.
+ *
+ * OCSF Object: Fingerprint
+ */
+export interface FingerprintType {
+  /** The algorithm or scheme used to create the fingerprint, normalized to the caption of algorithm_id. In the case of Other, it is defined by the event source. */
+  algorithm?: string;
+  /** The identifier of the normalized algorithm or scheme, which was used to create the fingerprint. */
+  algorithm_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 99;
+  /** The encoding of the value attribute, normalized to the caption of encoding_id. In the case of Other, it is defined by the event source. */
+  encoding?: string;
+  /** The normalized identifier of the encoding used to represent the fingerprint bytes as the string in value. A verifier must decode value using this encoding to recover the raw hash bytes. */
+  encoding_id?: 0 | 1 | 2 | 3 | 99;
+  /** The canonical serialization scheme used to produce the deterministic byte sequence that was fingerprinted, normalized to the caption of serialization_id. In the case of Other, it is defined by the event source. */
+  serialization?: string;
+  /** The identifier of the normalized canonical serialization scheme used to produce the deterministic byte sequence that was fingerprinted. A verifier must apply the same scheme to reproduce the fingerprinted input. Use Flat where the fingerprinted data is an opaque byte sequence, such as file content, to which no canonical serialization was applied. Distinct from algorithm_id, which identifies how the resulting bytes were hashed. */
+  serialization_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 99;
+  /** The fingerprint value.Note: This uses type file_hash_t ("Hash"), which has been generalized for all fingerprints but retains the same name and caption for backwards compatibility. */
+  value: string;
+}
+
+type FingerprintShape = {
+  algorithm: z.ZodOptional<z.ZodString>;
+  algorithm_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<16>, z.ZodLiteral<17>, z.ZodLiteral<18>, z.ZodLiteral<19>, z.ZodLiteral<20>, z.ZodLiteral<99>]>;
+  encoding: z.ZodOptional<z.ZodString>;
+  encoding_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  serialization: z.ZodOptional<z.ZodString>;
+  serialization_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<99>]>>;
+  value: z.ZodString;
+};
+
+const FingerprintSchema: z.ZodObject<FingerprintShape, z.core.$strict> = z.strictObject({
+  /** The algorithm or scheme used to create the fingerprint, normalized to the caption of algorithm_id. In the case of Other, it is defined by the event source. */
+  algorithm: z.string().optional(),
+  /** The identifier of the normalized algorithm or scheme, which was used to create the fingerprint. */
+  algorithm_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(12), z.literal(13), z.literal(14), z.literal(15), z.literal(16), z.literal(17), z.literal(18), z.literal(19), z.literal(20), z.literal(99)]),
+  /** The encoding of the value attribute, normalized to the caption of encoding_id. In the case of Other, it is defined by the event source. */
+  encoding: z.string().optional(),
+  /** The normalized identifier of the encoding used to represent the fingerprint bytes as the string in value. A verifier must decode value using this encoding to recover the raw hash bytes. */
+  encoding_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
+  /** The canonical serialization scheme used to produce the deterministic byte sequence that was fingerprinted, normalized to the caption of serialization_id. In the case of Other, it is defined by the event source. */
+  serialization: z.string().optional(),
+  /** The identifier of the normalized canonical serialization scheme used to produce the deterministic byte sequence that was fingerprinted. A verifier must apply the same scheme to reproduce the fingerprinted input. Use Flat where the fingerprinted data is an opaque byte sequence, such as file content, to which no canonical serialization was applied. Distinct from algorithm_id, which identifies how the resulting bytes were hashed. */
+  serialization_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(99)]).optional(),
+  /** The fingerprint value.Note: This uses type file_hash_t ("Hash"), which has been generalized for all fingerprints but retains the same name and caption for backwards compatibility. */
+  value: z.string(),
+});
+
+export const Fingerprint = FingerprintSchema;
+
+/** Value → label mappings for each enum field of Fingerprint. */
+export const FingerprintLabels: Readonly<Record<"algorithm_id" | "encoding_id" | "serialization_id", Readonly<Record<number, string>>>> = {
+  algorithm_id: {
+    0: "Unknown",
+    1: "MD5",
+    2: "SHA-1",
+    3: "SHA-256",
+    4: "SHA-512",
+    5: "CTPH",
+    6: "TLSH",
+    7: "quickXorHash",
+    8: "SHA-224",
+    9: "SHA-384",
+    10: "SHA-512/224",
+    11: "SHA-512/256",
+    12: "SHA3-224",
+    13: "SHA3-256",
+    14: "SHA3-384",
+    15: "SHA3-512",
+    16: "xxHash H3 64-bit",
+    17: "xxHash H3 128-bit",
+    18: "Imphash",
+    19: "NPF",
+    20: "HASSH",
+    99: "Other",
+  },
+  encoding_id: {
+    0: "Unknown",
+    1: "Hex",
+    2: "Base64",
+    3: "Base64URL",
+    99: "Other",
+  },
+  serialization_id: {
+    0: "Unknown",
+    1: "Flat",
+    2: "JCS",
+    3: "JWS",
+    4: "COSE",
+    5: "DSSE",
+    6: "Authenticode",
+    7: "Code Signing",
+    8: "App Package",
+    99: "Other",
+  },
+};

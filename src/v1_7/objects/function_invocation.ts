@@ -18,7 +18,13 @@ export interface FunctionInvocationType {
 
 import { Parameter } from './parameter.js';
 
-const FunctionInvocationSchema = z.strictObject({
+type FunctionInvocationShape = {
+  error: z.ZodOptional<z.ZodString>;
+  parameters: z.ZodOptional<z.ZodArray<typeof Parameter>>;
+  return_value: z.ZodOptional<z.ZodString>;
+};
+
+const FunctionInvocationSchema: z.ZodObject<FunctionInvocationShape, z.core.$strict> = z.strictObject({
   /** The error indication returned from the function. This may differ from the return value (e.g. when errno is used). */
   error: z.string().optional(),
   /** The parameters passed into a function invocation. */

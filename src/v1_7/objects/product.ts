@@ -30,7 +30,19 @@ export interface ProductType {
 
 import { Feature } from './feature.js';
 
-const ProductSchema = z.strictObject({
+type ProductShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  cpe_name: z.ZodOptional<z.ZodString>;
+  feature: z.ZodOptional<typeof Feature>;
+  lang: z.ZodOptional<z.ZodString>;
+  path: z.ZodOptional<z.ZodString>;
+  url_string: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const ProductSchema: z.ZodObject<ProductShape, z.core.$strict> = z.strictObject({
   /** The name of the product. */
   name: z.string().optional(),
   /** The unique identifier of the product. */

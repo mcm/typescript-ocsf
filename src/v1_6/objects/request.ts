@@ -20,7 +20,14 @@ export interface RequestType {
 
 import { Container } from './container.js';
 
-const RequestSchema = z.strictObject({
+type RequestShape = {
+  containers: z.ZodOptional<z.ZodArray<typeof Container>>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  flags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  uid: z.ZodString;
+};
+
+const RequestSchema: z.ZodObject<RequestShape, z.core.$strict> = z.strictObject({
   /** When working with containerized applications, the set of containers which write to the standard the output of a particular logging driver. For example, this may be the set of containers involved in handling api requests and responses for a containerized application. */
   containers: z.array(Container).optional(),
   /** The additional data that is associated with the api request. */
