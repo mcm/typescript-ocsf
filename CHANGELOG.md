@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-10-12
+
+### Added
+- **OCSF 1.8.0 and 1.9.0** - New `v1_8` and `v1_9` subpath exports (`@iamthemcmaster/ocsf/v1_8`, `/v1_8/objects`, `/v1_8/events`, `/v1_8/enums`, and the same for `v1_9`)
+- **Per-object and per-event enum labels** - Every object and event now exports a `{Name}Labels` map from each of its enum fields to a value → label table, so nested fields without a shared enum (e.g. `device.type_id`, `fingerprint.algorithm_id`, `ticket.status_id`) have labels available at runtime
+  - `objects.DeviceLabels.type_id[2]` → `"Desktop"`
+  - Event parser objects also expose the map as `.labels` (e.g. `IncidentFinding.labels.status_id`)
+  - `ObservableLabels.type_id` uses the derived `ObservableTypeId` values
+
+### Changed
+- **Breaking: default import is now OCSF 1.9.0** - `@iamthemcmaster/ocsf` re-exports `v1_9` instead of `v1_7`. Import from `@iamthemcmaster/ocsf/v1_7` to stay on 1.7.0
+- **Breaking: event-specific enums** - An event's static enum property now uses an event-specific enum whenever the event defines different values from the shared enum of the same name. Previously the shared enum was used whenever one existed with the same name, so these properties were wrong:
+  - `IncidentFinding.StatusId` is now New / In Progress / On Hold / Resolved / Closed (was Success / Failure)
+  - `DetectionFinding`, `VulnerabilityFinding`, `ComplianceFinding`, `DataSecurityFinding`, `ApplicationSecurityPostureFinding`, `IamAnalysisFinding` and `Finding` `StatusId` are now the finding lifecycle statuses (New, In Progress, Suppressed, Resolved, ...)
+  - Remediation events' `StatusId` gains Does Not Exist / Partial / Unsupported / Error
+  - Also affects `DnsActivity.RcodeId`, `EmailActivity.DirectionId`, `SshActivity.AuthTypeId`, `DroneFlightsActivity.StatusId`/`AuthProtocolId`, `SecurityFinding.StateId`, and others
+  - Code referencing members that only existed on the shared enum (e.g. `DetectionFinding.StatusId.SUCCESS`) will no longer compile
+- **Declaration output** - Schemas are now annotated with explicit Zod shape types, so nested schemas are referenced by name in `.d.ts` files instead of being inlined. Declaration files are around 40x smaller (e.g. `v1_7/events/detection_finding.d.ts` went from 650 KB to 15 KB), which was required for the larger 1.9.0 classes to compile. Schema composition (`.extend()`, `.pick()`, etc.) is unchanged
+
+### Fixed
+- **Enum value merging** - A class's enum values are now merged with the dictionary's values for that attribute, matching the official OCSF schema server, rather than replacing them. This widens validation for many fields to accept values such as Unknown (0) and Other (99) that the schema allows. For example, in 1.9.0 `IncidentFinding.status_id` defines only 1-5 on the class and inherits 0 and 99 from the dictionary
+
+## [0.5.1] - 2026-03-11
+
+### Added
+- `enum-utils` is exposed as a public subpath export (`@iamthemcmaster/ocsf/enum-utils`)
+
+### Changed
+- Node.js 20 or later is required (Node 18 support dropped)
+- Build migrated from tsup to tsdown; vitest upgraded to v4
+
+## [0.5.0] - 2026-02-25
+
+### Added
+- `{EnumName}ByLabel` reverse mappings (label → value) for every enum
+- `enum-utils` helpers: `getEnumLabel`, `getEnumValue`, `getEnumLabelOr`, `getEnumValueOr`
+
+### Changed
+- Label → value conversion is case-insensitive
+
+## [0.4.0] - 2026-02-25
+
+### Added
+- Event parsers expose their enums as static properties (e.g. `IncidentFinding.SeverityId.LOW`, `FileActivity.ActivityId.CREATE`)
+
+### Fixed
+- `Observable.type_id` uses the derived `ObservableTypeId` enum aggregated from every observable definition in the schema, instead of the object's inline Unknown/Other values
+
 ## [0.3.1] - 2026-02-15
 
 ### Fixed
