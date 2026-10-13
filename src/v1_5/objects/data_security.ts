@@ -56,7 +56,30 @@ import { ClassifierDetails } from './classifier_details.js';
 import { DiscoveryDetails } from './discovery_details.js';
 import { Policy } from './policy.js';
 
-const DataSecuritySchema = z.strictObject({
+type DataSecurityShape = {
+  category: z.ZodOptional<z.ZodString>;
+  category_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  classifier_details: z.ZodOptional<typeof ClassifierDetails>;
+  confidentiality: z.ZodOptional<z.ZodString>;
+  confidentiality_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  discovery_details: z.ZodOptional<z.ZodArray<typeof DiscoveryDetails>>;
+  policy: z.ZodOptional<typeof Policy>;
+  size: z.ZodOptional<z.ZodNumber>;
+  src_url: z.ZodOptional<z.ZodString>;
+  status: z.ZodOptional<z.ZodString>;
+  status_details: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  total: z.ZodOptional<z.ZodNumber>;
+  uid: z.ZodOptional<z.ZodString>;
+  data_lifecycle_state: z.ZodOptional<z.ZodString>;
+  data_lifecycle_state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  detection_pattern: z.ZodOptional<z.ZodString>;
+  detection_system: z.ZodOptional<z.ZodString>;
+  detection_system_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<99>]>>;
+  pattern_match: z.ZodOptional<z.ZodString>;
+};
+
+const DataSecuritySchema: z.ZodObject<DataSecurityShape, z.core.$strict> = z.strictObject({
   /** The name of the data classification category that data matched into, e.g. Financial, Personal, Governmental, etc. */
   category: z.string().optional(),
   /** The normalized identifier of the data classification category. */

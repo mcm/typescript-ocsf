@@ -1,5 +1,6 @@
 /** ComplianceFinding activity_id values. */
 export const ComplianceFindingActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** A finding was created. */
   CREATE: 1,
@@ -7,6 +8,7 @@ export const ComplianceFindingActivityId = {
   UPDATE: 2,
   /** A finding was closed. */
   CLOSE: 3,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

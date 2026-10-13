@@ -1,5 +1,6 @@
 /** ProcessRemediationActivity activity_id values. */
 export const ProcessRemediationActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Creates logical or physical barriers in a system which reduces opportunities for adversaries to create further accesses. Defined by D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/tactic/d3f:Isolate/'>d3f:Isolate</a>. */
   ISOLATE: 1,
@@ -11,6 +12,7 @@ export const ProcessRemediationActivityActivityId = {
   HARDEN: 4,
   /** Further identify adversary access to or unauthorized activity on computer networks. Defined by D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/tactic/d3f:Detect/'>d3f:Detect</a>. */
   DETECT: 5,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

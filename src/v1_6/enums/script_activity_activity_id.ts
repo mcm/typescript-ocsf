@@ -1,7 +1,9 @@
 /** ScriptActivity activity_id values. */
 export const ScriptActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   EXECUTE: 1,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

@@ -26,7 +26,19 @@ export interface CheckType {
   version?: string;
 }
 
-const CheckSchema = z.strictObject({
+type CheckShape = {
+  desc: z.ZodOptional<z.ZodString>;
+  name: z.ZodOptional<z.ZodString>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  standards: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  status: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  uid: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const CheckSchema: z.ZodObject<CheckShape, z.core.$strict> = z.strictObject({
   /** The detailed description of the compliance check, explaining the security requirement, vulnerability, or configuration being assessed. For example, CIS: The cramfs filesystem type is a compressed read-only Linux filesystem. Removing support for unneeded filesystem types reduces the local attack surface. or DISA STIG: Unauthorized access to the information system by foreign entities may result in loss or compromise of data. */
   desc: z.string().optional(),
   /** The name or title of the compliance check. For example, CIS: Ensure mounting of cramfs filesystems is disabled or DISA STIG: The Ubuntu operating system must implement DoD-approved encryption to protect the confidentiality of remote access sessions. */

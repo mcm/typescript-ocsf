@@ -64,7 +64,31 @@ import { Product } from './product.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Trait } from './trait.js';
 
-const RelatedEventSchema = z.strictObject({
+type RelatedEventShape = {
+  attacks: z.ZodOptional<z.ZodArray<typeof Attack>>;
+  count: z.ZodOptional<z.ZodNumber>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  first_seen_time: z.ZodOptional<z.ZodNumber>;
+  kill_chain: z.ZodOptional<z.ZodArray<typeof KillChainPhase>>;
+  last_seen_time: z.ZodOptional<z.ZodNumber>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  product: z.ZodOptional<typeof Product>;
+  product_uid: z.ZodOptional<z.ZodString>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  status: z.ZodOptional<z.ZodString>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  title: z.ZodOptional<z.ZodString>;
+  traits: z.ZodOptional<z.ZodArray<typeof Trait>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodOptional<z.ZodNumber>;
+  uid: z.ZodString;
+};
+
+const RelatedEventSchema: z.ZodObject<RelatedEventShape, z.core.$strict> = z.strictObject({
   /** An array of MITRE ATT&CK® objects describing identified tactics, techniques & sub-techniques. The objects are compatible with MITRE ATLAS™ tactics, techniques & sub-techniques. */
   attacks: z.array(Attack).optional(),
   /** The number of times that activity in the same logical group occurred, as reported by the related Finding. */

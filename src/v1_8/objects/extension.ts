@@ -1,0 +1,36 @@
+import { z } from 'zod';
+
+/**
+ * The OCSF Schema Extension object provides detailed information about the schema extension used to construct the event. The schema extensions are registered in the <a target='_blank' href='https://github.com/ocsf/ocsf-schema/blob/main/extensions.md'>extensions.md</a> file.
+ *
+ * OCSF Object: Schema Extension
+ */
+export interface ExtensionType {
+  /** The schema extension name. For example: dev. */
+  name?: string;
+  /** The schema extension unique identifier. For example: 999. */
+  uid?: string;
+  /** The schema extension version. For example: 1.0.0-alpha.2. */
+  version: string;
+}
+
+type ExtensionShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  version: z.ZodString;
+};
+
+const ExtensionSchema: z.ZodObject<ExtensionShape, z.core.$strict> = z.strictObject({
+  /** The schema extension name. For example: dev. */
+  name: z.string().optional(),
+  /** The schema extension unique identifier. For example: 999. */
+  uid: z.string().optional(),
+  /** The schema extension version. For example: 1.0.0-alpha.2. */
+  version: z.string(),
+});
+
+export const Extension = ExtensionSchema;
+
+/** Value → label mappings for each enum field of Extension. */
+export const ExtensionLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

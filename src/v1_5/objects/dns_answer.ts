@@ -22,7 +22,17 @@ export interface DnsAnswerType {
   ttl?: number;
 }
 
-const DnsAnswerSchema = z.strictObject({
+type DnsAnswerShape = {
+  class: z.ZodOptional<z.ZodString>;
+  packet_uid: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  flag_ids: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  flags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  rdata: z.ZodString;
+  ttl: z.ZodOptional<z.ZodNumber>;
+};
+
+const DnsAnswerSchema: z.ZodObject<DnsAnswerShape, z.core.$strict> = z.strictObject({
   /** The class of DNS data contained in this resource record. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */

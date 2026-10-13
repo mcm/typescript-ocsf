@@ -1,5 +1,6 @@
 /** RdpActivity activity_id values. */
 export const RdpActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The initial RDP request. */
   INITIAL_REQUEST: 1,
@@ -17,6 +18,7 @@ export const RdpActivityActivityId = {
   DISCONNECT: 7,
   /** An RDP connection reconnect. */
   RECONNECT: 8,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

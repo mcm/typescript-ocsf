@@ -1,0 +1,75 @@
+import { z } from 'zod';
+
+import type { FeatureType } from './feature.js';
+
+/**
+ * The Product object describes characteristics of a software product.
+ *
+ * OCSF Object: Product
+ */
+export interface ProductType {
+  /** The name of the product. */
+  name?: string;
+  /** The unique identifier of the product. */
+  uid?: string;
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric?: number;
+  /** The Common Platform Enumeration (CPE) name. For example: cpe:/a:apple:safari:16.2. */
+  cpe_name?: string;
+  /** The feature that reported the event. */
+  feature?: FeatureType;
+  /** The two letter lower case language codes, as defined by ISO 639-1. For example: en (English), de (German), or fr (French). */
+  lang?: string;
+  /** The installation path of the product. */
+  path?: string;
+  /** The URL pointing towards the product. */
+  url_string?: string;
+  /** The name of the vendor of the product. */
+  vendor_name?: string;
+  /** The version of the product, as defined by the event source. For example: 2013.1.3-beta. */
+  version?: string;
+}
+
+import { Feature } from './feature.js';
+
+type ProductShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_numeric: z.ZodOptional<z.ZodNumber>;
+  cpe_name: z.ZodOptional<z.ZodString>;
+  feature: z.ZodOptional<typeof Feature>;
+  lang: z.ZodOptional<z.ZodString>;
+  path: z.ZodOptional<z.ZodString>;
+  url_string: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const ProductSchema: z.ZodObject<ProductShape, z.core.$strict> = z.strictObject({
+  /** The name of the product. */
+  name: z.string().optional(),
+  /** The unique identifier of the product. */
+  uid: z.string().optional(),
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric: z.number().int().optional(),
+  /** The Common Platform Enumeration (CPE) name. For example: cpe:/a:apple:safari:16.2. */
+  cpe_name: z.string().optional(),
+  /** The feature that reported the event. */
+  feature: Feature.optional(),
+  /** The two letter lower case language codes, as defined by ISO 639-1. For example: en (English), de (German), or fr (French). */
+  lang: z.string().optional(),
+  /** The installation path of the product. */
+  path: z.string().optional(),
+  /** The URL pointing towards the product. */
+  url_string: z.string().optional(),
+  /** The name of the vendor of the product. */
+  vendor_name: z.string().optional(),
+  /** The version of the product, as defined by the event source. For example: 2013.1.3-beta. */
+  version: z.string().optional(),
+});
+
+export const Product = ProductSchema;
+
+/** Value → label mappings for each enum field of Product. */
+export const ProductLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -1,0 +1,199 @@
+import { z } from 'zod';
+
+import type { KeyValueObjectType } from './key_value_object.js';
+import type { AgentType } from './agent.js';
+import type { EncryptionDetailsType } from './encryption_details.js';
+import type { FileType } from './file.js';
+import type { GroupType } from './group.js';
+import type { UserType } from './user.js';
+import type { GraphType } from './graph.js';
+
+/**
+ * The databucket object is a basic container that holds data, typically organized through the use of data partitions.
+ *
+ * OCSF Object: Databucket
+ */
+export interface DatabucketType {
+  /** The databucket name. */
+  name?: string;
+  /** The unique identifier of the databucket. */
+  uid?: string;
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric?: number;
+  /** The time when the databucket was known to have been created. */
+  created_time?: number;
+  /** Additional data describing the resource. */
+  data?: Record<string, unknown>;
+  /** The list of labels associated to the resource. */
+  labels?: string[];
+  /** The most recent time when any changes, updates, or modifications were made within the databucket. */
+  modified_time?: number;
+  /** The list of tags; {key:value} pairs associated to the resource. */
+  tags?: KeyValueObjectType[];
+  /** The databucket type. */
+  type?: string;
+  /** The alternative unique identifier of the resource. */
+  uid_alt?: string;
+  /** A list of agent objects associated with a device, endpoint, or resource. */
+  agent_list?: AgentType[];
+  /** The logical grouping or isolated segment within a cloud provider's infrastructure where the databucket is located. */
+  cloud_partition?: string;
+  /** The criticality of the databucket as defined by the event source. */
+  criticality?: string;
+  /** The description of the databucket. */
+  desc?: string;
+  /** The encryption details of the databucket. Should be populated if the databucket is encrypted. */
+  encryption_details?: EncryptionDetailsType;
+  /** Details about the file/object within a databucket. */
+  file?: FileType;
+  /** The name of the related resource group. */
+  group?: GroupType;
+  /** The group names to which the databucket belongs. */
+  groups?: GroupType[];
+  /** The fully qualified hostname of the databucket. */
+  hostname?: string;
+  /** The IP address of the resource, in either IPv4 or IPv6 format. */
+  ip?: string;
+  /** Indicates whether the device or resource has a backup enabled, such as an automated snapshot or a cloud backup. For example, this is indicated by the cloudBackupEnabled value within JAMF Pro mobile devices or the registration of an AWS ARN with the AWS Backup service. */
+  is_backed_up?: boolean;
+  /** Indicates if the databucket is encrypted. */
+  is_encrypted?: boolean;
+  /** Indicates if the databucket is publicly accessible. */
+  is_public?: boolean;
+  /** The namespace is useful when similar entities exist that you need to keep separate. */
+  namespace?: string;
+  /** The identity of the service or user account that owns the databucket. */
+  owner?: UserType;
+  /** The cloud region of the databucket. */
+  region?: string;
+  /** A graph representation showing how this databucket relates to and interacts with other entities in the environment. This can include parent/child relationships, dependencies, or other connections. */
+  resource_relationship?: GraphType;
+  /** The size of the databucket in bytes. */
+  size?: number;
+  /** The normalized identifier of the databucket type. */
+  type_id: 0 | 1 | 2 | 3 | 99;
+  /** The version of the resource. For example 1.2.3. */
+  version?: string;
+  /** The specific availability zone within a cloud region where the databucket is located. */
+  zone?: string;
+}
+
+import { KeyValueObject } from './key_value_object.js';
+import { Agent } from './agent.js';
+import { EncryptionDetails } from './encryption_details.js';
+import { File } from './file.js';
+import { Group } from './group.js';
+import { User } from './user.js';
+import { Graph } from './graph.js';
+
+type DatabucketShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_numeric: z.ZodOptional<z.ZodNumber>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  agent_list: z.ZodOptional<z.ZodArray<typeof Agent>>;
+  cloud_partition: z.ZodOptional<z.ZodString>;
+  criticality: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  encryption_details: z.ZodOptional<typeof EncryptionDetails>;
+  file: z.ZodOptional<typeof File>;
+  group: z.ZodOptional<typeof Group>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  hostname: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  is_backed_up: z.ZodOptional<z.ZodBoolean>;
+  is_encrypted: z.ZodOptional<z.ZodBoolean>;
+  is_public: z.ZodOptional<z.ZodBoolean>;
+  namespace: z.ZodOptional<z.ZodString>;
+  owner: z.ZodOptional<typeof User>;
+  region: z.ZodOptional<z.ZodString>;
+  resource_relationship: z.ZodOptional<typeof Graph>;
+  size: z.ZodOptional<z.ZodNumber>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>;
+  version: z.ZodOptional<z.ZodString>;
+  zone: z.ZodOptional<z.ZodString>;
+};
+
+const DatabucketSchema: z.ZodObject<DatabucketShape, z.core.$strict> = z.strictObject({
+  /** The databucket name. */
+  name: z.string().optional(),
+  /** The unique identifier of the databucket. */
+  uid: z.string().optional(),
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric: z.number().int().optional(),
+  /** The time when the databucket was known to have been created. */
+  created_time: z.number().int().optional(),
+  /** Additional data describing the resource. */
+  data: z.record(z.string(), z.unknown()).optional(),
+  /** The list of labels associated to the resource. */
+  labels: z.array(z.string()).optional(),
+  /** The most recent time when any changes, updates, or modifications were made within the databucket. */
+  modified_time: z.number().int().optional(),
+  /** The list of tags; {key:value} pairs associated to the resource. */
+  tags: z.array(KeyValueObject).optional(),
+  /** The databucket type. */
+  type: z.string().optional(),
+  /** The alternative unique identifier of the resource. */
+  uid_alt: z.string().optional(),
+  /** A list of agent objects associated with a device, endpoint, or resource. */
+  agent_list: z.array(Agent).optional(),
+  /** The logical grouping or isolated segment within a cloud provider's infrastructure where the databucket is located. */
+  cloud_partition: z.string().optional(),
+  /** The criticality of the databucket as defined by the event source. */
+  criticality: z.string().optional(),
+  /** The description of the databucket. */
+  desc: z.string().optional(),
+  /** The encryption details of the databucket. Should be populated if the databucket is encrypted. */
+  encryption_details: EncryptionDetails.optional(),
+  /** Details about the file/object within a databucket. */
+  file: File.optional(),
+  /** The name of the related resource group. */
+  group: Group.optional(),
+  /** The group names to which the databucket belongs. */
+  groups: z.array(Group).optional(),
+  /** The fully qualified hostname of the databucket. */
+  hostname: z.string().optional(),
+  /** The IP address of the resource, in either IPv4 or IPv6 format. */
+  ip: z.string().optional(),
+  /** Indicates whether the device or resource has a backup enabled, such as an automated snapshot or a cloud backup. For example, this is indicated by the cloudBackupEnabled value within JAMF Pro mobile devices or the registration of an AWS ARN with the AWS Backup service. */
+  is_backed_up: z.boolean().optional(),
+  /** Indicates if the databucket is encrypted. */
+  is_encrypted: z.boolean().optional(),
+  /** Indicates if the databucket is publicly accessible. */
+  is_public: z.boolean().optional(),
+  /** The namespace is useful when similar entities exist that you need to keep separate. */
+  namespace: z.string().optional(),
+  /** The identity of the service or user account that owns the databucket. */
+  owner: User.optional(),
+  /** The cloud region of the databucket. */
+  region: z.string().optional(),
+  /** A graph representation showing how this databucket relates to and interacts with other entities in the environment. This can include parent/child relationships, dependencies, or other connections. */
+  resource_relationship: Graph.optional(),
+  /** The size of the databucket in bytes. */
+  size: z.number().int().optional(),
+  /** The normalized identifier of the databucket type. */
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
+  /** The version of the resource. For example 1.2.3. */
+  version: z.string().optional(),
+  /** The specific availability zone within a cloud region where the databucket is located. */
+  zone: z.string().optional(),
+});
+
+export const Databucket = DatabucketSchema;
+
+/** Value → label mappings for each enum field of Databucket. */
+export const DatabucketLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "S3",
+    2: "Azure Blob",
+    3: "GCP Bucket",
+    99: "Other",
+  },
+};

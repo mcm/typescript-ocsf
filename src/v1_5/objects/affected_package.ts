@@ -36,7 +36,7 @@ export interface AffectedPackageType {
   /** The type of software package, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type?: string;
   /** The type of software package. */
-  type_id?: 1 | 2;
+  type_id?: 0 | 1 | 2 | 99;
   /** A unique identifier for the package or library reported by the source tool. E.g., the libId within the sbom field of an OX Security Issue or the SPDX components.*.bom-ref. */
   uid?: string;
   /** The name of the vendor who published the software package. */
@@ -54,7 +54,30 @@ export interface AffectedPackageType {
 import { Fingerprint } from './fingerprint.js';
 import { Remediation } from './remediation.js';
 
-const AffectedPackageSchema = z.strictObject({
+type AffectedPackageShape = {
+  architecture: z.ZodOptional<z.ZodString>;
+  cpe_name: z.ZodOptional<z.ZodString>;
+  epoch: z.ZodOptional<z.ZodNumber>;
+  hash: z.ZodOptional<typeof Fingerprint>;
+  license: z.ZodOptional<z.ZodString>;
+  license_url: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  package_manager: z.ZodOptional<z.ZodString>;
+  package_manager_url: z.ZodOptional<z.ZodString>;
+  purl: z.ZodOptional<z.ZodString>;
+  release: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  uid: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  version: z.ZodString;
+  fixed_in_version: z.ZodOptional<z.ZodString>;
+  path: z.ZodOptional<z.ZodString>;
+  remediation: z.ZodOptional<typeof Remediation>;
+};
+
+const AffectedPackageSchema: z.ZodObject<AffectedPackageShape, z.core.$strict> = z.strictObject({
   /** Architecture is a shorthand name describing the type of computer hardware the packaged software is meant to run on. */
   architecture: z.string().optional(),
   /** The Common Platform Enumeration (CPE) name as described by (NIST) For example: cpe:/a:apple:safari:16.2. */
@@ -82,7 +105,7 @@ const AffectedPackageSchema = z.strictObject({
   /** The type of software package, normalized to the caption of the type_id value. In the case of 'Other', it is defined by the source. */
   type: z.string().optional(),
   /** The type of software package. */
-  type_id: z.union([z.literal(1), z.literal(2)]).optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
   /** A unique identifier for the package or library reported by the source tool. E.g., the libId within the sbom field of an OX Security Issue or the SPDX components.*.bom-ref. */
   uid: z.string().optional(),
   /** The name of the vendor who published the software package. */
@@ -102,7 +125,9 @@ export const AffectedPackage = AffectedPackageSchema;
 /** Value → label mappings for each enum field of AffectedPackage. */
 export const AffectedPackageLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
   type_id: {
+    0: "Unknown",
     1: "Application",
     2: "Operating System",
+    99: "Other",
   },
 };

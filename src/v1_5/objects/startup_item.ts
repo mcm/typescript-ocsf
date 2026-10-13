@@ -25,7 +25,7 @@ export interface StartupItemType {
   /** The run state of the startup item. */
   run_state?: string;
   /** The run state ID of the startup item. */
-  run_state_id?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  run_state_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 99;
   /** The start type of the startup item. */
   start_type?: string;
   /** The start type ID of the startup item. */
@@ -40,7 +40,22 @@ import { KernelDriver } from './kernel_driver.js';
 import { Job } from './job.js';
 import { Process } from './process.js';
 
-const StartupItemSchema = z.strictObject({
+type StartupItemShape = {
+  driver: z.ZodOptional<typeof KernelDriver>;
+  job: z.ZodOptional<typeof Job>;
+  name: z.ZodString;
+  process: z.ZodOptional<typeof Process>;
+  run_mode_ids: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  run_modes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  run_state: z.ZodOptional<z.ZodString>;
+  run_state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<99>]>>;
+  start_type: z.ZodOptional<z.ZodString>;
+  start_type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<99>]>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<99>]>>;
+};
+
+const StartupItemSchema: z.ZodObject<StartupItemShape, z.core.$strict> = z.strictObject({
   /** The startup item kernel driver resource. */
   driver: KernelDriver.optional(),
   /** The startup item job resource. */
@@ -56,7 +71,7 @@ const StartupItemSchema = z.strictObject({
   /** The run state of the startup item. */
   run_state: z.string().optional(),
   /** The run state ID of the startup item. */
-  run_state_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8)]).optional(),
+  run_state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(99)]).optional(),
   /** The start type of the startup item. */
   start_type: z.string().optional(),
   /** The start type ID of the startup item. */
@@ -72,6 +87,7 @@ export const StartupItem = StartupItemSchema;
 /** Value → label mappings for each enum field of StartupItem. */
 export const StartupItemLabels: Readonly<Record<"run_state_id" | "start_type_id" | "type_id", Readonly<Record<number, string>>>> = {
   run_state_id: {
+    0: "Unknown",
     1: "Stopped",
     2: "Start Pending",
     3: "Stop Pending",
@@ -80,6 +96,7 @@ export const StartupItemLabels: Readonly<Record<"run_state_id" | "start_type_id"
     6: "Pause Pending",
     7: "Paused",
     8: "Restart Pending",
+    99: "Other",
   },
   start_type_id: {
     0: "Unknown",

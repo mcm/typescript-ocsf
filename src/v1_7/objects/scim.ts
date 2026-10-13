@@ -48,7 +48,30 @@ export interface ScimType {
   version?: string;
 }
 
-const ScimSchema = z.strictObject({
+type ScimShape = {
+  auth_protocol: z.ZodOptional<z.ZodString>;
+  auth_protocol_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<99>]>>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  error_message: z.ZodOptional<z.ZodString>;
+  is_group_provisioning_enabled: z.ZodOptional<z.ZodBoolean>;
+  is_user_provisioning_enabled: z.ZodOptional<z.ZodBoolean>;
+  last_run_time: z.ZodOptional<z.ZodNumber>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  name: z.ZodOptional<z.ZodString>;
+  protocol_name: z.ZodOptional<z.ZodString>;
+  rate_limit: z.ZodOptional<z.ZodNumber>;
+  scim_group_schema: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  scim_user_schema: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  url_string: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const ScimSchema: z.ZodObject<ScimShape, z.core.$strict> = z.strictObject({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authorization protocol used by the SCIM resource. */

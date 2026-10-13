@@ -12,7 +12,12 @@ export interface SecurityStateType {
   state_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 99;
 }
 
-const SecurityStateSchema = z.strictObject({
+type SecurityStateShape = {
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<16>, z.ZodLiteral<17>, z.ZodLiteral<18>, z.ZodLiteral<19>, z.ZodLiteral<20>, z.ZodLiteral<21>, z.ZodLiteral<22>, z.ZodLiteral<23>, z.ZodLiteral<99>]>>;
+};
+
+const SecurityStateSchema: z.ZodObject<SecurityStateShape, z.core.$strict> = z.strictObject({
   /** The security state, normalized to the caption of the state_id value. In the case of 'Other', it is defined by the source. */
   state: z.string().optional(),
   /** The security state of the managed entity. */

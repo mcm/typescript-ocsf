@@ -26,7 +26,17 @@ export interface TableType {
 
 import { Group } from './group.js';
 
-const TableSchema = z.strictObject({
+type TableShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  size: z.ZodOptional<z.ZodNumber>;
+};
+
+const TableSchema: z.ZodObject<TableShape, z.core.$strict> = z.strictObject({
   /** The table name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the table. */

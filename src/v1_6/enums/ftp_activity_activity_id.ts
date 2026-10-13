@@ -1,5 +1,6 @@
 /** FtpActivity activity_id values. */
 export const FtpActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** File upload to the FTP or SFTP site. */
   PUT: 1,
@@ -13,6 +14,7 @@ export const FtpActivityActivityId = {
   RENAME: 5,
   /** List files in a specified directory. */
   LIST: 6,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

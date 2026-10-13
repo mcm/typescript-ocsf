@@ -62,7 +62,31 @@ import { LdapPerson } from './ldap_person.js';
 import { Organization } from './organization.js';
 import { ProgrammaticCredential } from './programmatic_credential.js';
 
-const UserSchema = z.strictObject({
+type UserShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  account: z.ZodOptional<typeof Account>;
+  credential_uid: z.ZodOptional<z.ZodString>;
+  display_name: z.ZodOptional<z.ZodString>;
+  domain: z.ZodOptional<z.ZodString>;
+  email_addr: z.ZodOptional<z.ZodString>;
+  forward_addr: z.ZodOptional<z.ZodString>;
+  full_name: z.ZodOptional<z.ZodString>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  has_mfa: z.ZodOptional<z.ZodBoolean>;
+  ldap_person: z.ZodOptional<z.ZodLazy<z.ZodType<LdapPersonType>>>;
+  org: z.ZodOptional<typeof Organization>;
+  phone_number: z.ZodOptional<z.ZodString>;
+  programmatic_credentials: z.ZodOptional<z.ZodArray<typeof ProgrammaticCredential>>;
+  risk_level: z.ZodOptional<z.ZodString>;
+  risk_level_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  risk_score: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+};
+
+const UserSchema: z.ZodObject<UserShape, z.core.$strict> = z.strictObject({
   /** The username. For example, janedoe1. */
   name: z.string().optional(),
   /** The unique user identifier. For example, the Windows user SID, ActiveDirectory DN or AWS user ARN. */

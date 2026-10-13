@@ -30,7 +30,19 @@ export interface SpanType {
 
 import { Service } from './service.js';
 
-const SpanSchema = z.strictObject({
+type SpanShape = {
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodNumber;
+  message: z.ZodOptional<z.ZodString>;
+  operation: z.ZodOptional<z.ZodString>;
+  parent_uid: z.ZodOptional<z.ZodString>;
+  service: z.ZodOptional<typeof Service>;
+  start_time: z.ZodNumber;
+  status_code: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+};
+
+const SpanSchema: z.ZodObject<SpanShape, z.core.$strict> = z.strictObject({
   /** The total time, in milliseconds, that the span represents, calculated as the difference between start_time and end_time. It reflects the operation's performance and latency, independent of event timestamps, and accounts for normalized times used by observability tools to ensure consistency across distributed systems. */
   duration: z.number().int().optional(),
   /** The end timestamp of the span, essential for identifying latency and performance bottlenecks. Like the start time, this timestamp is normalized across the observability system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time allows for accurate duration calculations and helps observability tools track performance across services, regardless of the individual system time settings. */

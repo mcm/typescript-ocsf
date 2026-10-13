@@ -32,7 +32,22 @@ export interface FirewallRuleType {
   sensitivity?: string;
 }
 
-const FirewallRuleSchema = z.strictObject({
+type FirewallRuleShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  category: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+  condition: z.ZodOptional<z.ZodString>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  match_details: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  match_location: z.ZodOptional<z.ZodString>;
+  rate_limit: z.ZodOptional<z.ZodNumber>;
+  sensitivity: z.ZodOptional<z.ZodString>;
+};
+
+const FirewallRuleSchema: z.ZodObject<FirewallRuleShape, z.core.$strict> = z.strictObject({
   /** The name of the rule that generated the event. */
   name: z.string().optional(),
   /** The unique identifier of the rule that generated the event. */

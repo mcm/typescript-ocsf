@@ -1,0 +1,55 @@
+import { z } from 'zod';
+
+import type { OrganizationType } from './organization.js';
+
+/**
+ * The entity from which an event or finding was reported.
+ *
+ * OCSF Object: Reporter
+ */
+export interface ReporterType {
+  /** The name of the entity from which the event or finding was reported. */
+  name?: string;
+  /** The unique identifier of the entity from which the event or finding was reported. */
+  uid?: string;
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric?: number;
+  /** The hostname of the entity from which the event or finding was reported. */
+  hostname?: string;
+  /** The IP address of the entity from which the event or finding was reported. */
+  ip?: string;
+  /** The organization properties of the entity that reported the event or finding. */
+  org?: OrganizationType;
+}
+
+import { Organization } from './organization.js';
+
+type ReporterShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_numeric: z.ZodOptional<z.ZodNumber>;
+  hostname: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  org: z.ZodOptional<typeof Organization>;
+};
+
+const ReporterSchema: z.ZodObject<ReporterShape, z.core.$strict> = z.strictObject({
+  /** The name of the entity from which the event or finding was reported. */
+  name: z.string().optional(),
+  /** The unique identifier of the entity from which the event or finding was reported. */
+  uid: z.string().optional(),
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric: z.number().int().optional(),
+  /** The hostname of the entity from which the event or finding was reported. */
+  hostname: z.string().optional(),
+  /** The IP address of the entity from which the event or finding was reported. */
+  ip: z.string().optional(),
+  /** The organization properties of the entity that reported the event or finding. */
+  org: Organization.optional(),
+});
+
+export const Reporter = ReporterSchema;
+
+/** Value → label mappings for each enum field of Reporter. */
+export const ReporterLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

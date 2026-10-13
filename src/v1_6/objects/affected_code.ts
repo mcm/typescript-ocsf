@@ -34,7 +34,18 @@ import { User } from './user.js';
 import { Remediation } from './remediation.js';
 import { Rule } from './rule.js';
 
-const AffectedCodeSchema = z.strictObject({
+type AffectedCodeShape = {
+  end_column: z.ZodOptional<z.ZodNumber>;
+  end_line: z.ZodOptional<z.ZodNumber>;
+  file: typeof File;
+  owner: z.ZodOptional<typeof User>;
+  remediation: z.ZodOptional<typeof Remediation>;
+  rule: z.ZodOptional<typeof Rule>;
+  start_column: z.ZodOptional<z.ZodNumber>;
+  start_line: z.ZodOptional<z.ZodNumber>;
+};
+
+const AffectedCodeSchema: z.ZodObject<AffectedCodeShape, z.core.$strict> = z.strictObject({
   /** The column number of the last part of the assessed code identified as vulnerable. */
   end_column: z.number().int().optional(),
   /** The line number of the last line of code block identified as vulnerable. */

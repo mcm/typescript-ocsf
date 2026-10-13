@@ -1,5 +1,6 @@
 /** EventLogActvity activity_id values. */
 export const EventLogActvityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Clear the event log database, file, or cache. */
   CLEAR: 1,
@@ -21,6 +22,7 @@ export const EventLogActvityActivityId = {
   ENABLE: 9,
   /** Disable the event logging service. */
   DISABLE: 10,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

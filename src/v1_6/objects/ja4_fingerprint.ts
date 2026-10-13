@@ -22,7 +22,17 @@ export interface Ja4FingerprintType {
   value: string;
 }
 
-const Ja4FingerprintSchema = z.strictObject({
+type Ja4FingerprintShape = {
+  section_a: z.ZodOptional<z.ZodString>;
+  section_b: z.ZodOptional<z.ZodString>;
+  section_c: z.ZodOptional<z.ZodString>;
+  section_d: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<99>]>;
+  value: z.ZodString;
+};
+
+const Ja4FingerprintSchema: z.ZodObject<Ja4FingerprintShape, z.core.$strict> = z.strictObject({
   /** The 'a' section of the JA4 fingerprint. */
   section_a: z.string().optional(),
   /** The 'b' section of the JA4 fingerprint. */

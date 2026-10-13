@@ -38,7 +38,23 @@ export interface NetworkConnectionInfoType {
 
 import { Session } from './session.js';
 
-const NetworkConnectionInfoSchema = z.strictObject({
+type NetworkConnectionInfoShape = {
+  boundary: z.ZodOptional<z.ZodString>;
+  boundary_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<99>]>>;
+  community_uid: z.ZodOptional<z.ZodString>;
+  direction: z.ZodOptional<z.ZodString>;
+  direction_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>;
+  flag_history: z.ZodOptional<z.ZodString>;
+  protocol_name: z.ZodOptional<z.ZodString>;
+  protocol_num: z.ZodOptional<z.ZodNumber>;
+  protocol_ver: z.ZodOptional<z.ZodString>;
+  protocol_ver_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<4>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  session: z.ZodOptional<typeof Session>;
+  tcp_flags: z.ZodOptional<z.ZodNumber>;
+  uid: z.ZodOptional<z.ZodString>;
+};
+
+const NetworkConnectionInfoSchema: z.ZodObject<NetworkConnectionInfoShape, z.core.$strict> = z.strictObject({
   /** The boundary of the connection, normalized to the caption of 'boundary_id'. In the case of 'Other', it is defined by the event source. For cloud connections, this translates to the traffic-boundary(same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */
   boundary: z.string().optional(),
   /** The normalized identifier of the boundary of the connection. For cloud connections, this translates to the traffic-boundary (same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External. */

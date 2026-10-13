@@ -14,7 +14,13 @@ export interface CweType {
   uid: string;
 }
 
-const CweSchema = z.strictObject({
+type CweShape = {
+  caption: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+};
+
+const CweSchema: z.ZodObject<CweShape, z.core.$strict> = z.strictObject({
   /** The caption assigned to the Common Weakness Enumeration unique identifier. */
   caption: z.string().optional(),
   /** URL pointing to the CWE Specification. For more information see CWE. */

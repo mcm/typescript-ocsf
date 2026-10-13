@@ -14,7 +14,13 @@ export interface TacticType {
   src_url?: string;
 }
 
-const TacticSchema = z.strictObject({
+type TacticShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+};
+
+const TacticSchema: z.ZodObject<TacticShape, z.core.$strict> = z.strictObject({
   /** The Tactic name that is associated with the attack technique. For example: Reconnaissance or ML Model Access. */
   name: z.string().optional(),
   /** The Tactic ID that is associated with the attack technique. For example: TA0043, or AML.TA0000. */

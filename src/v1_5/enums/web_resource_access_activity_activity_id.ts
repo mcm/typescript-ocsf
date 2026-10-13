@@ -1,5 +1,6 @@
 /** WebResourceAccessActivity activity_id values. */
 export const WebResourceAccessActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The incoming request has permission to the web resource. */
   ACCESS_GRANT: 1,
@@ -9,6 +10,7 @@ export const WebResourceAccessActivityActivityId = {
   ACCESS_REVOKE: 3,
   /** An error occurred during processing the request. */
   ACCESS_ERROR: 4,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

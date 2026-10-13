@@ -1,0 +1,112 @@
+import { z } from 'zod';
+
+import type { SensorInfoType } from './sensor_info.js';
+
+/**
+ * The Analytic object contains details about the analytic technique used to analyze and derive insights from the data or information that led to the creation of a finding or conclusion.
+ *
+ * OCSF Object: Analytic
+ */
+export interface AnalyticType {
+  /** The name of the analytic that generated the finding. */
+  name?: string;
+  /** The unique identifier of the analytic that generated the finding. */
+  uid?: string;
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric?: number;
+  /** The algorithm used by the underlying analytic to generate the finding. */
+  algorithm?: string;
+  /** The analytic category. */
+  category?: string;
+  /** The description of the analytic that generated the finding. */
+  desc?: string;
+  /** Other analytics related to this analytic. */
+  related_analytics?: AnalyticType[];
+  /** An array of sensor_info objects, each describing a sensor control point analyzed or correlated by the analytic. Each element typically represents a source of related_events that contributed to the finding. An individual sensor control point may also directly originate the finding, though more commonly it emits alerts that a downstream consumer treats as findings. */
+  sensor_info_list?: SensorInfoType[];
+  /** The Analytic state. */
+  state?: string;
+  /** The Analytic state identifier. */
+  state_id?: 0 | 1 | 2 | 3 | 99;
+  /** The analytic type. */
+  type?: string;
+  /** The analytic type ID. */
+  type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 99;
+  /** The analytic version. For example: 1.1. */
+  version?: string;
+}
+
+import { SensorInfo } from './sensor_info.js';
+
+type AnalyticShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_numeric: z.ZodOptional<z.ZodNumber>;
+  algorithm: z.ZodOptional<z.ZodString>;
+  category: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  related_analytics: z.ZodOptional<z.ZodLazy<z.ZodArray<z.ZodType<AnalyticType>>>>;
+  sensor_info_list: z.ZodOptional<z.ZodArray<typeof SensorInfo>>;
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<99>]>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const AnalyticSchema: z.ZodObject<AnalyticShape, z.core.$strict> = z.strictObject({
+  /** The name of the analytic that generated the finding. */
+  name: z.string().optional(),
+  /** The unique identifier of the analytic that generated the finding. */
+  uid: z.string().optional(),
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric: z.number().int().optional(),
+  /** The algorithm used by the underlying analytic to generate the finding. */
+  algorithm: z.string().optional(),
+  /** The analytic category. */
+  category: z.string().optional(),
+  /** The description of the analytic that generated the finding. */
+  desc: z.string().optional(),
+  /** Other analytics related to this analytic. */
+  get related_analytics() { return z.lazy(() => z.array(Analytic)).optional(); },
+  /** An array of sensor_info objects, each describing a sensor control point analyzed or correlated by the analytic. Each element typically represents a source of related_events that contributed to the finding. An individual sensor control point may also directly originate the finding, though more commonly it emits alerts that a downstream consumer treats as findings. */
+  sensor_info_list: z.array(SensorInfo).optional(),
+  /** The Analytic state. */
+  state: z.string().optional(),
+  /** The Analytic state identifier. */
+  state_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
+  /** The analytic type. */
+  type: z.string().optional(),
+  /** The analytic type ID. */
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(99)]),
+  /** The analytic version. For example: 1.1. */
+  version: z.string().optional(),
+});
+
+export const Analytic = AnalyticSchema;
+
+/** Value → label mappings for each enum field of Analytic. */
+export const AnalyticLabels: Readonly<Record<"state_id" | "type_id", Readonly<Record<number, string>>>> = {
+  state_id: {
+    0: "Unknown",
+    1: "Active",
+    2: "Suppressed",
+    3: "Experimental",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Rule",
+    2: "Behavioral",
+    3: "Statistical",
+    4: "Learning (ML/DL)",
+    5: "Fingerprinting",
+    6: "Tagging",
+    7: "Keyword Match",
+    8: "Regular Expressions",
+    9: "Exact Data Match",
+    10: "Partial Data Match",
+    11: "Indexed Data Match",
+    99: "Other",
+  },
+};

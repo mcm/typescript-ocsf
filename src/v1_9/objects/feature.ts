@@ -1,0 +1,41 @@
+import { z } from 'zod';
+
+/**
+ * The Feature object provides information about the software product feature that generated a specific event. It encompasses details related to the capabilities, components, user interface (UI) design, and performance upgrades associated with the feature.
+ *
+ * OCSF Object: Feature
+ */
+export interface FeatureType {
+  /** The name of the feature. */
+  name?: string;
+  /** The unique identifier of the feature. */
+  uid?: string;
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric?: number;
+  /** The version of the feature. */
+  version?: string;
+}
+
+type FeatureShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  uid_numeric: z.ZodOptional<z.ZodNumber>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const FeatureSchema: z.ZodObject<FeatureShape, z.core.$strict> = z.strictObject({
+  /** The name of the feature. */
+  name: z.string().optional(),
+  /** The unique identifier of the feature. */
+  uid: z.string().optional(),
+  /** The uid attribute in numeric form where applicable.Note: Producers may populate uid_numeric only in addition to uid and not as an alternative to it. */
+  uid_numeric: z.number().int().optional(),
+  /** The version of the feature. */
+  version: z.string().optional(),
+});
+
+export const Feature = FeatureSchema;
+
+/** Value → label mappings for each enum field of Feature. */
+export const FeatureLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

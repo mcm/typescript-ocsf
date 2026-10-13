@@ -1,0 +1,293 @@
+import { z } from 'zod';
+import { reconcileSiblings, type SiblingPair } from '../../sibling.js';
+import { prefillUids, type UidConfig } from '../../uid.js';
+
+import type { EnrichmentType } from '../objects/enrichment.js';
+import type { MetadataType } from '../objects/metadata.js';
+import type { ObservableType } from '../objects/observable.js';
+import type { FingerprintType } from '../objects/fingerprint.js';
+import type { HttpRequestType } from '../objects/http_request.js';
+import type { HttpResponseType } from '../objects/http_response.js';
+import type { NetworkProxyType } from '../objects/network_proxy.js';
+import type { NetworkEndpointType } from '../objects/network_endpoint.js';
+import type { TlsType } from '../objects/tls.js';
+import type { WebResourceType } from '../objects/web_resource.js';
+
+import { WebResourceAccessActivityActivityId } from '../enums/web_resource_access_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { StatusId } from '../enums/index.js';
+
+/**
+ * Web Resource Access Activity events describe successful/failed attempts to access a web resource over HTTP.
+ *
+ * OCSF Class UID: 6004
+ * Category: Web Resource Access Activity
+ * @see https://schema.ocsf.io/1.8.0/classes/web_resource_access_activity
+ */
+export interface WebResourceAccessActivityType {
+  /** The normalized identifier of the activity that triggered the event. */
+  activity_id?: 0 | 1 | 2 | 3 | 4 | 99;
+  /** The event activity name, as defined by the activity_id. */
+  activity_name?: string;
+  /** The event category name, as defined by category_uid value. */
+  category_name?: string;
+  /** The category unique identifier of the event. */
+  category_uid: number;
+  /** The event class name, as defined by class_uid value. */
+  class_name?: string;
+  /** The unique identifier of a class. A class describes the attributes available in an event. */
+  class_uid: number;
+  /** The number of times that events in the same logical group occurred during the event Start Time to End Time period. */
+  count?: number;
+  /** The event duration or aggregate time, the amount of time the event covers from start_time to end_time in milliseconds. */
+  duration?: number;
+  /** The end time of a time period, or the time of the most recent event included in the aggregate event. */
+  end_time?: number;
+  /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
+  enrichments?: EnrichmentType[];
+  /** The description of the event/finding, as defined by the source. */
+  message?: string;
+  /** The metadata associated with the event or a finding. */
+  metadata: MetadataType;
+  /** The observables associated with the event or a finding. */
+  observables?: ObservableType[];
+  /** The raw event/finding data as received from the source. */
+  raw_data?: string;
+  /** The hash, which describes the content of the raw_data field. */
+  raw_data_hash?: FingerprintType;
+  /** The size of the raw data which was transformed into an OCSF event, in bytes. */
+  raw_data_size?: number;
+  /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
+  severity?: string;
+  /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
+  severity_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
+  /** The start time of a time period, or the time of the least recent event included in the aggregate event. */
+  start_time?: number;
+  /** The event status, normalized to the caption of the status_id value. In the case of 'Other', it is defined by the event source. */
+  status?: string;
+  /** The event status code, as reported by the event source.For example, in a Windows Failed Authentication event, this would be the value of 'Failure Code', e.g. 0x18. */
+  status_code?: string;
+  /** The status detail contains additional information about the event/finding outcome. */
+  status_detail?: string;
+  /** The normalized identifier of the event status. */
+  status_id?: 0 | 1 | 2 | 99;
+  /** The normalized event occurrence time or the finding creation time. */
+  time: number;
+  /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
+  timezone_offset?: number;
+  /** The event/finding type name, as defined by the type_uid. */
+  type_name?: string;
+  /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
+  type_uid: number;
+  /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
+  unmapped?: Record<string, unknown>;
+  /** Details about the underlying HTTP request. */
+  http_request: HttpRequestType;
+  /** Details about the HTTP response, if available. */
+  http_response?: HttpResponseType;
+  /** Details about the proxy service, if available. */
+  proxy?: NetworkProxyType;
+  /** Details about the source endpoint of the request. */
+  src_endpoint?: NetworkEndpointType;
+  /** The Transport Layer Security (TLS) attributes, if available. */
+  tls?: TlsType;
+  /** Details about the resource that is the target of the activity. */
+  web_resources: WebResourceType[];
+}
+
+import { Enrichment } from '../objects/enrichment.js';
+import { Metadata } from '../objects/metadata.js';
+import { Observable } from '../objects/observable.js';
+import { Fingerprint } from '../objects/fingerprint.js';
+import { HttpRequest } from '../objects/http_request.js';
+import { HttpResponse } from '../objects/http_response.js';
+import { NetworkProxy } from '../objects/network_proxy.js';
+import { NetworkEndpoint } from '../objects/network_endpoint.js';
+import { Tls } from '../objects/tls.js';
+import { WebResource } from '../objects/web_resource.js';
+
+/** Value → label mappings for each enum field of WebResourceAccessActivity. */
+export const WebResourceAccessActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Access Grant",
+    2: "Access Deny",
+    3: "Access Revoke",
+    4: "Access Error",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+};
+
+const SIBLING_PAIRS: readonly SiblingPair[] = [
+  { idField: "activity_id", labelField: "activity_name", labels: WebResourceAccessActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: WebResourceAccessActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: WebResourceAccessActivityLabels.status_id },
+];
+
+const UID_CONFIG: UidConfig = {
+  categoryUid: 6,
+  classUid: 6004,
+};
+
+function preprocess(data: unknown): unknown {
+  if (typeof data !== 'object' || data === null) return data;
+  let d = { ...data } as Record<string, unknown>;
+  d = reconcileSiblings(d, SIBLING_PAIRS);
+  d = prefillUids(d, UID_CONFIG);
+  return d;
+}
+
+type WebResourceAccessActivityShape = {
+  activity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_hash: z.ZodOptional<typeof Fingerprint>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  http_request: typeof HttpRequest;
+  http_response: z.ZodOptional<typeof HttpResponse>;
+  proxy: z.ZodOptional<typeof NetworkProxy>;
+  src_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  tls: z.ZodOptional<typeof Tls>;
+  web_resources: z.ZodArray<typeof WebResource>;
+};
+
+const WebResourceAccessActivitySchema: z.ZodObject<WebResourceAccessActivityShape, z.core.$strict> = z.strictObject({
+  /** The normalized identifier of the activity that triggered the event. */
+  activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
+  /** The event activity name, as defined by the activity_id. */
+  activity_name: z.string().optional(),
+  /** The event category name, as defined by category_uid value. */
+  category_name: z.string().optional(),
+  /** The category unique identifier of the event. */
+  category_uid: z.number().int(),
+  /** The event class name, as defined by class_uid value. */
+  class_name: z.string().optional(),
+  /** The unique identifier of a class. A class describes the attributes available in an event. */
+  class_uid: z.number().int(),
+  /** The number of times that events in the same logical group occurred during the event Start Time to End Time period. */
+  count: z.number().int().optional(),
+  /** The event duration or aggregate time, the amount of time the event covers from start_time to end_time in milliseconds. */
+  duration: z.number().int().optional(),
+  /** The end time of a time period, or the time of the most recent event included in the aggregate event. */
+  end_time: z.number().int().optional(),
+  /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
+  enrichments: z.array(Enrichment).optional(),
+  /** The description of the event/finding, as defined by the source. */
+  message: z.string().optional(),
+  /** The metadata associated with the event or a finding. */
+  metadata: Metadata,
+  /** The observables associated with the event or a finding. */
+  observables: z.array(Observable).optional(),
+  /** The raw event/finding data as received from the source. */
+  raw_data: z.string().optional(),
+  /** The hash, which describes the content of the raw_data field. */
+  raw_data_hash: Fingerprint.optional(),
+  /** The size of the raw data which was transformed into an OCSF event, in bytes. */
+  raw_data_size: z.number().int().optional(),
+  /** The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source. */
+  severity: z.string().optional(),
+  /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
+  severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
+  /** The start time of a time period, or the time of the least recent event included in the aggregate event. */
+  start_time: z.number().int().optional(),
+  /** The event status, normalized to the caption of the status_id value. In the case of 'Other', it is defined by the event source. */
+  status: z.string().optional(),
+  /** The event status code, as reported by the event source.For example, in a Windows Failed Authentication event, this would be the value of 'Failure Code', e.g. 0x18. */
+  status_code: z.string().optional(),
+  /** The status detail contains additional information about the event/finding outcome. */
+  status_detail: z.string().optional(),
+  /** The normalized identifier of the event status. */
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
+  /** The normalized event occurrence time or the finding creation time. */
+  time: z.number().int(),
+  /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. */
+  timezone_offset: z.number().int().optional(),
+  /** The event/finding type name, as defined by the type_uid. */
+  type_name: z.string().optional(),
+  /** The event/finding type ID. It identifies the event's semantics and structure. The value is calculated by the logging system as: class_uid * 100 + activity_id. */
+  type_uid: z.number().int(),
+  /** The attributes that are not mapped to the event schema. The names and values of those attributes are specific to the event source. */
+  unmapped: z.record(z.string(), z.unknown()).optional(),
+  /** Details about the underlying HTTP request. */
+  http_request: HttpRequest,
+  /** Details about the HTTP response, if available. */
+  http_response: HttpResponse.optional(),
+  /** Details about the proxy service, if available. */
+  proxy: NetworkProxy.optional(),
+  /** Details about the source endpoint of the request. */
+  src_endpoint: NetworkEndpoint.optional(),
+  /** The Transport Layer Security (TLS) attributes, if available. */
+  tls: Tls.optional(),
+  /** Details about the resource that is the target of the activity. */
+  web_resources: z.array(WebResource),
+});
+
+export const WebResourceAccessActivity = {
+  parse: (data: unknown): WebResourceAccessActivityType => WebResourceAccessActivitySchema.parse(preprocess(data)),
+
+  safeParse: (data: unknown): { success: true; data: WebResourceAccessActivityType } | { success: false; error: z.ZodError } => {
+    try {
+      const preprocessed = preprocess(data);
+      return WebResourceAccessActivitySchema.safeParse(preprocessed);
+    } catch (error) {
+      // Preprocessing error - convert to Zod error format
+      return {
+        success: false,
+        error: new z.ZodError([{
+          code: "custom",
+          path: [],
+          message: error instanceof Error ? error.message : "Preprocessing failed",
+        }]),
+      };
+    }
+  },
+
+  schema: WebResourceAccessActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: WebResourceAccessActivityLabels,
+
+  // Static enum references for convenience
+  ActivityId: WebResourceAccessActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: StatusId,
+} as const;

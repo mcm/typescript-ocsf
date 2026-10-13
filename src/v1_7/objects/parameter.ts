@@ -14,7 +14,13 @@ export interface ParameterType {
   pre_value?: string;
 }
 
-const ParameterSchema = z.strictObject({
+type ParameterShape = {
+  name: z.ZodOptional<z.ZodString>;
+  post_value: z.ZodOptional<z.ZodString>;
+  pre_value: z.ZodOptional<z.ZodString>;
+};
+
+const ParameterSchema: z.ZodObject<ParameterShape, z.core.$strict> = z.strictObject({
   /** The parameter name. */
   name: z.string().optional(),
   /** The parameter value after function execution. */

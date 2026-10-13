@@ -30,7 +30,19 @@ export interface DatabaseType {
 
 import { Group } from './group.js';
 
-const DatabaseSchema = z.strictObject({
+type DatabaseShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  groups: z.ZodOptional<z.ZodArray<typeof Group>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  size: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+};
+
+const DatabaseSchema: z.ZodObject<DatabaseShape, z.core.$strict> = z.strictObject({
   /** The database name, ordinarily as assigned by a database administrator. */
   name: z.string().optional(),
   /** The unique identifier of the database. */

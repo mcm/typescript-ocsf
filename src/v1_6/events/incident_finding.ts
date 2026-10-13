@@ -230,7 +230,59 @@ function preprocess(data: unknown): unknown {
   return d;
 }
 
-const IncidentFindingSchema = z.strictObject({
+type IncidentFindingShape = {
+  activity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_hash: z.ZodOptional<typeof Fingerprint>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<99>]>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  assignee: z.ZodOptional<typeof User>;
+  assignee_group: z.ZodOptional<typeof Group>;
+  attacks: z.ZodOptional<z.ZodArray<typeof Attack>>;
+  comment: z.ZodOptional<z.ZodString>;
+  confidence: z.ZodOptional<z.ZodString>;
+  confidence_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  confidence_score: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  finding_info_list: z.ZodArray<typeof FindingInfo>;
+  impact: z.ZodOptional<z.ZodString>;
+  impact_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  impact_score: z.ZodOptional<z.ZodNumber>;
+  is_suspected_breach: z.ZodOptional<z.ZodBoolean>;
+  priority: z.ZodOptional<z.ZodString>;
+  priority_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  src_url: z.ZodOptional<z.ZodString>;
+  ticket: z.ZodOptional<typeof Ticket>;
+  tickets: z.ZodOptional<z.ZodArray<typeof Ticket>>;
+  vendor_attributes: z.ZodOptional<typeof VendorAttributes>;
+  verdict: z.ZodOptional<z.ZodString>;
+  verdict_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<99>]>>;
+};
+
+const IncidentFindingSchema: z.ZodObject<IncidentFindingShape, z.core.$strict> = z.strictObject({
   /** The normalized identifier of the Incident activity. */
   activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]),
   /** The Incident activity name, as defined by the activity_id. */

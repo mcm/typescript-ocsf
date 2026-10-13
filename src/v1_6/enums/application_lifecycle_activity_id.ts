@@ -1,5 +1,6 @@
 /** ApplicationLifecycle activity_id values. */
 export const ApplicationLifecycleActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Install the application. */
   INSTALL: 1,
@@ -17,6 +18,7 @@ export const ApplicationLifecycleActivityId = {
   DISABLE: 7,
   /** Update the application. */
   UPDATE: 8,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

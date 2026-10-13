@@ -36,7 +36,18 @@ import { Process } from './process.js';
 import { Session } from './session.js';
 import { User } from './user.js';
 
-const ActorSchema = z.strictObject({
+type ActorShape = {
+  app_name: z.ZodOptional<z.ZodString>;
+  app_uid: z.ZodOptional<z.ZodString>;
+  authorizations: z.ZodOptional<z.ZodArray<typeof Authorization>>;
+  idp: z.ZodOptional<typeof Idp>;
+  invoked_by: z.ZodOptional<z.ZodString>;
+  process: z.ZodOptional<typeof Process>;
+  session: z.ZodOptional<typeof Session>;
+  user: z.ZodOptional<typeof User>;
+};
+
+const ActorSchema: z.ZodObject<ActorShape, z.core.$strict> = z.strictObject({
   /** The client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process if present. */
   app_name: z.string().optional(),
   /** The unique identifier of the client application or service that initiated the activity. This can be in conjunction with the user if present. Note that app_name is distinct from the process.pid or process.uid if present. */

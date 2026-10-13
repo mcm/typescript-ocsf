@@ -1,0 +1,35 @@
+/** ApiActivity activity_id values. */
+export const ApiActivityActivityId = {
+  /** The event activity is unknown. */
+  UNKNOWN: 0,
+  /** The API call in the event pertains to a 'create' activity. */
+  CREATE: 1,
+  /** The API call in the event pertains to a 'read' activity. */
+  READ: 2,
+  /** The API call in the event pertains to a 'update' activity. */
+  UPDATE: 3,
+  /** The API call in the event pertains to a 'delete' activity. */
+  DELETE: 4,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
+  OTHER: 99,
+} as const;
+
+export type ApiActivityActivityId = (typeof ApiActivityActivityId)[keyof typeof ApiActivityActivityId];
+
+export const ApiActivityActivityIdLabels: Record<number, string> = {
+  0: "Unknown",
+  1: "Create",
+  2: "Read",
+  3: "Update",
+  4: "Delete",
+  99: "Other",
+};
+
+export const ApiActivityActivityIdByLabel: Record<string, number> = {
+  "Unknown": 0,
+  "Create": 1,
+  "Read": 2,
+  "Update": 3,
+  "Delete": 4,
+  "Other": 99,
+};

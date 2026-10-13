@@ -16,7 +16,12 @@ export interface EndpointConnectionType {
 
 import { NetworkEndpoint } from './network_endpoint.js';
 
-const EndpointConnectionSchema = z.strictObject({
+type EndpointConnectionShape = {
+  code: z.ZodOptional<z.ZodNumber>;
+  network_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+};
+
+const EndpointConnectionSchema: z.ZodObject<EndpointConnectionShape, z.core.$strict> = z.strictObject({
   /** A numerical response status code providing details about the connection. */
   code: z.number().int().optional(),
   /** Provides characteristics of the network endpoint. */

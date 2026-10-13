@@ -36,7 +36,21 @@ export interface HttpRequestType {
 import { HttpHeader } from './http_header.js';
 import { Url } from './url.js';
 
-const HttpRequestSchema = z.strictObject({
+type HttpRequestShape = {
+  args: z.ZodOptional<z.ZodString>;
+  body_length: z.ZodOptional<z.ZodNumber>;
+  http_headers: z.ZodOptional<z.ZodArray<typeof HttpHeader>>;
+  http_method: z.ZodOptional<z.ZodString>;
+  length: z.ZodOptional<z.ZodNumber>;
+  referrer: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  url: z.ZodOptional<typeof Url>;
+  user_agent: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+  x_forwarded_for: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const HttpRequestSchema: z.ZodObject<HttpRequestShape, z.core.$strict> = z.strictObject({
   /** The arguments sent along with the HTTP request. */
   args: z.string().optional(),
   /** The actual length of the HTTP request body, in number of bytes, independent of a potentially existing Content-Length header. */

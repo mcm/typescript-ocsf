@@ -1,5 +1,6 @@
 /** EntityManagement activity_id values. */
 export const EntityManagementActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Create a new managed entity. */
   CREATE: 1,
@@ -27,6 +28,7 @@ export const EntityManagementActivityId = {
   SUSPEND: 12,
   /** Resume (unsuspend) an existing managed entity. */
   RESUME: 13,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

@@ -30,7 +30,16 @@ import { Request } from './request.js';
 import { Response } from './response.js';
 import { Service } from './service.js';
 
-const ApiSchema = z.strictObject({
+type ApiShape = {
+  group: z.ZodOptional<typeof Group>;
+  operation: z.ZodString;
+  request: z.ZodOptional<typeof Request>;
+  response: z.ZodOptional<typeof Response>;
+  service: z.ZodOptional<typeof Service>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const ApiSchema: z.ZodObject<ApiShape, z.core.$strict> = z.strictObject({
   /** The information pertaining to the API group. */
   group: Group.optional(),
   /** Verb/Operation associated with the request */

@@ -1,5 +1,6 @@
 /** FileActivity activity_id values. */
 export const FileActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** A request to create a new file on a file system. */
   CREATE: 1,
@@ -29,6 +30,7 @@ export const FileActivityActivityId = {
   UNMOUNT: 13,
   /** A request to create a file handle. */
   OPEN: 14,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

@@ -26,7 +26,19 @@ export interface AnalyticType {
   version?: string;
 }
 
-const AnalyticSchema = z.strictObject({
+type AnalyticShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  algorithm: z.ZodOptional<z.ZodString>;
+  category: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  related_analytics: z.ZodOptional<z.ZodLazy<z.ZodArray<z.ZodType<AnalyticType>>>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<99>]>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const AnalyticSchema: z.ZodObject<AnalyticShape, z.core.$strict> = z.strictObject({
   /** The name of the analytic that generated the finding. */
   name: z.string().optional(),
   /** The unique identifier of the analytic that generated the finding. */

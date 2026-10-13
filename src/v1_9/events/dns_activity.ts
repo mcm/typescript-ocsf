@@ -1,0 +1,463 @@
+import { z } from 'zod';
+import { reconcileSiblings, type SiblingPair } from '../../sibling.js';
+import { prefillUids, type UidConfig } from '../../uid.js';
+
+import type { EnrichmentType } from '../objects/enrichment.js';
+import type { MetadataType } from '../objects/metadata.js';
+import type { ObservableType } from '../objects/observable.js';
+import type { FingerprintType } from '../objects/fingerprint.js';
+import type { NetworkConnectionInfoType } from '../objects/network_connection_info.js';
+import type { NetworkTrafficType } from '../objects/network_traffic.js';
+import type { NetworkEndpointType } from '../objects/network_endpoint.js';
+import type { Ja4FingerprintType } from '../objects/ja4_fingerprint.js';
+import type { PacketType } from '../objects/packet.js';
+import type { NetworkProxyType } from '../objects/network_proxy.js';
+import type { TlsType } from '../objects/tls.js';
+import type { DnsAnswerType } from '../objects/dns_answer.js';
+import type { DnsResourceRecordType } from '../objects/dns_resource_record.js';
+import type { DnsQueryType } from '../objects/dns_query.js';
+import type { DnsSectionType } from '../objects/dns_section.js';
+
+import { DnsActivityActivityId } from '../enums/dns_activity_activity_id.js';
+import { SeverityId } from '../enums/index.js';
+import { DnsActivityStatusId } from '../enums/dns_activity_status_id.js';
+import { DnsActivityObservationPointId } from '../enums/dns_activity_observation_point_id.js';
+import { OpcodeId } from '../enums/index.js';
+import { DnsActivityRcodeId } from '../enums/dns_activity_rcode_id.js';
+
+/**
+ * DNS Activity events report DNS queries and answers as seen on the network.
+ *
+ * OCSF Class UID: 4003
+ * Category: DNS Activity
+ * @see https://schema.ocsf.io/1.9.0/classes/dns_activity
+ */
+export interface DnsActivityType {
+  /** The normalized identifier of the activity that triggered the event. Each event class defines its own set of activity values. Use 0 (Unknown) when the activity cannot be determined. Use 99 (Other) when the activity does not match any defined value, in which case activity_name must be populated with the source-specific label. */
+  activity_id?: 0 | 1 | 2 | 6 | 99;
+  /** The event activity name, as defined by the activity_id. When activity_id is 99 (Other), this attribute must contain the source-specific activity label. For all other activity_id values, this must match the caption defined for that activity_id enum value. */
+  activity_name?: string;
+  /** The event category name, as defined by the category_uid value. The value must match the caption defined for the corresponding category_uid enum value (e.g., "Findings" for category_uid: 2). */
+  category_name?: string;
+  /** The category unique identifier of the event. Each event class belongs to exactly one category. Producers and mappers must set this to the category defined by the event class being used. */
+  category_uid: number;
+  /** The event class name, as defined by the class_uid value. The value must match the caption defined for the corresponding class_uid (e.g., "Detection Finding" for class_uid: 2004). */
+  class_name?: string;
+  /** The unique identifier of a class. A class describes the attributes available in an event. Producers and mappers must set this to the uid defined in the event class definition. For example, Detection Finding is 2004. */
+  class_uid: number;
+  /** The number of events aggregated into this single record. Only populate for aggregate events. When set, start_time and end_time should also be provided to define the aggregation window. */
+  count?: number;
+  /** The elapsed time of the aggregation window in milliseconds, from start_time to end_time. Only populate for aggregate events (count > 1). The value should equal end_time - start_time. */
+  duration?: number;
+  /** The time of the most recent event in an aggregate (count > 1). Do not populate for discrete, point-in-time events - use time alone. Subclasses such as findings may redefine this for their own time-range semantics. */
+  end_time?: number;
+  /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
+  enrichments?: EnrichmentType[];
+  /** A human-readable description of the event, as defined by the source. This should be a concise, meaningful summary suitable for display in a UI or alert notification - not a raw log line. For example: "User john_doe logged in from 10.0.0.1." rather than a raw syslog string. */
+  message?: string;
+  /** The metadata object describes the event producer, schema version, and processing information. Producers and mappers must populate metadata.product to identify the data source, and metadata.version to indicate the OCSF schema version used. Consumers rely on this to interpret the event correctly. */
+  metadata: MetadataType;
+  /** The observables array surfaces key indicators and entities from the event or finding in a single, consistent location for downstream correlation and detection. Each entry references an attribute path within the event (e.g., src_endpoint.ip) along with its type and value, enabling consumers to extract IOCs without parsing the full event structure. */
+  observables?: ObservableType[];
+  /** The original event/finding data as received from the source, before normalization into OCSF. Populate this with the verbatim log line, JSON payload, or other native format for forensic and debugging purposes. This field is not intended for structured querying - use the normalized OCSF attributes instead. */
+  raw_data?: string;
+  /** A fingerprint (hash) of the raw_data content. Use this to verify the integrity of the original event data or to deduplicate events. */
+  raw_data_hash?: FingerprintType;
+  /** The size of the original event data (as captured in raw_data) in bytes, before OCSF normalization. Useful for metering and capacity planning. */
+  raw_data_size?: number;
+  /** The event/finding severity label, normalized to the caption of the severity_id value. When severity_id is 99 (Other), this attribute must contain the source-specific severity label. For all other values, this should match the caption defined for that severity_id enum value (e.g., "High" for severity_id: 4). */
+  severity?: string;
+  /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
+  severity_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
+  /** The time of the earliest event in an aggregate (count > 1). Do not populate for discrete, point-in-time events - use time alone. Subclasses such as findings may redefine this for their own time-range semantics. */
+  start_time?: number;
+  /** The event status label, normalized to the caption of the status_id value. When status_id is 99 (Other), this attribute must contain the source-specific status label. For all other values, this must match the caption defined for that status_id enum value (e.g., "Success" for status_id: 1). */
+  status?: string;
+  /** The source-specific status or error code as reported by the event source. For example, a Windows logon failure code (0x18), an HTTP response code (403), or an AWS API error code. This preserves the original code for detailed troubleshooting beyond what status_id conveys. */
+  status_code?: string;
+  /** A human-readable description providing additional context about the event outcome. Use this to convey details that go beyond the normalized status_id and source-specific status_code, such as a failure reason or error message. For example: "Account locked after 5 failed attempts.". */
+  status_detail?: string;
+  /** The normalized status of the event outcome. Use this family of attributes to convey the outcome of the activity described by the event. Producers should map their source outcome to 1 (Success) or 2 (Failure). Use 0 (Unknown) when the outcome cannot be determined, and 99 (Other) with a populated status string when the source value does not map cleanly. */
+  status_id?: 0 | 1 | 2 | 99;
+  /** The primary timestamp of the event - when the activity actually occurred at the source. This does not capture when the event record was created or serialized by the source system; for event lifecycle timestamps such as ingestion and processing, use metadata.logged_time and metadata.processed_time respectively, or the equivalent attributes in the metadata.loggers array when recording pipeline stages. For aggregate events (count > 1), set this to start_time (the earliest OCSF time in the aggregate) to preserve causal ordering and consistent timeline alignment. Note: finding classes redefine time as the finding creation time rather than the activity occurrence time. This must be a UTC epoch value in milliseconds (e.g., 1776881335332). Mappers should use the most precise and authoritative timestamp available from the source. */
+  time: number;
+  /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. This allows consumers to reconstruct the local time at the event source. For example, US Eastern Standard Time is -300. Populate this when the source provides local time zone information. */
+  timezone_offset?: number;
+  /** The event/finding type name, combining the class and activity (e.g., "Detection Finding: Create"). The value must match the class_name and activity_name joined by ": ". */
+  type_name?: string;
+  /** The event/finding type ID. It identifies the event's semantics and structure. Producers and mappers must compute this as class_uid * 100 + activity_id. It uniquely identifies the combination of event class and activity across the entire schema. For example, Detection Finding: Create is 200401. */
+  type_uid: number;
+  /** A container for source-specific attributes that do not map to any defined OCSF attribute. Use this to preserve valuable source data that would otherwise be lost during normalization. The keys and values are specific to the event source. Note: Consumers should not rely on a stable structure within this field. The preferred approach to unmapped attributes is to create a custom extension with the desired structure. */
+  unmapped?: Record<string, unknown>;
+  /** The network application name identified by tools such as NBAR or App ID (e.g., youtube, facebook, webex). This represents a specific network application that uses standard protocols (such as https or quic) to deliver its service. */
+  app_name?: string;
+  /** The application-layer (Layer 7) protocol name identified by deep packet inspection or packet parsing (e.g., https, quic, ssh, dns), expressed as an IANA-registered service name from the IANA Service Name and Transport Protocol Port Number Registry. Note: Port numbers alone are not always a reliable indicator of the actual application protocol in use. */
+  app_protocol_name?: string;
+  /** The network connection information. */
+  connection_info?: NetworkConnectionInfoType;
+  /** The cumulative (running total) network traffic aggregated from the start of a flow or session. Use when reporting: (1) total accumulated bytes/packets since flow initiation, (2) combined aggregation models where both incremental deltas and running totals are reported together (populate both traffic for the delta and this attribute for the cumulative total), or (3) final summary metrics when a long-lived connection closes. This represents the sum of all activity from flow start to the current observation, not a delta or point-in-time value. */
+  cumulative_traffic?: NetworkTrafficType;
+  /** The network destination endpoint. */
+  dst_endpoint?: NetworkEndpointType;
+  /** A list of the JA4+ network fingerprints. */
+  ja4_fingerprint_list?: Ja4FingerprintType[];
+  /** The network endpoint that observes or inspects network traffic as a third-party system, used when the observer is neither the source nor the destination of the communication (when observation_point_id = 3). Examples include network taps, span ports, inline security devices, or packet capture systems that monitor traffic between other endpoints. */
+  network_observation_point?: NetworkEndpointType;
+  /** Indicates whether the source network endpoint, destination network endpoint, or neither served as the observation point for the activity. The value is normalized to the caption of the observation_point_id. */
+  observation_point?: string;
+  /** The normalized identifier of the observation point. The observation point identifier indicates whether the source network endpoint, destination network endpoint, or neither served as the observation point for the activity. */
+  observation_point_id?: 0 | 1 | 2 | 3 | 4 | 99;
+  /** The list of packet objects describing captured network packets. */
+  packet_list?: PacketType[];
+  /** The proxy (server) in a network connection. */
+  proxy?: NetworkProxyType;
+  /** The initiator (client) of the network connection. */
+  src_endpoint?: NetworkEndpointType;
+  /** The Transport Layer Security (TLS) attributes. */
+  tls?: TlsType;
+  /** The network traffic refers to the amount of data moving across a network at a given point of time. Intended to be used alongside Network Connection. */
+  traffic?: NetworkTrafficType;
+  /** The Domain Name System (DNS) answers. */
+  answers?: DnsAnswerType[];
+  /** The DNS Authority section resource records. Contains NS records pointing to authoritative name servers, or a SOA record for negative responses (NXDOMAIN). */
+  authority?: DnsResourceRecordType[];
+  /** The list of DNS message header flag IDs. For Query events, populated from the query header (RD, CD). For Response and Traffic events, populated from the response header, which is the complete and authoritative source as it echoes all client-set flags and adds server-set flags. */
+  flag_ids?: number[];
+  /** The list of DNS message header flags, normalized to the captions of the flag_ids values. */
+  flags?: string[];
+  /** The DNS opcode specifies the type of the query message. */
+  opcode?: string;
+  /** The DNS opcode ID specifies the normalized query message type as defined in RFC 5395. */
+  opcode_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
+  /** The Domain Name System (DNS) query. */
+  query?: DnsQueryType;
+  /** The Additional section of the DNS query message sent by the client, containing supplementary resource records and an optional TSIG record. A DNS message has at most one TSIG record; for a transaction with both query and response, the query TSIG is in query_additional.tsig and the response TSIG is in response_additional.tsig. */
+  query_additional?: DnsSectionType;
+  /** The Domain Name System (DNS) query time. */
+  query_time?: number;
+  /** The DNS server response code, normalized to the caption of the rcode_id value. In the case of 'Other', it is defined by the event source. */
+  rcode?: string;
+  /** The normalized identifier of the DNS server response code. See RFC 6895. */
+  rcode_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 99;
+  /** The Additional section of the DNS response message sent by the server, containing supplementary resource records and an optional TSIG record. A DNS message has at most one TSIG record; for a transaction with both query and response, the query TSIG is in query_additional.tsig and the response TSIG is in response_additional.tsig. */
+  response_additional?: DnsSectionType;
+  /** The Domain Name System (DNS) response time. */
+  response_time?: number;
+  /** The 16-bit DNS transaction identifier assigned by the client and echoed unchanged in the server response. This value is the same for both the query and response messages. */
+  transaction_id?: number;
+}
+
+import { Enrichment } from '../objects/enrichment.js';
+import { Metadata } from '../objects/metadata.js';
+import { Observable } from '../objects/observable.js';
+import { Fingerprint } from '../objects/fingerprint.js';
+import { NetworkConnectionInfo } from '../objects/network_connection_info.js';
+import { NetworkTraffic } from '../objects/network_traffic.js';
+import { NetworkEndpoint } from '../objects/network_endpoint.js';
+import { Ja4Fingerprint } from '../objects/ja4_fingerprint.js';
+import { Packet } from '../objects/packet.js';
+import { NetworkProxy } from '../objects/network_proxy.js';
+import { Tls } from '../objects/tls.js';
+import { DnsAnswer } from '../objects/dns_answer.js';
+import { DnsResourceRecord } from '../objects/dns_resource_record.js';
+import { DnsQuery } from '../objects/dns_query.js';
+import { DnsSection } from '../objects/dns_section.js';
+
+/** Value → label mappings for each enum field of DnsActivity. */
+export const DnsActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "observation_point_id" | "opcode_id" | "rcode_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Query",
+    2: "Response",
+    6: "Traffic",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  observation_point_id: {
+    0: "Unknown",
+    1: "Source",
+    2: "Destination",
+    3: "Neither",
+    4: "Both",
+    99: "Other",
+  },
+  opcode_id: {
+    0: "Query",
+    1: "Inverse Query",
+    2: "Status",
+    3: "Reserved",
+    4: "Notify",
+    5: "Update",
+    6: "DSO Message",
+    99: "Other",
+  },
+  rcode_id: {
+    0: "NoError",
+    1: "FormError",
+    2: "ServError",
+    3: "NXDomain",
+    4: "NotImp",
+    5: "Refused",
+    6: "YXDomain",
+    7: "YXRRSet",
+    8: "NXRRSet",
+    9: "NotAuth",
+    10: "NotZone",
+    11: "DSOTYPENI",
+    16: "BADVERS",
+    17: "BADKEY",
+    18: "BADTIME",
+    19: "BADMODE",
+    20: "BADNAME",
+    21: "BADALG",
+    22: "BADTRUNC",
+    23: "BADCOOKIE",
+    24: "Unassigned",
+    25: "Reserved",
+    99: "Other",
+  },
+};
+
+const SIBLING_PAIRS: readonly SiblingPair[] = [
+  { idField: "activity_id", labelField: "activity_name", labels: DnsActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DnsActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DnsActivityLabels.status_id },
+  { idField: "observation_point_id", labelField: "observation_point", labels: DnsActivityLabels.observation_point_id },
+  { idField: "rcode_id", labelField: "rcode", labels: DnsActivityLabels.rcode_id },
+];
+
+const UID_CONFIG: UidConfig = {
+  categoryUid: 4,
+  classUid: 4003,
+};
+
+function preprocess(data: unknown): unknown {
+  if (typeof data !== 'object' || data === null) return data;
+  let d = { ...data } as Record<string, unknown>;
+  d = reconcileSiblings(d, SIBLING_PAIRS);
+  d = prefillUids(d, UID_CONFIG);
+  return d;
+}
+
+type DnsActivityShape = {
+  activity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  activity_name: z.ZodOptional<z.ZodString>;
+  category_name: z.ZodOptional<z.ZodString>;
+  category_uid: z.ZodNumber;
+  class_name: z.ZodOptional<z.ZodString>;
+  class_uid: z.ZodNumber;
+  count: z.ZodOptional<z.ZodNumber>;
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  enrichments: z.ZodOptional<z.ZodArray<typeof Enrichment>>;
+  message: z.ZodOptional<z.ZodString>;
+  metadata: typeof Metadata;
+  observables: z.ZodOptional<z.ZodArray<typeof Observable>>;
+  raw_data: z.ZodOptional<z.ZodString>;
+  raw_data_hash: z.ZodOptional<typeof Fingerprint>;
+  raw_data_size: z.ZodOptional<z.ZodNumber>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  time: z.ZodNumber;
+  timezone_offset: z.ZodOptional<z.ZodNumber>;
+  type_name: z.ZodOptional<z.ZodString>;
+  type_uid: z.ZodNumber;
+  unmapped: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  app_name: z.ZodOptional<z.ZodString>;
+  app_protocol_name: z.ZodOptional<z.ZodString>;
+  connection_info: z.ZodOptional<typeof NetworkConnectionInfo>;
+  cumulative_traffic: z.ZodOptional<typeof NetworkTraffic>;
+  dst_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  ja4_fingerprint_list: z.ZodOptional<z.ZodArray<typeof Ja4Fingerprint>>;
+  network_observation_point: z.ZodOptional<typeof NetworkEndpoint>;
+  observation_point: z.ZodOptional<z.ZodString>;
+  observation_point_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  packet_list: z.ZodOptional<z.ZodArray<typeof Packet>>;
+  proxy: z.ZodOptional<typeof NetworkProxy>;
+  src_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  tls: z.ZodOptional<typeof Tls>;
+  traffic: z.ZodOptional<typeof NetworkTraffic>;
+  answers: z.ZodOptional<z.ZodArray<typeof DnsAnswer>>;
+  authority: z.ZodOptional<z.ZodArray<typeof DnsResourceRecord>>;
+  flag_ids: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  flags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  opcode: z.ZodOptional<z.ZodString>;
+  opcode_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  query: z.ZodOptional<typeof DnsQuery>;
+  query_additional: z.ZodOptional<typeof DnsSection>;
+  query_time: z.ZodOptional<z.ZodNumber>;
+  rcode: z.ZodOptional<z.ZodString>;
+  rcode_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<16>, z.ZodLiteral<17>, z.ZodLiteral<18>, z.ZodLiteral<19>, z.ZodLiteral<20>, z.ZodLiteral<21>, z.ZodLiteral<22>, z.ZodLiteral<23>, z.ZodLiteral<24>, z.ZodLiteral<25>, z.ZodLiteral<99>]>>;
+  response_additional: z.ZodOptional<typeof DnsSection>;
+  response_time: z.ZodOptional<z.ZodNumber>;
+  transaction_id: z.ZodOptional<z.ZodNumber>;
+};
+
+const DnsActivitySchema: z.ZodObject<DnsActivityShape, z.core.$strict> = z.strictObject({
+  /** The normalized identifier of the activity that triggered the event. Each event class defines its own set of activity values. Use 0 (Unknown) when the activity cannot be determined. Use 99 (Other) when the activity does not match any defined value, in which case activity_name must be populated with the source-specific label. */
+  activity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(6), z.literal(99)]).optional(),
+  /** The event activity name, as defined by the activity_id. When activity_id is 99 (Other), this attribute must contain the source-specific activity label. For all other activity_id values, this must match the caption defined for that activity_id enum value. */
+  activity_name: z.string().optional(),
+  /** The event category name, as defined by the category_uid value. The value must match the caption defined for the corresponding category_uid enum value (e.g., "Findings" for category_uid: 2). */
+  category_name: z.string().optional(),
+  /** The category unique identifier of the event. Each event class belongs to exactly one category. Producers and mappers must set this to the category defined by the event class being used. */
+  category_uid: z.number().int(),
+  /** The event class name, as defined by the class_uid value. The value must match the caption defined for the corresponding class_uid (e.g., "Detection Finding" for class_uid: 2004). */
+  class_name: z.string().optional(),
+  /** The unique identifier of a class. A class describes the attributes available in an event. Producers and mappers must set this to the uid defined in the event class definition. For example, Detection Finding is 2004. */
+  class_uid: z.number().int(),
+  /** The number of events aggregated into this single record. Only populate for aggregate events. When set, start_time and end_time should also be provided to define the aggregation window. */
+  count: z.number().int().optional(),
+  /** The elapsed time of the aggregation window in milliseconds, from start_time to end_time. Only populate for aggregate events (count > 1). The value should equal end_time - start_time. */
+  duration: z.number().int().optional(),
+  /** The time of the most recent event in an aggregate (count > 1). Do not populate for discrete, point-in-time events - use time alone. Subclasses such as findings may redefine this for their own time-range semantics. */
+  end_time: z.number().int().optional(),
+  /** The additional information from an external data source, which is associated with the event or a finding. For example add location information for the IP address in the DNS answers:[{"name": "answers.ip", "value": "92.24.47.250", "type": "location", "data": {"city": "Socotra", "continent": "Asia", "coordinates": [-25.4153, 17.0743], "country": "YE", "desc": "Yemen"}}] */
+  enrichments: z.array(Enrichment).optional(),
+  /** A human-readable description of the event, as defined by the source. This should be a concise, meaningful summary suitable for display in a UI or alert notification - not a raw log line. For example: "User john_doe logged in from 10.0.0.1." rather than a raw syslog string. */
+  message: z.string().optional(),
+  /** The metadata object describes the event producer, schema version, and processing information. Producers and mappers must populate metadata.product to identify the data source, and metadata.version to indicate the OCSF schema version used. Consumers rely on this to interpret the event correctly. */
+  metadata: Metadata,
+  /** The observables array surfaces key indicators and entities from the event or finding in a single, consistent location for downstream correlation and detection. Each entry references an attribute path within the event (e.g., src_endpoint.ip) along with its type and value, enabling consumers to extract IOCs without parsing the full event structure. */
+  observables: z.array(Observable).optional(),
+  /** The original event/finding data as received from the source, before normalization into OCSF. Populate this with the verbatim log line, JSON payload, or other native format for forensic and debugging purposes. This field is not intended for structured querying - use the normalized OCSF attributes instead. */
+  raw_data: z.string().optional(),
+  /** A fingerprint (hash) of the raw_data content. Use this to verify the integrity of the original event data or to deduplicate events. */
+  raw_data_hash: Fingerprint.optional(),
+  /** The size of the original event data (as captured in raw_data) in bytes, before OCSF normalization. Useful for metering and capacity planning. */
+  raw_data_size: z.number().int().optional(),
+  /** The event/finding severity label, normalized to the caption of the severity_id value. When severity_id is 99 (Other), this attribute must contain the source-specific severity label. For all other values, this should match the caption defined for that severity_id enum value (e.g., "High" for severity_id: 4). */
+  severity: z.string().optional(),
+  /** The normalized identifier of the event/finding severity.The normalized severity is a measurement the effort and expense required to manage and resolve an event or incident. Smaller numerical values represent lower impact events, and larger numerical values represent higher impact events. */
+  severity_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]),
+  /** The time of the earliest event in an aggregate (count > 1). Do not populate for discrete, point-in-time events - use time alone. Subclasses such as findings may redefine this for their own time-range semantics. */
+  start_time: z.number().int().optional(),
+  /** The event status label, normalized to the caption of the status_id value. When status_id is 99 (Other), this attribute must contain the source-specific status label. For all other values, this must match the caption defined for that status_id enum value (e.g., "Success" for status_id: 1). */
+  status: z.string().optional(),
+  /** The source-specific status or error code as reported by the event source. For example, a Windows logon failure code (0x18), an HTTP response code (403), or an AWS API error code. This preserves the original code for detailed troubleshooting beyond what status_id conveys. */
+  status_code: z.string().optional(),
+  /** A human-readable description providing additional context about the event outcome. Use this to convey details that go beyond the normalized status_id and source-specific status_code, such as a failure reason or error message. For example: "Account locked after 5 failed attempts.". */
+  status_detail: z.string().optional(),
+  /** The normalized status of the event outcome. Use this family of attributes to convey the outcome of the activity described by the event. Producers should map their source outcome to 1 (Success) or 2 (Failure). Use 0 (Unknown) when the outcome cannot be determined, and 99 (Other) with a populated status string when the source value does not map cleanly. */
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(99)]).optional(),
+  /** The primary timestamp of the event - when the activity actually occurred at the source. This does not capture when the event record was created or serialized by the source system; for event lifecycle timestamps such as ingestion and processing, use metadata.logged_time and metadata.processed_time respectively, or the equivalent attributes in the metadata.loggers array when recording pipeline stages. For aggregate events (count > 1), set this to start_time (the earliest OCSF time in the aggregate) to preserve causal ordering and consistent timeline alignment. Note: finding classes redefine time as the finding creation time rather than the activity occurrence time. This must be a UTC epoch value in milliseconds (e.g., 1776881335332). Mappers should use the most precise and authoritative timestamp available from the source. */
+  time: z.number().int(),
+  /** The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080. This allows consumers to reconstruct the local time at the event source. For example, US Eastern Standard Time is -300. Populate this when the source provides local time zone information. */
+  timezone_offset: z.number().int().optional(),
+  /** The event/finding type name, combining the class and activity (e.g., "Detection Finding: Create"). The value must match the class_name and activity_name joined by ": ". */
+  type_name: z.string().optional(),
+  /** The event/finding type ID. It identifies the event's semantics and structure. Producers and mappers must compute this as class_uid * 100 + activity_id. It uniquely identifies the combination of event class and activity across the entire schema. For example, Detection Finding: Create is 200401. */
+  type_uid: z.number().int(),
+  /** A container for source-specific attributes that do not map to any defined OCSF attribute. Use this to preserve valuable source data that would otherwise be lost during normalization. The keys and values are specific to the event source. Note: Consumers should not rely on a stable structure within this field. The preferred approach to unmapped attributes is to create a custom extension with the desired structure. */
+  unmapped: z.record(z.string(), z.unknown()).optional(),
+  /** The network application name identified by tools such as NBAR or App ID (e.g., youtube, facebook, webex). This represents a specific network application that uses standard protocols (such as https or quic) to deliver its service. */
+  app_name: z.string().optional(),
+  /** The application-layer (Layer 7) protocol name identified by deep packet inspection or packet parsing (e.g., https, quic, ssh, dns), expressed as an IANA-registered service name from the IANA Service Name and Transport Protocol Port Number Registry. Note: Port numbers alone are not always a reliable indicator of the actual application protocol in use. */
+  app_protocol_name: z.string().optional(),
+  /** The network connection information. */
+  connection_info: NetworkConnectionInfo.optional(),
+  /** The cumulative (running total) network traffic aggregated from the start of a flow or session. Use when reporting: (1) total accumulated bytes/packets since flow initiation, (2) combined aggregation models where both incremental deltas and running totals are reported together (populate both traffic for the delta and this attribute for the cumulative total), or (3) final summary metrics when a long-lived connection closes. This represents the sum of all activity from flow start to the current observation, not a delta or point-in-time value. */
+  cumulative_traffic: NetworkTraffic.optional(),
+  /** The network destination endpoint. */
+  dst_endpoint: NetworkEndpoint.optional(),
+  /** A list of the JA4+ network fingerprints. */
+  ja4_fingerprint_list: z.array(Ja4Fingerprint).optional(),
+  /** The network endpoint that observes or inspects network traffic as a third-party system, used when the observer is neither the source nor the destination of the communication (when observation_point_id = 3). Examples include network taps, span ports, inline security devices, or packet capture systems that monitor traffic between other endpoints. */
+  network_observation_point: NetworkEndpoint.optional(),
+  /** Indicates whether the source network endpoint, destination network endpoint, or neither served as the observation point for the activity. The value is normalized to the caption of the observation_point_id. */
+  observation_point: z.string().optional(),
+  /** The normalized identifier of the observation point. The observation point identifier indicates whether the source network endpoint, destination network endpoint, or neither served as the observation point for the activity. */
+  observation_point_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(99)]).optional(),
+  /** The list of packet objects describing captured network packets. */
+  packet_list: z.array(Packet).optional(),
+  /** The proxy (server) in a network connection. */
+  proxy: NetworkProxy.optional(),
+  /** The initiator (client) of the network connection. */
+  src_endpoint: NetworkEndpoint.optional(),
+  /** The Transport Layer Security (TLS) attributes. */
+  tls: Tls.optional(),
+  /** The network traffic refers to the amount of data moving across a network at a given point of time. Intended to be used alongside Network Connection. */
+  traffic: NetworkTraffic.optional(),
+  /** The Domain Name System (DNS) answers. */
+  answers: z.array(DnsAnswer).optional(),
+  /** The DNS Authority section resource records. Contains NS records pointing to authoritative name servers, or a SOA record for negative responses (NXDOMAIN). */
+  authority: z.array(DnsResourceRecord).optional(),
+  /** The list of DNS message header flag IDs. For Query events, populated from the query header (RD, CD). For Response and Traffic events, populated from the response header, which is the complete and authoritative source as it echoes all client-set flags and adds server-set flags. */
+  flag_ids: z.array(z.number().int()).optional(),
+  /** The list of DNS message header flags, normalized to the captions of the flag_ids values. */
+  flags: z.array(z.string()).optional(),
+  /** The DNS opcode specifies the type of the query message. */
+  opcode: z.string().optional(),
+  /** The DNS opcode ID specifies the normalized query message type as defined in RFC 5395. */
+  opcode_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(99)]).optional(),
+  /** The Domain Name System (DNS) query. */
+  query: DnsQuery.optional(),
+  /** The Additional section of the DNS query message sent by the client, containing supplementary resource records and an optional TSIG record. A DNS message has at most one TSIG record; for a transaction with both query and response, the query TSIG is in query_additional.tsig and the response TSIG is in response_additional.tsig. */
+  query_additional: DnsSection.optional(),
+  /** The Domain Name System (DNS) query time. */
+  query_time: z.number().int().optional(),
+  /** The DNS server response code, normalized to the caption of the rcode_id value. In the case of 'Other', it is defined by the event source. */
+  rcode: z.string().optional(),
+  /** The normalized identifier of the DNS server response code. See RFC 6895. */
+  rcode_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(8), z.literal(9), z.literal(10), z.literal(11), z.literal(16), z.literal(17), z.literal(18), z.literal(19), z.literal(20), z.literal(21), z.literal(22), z.literal(23), z.literal(24), z.literal(25), z.literal(99)]).optional(),
+  /** The Additional section of the DNS response message sent by the server, containing supplementary resource records and an optional TSIG record. A DNS message has at most one TSIG record; for a transaction with both query and response, the query TSIG is in query_additional.tsig and the response TSIG is in response_additional.tsig. */
+  response_additional: DnsSection.optional(),
+  /** The Domain Name System (DNS) response time. */
+  response_time: z.number().int().optional(),
+  /** The 16-bit DNS transaction identifier assigned by the client and echoed unchanged in the server response. This value is the same for both the query and response messages. */
+  transaction_id: z.number().int().optional(),
+});
+
+export const DnsActivity = {
+  parse: (data: unknown): DnsActivityType => DnsActivitySchema.parse(preprocess(data)),
+
+  safeParse: (data: unknown): { success: true; data: DnsActivityType } | { success: false; error: z.ZodError } => {
+    try {
+      const preprocessed = preprocess(data);
+      return DnsActivitySchema.safeParse(preprocessed);
+    } catch (error) {
+      // Preprocessing error - convert to Zod error format
+      return {
+        success: false,
+        error: new z.ZodError([{
+          code: "custom",
+          path: [],
+          message: error instanceof Error ? error.message : "Preprocessing failed",
+        }]),
+      };
+    }
+  },
+
+  schema: DnsActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: DnsActivityLabels,
+
+  // Static enum references for convenience
+  ActivityId: DnsActivityActivityId,
+  SeverityId: SeverityId,
+  StatusId: DnsActivityStatusId,
+  ObservationPointId: DnsActivityObservationPointId,
+  OpcodeId: OpcodeId,
+  RcodeId: DnsActivityRcodeId,
+} as const;

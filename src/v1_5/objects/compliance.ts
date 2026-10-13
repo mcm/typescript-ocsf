@@ -40,7 +40,7 @@ export interface ComplianceType {
   /** A list of contextual descriptions of the status, status_code values. */
   status_details?: string[];
   /** The normalized status identifier of the compliance check. */
-  status_id?: 1 | 2 | 3;
+  status_id?: 0 | 1 | 2 | 3 | 99;
 }
 
 import { Assessment } from './assessment.js';
@@ -48,7 +48,25 @@ import { Check } from './check.js';
 import { KbArticle } from './kb_article.js';
 import { KeyValueObject } from './key_value_object.js';
 
-const ComplianceSchema = z.strictObject({
+type ComplianceShape = {
+  assessments: z.ZodOptional<z.ZodArray<typeof Assessment>>;
+  category: z.ZodOptional<z.ZodString>;
+  checks: z.ZodOptional<z.ZodArray<typeof Check>>;
+  compliance_references: z.ZodOptional<z.ZodArray<typeof KbArticle>>;
+  compliance_standards: z.ZodOptional<z.ZodArray<typeof KbArticle>>;
+  control: z.ZodOptional<z.ZodString>;
+  control_parameters: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  desc: z.ZodOptional<z.ZodString>;
+  requirements: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  standards: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  status: z.ZodOptional<z.ZodString>;
+  status_code: z.ZodOptional<z.ZodString>;
+  status_detail: z.ZodOptional<z.ZodString>;
+  status_details: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+};
+
+const ComplianceSchema: z.ZodObject<ComplianceShape, z.core.$strict> = z.strictObject({
   /** A list of assessments associated with the compliance requirements evaluation. */
   assessments: z.array(Assessment).optional(),
   /** The category a control framework pertains to, as reported by the source tool, such as Asset Management or Risk Assessment. */
@@ -78,7 +96,7 @@ const ComplianceSchema = z.strictObject({
   /** A list of contextual descriptions of the status, status_code values. */
   status_details: z.array(z.string()).optional(),
   /** The normalized status identifier of the compliance check. */
-  status_id: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),
+  status_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(99)]).optional(),
 });
 
 export const Compliance = ComplianceSchema;
@@ -86,8 +104,10 @@ export const Compliance = ComplianceSchema;
 /** Value → label mappings for each enum field of Compliance. */
 export const ComplianceLabels: Readonly<Record<"status_id", Readonly<Record<number, string>>>> = {
   status_id: {
+    0: "Unknown",
     1: "Pass",
     2: "Warning",
     3: "Fail",
+    99: "Other",
   },
 };

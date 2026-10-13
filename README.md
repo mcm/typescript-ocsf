@@ -6,7 +6,7 @@ TypeScript library providing Zod schemas and runtime validation for the Open Cyb
 
 ## Features
 
-- **Complete OCSF Coverage** — Support for OCSF v1.5.0, v1.6.0, and v1.7.0
+- **Complete OCSF Coverage** — Support for OCSF v1.5.0, v1.6.0, v1.7.0, v1.8.0, and v1.9.0
 - **Type-Safe Schemas** — Full TypeScript inference with Zod schemas for all events, objects, and enums
 - **Schema Composition** — Extend and compose schemas (events via `.schema.extend()`, objects directly)
 - **Clean Type Hints** — Explicit interfaces with type references, not massive inlined types (90% smaller files)
@@ -24,7 +24,7 @@ npm install @mcm/ocsf
 ## Quick Start
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 import type { z } from "zod";
 
 // Create a FileActivity event
@@ -33,7 +33,7 @@ const event = FileActivity.parse({
   severity_id: 1,
   activity_id: 1, // "Create"
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: {
       name: "My Security Product",
       vendor_name: "My Company",
@@ -50,7 +50,7 @@ const event = FileActivity.parse({
 });
 
 // Import the TypeScript type directly (recommended)
-import type { FileActivityType } from "@mcm/ocsf/v1_7/events";
+import type { FileActivityType } from "@mcm/ocsf/v1_9/events";
 
 // Or infer from the schema
 type FileActivityType2 = z.infer<typeof FileActivity.schema>;
@@ -69,7 +69,7 @@ console.log(event.type_uid); // 100101
 ### Creating an Event with Type Safety
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 import type { z } from "zod";
 
 // Infer TypeScript type from schema
@@ -80,7 +80,7 @@ const event: FileActivityEvent = {
   severity_id: 1,
   activity_id: 2, // "Update"
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: {
       name: "EDR Platform",
       vendor_name: "Security Corp",
@@ -109,7 +109,7 @@ const validated = FileActivity.parse(event);
 ### Validating Incoming Events
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 
 function handleIncomingEvent(rawData: unknown) {
   try {
@@ -127,7 +127,7 @@ function handleIncomingEvent(rawData: unknown) {
 OCSF has "sibling" pairs where an ID field (e.g., `severity_id`) has a corresponding label field (e.g., `severity`). This library automatically fills the label from the ID:
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 
 const event = FileActivity.parse({
   time: Date.now(),
@@ -156,7 +156,7 @@ const event2 = FileActivity.parse({
 OCSF events have three UID fields that identify the event type. This library automatically fills them:
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 
 const event = FileActivity.parse({
   time: Date.now(),
@@ -178,7 +178,7 @@ console.log(event.type_uid); // 100105 (File System Activity: Delete)
 OCSF enum fields are fully validated with proper inheritance:
 
 ```typescript
-import { IncidentFinding } from "@mcm/ocsf/v1_7/events";
+import { IncidentFinding } from "@mcm/ocsf/v1_9/events";
 
 // Valid: Standard enum values (1-5)
 const event1 = IncidentFinding.parse({
@@ -187,7 +187,7 @@ const event1 = IncidentFinding.parse({
   status_id: 1,  // "New"
   activity_id: 1,
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: {
       name: "Security Platform",
       vendor_name: "Security Corp",
@@ -202,7 +202,7 @@ const event2 = IncidentFinding.parse({
   status_id: 0,  // "Unknown" - inherited from dictionary
   activity_id: 1,
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: {
       name: "Security Platform",
       vendor_name: "Security Corp",
@@ -217,7 +217,7 @@ const event3 = IncidentFinding.parse({
   status: "Custom vendor status",
   activity_id: 1,
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: {
       name: "Security Platform",
       vendor_name: "Security Corp",
@@ -233,7 +233,7 @@ try {
     status_id: 999,  // ❌ ZodError: Invalid enum value
     activity_id: 1,
     metadata: {
-      version: "1.7.0",
+      version: "1.9.0",
       product: {
         name: "Security Platform",
         vendor_name: "Security Corp",
@@ -257,8 +257,8 @@ try {
 Event parsers export enum constants as static properties for convenient access:
 
 ```typescript
-import { IncidentFinding } from "@mcm/ocsf/v1_7/events";
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { IncidentFinding } from "@mcm/ocsf/v1_9/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 
 // Access enums directly from event classes
 const incident = IncidentFinding.parse({
@@ -268,7 +268,7 @@ const incident = IncidentFinding.parse({
   status_id: IncidentFinding.StatusId.SUCCESS,
   finding_info_list: [],
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: { name: "Security Platform", vendor_name: "ACME" },
   },
 });
@@ -278,7 +278,7 @@ const fileEvent = FileActivity.parse({
   severity_id: FileActivity.SeverityId.HIGH,          // Shared enum
   activity_id: FileActivity.ActivityId.DELETE,        // Event-specific enum
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: { name: "EDR", vendor_name: "Security Corp" },
   },
   file: { name: "malware.exe", type_id: 1 },
@@ -308,7 +308,7 @@ import {
   SeverityId,
   SeverityIdLabels,
   SeverityIdByLabel
-} from "@mcm/ocsf/v1_7/enums";
+} from "@mcm/ocsf/v1_9/enums";
 import {
   getEnumLabel,
   getEnumValue,
@@ -351,8 +351,8 @@ const unknownValue = getEnumValueOr(SeverityIdByLabel, "Invalid", -1);  // -1
 Every object and event exports a `{Name}Labels` map with the value → label mapping for each of its enum fields, including fields on nested objects that have no shared enum. Events also expose it as `.labels`:
 
 ```typescript
-import { DeviceLabels, FingerprintLabels } from "@mcm/ocsf/v1_7/objects";
-import { IncidentFinding } from "@mcm/ocsf/v1_7/events";
+import { DeviceLabels, FingerprintLabels } from "@mcm/ocsf/v1_9/objects";
+import { IncidentFinding } from "@mcm/ocsf/v1_9/events";
 
 DeviceLabels.type_id[2];                  // "Desktop"
 FingerprintLabels.algorithm_id[3];        // "SHA-256"
@@ -364,7 +364,7 @@ When an event class defines its own values for an enum field, its static enum pr
 ### Safe Parsing with Error Handling
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 
 const result = FileActivity.safeParse(untrustedData);
 
@@ -380,7 +380,7 @@ if (result.success) {
 ### Serialization
 
 ```typescript
-import { FileActivity } from "@mcm/ocsf/v1_7/events";
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
 
 const event = FileActivity.parse({
   // ... event data
@@ -403,7 +403,7 @@ Events export a parser object with a `.schema` property that can be extended:
 
 ```typescript
 import { z } from "zod";
-import { HttpActivity } from "@mcm/ocsf/v1_7/events";
+import { HttpActivity } from "@mcm/ocsf/v1_9/events";
 
 // Extend event schema with custom vendor fields
 const ExtendedHttpActivity = HttpActivity.schema.extend({
@@ -415,7 +415,7 @@ const ExtendedHttpActivity = HttpActivity.schema.extend({
 const event = ExtendedHttpActivity.parse({
   // ... standard OCSF fields
   metadata: {
-    version: "1.7.0",
+    version: "1.9.0",
     product: { name: "Web Server", vendor_name: "ACME" },
   },
   severity_id: 1,
@@ -440,7 +440,7 @@ Objects can be extended directly:
 
 ```typescript
 import { z } from "zod";
-import { User } from "@mcm/ocsf/v1_7/objects";
+import { User } from "@mcm/ocsf/v1_9/objects";
 
 // Extend a schema with custom fields
 const ExtendedUser = User.extend({
@@ -485,11 +485,11 @@ All composition operations preserve full TypeScript type inference and IDE autoc
 This library uses explicit TypeScript interfaces with type references, providing clean IDE hints and minimal type complexity:
 
 ```typescript
-import type { HttpActivityType, MetadataType, ActorType } from "@mcm/ocsf/v1_7/events";
+import type { HttpActivityType, MetadataType, ActorType } from "@mcm/ocsf/v1_9/events";
 
 // Types use references, not massive inline structures
 const metadata: MetadataType = {
-  version: "1.7.0",
+  version: "1.9.0",
   product: { name: "Web Server", vendor_name: "ACME" },
 };
 
@@ -521,10 +521,16 @@ type T3 = typeof activity;                         // From parsed value
 ### Importing from Specific OCSF Versions
 
 ```typescript
-// Import from v1.7.0 (latest)
+// Import from v1.9.0 (latest)
+import { FileActivity } from "@mcm/ocsf/v1_9/events";
+import { File } from "@mcm/ocsf/v1_9/objects";
+import { ActivityId } from "@mcm/ocsf/v1_9/enums";
+
+// Import from v1.8.0
+import { FileActivity } from "@mcm/ocsf/v1_8/events";
+
+// Import from v1.7.0
 import { FileActivity } from "@mcm/ocsf/v1_7/events";
-import { File } from "@mcm/ocsf/v1_7/objects";
-import { ActivityId } from "@mcm/ocsf/v1_7/enums";
 
 // Import from v1.6.0
 import { FileActivity } from "@mcm/ocsf/v1_6/events";
@@ -536,7 +542,7 @@ import { FileActivity } from "@mcm/ocsf/v1_5/events";
 ### Default Import (Latest Version)
 
 ```typescript
-// Imports from v1.7.0 by default
+// Imports from v1.9.0 by default
 import { FileActivity } from "@mcm/ocsf";
 ```
 
@@ -544,15 +550,15 @@ import { FileActivity } from "@mcm/ocsf";
 
 ```typescript
 // Import all events from a version
-import * as Events from "@mcm/ocsf/v1_7/events";
+import * as Events from "@mcm/ocsf/v1_9/events";
 const event = Events.FileActivity.parse(data);
 
 // Import all objects
-import * as Objects from "@mcm/ocsf/v1_7/objects";
+import * as Objects from "@mcm/ocsf/v1_9/objects";
 const file = Objects.File.parse(data);
 
 // Import all enums
-import * as Enums from "@mcm/ocsf/v1_7/enums";
+import * as Enums from "@mcm/ocsf/v1_9/enums";
 console.log(Enums.ActivityId.enum.Create); // 1
 ```
 
@@ -562,10 +568,14 @@ The library exports Zod schemas organized by version and namespace:
 
 ```
 @mcm/ocsf
-├── v1_7/
+├── v1_9/
 │   ├── events/       # All event classes (FileActivity, ProcessActivity, etc.)
 │   ├── objects/      # All object classes (File, Process, Actor, etc.)
 │   └── enums/        # All enumeration schemas (ActivityId, SeverityId, etc.)
+├── v1_8/
+│   └── ...
+├── v1_7/
+│   └── ...
 ├── v1_6/
 │   └── ...
 └── v1_5/
@@ -590,7 +600,7 @@ Full TypeDoc documentation coming soon.
 
 2. **Type Inference**
    - Before: `type T = z.infer<typeof FileActivity>`
-   - After (recommended): `import type { FileActivityType } from "@mcm/ocsf/v1_7/events"`
+   - After (recommended): `import type { FileActivityType } from "@mcm/ocsf/v1_9/events"`
    - After (alternative): `type T = z.infer<typeof FileActivity.schema>`
 
 3. **Object Schema Extension** (no change)
@@ -633,7 +643,7 @@ npm run test
 
 ## Scripts
 
-- `npm run download` — Download OCSF schemas from the official repository (v1.5.0, v1.6.0, v1.7.0)
+- `npm run download` — Download OCSF schemas from the official repository (v1.5.0 through v1.9.0)
 - `npm run generate` — Generate Zod schemas from OCSF JSON schemas
 - `npm run build` — Build the library for distribution (ESM and CommonJS)
 - `npm run test` — Run all tests (unit and integration)

@@ -58,7 +58,31 @@ import { Location } from './location.js';
 import { User } from './user.js';
 import { KeyValueObject } from './key_value_object.js';
 
-const LdapPersonSchema = z.strictObject({
+type LdapPersonShape = {
+  cost_center: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  deleted_time: z.ZodOptional<z.ZodNumber>;
+  display_name: z.ZodOptional<z.ZodString>;
+  email_addrs: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  employee_uid: z.ZodOptional<z.ZodString>;
+  given_name: z.ZodOptional<z.ZodString>;
+  hire_time: z.ZodOptional<z.ZodNumber>;
+  job_title: z.ZodOptional<z.ZodString>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  last_login_time: z.ZodOptional<z.ZodNumber>;
+  ldap_cn: z.ZodOptional<z.ZodString>;
+  ldap_dn: z.ZodOptional<z.ZodString>;
+  leave_time: z.ZodOptional<z.ZodNumber>;
+  location: z.ZodOptional<typeof Location>;
+  manager: z.ZodOptional<z.ZodLazy<z.ZodType<UserType>>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  office_location: z.ZodOptional<z.ZodString>;
+  phone_number: z.ZodOptional<z.ZodString>;
+  surname: z.ZodOptional<z.ZodString>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+};
+
+const LdapPersonSchema: z.ZodObject<LdapPersonShape, z.core.$strict> = z.strictObject({
   /** The cost center associated with the user. */
   cost_center: z.string().optional(),
   /** The timestamp when the user was created. */

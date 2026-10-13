@@ -22,7 +22,15 @@ export interface IdentityActivityMetricsType {
 
 import { ProgrammaticCredential } from './programmatic_credential.js';
 
-const IdentityActivityMetricsSchema = z.strictObject({
+type IdentityActivityMetricsShape = {
+  first_seen_time: z.ZodOptional<z.ZodNumber>;
+  last_authentication_time: z.ZodOptional<z.ZodNumber>;
+  last_seen_time: z.ZodOptional<z.ZodNumber>;
+  password_last_used_time: z.ZodOptional<z.ZodNumber>;
+  programmatic_credentials: z.ZodOptional<z.ZodArray<typeof ProgrammaticCredential>>;
+};
+
+const IdentityActivityMetricsSchema: z.ZodObject<IdentityActivityMetricsShape, z.core.$strict> = z.strictObject({
   /** The timestamp when this identity was first observed or created in the system. This helps establish the identity's age and lifecycle stage for risk assessment. */
   first_seen_time: z.number().int().optional(),
   /** The timestamp when this identity last successfully authenticated to any system or service. This differs from last_seen_time as it specifically tracks authentication events rather than all activities. */

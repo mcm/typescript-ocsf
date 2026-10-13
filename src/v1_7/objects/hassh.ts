@@ -16,7 +16,12 @@ export interface HasshType {
 
 import { Fingerprint } from './fingerprint.js';
 
-const HasshSchema = z.strictObject({
+type HasshShape = {
+  algorithm: z.ZodOptional<z.ZodString>;
+  fingerprint: typeof Fingerprint;
+};
+
+const HasshSchema: z.ZodObject<HasshShape, z.core.$strict> = z.strictObject({
   /** The concatenation of key exchange, encryption, authentication and compression algorithms (separated by ';'). NOTE: This is not the underlying algorithm for the hash implementation. */
   algorithm: z.string().optional(),
   /** The hash of the key exchange, encryption, authentication and compression algorithms. */

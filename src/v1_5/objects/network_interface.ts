@@ -26,7 +26,19 @@ export interface NetworkInterfaceType {
   type_id: 0 | 1 | 2 | 3 | 4 | 99;
 }
 
-const NetworkInterfaceSchema = z.strictObject({
+type NetworkInterfaceShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  mac: z.ZodOptional<z.ZodString>;
+  namespace: z.ZodOptional<z.ZodString>;
+  subnet_prefix: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>;
+};
+
+const NetworkInterfaceSchema: z.ZodObject<NetworkInterfaceShape, z.core.$strict> = z.strictObject({
   /** The name of the network interface. */
   name: z.string().optional(),
   /** The unique identifier for the network interface. */

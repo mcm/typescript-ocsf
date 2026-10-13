@@ -34,7 +34,20 @@ export interface CertificateType {
 import { Fingerprint } from './fingerprint.js';
 import { San } from './san.js';
 
-const CertificateSchema = z.strictObject({
+type CertificateShape = {
+  created_time: z.ZodOptional<z.ZodNumber>;
+  expiration_time: z.ZodOptional<z.ZodNumber>;
+  fingerprints: z.ZodOptional<z.ZodArray<typeof Fingerprint>>;
+  is_self_signed: z.ZodOptional<z.ZodBoolean>;
+  issuer: z.ZodString;
+  sans: z.ZodOptional<z.ZodArray<typeof San>>;
+  serial_number: z.ZodString;
+  subject: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const CertificateSchema: z.ZodObject<CertificateShape, z.core.$strict> = z.strictObject({
   /** The time when the certificate was created. */
   created_time: z.number().int().optional(),
   /** The expiration time of the certificate. */

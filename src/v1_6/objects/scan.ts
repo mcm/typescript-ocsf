@@ -16,7 +16,14 @@ export interface ScanType {
   type_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 99;
 }
 
-const ScanSchema = z.strictObject({
+type ScanShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>;
+};
+
+const ScanSchema: z.ZodObject<ScanShape, z.core.$strict> = z.strictObject({
   /** The administrator-supplied or application-generated name of the scan. For example: "Home office weekly user database scan", "Scan folders for viruses", "Full system virus scan" */
   name: z.string().optional(),
   /** The application-defined unique identifier assigned to an instance of a scan. */

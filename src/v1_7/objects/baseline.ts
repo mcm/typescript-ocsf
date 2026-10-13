@@ -20,7 +20,14 @@ export interface BaselineType {
 
 import { Observation } from './observation.js';
 
-const BaselineSchema = z.strictObject({
+type BaselineShape = {
+  observation_parameter: z.ZodString;
+  observation_type: z.ZodOptional<z.ZodString>;
+  observations: z.ZodArray<typeof Observation>;
+  observed_pattern: z.ZodOptional<z.ZodString>;
+};
+
+const BaselineSchema: z.ZodObject<BaselineShape, z.core.$strict> = z.strictObject({
   /** The specific parameter or property being monitored. Examples include: CPU usage percentage, API response time in milliseconds, HTTP error rate, memory utilization, network latency, transaction volume, etc. */
   observation_parameter: z.string(),
   /** The type of analysis being performed to establish baseline behavior. Common types include: Frequency Analysis, Time Pattern Analysis, Volume Analysis, Sequence Analysis, Distribution Analysis, etc. */

@@ -46,7 +46,26 @@ export interface WhoisType {
 import { AutonomousSystem } from './autonomous_system.js';
 import { DomainContact } from './domain_contact.js';
 
-const WhoisSchema = z.strictObject({
+type WhoisShape = {
+  autonomous_system: z.ZodOptional<typeof AutonomousSystem>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  dnssec_status: z.ZodOptional<z.ZodString>;
+  dnssec_status_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<99>]>>;
+  domain: z.ZodOptional<z.ZodString>;
+  domain_contacts: z.ZodOptional<z.ZodArray<typeof DomainContact>>;
+  email_addr: z.ZodOptional<z.ZodString>;
+  isp: z.ZodOptional<z.ZodString>;
+  isp_org: z.ZodOptional<z.ZodString>;
+  last_seen_time: z.ZodOptional<z.ZodNumber>;
+  name_servers: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  phone_number: z.ZodOptional<z.ZodString>;
+  registrar: z.ZodOptional<z.ZodString>;
+  status: z.ZodOptional<z.ZodString>;
+  subdomains: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  subnet: z.ZodOptional<z.ZodString>;
+};
+
+const WhoisSchema: z.ZodObject<WhoisShape, z.core.$strict> = z.strictObject({
   /** The autonomous system information associated with a domain. */
   autonomous_system: AutonomousSystem.optional(),
   /** When the domain was registered or WHOIS entry was created. */

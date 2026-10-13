@@ -38,7 +38,21 @@ import { NetworkEndpoint } from './network_endpoint.js';
 import { EndpointConnection } from './endpoint_connection.js';
 import { Metric } from './metric.js';
 
-const LoadBalancerSchema = z.strictObject({
+type LoadBalancerShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  classification: z.ZodOptional<z.ZodString>;
+  code: z.ZodOptional<z.ZodNumber>;
+  dst_endpoint: z.ZodOptional<typeof NetworkEndpoint>;
+  endpoint_connections: z.ZodOptional<z.ZodArray<typeof EndpointConnection>>;
+  error_message: z.ZodOptional<z.ZodString>;
+  ip: z.ZodOptional<z.ZodString>;
+  message: z.ZodOptional<z.ZodString>;
+  metrics: z.ZodOptional<z.ZodArray<typeof Metric>>;
+  status_detail: z.ZodOptional<z.ZodString>;
+};
+
+const LoadBalancerSchema: z.ZodObject<LoadBalancerShape, z.core.$strict> = z.strictObject({
   /** The name of the load balancer. */
   name: z.string().optional(),
   /** The unique identifier for the load balancer. */

@@ -24,7 +24,16 @@ export interface AccountType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const AccountSchema = z.strictObject({
+type AccountShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<15>, z.ZodLiteral<16>, z.ZodLiteral<17>, z.ZodLiteral<18>, z.ZodLiteral<99>]>>;
+};
+
+const AccountSchema: z.ZodObject<AccountShape, z.core.$strict> = z.strictObject({
   /** The name of the account (e.g. GCP Project name , Linux Account name or AWS Account name). */
   name: z.string().optional(),
   /** The unique identifier of the account (e.g. AWS Account ID , OCID , GCP Project ID , Azure Subscription ID , Google Workspace Customer ID , or M365 Tenant UID). */

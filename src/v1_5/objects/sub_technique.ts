@@ -14,7 +14,13 @@ export interface SubTechniqueType {
   src_url?: string;
 }
 
-const SubTechniqueSchema = z.strictObject({
+type SubTechniqueShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+};
+
+const SubTechniqueSchema: z.ZodObject<SubTechniqueShape, z.core.$strict> = z.strictObject({
   /** The name of the attack sub-technique. For example: Scanning IP Blocks or User Execution: Unsafe ML Artifacts. */
   name: z.string().optional(),
   /** The unique identifier of the attack sub-technique. For example: T1595.001 or AML.T0011.000. */

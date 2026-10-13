@@ -1,0 +1,47 @@
+import { z } from 'zod';
+
+import type { RemediationType } from './remediation.js';
+import type { RuleType } from './rule.js';
+
+/**
+ * The CIS Benchmark Result object contains information as defined by the Center for Internet Security (CIS) benchmark result. CIS Benchmarks are a collection of best practices for securely configuring IT systems, software, networks, and cloud infrastructure.
+ *
+ * OCSF Object: CIS Benchmark Result
+ */
+export interface CisBenchmarkResultType {
+  /** The CIS benchmark description. */
+  desc?: string;
+  /** The CIS benchmark name. */
+  name: string;
+  /** Describes the recommended remediation steps to address identified issue(s). */
+  remediation?: RemediationType;
+  /** The CIS benchmark rule. */
+  rule?: RuleType;
+}
+
+import { Remediation } from './remediation.js';
+import { Rule } from './rule.js';
+
+type CisBenchmarkResultShape = {
+  desc: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  remediation: z.ZodOptional<typeof Remediation>;
+  rule: z.ZodOptional<typeof Rule>;
+};
+
+const CisBenchmarkResultSchema: z.ZodObject<CisBenchmarkResultShape, z.core.$strict> = z.strictObject({
+  /** The CIS benchmark description. */
+  desc: z.string().optional(),
+  /** The CIS benchmark name. */
+  name: z.string(),
+  /** Describes the recommended remediation steps to address identified issue(s). */
+  remediation: Remediation.optional(),
+  /** The CIS benchmark rule. */
+  rule: Rule.optional(),
+});
+
+export const CisBenchmarkResult = CisBenchmarkResultSchema;
+
+/** Value → label mappings for each enum field of CisBenchmarkResult. */
+export const CisBenchmarkResultLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

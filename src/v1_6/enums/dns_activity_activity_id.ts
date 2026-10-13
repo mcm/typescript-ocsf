@@ -1,5 +1,6 @@
 /** DnsActivity activity_id values. */
 export const DnsActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The DNS query request. */
   QUERY: 1,
@@ -7,6 +8,7 @@ export const DnsActivityActivityId = {
   RESPONSE: 2,
   /** Bidirectional DNS request and response traffic. */
   TRAFFIC: 6,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

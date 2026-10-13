@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { events, enums, objects } from "../../src/index.js";
 import { events as v1_5Events } from "../../src/v1_5/index.js";
+import { enums as v1_7Enums, events as v1_7Events } from "../../src/v1_7/index.js";
 
 describe("per-object enum labels", () => {
   it("exports labels for nested object enum fields", () => {
@@ -44,6 +45,19 @@ describe("per-event enum labels", () => {
     expect(events.IncidentFinding.StatusId).not.toHaveProperty("SUCCESS");
   });
 
+  it("merges class enum values with the dictionary's, as the OCSF server does", () => {
+    // 1.9 defines only 1-5 on the class; Unknown and Other come from the dictionary
+    expect(Object.keys(events.IncidentFinding.labels.status_id)).toEqual([
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "99",
+    ]);
+  });
+
   it("uses event-specific enums wherever values differ from the shared enum", () => {
     expect(events.DetectionFinding.StatusId.SUPPRESSED).toBe(3);
     expect(events.RemediationActivity.StatusId.DOES_NOT_EXIST).toBe(3);
@@ -52,6 +66,6 @@ describe("per-event enum labels", () => {
 
   it("keeps shared enums when the values match", () => {
     expect(events.FileActivity.SeverityId).toBe(enums.SeverityId);
-    expect(events.AuthorizeSession.StatusId).toBe(enums.StatusId);
+    expect(v1_7Events.AuthorizeSession.StatusId).toBe(v1_7Enums.StatusId);
   });
 });

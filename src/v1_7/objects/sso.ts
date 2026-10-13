@@ -42,7 +42,25 @@ export interface SsoType {
 
 import { Certificate } from './certificate.js';
 
-const SsoSchema = z.strictObject({
+type SsoShape = {
+  auth_protocol: z.ZodOptional<z.ZodString>;
+  auth_protocol_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<99>]>>;
+  certificate: z.ZodOptional<typeof Certificate>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  duration_mins: z.ZodOptional<z.ZodNumber>;
+  idle_timeout: z.ZodOptional<z.ZodNumber>;
+  login_endpoint: z.ZodOptional<z.ZodString>;
+  logout_endpoint: z.ZodOptional<z.ZodString>;
+  metadata_endpoint: z.ZodOptional<z.ZodString>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  name: z.ZodOptional<z.ZodString>;
+  protocol_name: z.ZodOptional<z.ZodString>;
+  scopes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  uid: z.ZodOptional<z.ZodString>;
+  vendor_name: z.ZodOptional<z.ZodString>;
+};
+
+const SsoSchema: z.ZodObject<SsoShape, z.core.$strict> = z.strictObject({
   /** The authorization protocol as defined by the caption of auth_protocol_id. In the case of Other, it is defined by the event source. */
   auth_protocol: z.string().optional(),
   /** The normalized identifier of the authentication protocol used by the SSO resource. */

@@ -20,7 +20,16 @@ export interface DnsQueryType {
   opcode_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 99;
 }
 
-const DnsQuerySchema = z.strictObject({
+type DnsQueryShape = {
+  class: z.ZodOptional<z.ZodString>;
+  packet_uid: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodString;
+  opcode: z.ZodOptional<z.ZodString>;
+  opcode_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+};
+
+const DnsQuerySchema: z.ZodObject<DnsQueryShape, z.core.$strict> = z.strictObject({
   /** The class of resource records being queried. See RFC1035. For example: IN. */
   class: z.string().optional(),
   /** The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. */

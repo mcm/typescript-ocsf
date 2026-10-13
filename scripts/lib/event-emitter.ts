@@ -1,6 +1,12 @@
 import { collectEnumFields, emitLabelsMap, sameEnumValues } from "./enum-labels.js";
 import { toClassName, toFileName } from "./naming.js";
-import { mapOcsfTypeToTs, mapOcsfTypeToZod } from "./type-map.js";
+import {
+  enumUnionZodTypeName,
+  mapOcsfTypeToTs,
+  mapOcsfTypeToZod,
+  mapOcsfTypeToZodTypeName,
+  wrapZodTypeName,
+} from "./type-map.js";
 import type {
   ParsedAttribute,
   ParsedEnum,
@@ -156,7 +162,18 @@ export function emitEventFile(
 
   // Base schema (no preprocessing)
   const schemaName = `${event.className}Schema`;
-  lines.push(`const ${schemaName} = z.strictObject({`);
+
+  // Explicit Zod shape type. Annotating the schema with it keeps declaration
+  // output small: nested schemas are referenced by name instead of inlined.
+  const shapeName = `${event.className}Shape`;
+  lines.push(`type ${shapeName} = {`);
+  for (const attr of event.attributes) {
+    lines.push(`  ${attr.name}: ${getZodTypeName(attr, allObjects)};`);
+  }
+  lines.push("};");
+  lines.push("");
+
+  lines.push(`const ${schemaName}: z.ZodObject<${shapeName}, z.core.$strict> = z.strictObject({`);
   for (const attr of event.attributes) {
     if (attr.description) {
       lines.push(`  /** ${attr.description} */`);
@@ -237,6 +254,27 @@ export function emitEventFile(
   lines.push("");
 
   return lines.join("\n");
+}
+
+/**
+ * Get the Zod type name for a field, mirroring the schema expression above.
+ */
+function getZodTypeName(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
+  let base: string;
+  if (attr.objectType) {
+    const refObj = allObjects.get(attr.objectType);
+    if (refObj && !refObj.name.startsWith("_")) {
+      // Handle special case where Object is renamed to OcsfObject
+      base = `typeof ${refObj.className === "Object" ? "OcsfObject" : refObj.className}`;
+    } else {
+      base = "z.ZodRecord<z.ZodString, z.ZodUnknown>";
+    }
+  } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
+    base = enumUnionZodTypeName(attr.enumValues.map((v) => v.value));
+  } else {
+    base = mapOcsfTypeToZodTypeName(attr.ocsfType);
+  }
+  return wrapZodTypeName(base, attr.isArray, attr.requirement !== "required");
 }
 
 /**

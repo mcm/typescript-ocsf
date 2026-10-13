@@ -1,6 +1,12 @@
 import { collectEnumFields, emitLabelsMap } from "./enum-labels.js";
 import { toClassName, toFileName } from "./naming.js";
-import { mapOcsfTypeToTs, mapOcsfTypeToZod, mapOcsfTypeToZodTypeName } from "./type-map.js";
+import {
+  enumUnionZodTypeName,
+  mapOcsfTypeToTs,
+  mapOcsfTypeToZod,
+  mapOcsfTypeToZodTypeName,
+  wrapZodTypeName,
+} from "./type-map.js";
 import type { ParsedAttribute, ParsedEnum, ParsedObject } from "./types.js";
 
 /**
@@ -97,15 +103,32 @@ export function emitObjectFile(
   // Detect if object is recursive
   const isRecursive = obj.isInCycle || selfReferencing;
 
-  // Generate Zod schema typed as z.ZodType<InterfaceType>
+  // Explicit Zod shape type. Annotating the schema with it keeps declaration
+  // output small: nested schemas are referenced by name instead of inlined.
+  const shapeName = `${className}Shape`;
+  lines.push(`type ${shapeName} = {`);
+  for (const attr of obj.attributes) {
+    const zodTypeName = getZodTypeName(
+      attr,
+      obj,
+      allObjects,
+      isRecursive,
+      isObservable && attr.name === "type_id" ? observableTypeIdEnum : undefined,
+    );
+    lines.push(`  ${attr.name}: ${zodTypeName};`);
+  }
+  lines.push("};");
+  lines.push("");
+
+  const schemaType = `z.ZodObject<${shapeName}, z.core.$strict>`;
   if (isRecursive) {
     // Recursive: use getter pattern with strict validation
-    lines.push(`const ${schemaName} = z.strictObject({`);
+    lines.push(`const ${schemaName}: ${schemaType} = z.strictObject({`);
     emitFieldsWithGetters(lines, obj, allObjects, isObservable, observableTypeIdEnum);
     lines.push("});");
   } else {
     // Non-recursive: plain object with strict validation
-    lines.push(`const ${schemaName} = z.strictObject({`);
+    lines.push(`const ${schemaName}: ${schemaType} = z.strictObject({`);
     emitSimpleFields(lines, obj, allObjects, isObservable, observableTypeIdEnum);
     lines.push("});");
   }
@@ -382,38 +405,46 @@ function getZodTypeForGetter(attr: ParsedAttribute, allObjects: Map<string, Pars
 }
 
 /**
- * Get the explicit return type annotation for a getter.
- * Computes the proper Zod type to break circular type references in recursive schemas.
+ * Get the Zod type name for a field, mirroring the expression emitted by
+ * emitSimpleFields / emitFieldsWithGetters.
  */
-function getZodReturnType(attr: ParsedAttribute, allObjects: Map<string, ParsedObject>): string {
+function getZodTypeName(
+  attr: ParsedAttribute,
+  currentObj: ParsedObject,
+  allObjects: Map<string, ParsedObject>,
+  isRecursive: boolean,
+  observableTypeIdEnum?: ParsedEnum,
+): string {
+  const optional = attr.requirement !== "required";
   let base: string;
 
-  if (attr.objectType) {
-    // Object reference
+  if (observableTypeIdEnum) {
+    base = enumUnionZodTypeName(observableTypeIdEnum.values.map((v) => v.value));
+  } else if (attr.objectType) {
     const refObj = allObjects.get(attr.objectType);
     if (!refObj) {
-      // Unknown: use z.ZodRecord<z.ZodString, z.ZodUnknown>
       base = "z.ZodRecord<z.ZodString, z.ZodUnknown>";
     } else {
       // Handle special case where Object is renamed to OcsfObject
       const refClassName = refObj.className === "Object" ? "OcsfObject" : refObj.className;
-      // Use typeof to reference the schema type
       base = `typeof ${refClassName}`;
     }
+    if (refObj && isRecursive && shouldUseGetter(attr, currentObj, allObjects)) {
+      // Getter fields: z.lazy(() => Ref | z.array(Ref)), then optional. Typed via the
+      // referenced interface, since `typeof Ref` is circular here and infers as unknown.
+      const refTypeName =
+        refObj.className === "Object" ? "OcsfObjectType" : `${refObj.className}Type`;
+      return wrapZodTypeName(
+        `z.ZodLazy<${wrapZodTypeName(`z.ZodType<${refTypeName}>`, attr.isArray, false)}>`,
+        false,
+        optional,
+      );
+    }
+  } else if (attr.enumValues && attr.enumValues.length > 0 && attr.name.endsWith("_id")) {
+    base = enumUnionZodTypeName(attr.enumValues.map((v) => v.value));
   } else {
-    // Primitive type - map to Zod type name
     base = mapOcsfTypeToZodTypeName(attr.ocsfType);
   }
 
-  // Wrap in array if needed
-  if (attr.isArray) {
-    base = `z.ZodArray<${base}>`;
-  }
-
-  // Wrap in optional if needed
-  if (attr.requirement !== "required") {
-    base = `z.ZodOptional<${base}>`;
-  }
-
-  return base;
+  return wrapZodTypeName(base, attr.isArray, optional);
 }

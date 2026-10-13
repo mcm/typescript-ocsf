@@ -140,7 +140,57 @@ import { ThreatActor } from './threat_actor.js';
 import { Vulnerability } from './vulnerability.js';
 import { Whois } from './whois.js';
 
-const OsintSchema = z.strictObject({
+type OsintShape = {
+  answers: z.ZodOptional<z.ZodArray<typeof DnsAnswer>>;
+  attacks: z.ZodOptional<z.ZodArray<typeof Attack>>;
+  autonomous_system: z.ZodOptional<typeof AutonomousSystem>;
+  campaign: z.ZodOptional<typeof Campaign>;
+  category: z.ZodOptional<z.ZodString>;
+  comment: z.ZodOptional<z.ZodString>;
+  confidence: z.ZodOptional<z.ZodString>;
+  confidence_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  creator: z.ZodOptional<typeof User>;
+  desc: z.ZodOptional<z.ZodString>;
+  detection_pattern: z.ZodOptional<z.ZodString>;
+  detection_pattern_type: z.ZodOptional<z.ZodString>;
+  detection_pattern_type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  email: z.ZodOptional<typeof Email>;
+  email_auth: z.ZodOptional<typeof EmailAuth>;
+  expiration_time: z.ZodOptional<z.ZodNumber>;
+  external_uid: z.ZodOptional<z.ZodString>;
+  file: z.ZodOptional<typeof File>;
+  intrusion_sets: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  kill_chain: z.ZodOptional<z.ZodArray<typeof KillChainPhase>>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  location: z.ZodOptional<typeof Location>;
+  malware: z.ZodOptional<z.ZodArray<typeof Malware>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  name: z.ZodOptional<z.ZodString>;
+  references: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  related_analytics: z.ZodOptional<z.ZodArray<typeof Analytic>>;
+  reputation: z.ZodOptional<typeof Reputation>;
+  risk_score: z.ZodOptional<z.ZodNumber>;
+  script: z.ZodOptional<typeof Script>;
+  severity: z.ZodOptional<z.ZodString>;
+  severity_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  signatures: z.ZodOptional<z.ZodArray<typeof DigitalSignature>>;
+  src_url: z.ZodOptional<z.ZodString>;
+  subdomains: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  subnet: z.ZodOptional<z.ZodString>;
+  threat_actor: z.ZodOptional<typeof ThreatActor>;
+  tlp: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<12>, z.ZodLiteral<13>, z.ZodLiteral<14>, z.ZodLiteral<99>]>;
+  uid: z.ZodOptional<z.ZodString>;
+  uploaded_time: z.ZodOptional<z.ZodNumber>;
+  value: z.ZodString;
+  vendor_name: z.ZodOptional<z.ZodString>;
+  vulnerabilities: z.ZodOptional<z.ZodArray<typeof Vulnerability>>;
+  whois: z.ZodOptional<typeof Whois>;
+};
+
+const OsintSchema: z.ZodObject<OsintShape, z.core.$strict> = z.strictObject({
   /** Any pertinent DNS answers information related to an indicator or OSINT analysis. */
   answers: z.array(DnsAnswer).optional(),
   /** MITRE ATT&CK Tactics, Techniques, and/or Procedures (TTPs) pertinent to an indicator or OSINT analysis. */

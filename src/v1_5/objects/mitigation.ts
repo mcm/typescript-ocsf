@@ -20,7 +20,14 @@ export interface MitigationType {
 
 import { D3fend } from './d3fend.js';
 
-const MitigationSchema = z.strictObject({
+type MitigationShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  src_url: z.ZodOptional<z.ZodString>;
+  countermeasures: z.ZodOptional<z.ZodArray<typeof D3fend>>;
+};
+
+const MitigationSchema: z.ZodObject<MitigationShape, z.core.$strict> = z.strictObject({
   /** The Mitigation name that is associated with the attack technique. For example: Password Policies, or Code Signing. */
   name: z.string().optional(),
   /** The Mitigation ID that is associated with the attack technique. For example: M1027, or AML.M0013. */

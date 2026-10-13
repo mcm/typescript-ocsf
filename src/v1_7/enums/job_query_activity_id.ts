@@ -1,8 +1,10 @@
 /** JobQuery activity_id values. */
 export const JobQueryActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The discovered results are via a query request. */
   QUERY: 1,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

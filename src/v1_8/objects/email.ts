@@ -1,0 +1,169 @@
+import { z } from 'zod';
+
+import type { FileType } from './file.js';
+import type { HttpHeaderType } from './http_header.js';
+import type { UrlType } from './url.js';
+
+/**
+ * The Email object describes the email metadata such as sender, recipients, and direction, and can include embedded URLs and files.
+ *
+ * OCSF Object: Email
+ */
+export interface EmailType {
+  /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
+  cc?: string[];
+  /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  cc_mailboxes?: string[];
+  /** The machine-readable Delivered-To email header field. For example example.user@usersdomain.com */
+  delivered_to?: string;
+  /** The machine-readable Delivered-To email header values. For example example.user@usersdomain.com */
+  delivered_to_list?: string[];
+  /** The files embedded or attached to the email. */
+  files?: FileType[];
+  /** The machine-readable email header From value, as defined by RFC 5322. For example example.user@usersdomain.com. */
+  from?: string;
+  /** The machine-readable email header From values. This array should contain the value in from. For example example.user@usersdomain.com. */
+  from_list?: string[];
+  /** The human-readable email header From Mailbox value. For example 'Example User <example.user@usersdomain.com>'. */
+  from_mailbox?: string;
+  /** The human-readable email header From Mailbox values. This array should contain the value in from_mailbox. For example 'Example User <example.user@usersdomain.com>'. */
+  from_mailboxes?: string[];
+  /** Additional HTTP headers of an HTTP request or response. */
+  http_headers?: HttpHeaderType[];
+  /** The indication of whether the email has been read. */
+  is_read?: boolean;
+  /** The email header Message-ID value, as defined by RFC 5322. */
+  message_uid?: string;
+  /** The email authentication header. */
+  raw_header?: string;
+  /** The machine-readable email header Reply-To value, as defined by RFC 5322. For example example.user@usersdomain.com */
+  reply_to?: string;
+  /** The machine-readable email header Reply-To values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  reply_to_list?: string[];
+  /** The human-readable email header Reply To Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  reply_to_mailboxes?: string[];
+  /** The address found in the 'Return-Path' header, which indicates where bounce messages (non-delivery reports) should be sent. This address is often set by the sending system and may differ from the 'From' or 'Sender' addresses. For example, mailer-daemon@senderserver.com. */
+  return_path?: string;
+  /** The machine readable email address of the system or server that actually transmitted the email message, extracted from the email headers per RFC 5322. This differs from the from field, which shows the message author. The sender field is most commonly used when multiple addresses appear in the from_list field, or when the transmitting system is different from the message author (such as when sending on behalf of someone else). */
+  sender?: string;
+  /** The human readable email address of the system or server that actually transmitted the email message, extracted from the email headers per RFC 5322. This differs from the from_mailbox field, which shows the message author. The sender mailbox field is most commonly used when multiple addresses appear in the from_mailboxes field, or when the transmitting system is different from the message author (such as when sending on behalf of someone else). */
+  sender_mailbox?: string;
+  /** The size in bytes of the email, including attachments. */
+  size?: number;
+  /** The value of the SMTP MAIL FROM command. */
+  smtp_from?: string;
+  /** The value of the SMTP envelope RCPT TO command. */
+  smtp_to?: string[];
+  /** The email header Subject value, as defined by RFC 5322. */
+  subject?: string;
+  /** The machine-readable email header To values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  to?: string[];
+  /** The human-readable email header To Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  to_mailboxes?: string[];
+  /** The unique identifier of the email thread. */
+  uid?: string;
+  /** The URLs embedded in the email. */
+  urls?: UrlType[];
+  /** The X-Originating-IP header identifying the emails originating IP address(es). */
+  x_originating_ip?: string[];
+}
+
+import { File } from './file.js';
+import { HttpHeader } from './http_header.js';
+import { Url } from './url.js';
+
+type EmailShape = {
+  cc: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  cc_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  delivered_to: z.ZodOptional<z.ZodString>;
+  delivered_to_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  files: z.ZodOptional<z.ZodArray<typeof File>>;
+  from: z.ZodOptional<z.ZodString>;
+  from_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  from_mailbox: z.ZodOptional<z.ZodString>;
+  from_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  http_headers: z.ZodOptional<z.ZodArray<typeof HttpHeader>>;
+  is_read: z.ZodOptional<z.ZodBoolean>;
+  message_uid: z.ZodOptional<z.ZodString>;
+  raw_header: z.ZodOptional<z.ZodString>;
+  reply_to: z.ZodOptional<z.ZodString>;
+  reply_to_list: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  reply_to_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  return_path: z.ZodOptional<z.ZodString>;
+  sender: z.ZodOptional<z.ZodString>;
+  sender_mailbox: z.ZodOptional<z.ZodString>;
+  size: z.ZodOptional<z.ZodNumber>;
+  smtp_from: z.ZodOptional<z.ZodString>;
+  smtp_to: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  subject: z.ZodOptional<z.ZodString>;
+  to: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  to_mailboxes: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  uid: z.ZodOptional<z.ZodString>;
+  urls: z.ZodOptional<z.ZodArray<typeof Url>>;
+  x_originating_ip: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const EmailSchema: z.ZodObject<EmailShape, z.core.$strict> = z.strictObject({
+  /** The machine-readable email header Cc values, as defined by RFC 5322. For example example.user@usersdomain.com. */
+  cc: z.array(z.string()).optional(),
+  /** The human-readable email header Cc Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  cc_mailboxes: z.array(z.string()).optional(),
+  /** The machine-readable Delivered-To email header field. For example example.user@usersdomain.com */
+  delivered_to: z.string().optional(),
+  /** The machine-readable Delivered-To email header values. For example example.user@usersdomain.com */
+  delivered_to_list: z.array(z.string()).optional(),
+  /** The files embedded or attached to the email. */
+  files: z.array(File).optional(),
+  /** The machine-readable email header From value, as defined by RFC 5322. For example example.user@usersdomain.com. */
+  from: z.string().optional(),
+  /** The machine-readable email header From values. This array should contain the value in from. For example example.user@usersdomain.com. */
+  from_list: z.array(z.string()).optional(),
+  /** The human-readable email header From Mailbox value. For example 'Example User <example.user@usersdomain.com>'. */
+  from_mailbox: z.string().optional(),
+  /** The human-readable email header From Mailbox values. This array should contain the value in from_mailbox. For example 'Example User <example.user@usersdomain.com>'. */
+  from_mailboxes: z.array(z.string()).optional(),
+  /** Additional HTTP headers of an HTTP request or response. */
+  http_headers: z.array(HttpHeader).optional(),
+  /** The indication of whether the email has been read. */
+  is_read: z.boolean().optional(),
+  /** The email header Message-ID value, as defined by RFC 5322. */
+  message_uid: z.string().optional(),
+  /** The email authentication header. */
+  raw_header: z.string().optional(),
+  /** The machine-readable email header Reply-To value, as defined by RFC 5322. For example example.user@usersdomain.com */
+  reply_to: z.string().optional(),
+  /** The machine-readable email header Reply-To values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  reply_to_list: z.array(z.string()).optional(),
+  /** The human-readable email header Reply To Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  reply_to_mailboxes: z.array(z.string()).optional(),
+  /** The address found in the 'Return-Path' header, which indicates where bounce messages (non-delivery reports) should be sent. This address is often set by the sending system and may differ from the 'From' or 'Sender' addresses. For example, mailer-daemon@senderserver.com. */
+  return_path: z.string().optional(),
+  /** The machine readable email address of the system or server that actually transmitted the email message, extracted from the email headers per RFC 5322. This differs from the from field, which shows the message author. The sender field is most commonly used when multiple addresses appear in the from_list field, or when the transmitting system is different from the message author (such as when sending on behalf of someone else). */
+  sender: z.string().optional(),
+  /** The human readable email address of the system or server that actually transmitted the email message, extracted from the email headers per RFC 5322. This differs from the from_mailbox field, which shows the message author. The sender mailbox field is most commonly used when multiple addresses appear in the from_mailboxes field, or when the transmitting system is different from the message author (such as when sending on behalf of someone else). */
+  sender_mailbox: z.string().optional(),
+  /** The size in bytes of the email, including attachments. */
+  size: z.number().int().optional(),
+  /** The value of the SMTP MAIL FROM command. */
+  smtp_from: z.string().optional(),
+  /** The value of the SMTP envelope RCPT TO command. */
+  smtp_to: z.array(z.string()).optional(),
+  /** The email header Subject value, as defined by RFC 5322. */
+  subject: z.string().optional(),
+  /** The machine-readable email header To values, as defined by RFC 5322. For example example.user@usersdomain.com */
+  to: z.array(z.string()).optional(),
+  /** The human-readable email header To Mailbox values. For example 'Example User <example.user@usersdomain.com>'. */
+  to_mailboxes: z.array(z.string()).optional(),
+  /** The unique identifier of the email thread. */
+  uid: z.string().optional(),
+  /** The URLs embedded in the email. */
+  urls: z.array(Url).optional(),
+  /** The X-Originating-IP header identifying the emails originating IP address(es). */
+  x_originating_ip: z.array(z.string()).optional(),
+});
+
+export const Email = EmailSchema;
+
+/** Value → label mappings for each enum field of Email. */
+export const EmailLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

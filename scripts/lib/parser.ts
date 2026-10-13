@@ -195,6 +195,11 @@ function parseAttributes(
 
     const dictDef = dictionary[attrName] ?? {};
     const merged = { ...dictDef, ...attrOverrides };
+    // Enum values are deep-merged (as the OCSF server does): the class adds to or
+    // overrides the dictionary's values rather than replacing them wholesale.
+    if (dictDef.enum && attrOverrides?.enum) {
+      merged.enum = { ...dictDef.enum, ...attrOverrides.enum };
+    }
 
     // Determine OCSF type
     const ocsfType: string = merged.type ?? "string_t";

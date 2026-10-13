@@ -28,7 +28,17 @@ export interface TraceType {
 import { Service } from './service.js';
 import { Span } from './span.js';
 
-const TraceSchema = z.strictObject({
+type TraceShape = {
+  duration: z.ZodOptional<z.ZodNumber>;
+  end_time: z.ZodOptional<z.ZodNumber>;
+  flags: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  service: z.ZodOptional<typeof Service>;
+  span: z.ZodOptional<typeof Span>;
+  start_time: z.ZodOptional<z.ZodNumber>;
+  uid: z.ZodString;
+};
+
+const TraceSchema: z.ZodObject<TraceShape, z.core.$strict> = z.strictObject({
   /** The total time, in milliseconds, that the trace covers, calculated as the difference between start_time and end_time. This duration helps assess the overall performance of a request as it travels across various services, and is essential for identifying latency and potential bottlenecks within the distributed system. The trace duration may differ from individual span durations due to the propagation and processing times of the trace as it spans multiple components. */
   duration: z.number().int().optional(),
   /** The end timestamp of the trace, essential for identifying latency and performance bottlenecks. Like the start time, this timestamp is normalized across the trace system to ensure consistency, even when events are recorded across distributed services with unsynchronized clocks. Normalized time allows for accurate trace duration calculations and helps observability tools track overall performance across services, regardless of the individual system time settings. */

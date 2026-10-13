@@ -95,9 +95,9 @@ export function emitVersionBarrel(schema: ParsedSchema): string {
   lines.push(`// Auto-generated barrel file for OCSF ${schema.version}`);
   lines.push("//");
   lines.push("// Note: Import from specific namespaces to avoid name conflicts:");
-  lines.push("//   import { FileActivity } from '@mcm/ocsf/v1_7/events';");
-  lines.push("//   import { File } from '@mcm/ocsf/v1_7/objects';");
-  lines.push("//   import { SeverityId } from '@mcm/ocsf/v1_7/enums';");
+  lines.push("//   import { FileActivity } from '@mcm/ocsf/v1_9/events';");
+  lines.push("//   import { File } from '@mcm/ocsf/v1_9/objects';");
+  lines.push("//   import { SeverityId } from '@mcm/ocsf/v1_9/enums';");
   lines.push("");
   lines.push('export * as objects from "./objects/index.js";');
   lines.push('export * as events from "./events/index.js";');
@@ -109,7 +109,7 @@ export function emitVersionBarrel(schema: ParsedSchema): string {
 /**
  * Emit the top-level src/index.ts.
  *
- * Re-exports the latest version (v1_7).
+ * Re-exports the latest version (v1_9).
  */
 export function emitTopLevelIndex(latestSlug: string): string {
   return [
@@ -119,9 +119,9 @@ export function emitTopLevelIndex(latestSlug: string): string {
     ` * This module re-exports the latest OCSF version (${latestSlug}).`,
     " *",
     " * For specific versions:",
-    " *   import { FileActivity } from '@mcm/ocsf/v1_7/events';",
-    " *   import { File, User } from '@mcm/ocsf/v1_7/objects';",
-    " *   import { SeverityId } from '@mcm/ocsf/v1_7/enums';",
+    " *   import { FileActivity } from '@mcm/ocsf/v1_9/events';",
+    " *   import { File, User } from '@mcm/ocsf/v1_9/objects';",
+    " *   import { SeverityId } from '@mcm/ocsf/v1_9/enums';",
     " */",
     `export * from "./${latestSlug}/index.js";`,
     "",

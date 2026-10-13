@@ -16,7 +16,14 @@ export interface ReputationType {
   score_id: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 99;
 }
 
-const ReputationSchema = z.strictObject({
+type ReputationShape = {
+  base_score: z.ZodNumber;
+  provider: z.ZodOptional<z.ZodString>;
+  score: z.ZodOptional<z.ZodString>;
+  score_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<99>]>;
+};
+
+const ReputationSchema: z.ZodObject<ReputationShape, z.core.$strict> = z.strictObject({
   /** The reputation score as reported by the event source. */
   base_score: z.number(),
   /** The provider of the reputation information. */

@@ -20,7 +20,16 @@ export interface GroupType {
   type?: string;
 }
 
-const GroupSchema = z.strictObject({
+type GroupShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  domain: z.ZodOptional<z.ZodString>;
+  privileges: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  type: z.ZodOptional<z.ZodString>;
+};
+
+const GroupSchema: z.ZodObject<GroupShape, z.core.$strict> = z.strictObject({
   /** The group name. */
   name: z.string().optional(),
   /** The unique identifier of the group. For example, for Windows events this is the security identifier (SID) of the group. */

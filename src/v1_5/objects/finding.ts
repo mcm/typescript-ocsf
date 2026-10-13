@@ -44,7 +44,24 @@ import { Product } from './product.js';
 import { RelatedEvent } from './related_event.js';
 import { Remediation } from './remediation.js';
 
-const FindingSchema = z.strictObject({
+type FindingShape = {
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  first_seen_time: z.ZodOptional<z.ZodNumber>;
+  last_seen_time: z.ZodOptional<z.ZodNumber>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  product: z.ZodOptional<typeof Product>;
+  product_uid: z.ZodOptional<z.ZodString>;
+  related_events: z.ZodOptional<z.ZodArray<typeof RelatedEvent>>;
+  remediation: z.ZodOptional<typeof Remediation>;
+  src_url: z.ZodOptional<z.ZodString>;
+  supporting_data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  title: z.ZodString;
+  types: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  uid: z.ZodString;
+};
+
+const FindingSchema: z.ZodObject<FindingShape, z.core.$strict> = z.strictObject({
   /** The time when the finding was created. */
   created_time: z.number().int().optional(),
   /** The description of the reported finding. */

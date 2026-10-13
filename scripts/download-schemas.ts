@@ -14,6 +14,8 @@ const OCSF_VERSIONS: Array<{ version: string; tag: string }> = [
   { version: "1.5.0", tag: "v1.5.0" },
   { version: "1.6.0", tag: "v1.6.0" },
   { version: "1.7.0", tag: "v1.7.0" },
+  { version: "1.8.0", tag: "1.8.0" },
+  { version: "1.9.0", tag: "1.9.0" },
 ];
 
 const SCHEMA_REPO = "https://github.com/ocsf/ocsf-schema.git";

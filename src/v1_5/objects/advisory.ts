@@ -56,7 +56,28 @@ import { Product } from './product.js';
 import { Cve } from './cve.js';
 import { Cwe } from './cwe.js';
 
-const AdvisorySchema = z.strictObject({
+type AdvisoryShape = {
+  avg_timespan: z.ZodOptional<typeof Timespan>;
+  bulletin: z.ZodOptional<z.ZodString>;
+  classification: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  desc: z.ZodOptional<z.ZodString>;
+  install_state: z.ZodOptional<z.ZodString>;
+  install_state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<99>]>>;
+  is_superseded: z.ZodOptional<z.ZodBoolean>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  os: z.ZodOptional<typeof Os>;
+  product: z.ZodOptional<typeof Product>;
+  references: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  related_cves: z.ZodOptional<z.ZodArray<typeof Cve>>;
+  related_cwes: z.ZodOptional<z.ZodArray<typeof Cwe>>;
+  size: z.ZodOptional<z.ZodNumber>;
+  src_url: z.ZodOptional<z.ZodString>;
+  title: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+};
+
+const AdvisorySchema: z.ZodObject<AdvisoryShape, z.core.$strict> = z.strictObject({
   /** The average time to patch. */
   avg_timespan: Timespan.optional(),
   /** The Advisory bulletin identifier. */

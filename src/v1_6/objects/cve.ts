@@ -46,7 +46,24 @@ import { Cwe } from './cwe.js';
 import { Epss } from './epss.js';
 import { Product } from './product.js';
 
-const CveSchema = z.strictObject({
+type CveShape = {
+  created_time: z.ZodOptional<z.ZodNumber>;
+  cvss: z.ZodOptional<z.ZodArray<typeof Cvss>>;
+  cwe: z.ZodOptional<typeof Cwe>;
+  cwe_uid: z.ZodOptional<z.ZodString>;
+  cwe_url: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  epss: z.ZodOptional<typeof Epss>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  product: z.ZodOptional<typeof Product>;
+  references: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  related_cwes: z.ZodOptional<z.ZodArray<typeof Cwe>>;
+  title: z.ZodOptional<z.ZodString>;
+  type: z.ZodOptional<z.ZodString>;
+  uid: z.ZodString;
+};
+
+const CveSchema: z.ZodObject<CveShape, z.core.$strict> = z.strictObject({
   /** The Record Creation Date identifies when the CVE ID was issued to a CVE Numbering Authority (CNA) or the CVE Record was published on the CVE List. Note that the Record Creation Date does not necessarily indicate when this vulnerability was discovered, shared with the affected vendor, publicly disclosed, or updated in CVE. */
   created_time: z.number().int().optional(),
   /** The CVSS object details Common Vulnerability Scoring System (CVSS) scores from the advisory that are related to the vulnerability. */

@@ -14,7 +14,13 @@ export interface CisControlType {
   version?: string;
 }
 
-const CisControlSchema = z.strictObject({
+type CisControlShape = {
+  desc: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const CisControlSchema: z.ZodObject<CisControlShape, z.core.$strict> = z.strictObject({
   /** The CIS Control description. For example: Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function. */
   desc: z.string().optional(),
   /** The CIS Control name. For example: 4.8 Uninstall or Disable Unnecessary Services on Enterprise Assets and Software. */

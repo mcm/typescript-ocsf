@@ -18,7 +18,15 @@ export interface KeyboardInfoType {
   keyboard_type?: string;
 }
 
-const KeyboardInfoSchema = z.strictObject({
+type KeyboardInfoShape = {
+  function_keys: z.ZodOptional<z.ZodNumber>;
+  ime: z.ZodOptional<z.ZodString>;
+  keyboard_layout: z.ZodOptional<z.ZodString>;
+  keyboard_subtype: z.ZodOptional<z.ZodNumber>;
+  keyboard_type: z.ZodOptional<z.ZodString>;
+};
+
+const KeyboardInfoSchema: z.ZodObject<KeyboardInfoShape, z.core.$strict> = z.strictObject({
   /** The number of function keys on client keyboard. */
   function_keys: z.number().int().optional(),
   /** The Input Method Editor (IME) file name. */

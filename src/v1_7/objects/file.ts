@@ -106,7 +106,51 @@ import { DigitalSignature } from './digital_signature.js';
 import { KeyValueObject } from './key_value_object.js';
 import { Url } from './url.js';
 
-const FileSchema = z.strictObject({
+type FileShape = {
+  name: z.ZodString;
+  uid: z.ZodOptional<z.ZodString>;
+  accessed_time: z.ZodOptional<z.ZodNumber>;
+  accessor: z.ZodOptional<typeof User>;
+  attributes: z.ZodOptional<z.ZodNumber>;
+  company_name: z.ZodOptional<z.ZodString>;
+  confidentiality: z.ZodOptional<z.ZodString>;
+  confidentiality_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<99>]>>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  creator: z.ZodOptional<typeof User>;
+  desc: z.ZodOptional<z.ZodString>;
+  drive_type: z.ZodOptional<z.ZodString>;
+  drive_type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<99>]>>;
+  encryption_details: z.ZodOptional<typeof EncryptionDetails>;
+  ext: z.ZodOptional<z.ZodString>;
+  hashes: z.ZodOptional<z.ZodArray<typeof Fingerprint>>;
+  internal_name: z.ZodOptional<z.ZodString>;
+  is_deleted: z.ZodOptional<z.ZodBoolean>;
+  is_encrypted: z.ZodOptional<z.ZodBoolean>;
+  is_public: z.ZodOptional<z.ZodBoolean>;
+  is_readonly: z.ZodOptional<z.ZodBoolean>;
+  is_system: z.ZodOptional<z.ZodBoolean>;
+  mime_type: z.ZodOptional<z.ZodString>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  modifier: z.ZodOptional<typeof User>;
+  owner: z.ZodOptional<typeof User>;
+  parent_folder: z.ZodOptional<z.ZodString>;
+  path: z.ZodOptional<z.ZodString>;
+  product: z.ZodOptional<typeof Product>;
+  security_descriptor: z.ZodOptional<z.ZodString>;
+  signature: z.ZodOptional<typeof DigitalSignature>;
+  size: z.ZodOptional<z.ZodNumber>;
+  storage_class: z.ZodOptional<z.ZodString>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<99>]>;
+  uri: z.ZodOptional<z.ZodString>;
+  url: z.ZodOptional<typeof Url>;
+  version: z.ZodOptional<z.ZodString>;
+  volume: z.ZodOptional<z.ZodString>;
+  xattributes: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+};
+
+const FileSchema: z.ZodObject<FileShape, z.core.$strict> = z.strictObject({
   /** The name of the file. For example: svchost.exe */
   name: z.string(),
   /** The unique identifier of the file as defined by the storage system, such the file system file ID. */

@@ -35,7 +35,7 @@ export interface ManagedEntityType {
   /** The managed entity type. For example: Policy, User, Organization, Device. */
   type?: string;
   /** The type of the Managed Entity. It is recommended to also populate the type attribute with the associated label, or the source specific name if Other. */
-  type_id?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  type_id?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 99;
   /** The user that pertains to the event or object. */
   user?: UserType;
   /** The version of the managed entity. For example: 1.2.3. */
@@ -50,7 +50,23 @@ import { Organization } from './organization.js';
 import { Policy } from './policy.js';
 import { User } from './user.js';
 
-const ManagedEntitySchema = z.strictObject({
+type ManagedEntityShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  device: z.ZodOptional<typeof Device>;
+  email: z.ZodOptional<typeof Email>;
+  group: z.ZodOptional<typeof Group>;
+  location: z.ZodOptional<typeof Location>;
+  org: z.ZodOptional<typeof Organization>;
+  policy: z.ZodOptional<typeof Policy>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<99>]>>;
+  user: z.ZodOptional<typeof User>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const ManagedEntitySchema: z.ZodObject<ManagedEntityShape, z.core.$strict> = z.strictObject({
   /** The name of the managed entity. It should match the name of the specific entity object's name if populated, or the name of the managed entity if the type_id is 'Other'. */
   name: z.string().optional(),
   /** The identifier of the managed entity. It should match the uid of the specific entity's object UID if populated, or the source specific ID if the type_id is 'Other'. */
@@ -72,7 +88,7 @@ const ManagedEntitySchema = z.strictObject({
   /** The managed entity type. For example: Policy, User, Organization, Device. */
   type: z.string().optional(),
   /** The type of the Managed Entity. It is recommended to also populate the type attribute with the associated label, or the source specific name if Other. */
-  type_id: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]).optional(),
+  type_id: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(99)]).optional(),
   /** The user that pertains to the event or object. */
   user: User.optional(),
   /** The version of the managed entity. For example: 1.2.3. */
@@ -84,6 +100,7 @@ export const ManagedEntity = ManagedEntitySchema;
 /** Value → label mappings for each enum field of ManagedEntity. */
 export const ManagedEntityLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
   type_id: {
+    0: "Unknown",
     1: "Device",
     2: "User",
     3: "Group",
@@ -91,5 +108,6 @@ export const ManagedEntityLabels: Readonly<Record<"type_id", Readonly<Record<num
     5: "Policy",
     6: "Email",
     7: "Network Zone",
+    99: "Other",
   },
 };

@@ -1,5 +1,6 @@
 /** NetworkFileActivity activity_id values. */
 export const NetworkFileActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** Upload a file. */
   UPLOAD: 1,
@@ -33,6 +34,7 @@ export const NetworkFileActivityActivityId = {
   SYNC: 15,
   /** Mark a file or folder to not sync with a computer. */
   UNSYNC: 16,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

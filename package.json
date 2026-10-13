@@ -28,6 +28,86 @@
         "default": "./dist/enum-utils.cjs"
       }
     },
+    "./v1_9": {
+      "import": {
+        "types": "./dist/v1_9/index.d.ts",
+        "default": "./dist/v1_9/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_9/index.d.ts",
+        "default": "./dist/v1_9/index.cjs"
+      }
+    },
+    "./v1_9/objects": {
+      "import": {
+        "types": "./dist/v1_9/objects/index.d.ts",
+        "default": "./dist/v1_9/objects/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_9/objects/index.d.ts",
+        "default": "./dist/v1_9/objects/index.cjs"
+      }
+    },
+    "./v1_9/events": {
+      "import": {
+        "types": "./dist/v1_9/events/index.d.ts",
+        "default": "./dist/v1_9/events/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_9/events/index.d.ts",
+        "default": "./dist/v1_9/events/index.cjs"
+      }
+    },
+    "./v1_9/enums": {
+      "import": {
+        "types": "./dist/v1_9/enums/index.d.ts",
+        "default": "./dist/v1_9/enums/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_9/enums/index.d.ts",
+        "default": "./dist/v1_9/enums/index.cjs"
+      }
+    },
+    "./v1_8": {
+      "import": {
+        "types": "./dist/v1_8/index.d.ts",
+        "default": "./dist/v1_8/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_8/index.d.ts",
+        "default": "./dist/v1_8/index.cjs"
+      }
+    },
+    "./v1_8/objects": {
+      "import": {
+        "types": "./dist/v1_8/objects/index.d.ts",
+        "default": "./dist/v1_8/objects/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_8/objects/index.d.ts",
+        "default": "./dist/v1_8/objects/index.cjs"
+      }
+    },
+    "./v1_8/events": {
+      "import": {
+        "types": "./dist/v1_8/events/index.d.ts",
+        "default": "./dist/v1_8/events/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_8/events/index.d.ts",
+        "default": "./dist/v1_8/events/index.cjs"
+      }
+    },
+    "./v1_8/enums": {
+      "import": {
+        "types": "./dist/v1_8/enums/index.d.ts",
+        "default": "./dist/v1_8/enums/index.js"
+      },
+      "require": {
+        "types": "./dist/v1_8/enums/index.d.ts",
+        "default": "./dist/v1_8/enums/index.cjs"
+      }
+    },
     "./v1_7": {
       "import": {
         "types": "./dist/v1_7/index.d.ts",

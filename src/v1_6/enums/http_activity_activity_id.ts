@@ -1,5 +1,6 @@
 /** HttpActivity activity_id values. */
 export const HttpActivityActivityId = {
+  /** The event activity is unknown. */
   UNKNOWN: 0,
   /** The CONNECT method establishes a tunnel to the server identified by the target resource. */
   CONNECT: 1,
@@ -19,6 +20,7 @@ export const HttpActivityActivityId = {
   TRACE: 8,
   /** The PATCH method applies partial modifications to a resource. */
   PATCH: 9,
+  /** The event activity is not mapped. See the <code>activity_name</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
 

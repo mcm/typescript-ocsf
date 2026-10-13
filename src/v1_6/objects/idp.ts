@@ -46,7 +46,24 @@ import { Fingerprint } from './fingerprint.js';
 import { Scim } from './scim.js';
 import { Sso } from './sso.js';
 
-const IdpSchema = z.strictObject({
+type IdpShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  auth_factors: z.ZodOptional<z.ZodArray<typeof AuthFactor>>;
+  domain: z.ZodOptional<z.ZodString>;
+  fingerprint: z.ZodOptional<typeof Fingerprint>;
+  has_mfa: z.ZodOptional<z.ZodBoolean>;
+  issuer: z.ZodOptional<z.ZodString>;
+  protocol_name: z.ZodOptional<z.ZodString>;
+  scim: z.ZodOptional<typeof Scim>;
+  sso: z.ZodOptional<typeof Sso>;
+  state: z.ZodOptional<z.ZodString>;
+  state_id: z.ZodOptional<z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<99>]>>;
+  tenant_uid: z.ZodOptional<z.ZodString>;
+  url_string: z.ZodOptional<z.ZodString>;
+};
+
+const IdpSchema: z.ZodObject<IdpShape, z.core.$strict> = z.strictObject({
   /** The name of the Identity Provider. */
   name: z.string().optional(),
   /** The unique identifier of the Identity Provider. */

@@ -29,12 +29,28 @@ export interface OsType {
   /** The type of the operating system. */
   type?: string;
   /** The type identifier of the operating system. */
-  type_id: 100 | 101 | 200 | 201 | 300 | 301 | 302 | 400 | 401 | 402;
+  type_id: 0 | 99 | 100 | 101 | 200 | 201 | 300 | 301 | 302 | 400 | 401 | 402;
   /** The version of the OS running on the device that originated the event. For example: "Windows 10", "OS X 10.7", or "iOS 9". */
   version?: string;
 }
 
-const OsSchema = z.strictObject({
+type OsShape = {
+  build: z.ZodOptional<z.ZodString>;
+  country: z.ZodOptional<z.ZodString>;
+  cpe_name: z.ZodOptional<z.ZodString>;
+  cpu_bits: z.ZodOptional<z.ZodNumber>;
+  edition: z.ZodOptional<z.ZodString>;
+  kernel_release: z.ZodOptional<z.ZodString>;
+  lang: z.ZodOptional<z.ZodString>;
+  name: z.ZodString;
+  sp_name: z.ZodOptional<z.ZodString>;
+  sp_ver: z.ZodOptional<z.ZodNumber>;
+  type: z.ZodOptional<z.ZodString>;
+  type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<99>, z.ZodLiteral<100>, z.ZodLiteral<101>, z.ZodLiteral<200>, z.ZodLiteral<201>, z.ZodLiteral<300>, z.ZodLiteral<301>, z.ZodLiteral<302>, z.ZodLiteral<400>, z.ZodLiteral<401>, z.ZodLiteral<402>]>;
+  version: z.ZodOptional<z.ZodString>;
+};
+
+const OsSchema: z.ZodObject<OsShape, z.core.$strict> = z.strictObject({
   /** The operating system build number. */
   build: z.string().optional(),
   /** The operating system country code, as defined by the ISO 3166-1 standard (Alpha-2 code).Note: The two letter country code should be capitalized. For example: US or CA. */
@@ -58,7 +74,7 @@ const OsSchema = z.strictObject({
   /** The type of the operating system. */
   type: z.string().optional(),
   /** The type identifier of the operating system. */
-  type_id: z.union([z.literal(100), z.literal(101), z.literal(200), z.literal(201), z.literal(300), z.literal(301), z.literal(302), z.literal(400), z.literal(401), z.literal(402)]),
+  type_id: z.union([z.literal(0), z.literal(99), z.literal(100), z.literal(101), z.literal(200), z.literal(201), z.literal(300), z.literal(301), z.literal(302), z.literal(400), z.literal(401), z.literal(402)]),
   /** The version of the OS running on the device that originated the event. For example: "Windows 10", "OS X 10.7", or "iOS 9". */
   version: z.string().optional(),
 });
@@ -68,6 +84,8 @@ export const Os = OsSchema;
 /** Value → label mappings for each enum field of Os. */
 export const OsLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
   type_id: {
+    0: "Unknown",
+    99: "Other",
     100: "Windows",
     101: "Windows Mobile",
     200: "Linux",

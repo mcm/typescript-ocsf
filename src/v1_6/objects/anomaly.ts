@@ -20,7 +20,14 @@ export interface AnomalyType {
 
 import { Observation } from './observation.js';
 
-const AnomalySchema = z.strictObject({
+type AnomalyShape = {
+  observation_parameter: z.ZodString;
+  observation_type: z.ZodOptional<z.ZodString>;
+  observations: z.ZodArray<typeof Observation>;
+  observed_pattern: z.ZodOptional<z.ZodString>;
+};
+
+const AnomalySchema: z.ZodObject<AnomalyShape, z.core.$strict> = z.strictObject({
   /** The specific parameter, metric or property where the anomaly was observed. Examples include: CPU usage percentage, API response time in milliseconds, HTTP error rate, memory utilization, network latency, transaction volume, etc. This helps identify the exact aspect of the system exhibiting anomalous behavior. */
   observation_parameter: z.string(),
   /** The type of analysis methodology used to detect the anomaly. This indicates how the anomaly was identified through different analytical approaches. Common types include: Frequency Analysis, Time Pattern Analysis, Volume Analysis, Sequence Analysis, Distribution Analysis, etc. */

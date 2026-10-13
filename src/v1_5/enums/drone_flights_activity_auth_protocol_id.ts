@@ -10,6 +10,10 @@ export const DroneFlightsActivityAuthProtocolId = {
   SPECIFIC_AUTHENTICATION_METHOD: 6,
   RESERVED: 7,
   PRIVATE_USER: 8,
+  EAP: 9,
+  RADIUS: 10,
+  BASIC_AUTHENTICATION: 11,
+  LDAP: 12,
   /** The authentication type is not mapped. See the <code>auth_protocol</code> attribute, which contains a data source specific value. */
   OTHER: 99,
 } as const;
@@ -26,6 +30,10 @@ export const DroneFlightsActivityAuthProtocolIdLabels: Record<number, string> = 
   6: "Specific Authentication Method",
   7: "Reserved",
   8: "Private User",
+  9: "EAP",
+  10: "RADIUS",
+  11: "Basic Authentication",
+  12: "LDAP",
   99: "Other",
 };
 
@@ -39,5 +47,9 @@ export const DroneFlightsActivityAuthProtocolIdByLabel: Record<string, number> =
   "Specific Authentication Method": 6,
   "Reserved": 7,
   "Private User": 8,
+  "EAP": 9,
+  "RADIUS": 10,
+  "Basic Authentication": 11,
+  "LDAP": 12,
   "Other": 99,
 };

@@ -12,7 +12,12 @@ export interface MetricType {
   value: string;
 }
 
-const MetricSchema = z.strictObject({
+type MetricShape = {
+  name: z.ZodString;
+  value: z.ZodString;
+};
+
+const MetricSchema: z.ZodObject<MetricShape, z.core.$strict> = z.strictObject({
   /** The name of the metric. */
   name: z.string(),
   /** The value of the metric. */

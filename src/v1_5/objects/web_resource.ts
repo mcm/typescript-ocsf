@@ -34,7 +34,21 @@ export interface WebResourceType {
 
 import { KeyValueObject } from './key_value_object.js';
 
-const WebResourceSchema = z.strictObject({
+type WebResourceShape = {
+  name: z.ZodOptional<z.ZodString>;
+  uid: z.ZodOptional<z.ZodString>;
+  created_time: z.ZodOptional<z.ZodNumber>;
+  data: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
+  labels: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  modified_time: z.ZodOptional<z.ZodNumber>;
+  tags: z.ZodOptional<z.ZodArray<typeof KeyValueObject>>;
+  type: z.ZodOptional<z.ZodString>;
+  uid_alt: z.ZodOptional<z.ZodString>;
+  desc: z.ZodOptional<z.ZodString>;
+  url_string: z.ZodOptional<z.ZodString>;
+};
+
+const WebResourceSchema: z.ZodObject<WebResourceShape, z.core.$strict> = z.strictObject({
   /** The name of the web resource. */
   name: z.string().optional(),
   /** The unique identifier of the web resource. */

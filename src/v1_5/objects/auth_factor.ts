@@ -30,7 +30,19 @@ export interface AuthFactorType {
 
 import { Device } from './device.js';
 
-const AuthFactorSchema = z.strictObject({
+type AuthFactorShape = {
+  device: z.ZodOptional<typeof Device>;
+  email_addr: z.ZodOptional<z.ZodString>;
+  factor_type: z.ZodOptional<z.ZodString>;
+  factor_type_id: z.ZodUnion<readonly [z.ZodLiteral<0>, z.ZodLiteral<1>, z.ZodLiteral<2>, z.ZodLiteral<3>, z.ZodLiteral<4>, z.ZodLiteral<5>, z.ZodLiteral<6>, z.ZodLiteral<7>, z.ZodLiteral<8>, z.ZodLiteral<9>, z.ZodLiteral<10>, z.ZodLiteral<11>, z.ZodLiteral<99>]>;
+  is_hotp: z.ZodOptional<z.ZodBoolean>;
+  is_totp: z.ZodOptional<z.ZodBoolean>;
+  phone_number: z.ZodOptional<z.ZodString>;
+  provider: z.ZodOptional<z.ZodString>;
+  security_questions: z.ZodOptional<z.ZodArray<z.ZodString>>;
+};
+
+const AuthFactorSchema: z.ZodObject<AuthFactorShape, z.core.$strict> = z.strictObject({
   /** Device used to complete an authentication request. */
   device: Device.optional(),
   /** The email address used in an email-based authentication factor. */

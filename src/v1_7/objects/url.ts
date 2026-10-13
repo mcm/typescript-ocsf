@@ -30,7 +30,21 @@ export interface UrlType {
   url_string?: string;
 }
 
-const UrlSchema = z.strictObject({
+type UrlShape = {
+  categories: z.ZodOptional<z.ZodArray<z.ZodString>>;
+  category_ids: z.ZodOptional<z.ZodArray<z.ZodNumber>>;
+  domain: z.ZodOptional<z.ZodString>;
+  hostname: z.ZodOptional<z.ZodString>;
+  path: z.ZodOptional<z.ZodString>;
+  port: z.ZodOptional<z.ZodNumber>;
+  query_string: z.ZodOptional<z.ZodString>;
+  resource_type: z.ZodOptional<z.ZodString>;
+  scheme: z.ZodOptional<z.ZodString>;
+  subdomain: z.ZodOptional<z.ZodString>;
+  url_string: z.ZodOptional<z.ZodString>;
+};
+
+const UrlSchema: z.ZodObject<UrlShape, z.core.$strict> = z.strictObject({
   /** The Website categorization names, as defined by category_ids enum values. */
   categories: z.array(z.string()).optional(),
   /** The Website categorization identifiers. */
