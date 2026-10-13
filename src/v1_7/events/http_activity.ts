@@ -20,7 +20,7 @@ import type { HttpResponseType } from '../objects/http_response.js';
 import { HttpActivityActivityId } from '../enums/http_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { ObservationPointId } from '../enums/index.js';
+import { HttpActivityObservationPointId } from '../enums/http_activity_observation_point_id.js';
 
 /**
  * HTTP Activity events report HTTP connection and traffic information.
@@ -135,52 +135,52 @@ import { HttpCookie } from '../objects/http_cookie.js';
 import { HttpRequest } from '../objects/http_request.js';
 import { HttpResponse } from '../objects/http_response.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Connect",
-  2: "Delete",
-  3: "Get",
-  4: "Head",
-  5: "Options",
-  6: "Post",
-  7: "Put",
-  8: "Trace",
-  9: "Patch",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const OBSERVATION_POINT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Source",
-  2: "Destination",
-  3: "Neither",
-  4: "Both",
-  99: "Other",
+/** Value → label mappings for each enum field of HttpActivity. */
+export const HttpActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "observation_point_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Connect",
+    2: "Delete",
+    3: "Get",
+    4: "Head",
+    5: "Options",
+    6: "Post",
+    7: "Put",
+    8: "Trace",
+    9: "Patch",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  observation_point_id: {
+    0: "Unknown",
+    1: "Source",
+    2: "Destination",
+    3: "Neither",
+    4: "Both",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "observation_point_id", labelField: "observation_point", labels: OBSERVATION_POINT_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: HttpActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: HttpActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: HttpActivityLabels.status_id },
+  { idField: "observation_point_id", labelField: "observation_point", labels: HttpActivityLabels.observation_point_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -309,9 +309,12 @@ export const HttpActivity = {
 
   schema: HttpActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: HttpActivityLabels,
+
   // Static enum references for convenience
   ActivityId: HttpActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  ObservationPointId: ObservationPointId,
+  ObservationPointId: HttpActivityObservationPointId,
 } as const;

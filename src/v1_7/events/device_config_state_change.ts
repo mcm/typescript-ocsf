@@ -15,7 +15,7 @@ import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
 import { PrevSecurityLevelId } from '../enums/index.js';
 import { SecurityLevelId } from '../enums/index.js';
-import { StateId } from '../enums/index.js';
+import { DeviceConfigStateChangeStateId } from '../enums/device_config_state_change_state_id.js';
 
 /**
  * Device Config State Change events report state changes that impact the security of the device.
@@ -111,61 +111,59 @@ import { Actor } from '../objects/actor.js';
 import { Device } from '../objects/device.js';
 import { SecurityState } from '../objects/security_state.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Log",
-  2: "Collect",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const PREV_SECURITY_LEVEL_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Secure",
-  2: "At Risk",
-  3: "Compromised",
-  99: "Other",
-};
-
-const SECURITY_LEVEL_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Secure",
-  2: "At Risk",
-  3: "Compromised",
-  99: "Other",
-};
-
-const STATE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Disabled",
-  2: "Enabled",
-  99: "Other",
+/** Value → label mappings for each enum field of DeviceConfigStateChange. */
+export const DeviceConfigStateChangeLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "prev_security_level_id" | "security_level_id" | "state_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Log",
+    2: "Collect",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  prev_security_level_id: {
+    0: "Unknown",
+    1: "Secure",
+    2: "At Risk",
+    3: "Compromised",
+    99: "Other",
+  },
+  security_level_id: {
+    0: "Unknown",
+    1: "Secure",
+    2: "At Risk",
+    3: "Compromised",
+    99: "Other",
+  },
+  state_id: {
+    0: "Unknown",
+    1: "Disabled",
+    2: "Enabled",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "prev_security_level_id", labelField: "prev_security_level", labels: PREV_SECURITY_LEVEL_ID_LABELS },
-  { idField: "security_level_id", labelField: "security_level", labels: SECURITY_LEVEL_ID_LABELS },
-  { idField: "state_id", labelField: "state", labels: STATE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DeviceConfigStateChangeLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DeviceConfigStateChangeLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DeviceConfigStateChangeLabels.status_id },
+  { idField: "prev_security_level_id", labelField: "prev_security_level", labels: DeviceConfigStateChangeLabels.prev_security_level_id },
+  { idField: "security_level_id", labelField: "security_level", labels: DeviceConfigStateChangeLabels.security_level_id },
+  { idField: "state_id", labelField: "state", labels: DeviceConfigStateChangeLabels.state_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -282,11 +280,14 @@ export const DeviceConfigStateChange = {
 
   schema: DeviceConfigStateChangeSchema,
 
+  // Value → label maps for every enum field
+  labels: DeviceConfigStateChangeLabels,
+
   // Static enum references for convenience
   ActivityId: DeviceConfigStateChangeActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
   PrevSecurityLevelId: PrevSecurityLevelId,
   SecurityLevelId: SecurityLevelId,
-  StateId: StateId,
+  StateId: DeviceConfigStateChangeStateId,
 } as const;

@@ -20,3 +20,7 @@ const CisCscSchema = z.strictObject({
 });
 
 export const CisCsc = CisCscSchema;
+
+/** Value → label mappings for each enum field of CisCsc. */
+export const CisCscLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

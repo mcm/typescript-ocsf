@@ -52,3 +52,22 @@ const AuthFactorSchema = z.strictObject({
 });
 
 export const AuthFactor = AuthFactorSchema;
+
+/** Value → label mappings for each enum field of AuthFactor. */
+export const AuthFactorLabels: Readonly<Record<"factor_type_id", Readonly<Record<number, string>>>> = {
+  factor_type_id: {
+    0: "Unknown",
+    1: "SMS",
+    2: "Security Question",
+    3: "Phone Call",
+    4: "Biometric",
+    5: "Push Notification",
+    6: "Hardware Token",
+    7: "OTP",
+    8: "Email",
+    9: "U2F",
+    10: "WebAuthn",
+    11: "Password",
+    99: "Other",
+  },
+};

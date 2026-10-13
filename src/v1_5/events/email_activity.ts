@@ -12,7 +12,7 @@ import type { EmailAuthType } from '../objects/email_auth.js';
 import { EmailActivityActivityId } from '../enums/email_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { DirectionId } from '../enums/index.js';
+import { EmailActivityDirectionId } from '../enums/email_activity_direction_id.js';
 
 /**
  * Email Activity events report SMTP protocol and email activities including those with embedded URLs and files. See the <code>Email</code> object for details.
@@ -109,46 +109,46 @@ import { NetworkEndpoint } from '../objects/network_endpoint.js';
 import { Email } from '../objects/email.js';
 import { EmailAuth } from '../objects/email_auth.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Send",
-  2: "Receive",
-  3: "Scan",
-  4: "Trace",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const DIRECTION_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Inbound",
-  2: "Outbound",
-  3: "Internal",
-  99: "Other",
+/** Value → label mappings for each enum field of EmailActivity. */
+export const EmailActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "direction_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Send",
+    2: "Receive",
+    3: "Scan",
+    4: "Trace",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  direction_id: {
+    0: "Unknown",
+    1: "Inbound",
+    2: "Outbound",
+    3: "Internal",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "direction_id", labelField: "direction", labels: DIRECTION_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: EmailActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: EmailActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: EmailActivityLabels.status_id },
+  { idField: "direction_id", labelField: "direction", labels: EmailActivityLabels.direction_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -267,9 +267,12 @@ export const EmailActivity = {
 
   schema: EmailActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: EmailActivityLabels,
+
   // Static enum references for convenience
   ActivityId: EmailActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  DirectionId: DirectionId,
+  DirectionId: EmailActivityDirectionId,
 } as const;

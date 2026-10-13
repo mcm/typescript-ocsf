@@ -68,3 +68,7 @@ const ContainerSchema = z.strictObject({
 });
 
 export const Container = ContainerSchema;
+
+/** Value → label mappings for each enum field of Container. */
+export const ContainerLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

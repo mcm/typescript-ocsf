@@ -66,3 +66,7 @@ const LoggerSchema = z.strictObject({
 });
 
 export const Logger = LoggerSchema;
+
+/** Value → label mappings for each enum field of Logger. */
+export const LoggerLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

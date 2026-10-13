@@ -20,3 +20,7 @@ const AutonomousSystemSchema = z.strictObject({
 });
 
 export const AutonomousSystem = AutonomousSystemSchema;
+
+/** Value → label mappings for each enum field of AutonomousSystem. */
+export const AutonomousSystemLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -20,3 +20,7 @@ const EntitySchema = z.strictObject({
 });
 
 export const Entity = EntitySchema;
+
+/** Value → label mappings for each enum field of Entity. */
+export const EntityLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

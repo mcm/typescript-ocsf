@@ -24,3 +24,7 @@ const TacticSchema = z.strictObject({
 });
 
 export const Tactic = TacticSchema;
+
+/** Value → label mappings for each enum field of Tactic. */
+export const TacticLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

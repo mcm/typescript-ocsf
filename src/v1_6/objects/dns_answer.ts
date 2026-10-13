@@ -40,3 +40,7 @@ const DnsAnswerSchema = z.strictObject({
 });
 
 export const DnsAnswer = DnsAnswerSchema;
+
+/** Value → label mappings for each enum field of DnsAnswer. */
+export const DnsAnswerLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

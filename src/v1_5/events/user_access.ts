@@ -106,35 +106,36 @@ import { NetworkEndpoint } from '../objects/network_endpoint.js';
 import { ResourceDetails } from '../objects/resource_details.js';
 import { User } from '../objects/user.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Assign Privileges",
-  2: "Revoke Privileges",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of UserAccess. */
+export const UserAccessLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Assign Privileges",
+    2: "Revoke Privileges",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: UserAccessLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: UserAccessLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: UserAccessLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -244,6 +245,9 @@ export const UserAccess = {
   },
 
   schema: UserAccessSchema,
+
+  // Value → label maps for every enum field
+  labels: UserAccessLabels,
 
   // Static enum references for convenience
   ActivityId: UserAccessActivityId,

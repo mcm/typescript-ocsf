@@ -238,3 +238,52 @@ const OsintSchema = z.strictObject({
 });
 
 export const Osint = OsintSchema;
+
+/** Value → label mappings for each enum field of Osint. */
+export const OsintLabels: Readonly<Record<"confidence_id" | "detection_pattern_type_id" | "severity_id" | "type_id", Readonly<Record<number, string>>>> = {
+  confidence_id: {
+    0: "Unknown",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    99: "Other",
+  },
+  detection_pattern_type_id: {
+    0: "Unknown",
+    1: "STIX",
+    2: "PCRE",
+    3: "SIGMA",
+    4: "Snort",
+    5: "Suricata",
+    6: "YARA",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "IP Address",
+    2: "Domain",
+    3: "Hostname",
+    4: "Hash",
+    5: "URL",
+    6: "User Agent",
+    7: "Digital Certificate",
+    8: "Email",
+    9: "Email Address",
+    10: "Vulnerability",
+    11: "File",
+    12: "Registry Key",
+    13: "Registry Value",
+    14: "Command Line",
+    99: "Other",
+  },
+};

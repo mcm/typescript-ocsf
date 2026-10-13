@@ -56,3 +56,7 @@ const AircraftSchema = z.strictObject({
 });
 
 export const Aircraft = AircraftSchema;
+
+/** Value → label mappings for each enum field of Aircraft. */
+export const AircraftLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -28,3 +28,7 @@ const OrganizationSchema = z.strictObject({
 });
 
 export const Organization = OrganizationSchema;
+
+/** Value → label mappings for each enum field of Organization. */
+export const OrganizationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

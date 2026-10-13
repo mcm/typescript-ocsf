@@ -24,3 +24,7 @@ const KeyValueObjectSchema = z.strictObject({
 });
 
 export const KeyValueObject = KeyValueObjectSchema;
+
+/** Value → label mappings for each enum field of KeyValueObject. */
+export const KeyValueObjectLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

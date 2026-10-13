@@ -36,3 +36,7 @@ const QueryInfoSchema = z.strictObject({
 });
 
 export const QueryInfo = QueryInfoSchema;
+
+/** Value → label mappings for each enum field of QueryInfo. */
+export const QueryInfoLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

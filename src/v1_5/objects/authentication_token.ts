@@ -44,3 +44,16 @@ const AuthenticationTokenSchema = z.strictObject({
 });
 
 export const AuthenticationToken = AuthenticationTokenSchema;
+
+/** Value → label mappings for each enum field of AuthenticationToken. */
+export const AuthenticationTokenLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Ticket Granting Ticket",
+    2: "Service Ticket",
+    3: "Identity Token",
+    4: "Refresh Token",
+    5: "SAML Assertion",
+    99: "Other",
+  },
+};

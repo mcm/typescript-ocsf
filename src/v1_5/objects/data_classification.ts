@@ -76,3 +76,34 @@ const DataClassificationSchema = z.strictObject({
 });
 
 export const DataClassification = DataClassificationSchema;
+
+/** Value → label mappings for each enum field of DataClassification. */
+export const DataClassificationLabels: Readonly<Record<"category_id" | "confidentiality_id" | "status_id", Readonly<Record<number, string>>>> = {
+  category_id: {
+    0: "Unknown",
+    1: "Personal",
+    2: "Governmental",
+    3: "Financial",
+    4: "Business",
+    5: "Military and Law Enforcement",
+    6: "Security",
+    99: "Other",
+  },
+  confidentiality_id: {
+    0: "Unknown",
+    1: "Not Confidential",
+    2: "Confidential",
+    3: "Secret",
+    4: "Top Secret",
+    5: "Private",
+    6: "Restricted",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Complete",
+    2: "Partial",
+    3: "Fail",
+    99: "Other",
+  },
+};

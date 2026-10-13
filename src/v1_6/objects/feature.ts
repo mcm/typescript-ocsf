@@ -24,3 +24,7 @@ const FeatureSchema = z.strictObject({
 });
 
 export const Feature = FeatureSchema;
+
+/** Value → label mappings for each enum field of Feature. */
+export const FeatureLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

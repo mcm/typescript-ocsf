@@ -24,3 +24,7 @@ const TechniqueSchema = z.strictObject({
 });
 
 export const Technique = TechniqueSchema;
+
+/** Value → label mappings for each enum field of Technique. */
+export const TechniqueLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

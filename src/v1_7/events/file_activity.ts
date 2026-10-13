@@ -106,47 +106,48 @@ import { Actor } from '../objects/actor.js';
 import { Device } from '../objects/device.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Read",
-  3: "Update",
-  4: "Delete",
-  5: "Rename",
-  6: "Set Attributes",
-  7: "Set Security",
-  8: "Get Attributes",
-  9: "Get Security",
-  10: "Encrypt",
-  11: "Decrypt",
-  12: "Mount",
-  13: "Unmount",
-  14: "Open",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of FileActivity. */
+export const FileActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Read",
+    3: "Update",
+    4: "Delete",
+    5: "Rename",
+    6: "Set Attributes",
+    7: "Set Security",
+    8: "Get Attributes",
+    9: "Get Security",
+    10: "Encrypt",
+    11: "Decrypt",
+    12: "Mount",
+    13: "Unmount",
+    14: "Open",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: FileActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: FileActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: FileActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -260,6 +261,9 @@ export const FileActivity = {
   },
 
   schema: FileActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: FileActivityLabels,
 
   // Static enum references for convenience
   ActivityId: FileActivityActivityId,

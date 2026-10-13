@@ -36,3 +36,7 @@ const DceRpcSchema = z.strictObject({
 });
 
 export const DceRpc = DceRpcSchema;
+
+/** Value → label mappings for each enum field of DceRpc. */
+export const DceRpcLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

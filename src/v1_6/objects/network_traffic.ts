@@ -52,3 +52,7 @@ const NetworkTrafficSchema = z.strictObject({
 });
 
 export const NetworkTraffic = NetworkTrafficSchema;
+
+/** Value → label mappings for each enum field of NetworkTraffic. */
+export const NetworkTrafficLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

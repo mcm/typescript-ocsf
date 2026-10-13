@@ -12,7 +12,7 @@ import type { FileType } from '../objects/file.js';
 
 import { FileRemediationActivityActivityId } from '../enums/file_remediation_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
+import { FileRemediationActivityStatusId } from '../enums/file_remediation_activity_status_id.js';
 
 /**
  * File Remediation Activity events report on attempts at remediating files. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>. Sub-techniques will include File, such as File Removal or Restore File.
@@ -96,42 +96,43 @@ import { Remediation } from '../objects/remediation.js';
 import { Scan } from '../objects/scan.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Isolate",
-  2: "Evict",
-  3: "Restore",
-  4: "Harden",
-  5: "Detect",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  3: "Does Not Exist",
-  4: "Partial",
-  5: "Unsupported",
-  6: "Error",
-  99: "Other",
+/** Value → label mappings for each enum field of FileRemediationActivity. */
+export const FileRemediationActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Isolate",
+    2: "Evict",
+    3: "Restore",
+    4: "Harden",
+    5: "Detect",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    3: "Does Not Exist",
+    4: "Partial",
+    5: "Unsupported",
+    6: "Error",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: FileRemediationActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: FileRemediationActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: FileRemediationActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -236,8 +237,11 @@ export const FileRemediationActivity = {
 
   schema: FileRemediationActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: FileRemediationActivityLabels,
+
   // Static enum references for convenience
   ActivityId: FileRemediationActivityActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
+  StatusId: FileRemediationActivityStatusId,
 } as const;

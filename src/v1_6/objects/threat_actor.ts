@@ -24,3 +24,15 @@ const ThreatActorSchema = z.strictObject({
 });
 
 export const ThreatActor = ThreatActorSchema;
+
+/** Value → label mappings for each enum field of ThreatActor. */
+export const ThreatActorLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Nation-state",
+    2: "Cybercriminal",
+    3: "Hacktivists",
+    4: "Insider",
+    99: "Other",
+  },
+};

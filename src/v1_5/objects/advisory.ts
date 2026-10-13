@@ -96,3 +96,14 @@ const AdvisorySchema = z.strictObject({
 });
 
 export const Advisory = AdvisorySchema;
+
+/** Value → label mappings for each enum field of Advisory. */
+export const AdvisoryLabels: Readonly<Record<"install_state_id", Readonly<Record<number, string>>>> = {
+  install_state_id: {
+    0: "Unknown",
+    1: "Installed",
+    2: "Not Installed",
+    3: "Installed Pending Reboot",
+    99: "Other",
+  },
+};

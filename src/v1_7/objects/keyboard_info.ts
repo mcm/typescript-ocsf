@@ -32,3 +32,7 @@ const KeyboardInfoSchema = z.strictObject({
 });
 
 export const KeyboardInfo = KeyboardInfoSchema;
+
+/** Value → label mappings for each enum field of KeyboardInfo. */
+export const KeyboardInfoLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

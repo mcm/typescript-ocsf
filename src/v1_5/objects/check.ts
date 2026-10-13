@@ -48,3 +48,24 @@ const CheckSchema = z.strictObject({
 });
 
 export const Check = CheckSchema;
+
+/** Value → label mappings for each enum field of Check. */
+export const CheckLabels: Readonly<Record<"status_id" | "severity_id", Readonly<Record<number, string>>>> = {
+  status_id: {
+    0: "Unknown",
+    1: "Pass",
+    2: "Warning",
+    3: "Fail",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+};

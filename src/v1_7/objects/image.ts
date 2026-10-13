@@ -40,3 +40,7 @@ const ImageSchema = z.strictObject({
 });
 
 export const Image = ImageSchema;
+
+/** Value → label mappings for each enum field of Image. */
+export const ImageLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -124,3 +124,7 @@ const MetadataSchema = z.strictObject({
 });
 
 export const Metadata = MetadataSchema;
+
+/** Value → label mappings for each enum field of Metadata. */
+export const MetadataLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

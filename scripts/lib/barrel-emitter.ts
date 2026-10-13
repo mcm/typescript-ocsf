@@ -4,7 +4,7 @@ import type { ParsedSchema } from "./types.js";
 /**
  * Emit the objects/index.ts barrel file.
  *
- * Exports all object schemas and their types.
+ * Exports all object schemas, their types, and their enum label maps.
  * Skips abstract objects (those starting with '_' in the schema).
  */
 export function emitObjectsBarrel(schema: ParsedSchema): string {
@@ -21,10 +21,10 @@ export function emitObjectsBarrel(schema: ParsedSchema): string {
     const fileName = toFileName(obj.className);
     // Handle special case where Object is renamed to OcsfObject to avoid shadowing
     if (obj.className === "Object") {
-      lines.push(`export { OcsfObject } from "./${fileName}.js";`);
+      lines.push(`export { OcsfObject, OcsfObjectLabels } from "./${fileName}.js";`);
       lines.push(`export type { OcsfObjectType } from "./${fileName}.js";`);
     } else {
-      lines.push(`export { ${obj.className} } from "./${fileName}.js";`);
+      lines.push(`export { ${obj.className}, ${obj.className}Labels } from "./${fileName}.js";`);
       lines.push(`export type { ${obj.className}Type } from "./${fileName}.js";`);
     }
   }
@@ -36,7 +36,7 @@ export function emitObjectsBarrel(schema: ParsedSchema): string {
 /**
  * Emit the events/index.ts barrel file.
  *
- * Exports all event schemas and their types.
+ * Exports all event schemas, their types, and their enum label maps.
  * Skips abstract/category-base events.
  */
 export function emitEventsBarrel(schema: ParsedSchema): string {
@@ -51,7 +51,7 @@ export function emitEventsBarrel(schema: ParsedSchema): string {
 
   for (const evt of sortedEvents) {
     const fileName = toFileName(evt.className);
-    lines.push(`export { ${evt.className} } from "./${fileName}.js";`);
+    lines.push(`export { ${evt.className}, ${evt.className}Labels } from "./${fileName}.js";`);
     lines.push(`export type { ${evt.className}Type } from "./${fileName}.js";`);
   }
 

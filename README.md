@@ -346,6 +346,21 @@ const unknownValue = getEnumValueOr(SeverityIdByLabel, "Invalid", -1);  // -1
 - `getEnumLabelOr(labels, value, fallback)` — Get label with fallback (default: `"Unknown"`)
 - `getEnumValueOr(byLabel, label, fallback)` — Get value with fallback (case-insensitive, default: `0`)
 
+### Enum Labels per Object and Event
+
+Every object and event exports a `{Name}Labels` map with the value → label mapping for each of its enum fields, including fields on nested objects that have no shared enum. Events also expose it as `.labels`:
+
+```typescript
+import { DeviceLabels, FingerprintLabels } from "@mcm/ocsf/v1_7/objects";
+import { IncidentFinding } from "@mcm/ocsf/v1_7/events";
+
+DeviceLabels.type_id[2];                  // "Desktop"
+FingerprintLabels.algorithm_id[3];        // "SHA-256"
+IncidentFinding.labels.status_id[3];      // "On Hold"
+```
+
+When an event class defines its own values for an enum field, its static enum property reflects those values rather than the shared enum. For example, `IncidentFinding.StatusId` is the incident status (New, In Progress, On Hold, Resolved, Closed), not the generic `StatusId` (Success, Failure).
+
 ### Safe Parsing with Error Handling
 
 ```typescript

@@ -16,7 +16,7 @@ import type { VulnerabilityType } from '../objects/vulnerability.js';
 
 import { ApplicationSecurityPostureFindingActivityId } from '../enums/application_security_posture_finding_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
+import { ApplicationSecurityPostureFindingStatusId } from '../enums/application_security_posture_finding_status_id.js';
 import { ConfidenceId } from '../enums/index.js';
 
 /**
@@ -119,48 +119,48 @@ import { Remediation } from '../objects/remediation.js';
 import { ResourceDetails } from '../objects/resource_details.js';
 import { Vulnerability } from '../objects/vulnerability.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Update",
-  3: "Close",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "New",
-  2: "In Progress",
-  3: "Suppressed",
-  4: "Resolved",
-  5: "Archived",
-  99: "Other",
-};
-
-const CONFIDENCE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  99: "Other",
+/** Value → label mappings for each enum field of ApplicationSecurityPostureFinding. */
+export const ApplicationSecurityPostureFindingLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "confidence_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Update",
+    3: "Close",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "New",
+    2: "In Progress",
+    3: "Suppressed",
+    4: "Resolved",
+    5: "Archived",
+    99: "Other",
+  },
+  confidence_id: {
+    0: "Unknown",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "confidence_id", labelField: "confidence", labels: CONFIDENCE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ApplicationSecurityPostureFindingLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ApplicationSecurityPostureFindingLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ApplicationSecurityPostureFindingLabels.status_id },
+  { idField: "confidence_id", labelField: "confidence", labels: ApplicationSecurityPostureFindingLabels.confidence_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -279,9 +279,12 @@ export const ApplicationSecurityPostureFinding = {
 
   schema: ApplicationSecurityPostureFindingSchema,
 
+  // Value → label maps for every enum field
+  labels: ApplicationSecurityPostureFindingLabels,
+
   // Static enum references for convenience
   ActivityId: ApplicationSecurityPostureFindingActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
+  StatusId: ApplicationSecurityPostureFindingStatusId,
   ConfidenceId: ConfidenceId,
 } as const;

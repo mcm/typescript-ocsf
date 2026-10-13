@@ -164,3 +164,21 @@ const EvidencesSchema = z.strictObject({
 });
 
 export const Evidences = EvidencesSchema;
+
+/** Value → label mappings for each enum field of Evidences. */
+export const EvidencesLabels: Readonly<Record<"verdict_id", Readonly<Record<number, string>>>> = {
+  verdict_id: {
+    0: "Unknown",
+    1: "False Positive",
+    2: "True Positive",
+    3: "Disregard",
+    4: "Suspicious",
+    5: "Benign",
+    6: "Test",
+    7: "Insufficient Data",
+    8: "Security Risk",
+    9: "Managed Externally",
+    10: "Duplicate",
+    99: "Other",
+  },
+};

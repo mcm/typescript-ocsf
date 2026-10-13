@@ -46,3 +46,7 @@ const TraceSchema = z.strictObject({
 });
 
 export const Trace = TraceSchema;
+
+/** Value → label mappings for each enum field of Trace. */
+export const TraceLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

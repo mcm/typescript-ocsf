@@ -82,28 +82,35 @@ export function emitEnumFile(enumDef: ParsedEnum): string {
 }
 
 /**
- * Emit a per-event enum file for event-specific activity_id values.
+ * Emit a per-event enum file for an event class's own enum values.
  *
  * Event classes define their own activity_id enum values that override
- * the base event's UNKNOWN/OTHER pair. These are emitted as separate
+ * the base event's UNKNOWN/OTHER pair, and some override other shared
+ * enums (e.g. IncidentFinding.status_id). These are emitted as separate
  * files namespaced by event class name.
  *
- * Example: FileActivityActivityId, DnsActivityActivityId
+ * Example: FileActivityActivityId, IncidentFindingStatusId
+ *
+ * When `padUnknownOther` is set, UNKNOWN (0) and OTHER (99) are added if the
+ * values don't already define them (used for activity_id).
  */
 export function emitEventEnumFile(
+  enumName: string,
   eventClassName: string,
   attrName: string,
   values: ParsedEnumValue[],
+  padUnknownOther = false,
 ): string {
-  const enumName = `${eventClassName}${toPascalCaseAttr(attrName)}`;
   const lines: string[] = [];
 
   lines.push(`/** ${eventClassName} ${attrName} values. */`);
   lines.push(`export const ${enumName} = {`);
 
-  // Ensure UNKNOWN (0) and OTHER (99) exist
   const valueMap = new Map(values.map((v) => [v.value, v]));
-  if (!valueMap.has(0)) {
+  const padUnknown = padUnknownOther && !valueMap.has(0);
+  const padOther = padUnknownOther && !valueMap.has(99);
+
+  if (padUnknown) {
     lines.push("  UNKNOWN: 0,");
   }
 
@@ -115,7 +122,7 @@ export function emitEventEnumFile(
     lines.push(`  ${member}: ${val.value},`);
   }
 
-  if (!valueMap.has(99)) {
+  if (padOther) {
     lines.push("  OTHER: 99,");
   }
 
@@ -126,13 +133,13 @@ export function emitEventEnumFile(
 
   // Label mapping (value → label)
   lines.push(`export const ${enumName}Labels: Record<number, string> = {`);
-  if (!valueMap.has(0)) {
+  if (padUnknown) {
     lines.push('  0: "Unknown",');
   }
   for (const val of values) {
     lines.push(`  ${val.value}: ${JSON.stringify(val.caption)},`);
   }
-  if (!valueMap.has(99)) {
+  if (padOther) {
     lines.push('  99: "Other",');
   }
   lines.push("};");
@@ -140,24 +147,17 @@ export function emitEventEnumFile(
 
   // Reverse mapping (label → value)
   lines.push(`export const ${enumName}ByLabel: Record<string, number> = {`);
-  if (!valueMap.has(0)) {
+  if (padUnknown) {
     lines.push('  "Unknown": 0,');
   }
   for (const val of values) {
     lines.push(`  ${JSON.stringify(val.caption)}: ${val.value},`);
   }
-  if (!valueMap.has(99)) {
+  if (padOther) {
     lines.push('  "Other": 99,');
   }
   lines.push("};");
   lines.push("");
 
   return lines.join("\n");
-}
-
-function toPascalCaseAttr(attrName: string): string {
-  return attrName
-    .split("_")
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
-    .join("");
 }

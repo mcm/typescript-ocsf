@@ -36,3 +36,7 @@ const GroupSchema = z.strictObject({
 });
 
 export const Group = GroupSchema;
+
+/** Value → label mappings for each enum field of Group. */
+export const GroupLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

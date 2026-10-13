@@ -20,3 +20,18 @@ const KillChainPhaseSchema = z.strictObject({
 });
 
 export const KillChainPhase = KillChainPhaseSchema;
+
+/** Value → label mappings for each enum field of KillChainPhase. */
+export const KillChainPhaseLabels: Readonly<Record<"phase_id", Readonly<Record<number, string>>>> = {
+  phase_id: {
+    0: "Unknown",
+    1: "Reconnaissance",
+    2: "Weaponization",
+    3: "Delivery",
+    4: "Exploitation",
+    5: "Installation",
+    6: "Command & Control",
+    7: "Actions on Objectives",
+    99: "Other",
+  },
+};

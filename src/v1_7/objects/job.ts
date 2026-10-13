@@ -58,3 +58,15 @@ const JobSchema = z.strictObject({
 });
 
 export const Job = JobSchema;
+
+/** Value → label mappings for each enum field of Job. */
+export const JobLabels: Readonly<Record<"run_state_id", Readonly<Record<number, string>>>> = {
+  run_state_id: {
+    0: "Unknown",
+    1: "Ready",
+    2: "Queued",
+    3: "Running",
+    4: "Stopped",
+    99: "Other",
+  },
+};

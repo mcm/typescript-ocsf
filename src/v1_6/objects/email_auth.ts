@@ -40,3 +40,7 @@ const EmailAuthSchema = z.strictObject({
 });
 
 export const EmailAuth = EmailAuthSchema;
+
+/** Value → label mappings for each enum field of EmailAuth. */
+export const EmailAuthLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

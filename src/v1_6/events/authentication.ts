@@ -151,84 +151,82 @@ import { Service } from '../objects/service.js';
 import { Session } from '../objects/session.js';
 import { User } from '../objects/user.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Logon",
-  2: "Logoff",
-  3: "Authentication Ticket",
-  4: "Service Ticket Request",
-  5: "Service Ticket Renew",
-  6: "Preauth",
-  7: "Account Switch",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const ACCOUNT_SWITCH_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Substitute User",
-  2: "Impersonate",
-  99: "Other",
-};
-
-const AUTH_PROTOCOL_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "NTLM",
-  2: "Kerberos",
-  3: "Digest",
-  4: "OpenID",
-  5: "SAML",
-  6: "OAUTH 2.0",
-  7: "PAP",
-  8: "CHAP",
-  9: "EAP",
-  10: "RADIUS",
-  11: "Basic Authentication",
-  12: "LDAP",
-  99: "Other",
-};
-
-const LOGON_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "System",
-  2: "Interactive",
-  3: "Network",
-  4: "Batch",
-  5: "OS Service",
-  7: "Unlock",
-  8: "Network Cleartext",
-  9: "New Credentials",
-  10: "Remote Interactive",
-  11: "Cached Interactive",
-  12: "Cached Remote Interactive",
-  13: "Cached Unlock",
-  99: "Other",
+/** Value → label mappings for each enum field of Authentication. */
+export const AuthenticationLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "account_switch_type_id" | "auth_protocol_id" | "logon_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Logon",
+    2: "Logoff",
+    3: "Authentication Ticket",
+    4: "Service Ticket Request",
+    5: "Service Ticket Renew",
+    6: "Preauth",
+    7: "Account Switch",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  account_switch_type_id: {
+    0: "Unknown",
+    1: "Substitute User",
+    2: "Impersonate",
+    99: "Other",
+  },
+  auth_protocol_id: {
+    0: "Unknown",
+    1: "NTLM",
+    2: "Kerberos",
+    3: "Digest",
+    4: "OpenID",
+    5: "SAML",
+    6: "OAUTH 2.0",
+    7: "PAP",
+    8: "CHAP",
+    9: "EAP",
+    10: "RADIUS",
+    11: "Basic Authentication",
+    12: "LDAP",
+    99: "Other",
+  },
+  logon_type_id: {
+    0: "Unknown",
+    1: "System",
+    2: "Interactive",
+    3: "Network",
+    4: "Batch",
+    5: "OS Service",
+    7: "Unlock",
+    8: "Network Cleartext",
+    9: "New Credentials",
+    10: "Remote Interactive",
+    11: "Cached Interactive",
+    12: "Cached Remote Interactive",
+    13: "Cached Unlock",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "account_switch_type_id", labelField: "account_switch_type", labels: ACCOUNT_SWITCH_TYPE_ID_LABELS },
-  { idField: "auth_protocol_id", labelField: "auth_protocol", labels: AUTH_PROTOCOL_ID_LABELS },
-  { idField: "logon_type_id", labelField: "logon_type", labels: LOGON_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: AuthenticationLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: AuthenticationLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: AuthenticationLabels.status_id },
+  { idField: "account_switch_type_id", labelField: "account_switch_type", labels: AuthenticationLabels.account_switch_type_id },
+  { idField: "auth_protocol_id", labelField: "auth_protocol", labels: AuthenticationLabels.auth_protocol_id },
+  { idField: "logon_type_id", labelField: "logon_type", labels: AuthenticationLabels.logon_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -368,6 +366,9 @@ export const Authentication = {
   },
 
   schema: AuthenticationSchema,
+
+  // Value → label maps for every enum field
+  labels: AuthenticationLabels,
 
   // Static enum references for convenience
   ActivityId: AuthenticationActivityId,

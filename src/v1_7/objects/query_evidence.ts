@@ -116,3 +116,43 @@ const QueryEvidenceSchema = z.strictObject({
 });
 
 export const QueryEvidence = QueryEvidenceSchema;
+
+/** Value → label mappings for each enum field of QueryEvidence. */
+export const QueryEvidenceLabels: Readonly<Record<"query_type_id" | "tcp_state_id", Readonly<Record<number, string>>>> = {
+  query_type_id: {
+    0: "Unknown",
+    1: "Kernel",
+    2: "File",
+    3: "Folder",
+    4: "Admin Group",
+    5: "Job",
+    6: "Module",
+    7: "Network Connection",
+    8: "Network Interfaces",
+    9: "Peripheral Device",
+    10: "Process",
+    11: "Service",
+    12: "Session",
+    13: "User",
+    14: "Users",
+    15: "Startup Item",
+    16: "Registry Key",
+    17: "Registry Value",
+    18: "Prefetch",
+    99: "Other",
+  },
+  tcp_state_id: {
+    0: "Unknown",
+    1: "ESTABLISHED",
+    2: "SYN-SENT",
+    3: "SYN-RECEIVED",
+    4: "FIN-WAIT-1",
+    5: "FIN-WAIT-2",
+    6: "TIME-WAIT",
+    7: "CLOSED",
+    8: "CLOSE-WAIT",
+    9: "LAST-ACK",
+    10: "LISTEN",
+    11: "CLOSING",
+  },
+};

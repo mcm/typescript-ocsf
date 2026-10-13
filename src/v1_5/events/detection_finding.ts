@@ -18,7 +18,7 @@ import type { VulnerabilityType } from '../objects/vulnerability.js';
 
 import { DetectionFindingActivityId } from '../enums/detection_finding_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
+import { DetectionFindingStatusId } from '../enums/detection_finding_status_id.js';
 import { ConfidenceId } from '../enums/index.js';
 import { ImpactId } from '../enums/index.js';
 import { RiskLevelId } from '../enums/index.js';
@@ -145,68 +145,66 @@ import { Remediation } from '../objects/remediation.js';
 import { ResourceDetails } from '../objects/resource_details.js';
 import { Vulnerability } from '../objects/vulnerability.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Update",
-  3: "Close",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "New",
-  2: "In Progress",
-  3: "Suppressed",
-  4: "Resolved",
-  5: "Archived",
-  99: "Other",
-};
-
-const CONFIDENCE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  99: "Other",
-};
-
-const IMPACT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  4: "Critical",
-  99: "Other",
-};
-
-const RISK_LEVEL_ID_LABELS: Record<number, string> = {
-  0: "Info",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  4: "Critical",
-  99: "Other",
+/** Value → label mappings for each enum field of DetectionFinding. */
+export const DetectionFindingLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "confidence_id" | "impact_id" | "risk_level_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Update",
+    3: "Close",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "New",
+    2: "In Progress",
+    3: "Suppressed",
+    4: "Resolved",
+    5: "Archived",
+    99: "Other",
+  },
+  confidence_id: {
+    0: "Unknown",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    99: "Other",
+  },
+  impact_id: {
+    0: "Unknown",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
+  risk_level_id: {
+    0: "Info",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "confidence_id", labelField: "confidence", labels: CONFIDENCE_ID_LABELS },
-  { idField: "impact_id", labelField: "impact", labels: IMPACT_ID_LABELS },
-  { idField: "risk_level_id", labelField: "risk_level", labels: RISK_LEVEL_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DetectionFindingLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DetectionFindingLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DetectionFindingLabels.status_id },
+  { idField: "confidence_id", labelField: "confidence", labels: DetectionFindingLabels.confidence_id },
+  { idField: "impact_id", labelField: "impact", labels: DetectionFindingLabels.impact_id },
+  { idField: "risk_level_id", labelField: "risk_level", labels: DetectionFindingLabels.risk_level_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -345,10 +343,13 @@ export const DetectionFinding = {
 
   schema: DetectionFindingSchema,
 
+  // Value → label maps for every enum field
+  labels: DetectionFindingLabels,
+
   // Static enum references for convenience
   ActivityId: DetectionFindingActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
+  StatusId: DetectionFindingStatusId,
   ConfidenceId: ConfidenceId,
   ImpactId: ImpactId,
   RiskLevelId: RiskLevelId,

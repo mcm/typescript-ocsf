@@ -52,3 +52,18 @@ const ScriptSchema = z.strictObject({
 });
 
 export const Script = ScriptSchema;
+
+/** Value → label mappings for each enum field of Script. */
+export const ScriptLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Windows Command Prompt",
+    2: "PowerShell",
+    3: "Python",
+    4: "JavaScript",
+    5: "VBScript",
+    6: "Unix Shell",
+    7: "VBA",
+    99: "Other",
+  },
+};

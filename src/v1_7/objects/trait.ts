@@ -32,3 +32,7 @@ const TraitSchema = z.strictObject({
 });
 
 export const Trait = TraitSchema;
+
+/** Value → label mappings for each enum field of Trait. */
+export const TraitLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

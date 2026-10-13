@@ -48,3 +48,18 @@ const AgentSchema = z.strictObject({
 });
 
 export const Agent = AgentSchema;
+
+/** Value → label mappings for each enum field of Agent. */
+export const AgentLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "Endpoint Detection and Response",
+    2: "Data Loss Prevention",
+    3: "Backup & Recovery",
+    4: "Performance Monitoring & Observability",
+    5: "Vulnerability Management",
+    6: "Log Forwarding",
+    7: "Mobile Device Management",
+    8: "Configuration Management",
+    9: "Remote Access",
+  },
+};

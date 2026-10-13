@@ -148,3 +148,14 @@ const DatabucketSchema = z.strictObject({
 });
 
 export const Databucket = DatabucketSchema;
+
+/** Value → label mappings for each enum field of Databucket. */
+export const DatabucketLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "S3",
+    2: "Azure Blob",
+    3: "GCP Bucket",
+    99: "Other",
+  },
+};

@@ -112,3 +112,17 @@ const ProcessSchema = z.strictObject({
 });
 
 export const Process = ProcessSchema;
+
+/** Value → label mappings for each enum field of Process. */
+export const ProcessLabels: Readonly<Record<"integrity_id", Readonly<Record<number, string>>>> = {
+  integrity_id: {
+    0: "Unknown",
+    1: "Untrusted",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "System",
+    6: "Protected",
+    99: "Other",
+  },
+};

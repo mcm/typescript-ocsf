@@ -60,3 +60,7 @@ const WebResourceSchema = z.strictObject({
 });
 
 export const WebResource = WebResourceSchema;
+
+/** Value → label mappings for each enum field of WebResource. */
+export const WebResourceLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

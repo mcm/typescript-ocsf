@@ -20,3 +20,7 @@ const EnvironmentVariableSchema = z.strictObject({
 });
 
 export const EnvironmentVariable = EnvironmentVariableSchema;
+
+/** Value → label mappings for each enum field of EnvironmentVariable. */
+export const EnvironmentVariableLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

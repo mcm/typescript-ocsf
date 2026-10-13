@@ -118,3 +118,7 @@ const FindingInfoSchema = z.strictObject({
 });
 
 export const FindingInfo = FindingInfoSchema;
+
+/** Value → label mappings for each enum field of FindingInfo. */
+export const FindingInfoLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

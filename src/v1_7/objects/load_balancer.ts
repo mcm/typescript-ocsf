@@ -64,3 +64,7 @@ const LoadBalancerSchema = z.strictObject({
 });
 
 export const LoadBalancer = LoadBalancerSchema;
+
+/** Value → label mappings for each enum field of LoadBalancer. */
+export const LoadBalancerLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

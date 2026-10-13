@@ -74,3 +74,25 @@ const UnmannedAerialSystemSchema = z.strictObject({
 });
 
 export const UnmannedAerialSystem = UnmannedAerialSystemSchema;
+
+/** Value → label mappings for each enum field of UnmannedAerialSystem. */
+export const UnmannedAerialSystemLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown/Undeclared",
+    1: "Airplane",
+    2: "Helicopter",
+    3: "Gyroplane",
+    4: "Hybrid Lift",
+    5: "Ornithopter",
+    6: "Glider",
+    7: "Kite",
+    8: "Free Balloon",
+    9: "Captive Balloon",
+    10: "Airship",
+    11: "Free Fall/Parachute",
+    12: "Rocket",
+    13: "Tethered Powered Aircraft",
+    14: "Ground Obstacle",
+    99: "Other",
+  },
+};

@@ -60,3 +60,7 @@ const FirewallRuleSchema = z.strictObject({
 });
 
 export const FirewallRule = FirewallRuleSchema;
+
+/** Value → label mappings for each enum field of FirewallRule. */
+export const FirewallRuleLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

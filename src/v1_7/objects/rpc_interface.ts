@@ -28,3 +28,7 @@ const RpcInterfaceSchema = z.strictObject({
 });
 
 export const RpcInterface = RpcInterfaceSchema;
+
+/** Value → label mappings for each enum field of RpcInterface. */
+export const RpcInterfaceLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -12,7 +12,7 @@ import type { NetworkConnectionInfoType } from '../objects/network_connection_in
 
 import { NetworkRemediationActivityActivityId } from '../enums/network_remediation_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
+import { NetworkRemediationActivityStatusId } from '../enums/network_remediation_activity_status_id.js';
 
 /**
  * Network Remediation Activity events report on attempts at remediating computer networks. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>. Techniques and Sub-techniques will include Network, such as Network Isolation or Network Traffic Filtering.
@@ -96,42 +96,43 @@ import { Remediation } from '../objects/remediation.js';
 import { Scan } from '../objects/scan.js';
 import { NetworkConnectionInfo } from '../objects/network_connection_info.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Isolate",
-  2: "Evict",
-  3: "Restore",
-  4: "Harden",
-  5: "Detect",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  3: "Does Not Exist",
-  4: "Partial",
-  5: "Unsupported",
-  6: "Error",
-  99: "Other",
+/** Value → label mappings for each enum field of NetworkRemediationActivity. */
+export const NetworkRemediationActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Isolate",
+    2: "Evict",
+    3: "Restore",
+    4: "Harden",
+    5: "Detect",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    3: "Does Not Exist",
+    4: "Partial",
+    5: "Unsupported",
+    6: "Error",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: NetworkRemediationActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: NetworkRemediationActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: NetworkRemediationActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -236,8 +237,11 @@ export const NetworkRemediationActivity = {
 
   schema: NetworkRemediationActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: NetworkRemediationActivityLabels,
+
   // Static enum references for convenience
   ActivityId: NetworkRemediationActivityActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
+  StatusId: NetworkRemediationActivityStatusId,
 } as const;

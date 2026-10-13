@@ -64,3 +64,19 @@ const OsSchema = z.strictObject({
 });
 
 export const Os = OsSchema;
+
+/** Value → label mappings for each enum field of Os. */
+export const OsLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    100: "Windows",
+    101: "Windows Mobile",
+    200: "Linux",
+    201: "Android",
+    300: "macOS",
+    301: "iOS",
+    302: "iPadOS",
+    400: "Solaris",
+    401: "AIX",
+    402: "HP-UX",
+  },
+};

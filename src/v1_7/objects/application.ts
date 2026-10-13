@@ -106,3 +106,15 @@ const ApplicationSchema = z.strictObject({
 });
 
 export const Application = ApplicationSchema;
+
+/** Value → label mappings for each enum field of Application. */
+export const ApplicationLabels: Readonly<Record<"risk_level_id", Readonly<Record<number, string>>>> = {
+  risk_level_id: {
+    0: "Info",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
+};

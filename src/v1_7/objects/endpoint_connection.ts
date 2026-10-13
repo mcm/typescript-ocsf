@@ -24,3 +24,7 @@ const EndpointConnectionSchema = z.strictObject({
 });
 
 export const EndpointConnection = EndpointConnectionSchema;
+
+/** Value → label mappings for each enum field of EndpointConnection. */
+export const EndpointConnectionLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

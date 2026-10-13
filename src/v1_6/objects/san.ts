@@ -20,3 +20,7 @@ const SanSchema = z.strictObject({
 });
 
 export const San = SanSchema;
+
+/** Value → label mappings for each enum field of San. */
+export const SanLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

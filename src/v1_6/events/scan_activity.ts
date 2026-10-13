@@ -114,43 +114,44 @@ import { Fingerprint } from '../objects/fingerprint.js';
 import { Policy } from '../objects/policy.js';
 import { Scan } from '../objects/scan.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Started",
-  2: "Completed",
-  3: "Cancelled",
-  4: "Duration Violation",
-  5: "Pause Violation",
-  6: "Error",
-  7: "Paused",
-  8: "Resumed",
-  9: "Restarted",
-  10: "Delayed",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of ScanActivity. */
+export const ScanActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Started",
+    2: "Completed",
+    3: "Cancelled",
+    4: "Duration Violation",
+    5: "Pause Violation",
+    6: "Error",
+    7: "Paused",
+    8: "Resumed",
+    9: "Restarted",
+    10: "Delayed",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ScanActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ScanActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ScanActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -274,6 +275,9 @@ export const ScanActivity = {
   },
 
   schema: ScanActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: ScanActivityLabels,
 
   // Static enum references for convenience
   ActivityId: ScanActivityActivityId,

@@ -44,3 +44,23 @@ const TicketSchema = z.strictObject({
 });
 
 export const Ticket = TicketSchema;
+
+/** Value → label mappings for each enum field of Ticket. */
+export const TicketLabels: Readonly<Record<"status_id" | "type_id", Readonly<Record<number, string>>>> = {
+  status_id: {
+    1: "New",
+    2: "In Progress",
+    3: "Notified",
+    4: "On Hold",
+    5: "Resolved",
+    6: "Closed",
+    7: "Canceled",
+    8: "Reopened",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Internal",
+    2: "External",
+    99: "Other",
+  },
+};

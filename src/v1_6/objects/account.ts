@@ -40,3 +40,29 @@ const AccountSchema = z.strictObject({
 });
 
 export const Account = AccountSchema;
+
+/** Value → label mappings for each enum field of Account. */
+export const AccountLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "LDAP Account",
+    2: "Windows Account",
+    3: "AWS IAM User",
+    4: "AWS IAM Role",
+    5: "GCP Account",
+    6: "Azure AD Account",
+    7: "Mac OS Account",
+    8: "Apple Account",
+    9: "Linux Account",
+    10: "AWS Account",
+    11: "GCP Project",
+    12: "OCI Compartment",
+    13: "Azure Subscription",
+    14: "Salesforce Account",
+    15: "Google Workspace",
+    16: "Servicenow Instance",
+    17: "M365 Tenant",
+    18: "Email Account",
+    99: "Other",
+  },
+};

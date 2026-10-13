@@ -24,3 +24,7 @@ const CweSchema = z.strictObject({
 });
 
 export const Cwe = CweSchema;
+
+/** Value → label mappings for each enum field of Cwe. */
+export const CweLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

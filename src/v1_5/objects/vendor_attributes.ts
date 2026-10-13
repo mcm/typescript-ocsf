@@ -20,3 +20,17 @@ const VendorAttributesSchema = z.strictObject({
 });
 
 export const VendorAttributes = VendorAttributesSchema;
+
+/** Value → label mappings for each enum field of VendorAttributes. */
+export const VendorAttributesLabels: Readonly<Record<"severity_id", Readonly<Record<number, string>>>> = {
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+};

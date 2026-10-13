@@ -9,7 +9,7 @@ import {
   emitVersionBarrel,
 } from "./lib/barrel-emitter.js";
 import { emitEnumFile, emitEventEnumFile } from "./lib/enum-emitter.js";
-import { emitEventFile } from "./lib/event-emitter.js";
+import { detectEnumAttributes, emitEventFile } from "./lib/event-emitter.js";
 import { toFileName } from "./lib/naming.js";
 import { emitObjectFile } from "./lib/object-emitter.js";
 import { parseOcsfSchema } from "./lib/parser.js";
@@ -68,18 +68,31 @@ function main(): void {
       writeFileSync(join(enumsDir, fileName), emitEnumFile(enumDef));
     }
 
-    // Emit per-event enums (activity_id overrides)
+    // Shared enums keyed by enum name, for matching event attributes against
+    const sharedEnumsByName = new Map(Array.from(schema.enums.values()).map((e) => [e.name, e]));
+
+    // Emit per-event enums (activity_id, and attributes whose values differ from the shared enum)
+    const writtenEnumFiles = new Set(
+      Array.from(schema.enums.values()).map((e) => `${toFileName(e.name)}.ts`),
+    );
     for (const event of schema.events.values()) {
-      for (const attr of event.attributes) {
-        if (
-          attr.name === "activity_id" &&
-          attr.enumValues &&
-          attr.enumValues.length > 2 // More than just UNKNOWN + OTHER
-        ) {
-          const content = emitEventEnumFile(event.className, attr.name, attr.enumValues);
-          const fileName = `${toFileName(event.className)}_activity_id.ts`;
-          writeFileSync(join(enumsDir, fileName), content);
+      for (const ref of detectEnumAttributes(event, sharedEnumsByName)) {
+        if (!ref.fileName || !ref.values) continue;
+        const fileName = `${ref.fileName}.ts`;
+        if (writtenEnumFiles.has(fileName)) {
+          throw new Error(
+            `Enum file collision: ${fileName} (${event.className}.${ref.attributeName})`,
+          );
         }
+        writtenEnumFiles.add(fileName);
+        const content = emitEventEnumFile(
+          ref.importName,
+          event.className,
+          ref.attributeName,
+          ref.values,
+          ref.attributeName === "activity_id",
+        );
+        writeFileSync(join(enumsDir, fileName), content);
       }
     }
 
@@ -101,11 +114,8 @@ function main(): void {
     const publicEvents = Array.from(schema.events.values()).filter((evt) => evt.classUid > 0);
     console.log(`  Emitting ${publicEvents.length} events...`);
 
-    // Create set of shared enum names for validation
-    const sharedEnumNames = new Set(Array.from(schema.enums.values()).map((e) => e.name));
-
     for (const event of publicEvents) {
-      const content = emitEventFile(event, schema.objects, slug, sharedEnumNames);
+      const content = emitEventFile(event, schema.objects, slug, sharedEnumsByName);
       const fileName = `${toFileName(event.className)}.ts`;
       writeFileSync(join(eventsDir, fileName), content);
     }

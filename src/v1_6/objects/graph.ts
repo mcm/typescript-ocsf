@@ -54,3 +54,16 @@ const GraphSchema = z.strictObject({
 });
 
 export const Graph = GraphSchema;
+
+/** Value → label mappings for each enum field of Graph. */
+export const GraphLabels: Readonly<Record<"query_language_id", Readonly<Record<number, string>>>> = {
+  query_language_id: {
+    1: "Cypher",
+    2: "GraphQL",
+    3: "Gremlin",
+    4: "GQL",
+    5: "G-CORE",
+    6: "PGQL",
+    7: "SPARQL",
+  },
+};

@@ -40,3 +40,20 @@ const Ja4FingerprintSchema = z.strictObject({
 });
 
 export const Ja4Fingerprint = Ja4FingerprintSchema;
+
+/** Value → label mappings for each enum field of Ja4Fingerprint. */
+export const Ja4FingerprintLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "JA4",
+    2: "JA4Server",
+    3: "JA4HTTP",
+    4: "JA4Latency",
+    5: "JA4X509",
+    6: "JA4SSH",
+    7: "JA4TCP",
+    8: "JA4TCPServer",
+    9: "JA4TCPScan",
+    99: "Other",
+  },
+};

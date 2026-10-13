@@ -16,3 +16,7 @@ const CampaignSchema = z.strictObject({
 });
 
 export const Campaign = CampaignSchema;
+
+/** Value → label mappings for each enum field of Campaign. */
+export const CampaignLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

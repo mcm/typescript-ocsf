@@ -120,3 +120,13 @@ const ResourceDetailsSchema = z.strictObject({
 });
 
 export const ResourceDetails = ResourceDetailsSchema;
+
+/** Value → label mappings for each enum field of ResourceDetails. */
+export const ResourceDetailsLabels: Readonly<Record<"role_id", Readonly<Record<number, string>>>> = {
+  role_id: {
+    1: "Target",
+    2: "Actor",
+    3: "Affected",
+    4: "Related",
+  },
+};

@@ -24,3 +24,7 @@ const CisControlSchema = z.strictObject({
 });
 
 export const CisControl = CisControlSchema;
+
+/** Value → label mappings for each enum field of CisControl. */
+export const CisControlLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

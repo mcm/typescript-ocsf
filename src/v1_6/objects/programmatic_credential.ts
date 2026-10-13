@@ -24,3 +24,7 @@ const ProgrammaticCredentialSchema = z.strictObject({
 });
 
 export const ProgrammaticCredential = ProgrammaticCredentialSchema;
+
+/** Value → label mappings for each enum field of ProgrammaticCredential. */
+export const ProgrammaticCredentialLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

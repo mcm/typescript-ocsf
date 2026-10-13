@@ -32,3 +32,15 @@ const EncryptionDetailsSchema = z.strictObject({
 });
 
 export const EncryptionDetails = EncryptionDetailsSchema;
+
+/** Value → label mappings for each enum field of EncryptionDetails. */
+export const EncryptionDetailsLabels: Readonly<Record<"algorithm_id", Readonly<Record<number, string>>>> = {
+  algorithm_id: {
+    1: "DES",
+    2: "TripleDES",
+    3: "AES",
+    4: "RSA",
+    5: "ECC",
+    6: "SM2",
+  },
+};

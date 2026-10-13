@@ -132,3 +132,7 @@ const EmailSchema = z.strictObject({
 });
 
 export const Email = EmailSchema;
+
+/** Value → label mappings for each enum field of Email. */
+export const EmailLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

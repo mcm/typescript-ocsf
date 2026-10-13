@@ -76,3 +76,7 @@ const FindingSchema = z.strictObject({
 });
 
 export const Finding = FindingSchema;
+
+/** Value → label mappings for each enum field of Finding. */
+export const FindingLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

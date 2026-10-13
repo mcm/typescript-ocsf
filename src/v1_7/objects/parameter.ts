@@ -24,3 +24,7 @@ const ParameterSchema = z.strictObject({
 });
 
 export const Parameter = ParameterSchema;
+
+/** Value → label mappings for each enum field of Parameter. */
+export const ParameterLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

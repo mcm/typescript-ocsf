@@ -40,3 +40,7 @@ const AssessmentSchema = z.strictObject({
 });
 
 export const Assessment = AssessmentSchema;
+
+/** Value → label mappings for each enum field of Assessment. */
+export const AssessmentLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

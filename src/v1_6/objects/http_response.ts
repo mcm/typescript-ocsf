@@ -48,3 +48,7 @@ const HttpResponseSchema = z.strictObject({
 });
 
 export const HttpResponse = HttpResponseSchema;
+
+/** Value → label mappings for each enum field of HttpResponse. */
+export const HttpResponseLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

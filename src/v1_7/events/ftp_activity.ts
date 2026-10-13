@@ -17,7 +17,7 @@ import type { FileType } from '../objects/file.js';
 import { FtpActivityActivityId } from '../enums/ftp_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { ObservationPointId } from '../enums/index.js';
+import { FtpActivityObservationPointId } from '../enums/ftp_activity_observation_point_id.js';
 
 /**
  * File Transfer Protocol (FTP) Activity events report file transfers between a server and a client as seen on the network.
@@ -133,49 +133,49 @@ import { NetworkProxy } from '../objects/network_proxy.js';
 import { Tls } from '../objects/tls.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Put",
-  2: "Get",
-  3: "Poll",
-  4: "Delete",
-  5: "Rename",
-  6: "List",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const OBSERVATION_POINT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Source",
-  2: "Destination",
-  3: "Neither",
-  4: "Both",
-  99: "Other",
+/** Value → label mappings for each enum field of FtpActivity. */
+export const FtpActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "observation_point_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Put",
+    2: "Get",
+    3: "Poll",
+    4: "Delete",
+    5: "Rename",
+    6: "List",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  observation_point_id: {
+    0: "Unknown",
+    1: "Source",
+    2: "Destination",
+    3: "Neither",
+    4: "Both",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "observation_point_id", labelField: "observation_point", labels: OBSERVATION_POINT_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: FtpActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: FtpActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: FtpActivityLabels.status_id },
+  { idField: "observation_point_id", labelField: "observation_point", labels: FtpActivityLabels.observation_point_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -308,9 +308,12 @@ export const FtpActivity = {
 
   schema: FtpActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: FtpActivityLabels,
+
   // Static enum references for convenience
   ActivityId: FtpActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  ObservationPointId: ObservationPointId,
+  ObservationPointId: FtpActivityObservationPointId,
 } as const;

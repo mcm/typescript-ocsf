@@ -86,3 +86,14 @@ const DeviceHwInfoSchema = z.strictObject({
 });
 
 export const DeviceHwInfo = DeviceHwInfoSchema;
+
+/** Value → label mappings for each enum field of DeviceHwInfo. */
+export const DeviceHwInfoLabels: Readonly<Record<"cpu_architecture_id", Readonly<Record<number, string>>>> = {
+  cpu_architecture_id: {
+    0: "Unknown",
+    1: "x86",
+    2: "ARM",
+    3: "RISC-V",
+    99: "Other",
+  },
+};

@@ -36,3 +36,11 @@ const KernelSchema = z.strictObject({
 });
 
 export const Kernel = KernelSchema;
+
+/** Value → label mappings for each enum field of Kernel. */
+export const KernelLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "Shared Mutex",
+    2: "System Call",
+  },
+};

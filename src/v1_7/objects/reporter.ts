@@ -36,3 +36,7 @@ const ReporterSchema = z.strictObject({
 });
 
 export const Reporter = ReporterSchema;
+
+/** Value → label mappings for each enum field of Reporter. */
+export const ReporterLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

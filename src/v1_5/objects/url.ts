@@ -56,3 +56,7 @@ const UrlSchema = z.strictObject({
 });
 
 export const Url = UrlSchema;
+
+/** Value → label mappings for each enum field of Url. */
+export const UrlLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

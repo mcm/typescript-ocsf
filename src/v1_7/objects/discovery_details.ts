@@ -36,3 +36,7 @@ const DiscoveryDetailsSchema = z.strictObject({
 });
 
 export const DiscoveryDetails = DiscoveryDetailsSchema;
+
+/** Value → label mappings for each enum field of DiscoveryDetails. */
+export const DiscoveryDetailsLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

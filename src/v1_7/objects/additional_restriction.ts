@@ -28,3 +28,12 @@ const AdditionalRestrictionSchema = z.strictObject({
 });
 
 export const AdditionalRestriction = AdditionalRestrictionSchema;
+
+/** Value → label mappings for each enum field of AdditionalRestriction. */
+export const AdditionalRestrictionLabels: Readonly<Record<"status_id", Readonly<Record<number, string>>>> = {
+  status_id: {
+    1: "Applicable",
+    2: "Inapplicable",
+    3: "Evaluation Error",
+  },
+};

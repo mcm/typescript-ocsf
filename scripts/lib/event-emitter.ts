@@ -1,6 +1,13 @@
-import { toClassName, toEnumMember, toFileName } from "./naming.js";
+import { collectEnumFields, emitLabelsMap, sameEnumValues } from "./enum-labels.js";
+import { toClassName, toFileName } from "./naming.js";
 import { mapOcsfTypeToTs, mapOcsfTypeToZod } from "./type-map.js";
-import type { ParsedAttribute, ParsedEvent, ParsedObject, ParsedSiblingPair } from "./types.js";
+import type {
+  ParsedAttribute,
+  ParsedEnum,
+  ParsedEnumValue,
+  ParsedEvent,
+  ParsedObject,
+} from "./types.js";
 
 /**
  * Emit a TypeScript file for a single OCSF event class.
@@ -31,12 +38,13 @@ export function emitEventFile(
   event: ParsedEvent,
   allObjects: Map<string, ParsedObject>,
   versionSlug: string,
-  sharedEnums?: Set<string>,
+  sharedEnums?: Map<string, ParsedEnum>,
 ): string {
   const lines: string[] = [];
 
   // Detect which enums this event uses
   const enumRefs = detectEnumAttributes(event, sharedEnums);
+  const labelsName = `${event.className}Labels`;
 
   // Imports
   lines.push("import { z } from 'zod';");
@@ -72,10 +80,9 @@ export function emitEventFile(
   // Import enums for static properties
   if (enumRefs.length > 0) {
     for (const enumRef of enumRefs) {
-      if (enumRef.isEventSpecific) {
+      if (enumRef.fileName) {
         // Event-specific enum from enums directory
-        const fileName = `${toFileName(event.className)}_activity_id`;
-        lines.push(`import { ${enumRef.importName} } from '../enums/${fileName}.js';`);
+        lines.push(`import { ${enumRef.importName} } from '../enums/${enumRef.fileName}.js';`);
       } else {
         // Shared enum from enums/index
         lines.push(`import { ${enumRef.importName} } from '../enums/index.js';`);
@@ -113,23 +120,15 @@ export function emitEventFile(
 
   if (importedObjects.size > 0) lines.push("");
 
-  // Sibling pair constants
-  if (event.siblingPairs.length > 0) {
-    for (const pair of event.siblingPairs) {
-      const constName = `${toConstName(pair.idField)}_LABELS`;
-      lines.push(`const ${constName}: Record<number, string> = {`);
-      for (const val of pair.enumValues) {
-        lines.push(`  ${val.value}: ${JSON.stringify(val.caption)},`);
-      }
-      lines.push("};");
-      lines.push("");
-    }
+  // Value → label maps for every enum field on this event
+  emitLabelsMap(lines, labelsName, event.className, collectEnumFields(event.attributes));
 
+  // Sibling pairs (labels come from the labels map above)
+  if (event.siblingPairs.length > 0) {
     lines.push("const SIBLING_PAIRS: readonly SiblingPair[] = [");
     for (const pair of event.siblingPairs) {
-      const constName = `${toConstName(pair.idField)}_LABELS`;
       lines.push(
-        `  { idField: ${JSON.stringify(pair.idField)}, labelField: ${JSON.stringify(pair.labelField)}, labels: ${constName} },`,
+        `  { idField: ${JSON.stringify(pair.idField)}, labelField: ${JSON.stringify(pair.labelField)}, labels: ${labelsName}.${pair.idField} },`,
       );
     }
     lines.push("];");
@@ -221,6 +220,9 @@ export function emitEventFile(
   lines.push("  },");
   lines.push("");
   lines.push(`  schema: ${schemaName},`);
+  lines.push("");
+  lines.push("  // Value → label maps for every enum field");
+  lines.push(`  labels: ${labelsName},`);
 
   // Add static enum properties
   if (enumRefs.length > 0) {
@@ -297,27 +299,40 @@ function getTsTypeForInterface(
   return base;
 }
 
-/** Convert an attribute name to a SCREAMING_SNAKE_CASE constant name. */
-function toConstName(attrName: string): string {
-  return attrName.toUpperCase();
-}
-
 /**
- * Detect which enum attributes an event uses for static property exports.
- * Returns both shared enums (like SeverityId) and event-specific enums (like ActivityId).
+ * An enum exposed as a static property on an event's parser object.
  */
-interface EnumReference {
+export interface EnumReference {
   /** The attribute name, e.g., "severity_id" */
   attributeName: string;
   /** The enum name to import, e.g., "SeverityId" or "FileActivityActivityId" */
   importName: string;
   /** The property name to export, e.g., "SeverityId" or "ActivityId" */
   exportName: string;
-  /** Whether this is an event-specific enum that needs special import path */
-  isEventSpecific: boolean;
+  /**
+   * For event-specific enums, the file name (without extension) in the enums
+   * directory. Undefined for shared enums imported from the enums barrel.
+   */
+  fileName?: string;
+  /** For event-specific enums, the values to emit. */
+  values?: ParsedEnumValue[];
 }
 
-function detectEnumAttributes(event: ParsedEvent, sharedEnums?: Set<string>): EnumReference[] {
+/**
+ * Detect which enum attributes an event uses for static property exports.
+ *
+ * An attribute uses the shared enum (like SeverityId) when its values match the
+ * shared definition exactly. When the event defines its own values -- activity_id
+ * on every event class, or e.g. IncidentFinding.status_id (New/In Progress/...)
+ * versus the shared StatusId (Success/Failure) -- an event-specific enum is used
+ * instead (like IncidentFindingStatusId), still exported under the simple name.
+ *
+ * `sharedEnums` is keyed by enum name (e.g. "SeverityId").
+ */
+export function detectEnumAttributes(
+  event: ParsedEvent,
+  sharedEnums?: Map<string, ParsedEnum>,
+): EnumReference[] {
   const enumRefs: EnumReference[] = [];
 
   for (const attr of event.attributes) {
@@ -328,29 +343,29 @@ function detectEnumAttributes(event: ParsedEvent, sharedEnums?: Set<string>): En
 
     // Convert attribute name to enum name (e.g., "severity_id" -> "SeverityId")
     const enumBaseName = toClassName(attr.name);
+    const shared = sharedEnums?.get(enumBaseName);
 
-    // Check if this is an event-specific enum (has more than just UNKNOWN/OTHER)
-    const hasCustomValues = attr.enumValues.length > 2;
+    // activity_id with more than just UNKNOWN/OTHER is always event-specific
+    const isCustomActivity = attr.name === "activity_id" && attr.enumValues.length > 2;
 
-    if (attr.name === "activity_id" && hasCustomValues) {
-      // Event-specific activity_id enum
-      const eventSpecificName = `${event.className}ActivityId`;
-      enumRefs.push({
-        attributeName: attr.name,
-        importName: eventSpecificName,
-        exportName: "ActivityId", // Alias to simple name
-        isEventSpecific: true,
-      });
-    } else if (sharedEnums?.has(enumBaseName)) {
+    if (!isCustomActivity && shared && sameEnumValues(shared.values, attr.enumValues)) {
       // Shared enum that exists in the enums barrel
       enumRefs.push({
         attributeName: attr.name,
         importName: enumBaseName,
         exportName: enumBaseName,
-        isEventSpecific: false,
+      });
+    } else if (isCustomActivity || shared) {
+      // Event defines its own values for this attribute
+      enumRefs.push({
+        attributeName: attr.name,
+        importName: `${event.className}${enumBaseName}`,
+        exportName: enumBaseName,
+        fileName: `${toFileName(event.className)}_${attr.name}`,
+        values: attr.enumValues,
       });
     }
-    // If sharedEnums is not provided or enum doesn't exist, skip it
+    // If no shared enum exists, skip it (values are still in the labels map)
   }
 
   return enumRefs;

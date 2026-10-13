@@ -20,7 +20,7 @@ import type { TableType } from '../objects/table.js';
 
 import { DataSecurityFindingActivityId } from '../enums/data_security_finding_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
+import { DataSecurityFindingStatusId } from '../enums/data_security_finding_status_id.js';
 import { ConfidenceId } from '../enums/index.js';
 import { ImpactId } from '../enums/index.js';
 import { RiskLevelId } from '../enums/index.js';
@@ -155,70 +155,68 @@ import { File } from '../objects/file.js';
 import { ResourceDetails } from '../objects/resource_details.js';
 import { Table } from '../objects/table.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Update",
-  3: "Close",
-  4: "Suppressed",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "New",
-  2: "In Progress",
-  3: "Suppressed",
-  4: "Resolved",
-  5: "Archived",
-  6: "Deleted",
-  99: "Other",
-};
-
-const CONFIDENCE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  99: "Other",
-};
-
-const IMPACT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  4: "Critical",
-  99: "Other",
-};
-
-const RISK_LEVEL_ID_LABELS: Record<number, string> = {
-  0: "Info",
-  1: "Low",
-  2: "Medium",
-  3: "High",
-  4: "Critical",
-  99: "Other",
+/** Value → label mappings for each enum field of DataSecurityFinding. */
+export const DataSecurityFindingLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "confidence_id" | "impact_id" | "risk_level_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Update",
+    3: "Close",
+    4: "Suppressed",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "New",
+    2: "In Progress",
+    3: "Suppressed",
+    4: "Resolved",
+    5: "Archived",
+    6: "Deleted",
+    99: "Other",
+  },
+  confidence_id: {
+    0: "Unknown",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    99: "Other",
+  },
+  impact_id: {
+    0: "Unknown",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
+  risk_level_id: {
+    0: "Info",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "confidence_id", labelField: "confidence", labels: CONFIDENCE_ID_LABELS },
-  { idField: "impact_id", labelField: "impact", labels: IMPACT_ID_LABELS },
-  { idField: "risk_level_id", labelField: "risk_level", labels: RISK_LEVEL_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DataSecurityFindingLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DataSecurityFindingLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DataSecurityFindingLabels.status_id },
+  { idField: "confidence_id", labelField: "confidence", labels: DataSecurityFindingLabels.confidence_id },
+  { idField: "impact_id", labelField: "impact", labels: DataSecurityFindingLabels.impact_id },
+  { idField: "risk_level_id", labelField: "risk_level", labels: DataSecurityFindingLabels.risk_level_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -363,10 +361,13 @@ export const DataSecurityFinding = {
 
   schema: DataSecurityFindingSchema,
 
+  // Value → label maps for every enum field
+  labels: DataSecurityFindingLabels,
+
   // Static enum references for convenience
   ActivityId: DataSecurityFindingActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
+  StatusId: DataSecurityFindingStatusId,
   ConfidenceId: ConfidenceId,
   ImpactId: ImpactId,
   RiskLevelId: RiskLevelId,

@@ -17,7 +17,7 @@ import type { NetworkInterfaceType } from '../objects/network_interface.js';
 import { DhcpActivityActivityId } from '../enums/dhcp_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { ObservationPointId } from '../enums/index.js';
+import { DhcpActivityObservationPointId } from '../enums/dhcp_activity_observation_point_id.js';
 
 /**
  * DHCP Activity events report MAC to IP assignment via DHCP from a client or server.
@@ -127,52 +127,52 @@ import { NetworkProxy } from '../objects/network_proxy.js';
 import { Tls } from '../objects/tls.js';
 import { NetworkInterface } from '../objects/network_interface.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Discover",
-  2: "Offer",
-  3: "Request",
-  4: "Decline",
-  5: "Ack",
-  6: "Nak",
-  7: "Release",
-  8: "Inform",
-  9: "Expire",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const OBSERVATION_POINT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Source",
-  2: "Destination",
-  3: "Neither",
-  4: "Both",
-  99: "Other",
+/** Value → label mappings for each enum field of DhcpActivity. */
+export const DhcpActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "observation_point_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Discover",
+    2: "Offer",
+    3: "Request",
+    4: "Decline",
+    5: "Ack",
+    6: "Nak",
+    7: "Release",
+    8: "Inform",
+    9: "Expire",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  observation_point_id: {
+    0: "Unknown",
+    1: "Source",
+    2: "Destination",
+    3: "Neither",
+    4: "Both",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "observation_point_id", labelField: "observation_point", labels: OBSERVATION_POINT_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DhcpActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DhcpActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DhcpActivityLabels.status_id },
+  { idField: "observation_point_id", labelField: "observation_point", labels: DhcpActivityLabels.observation_point_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -299,9 +299,12 @@ export const DhcpActivity = {
 
   schema: DhcpActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: DhcpActivityLabels,
+
   // Static enum references for convenience
   ActivityId: DhcpActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  ObservationPointId: ObservationPointId,
+  ObservationPointId: DhcpActivityObservationPointId,
 } as const;

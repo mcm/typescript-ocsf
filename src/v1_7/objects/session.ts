@@ -64,3 +64,7 @@ const SessionSchema = z.strictObject({
 });
 
 export const Session = SessionSchema;
+
+/** Value → label mappings for each enum field of Session. */
+export const SessionLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

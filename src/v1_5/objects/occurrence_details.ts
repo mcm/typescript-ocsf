@@ -48,3 +48,7 @@ const OccurrenceDetailsSchema = z.strictObject({
 });
 
 export const OccurrenceDetails = OccurrenceDetailsSchema;
+
+/** Value → label mappings for each enum field of OccurrenceDetails. */
+export const OccurrenceDetailsLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

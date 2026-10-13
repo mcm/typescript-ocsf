@@ -24,3 +24,7 @@ const D3fTacticSchema = z.strictObject({
 });
 
 export const D3fTactic = D3fTacticSchema;
+
+/** Value → label mappings for each enum field of D3fTactic. */
+export const D3fTacticLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};
