@@ -36,3 +36,7 @@ const IdentityActivityMetricsSchema = z.strictObject({
 });
 
 export const IdentityActivityMetrics = IdentityActivityMetricsSchema;
+
+/** Value → label mappings for each enum field of IdentityActivityMetrics. */
+export const IdentityActivityMetricsLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

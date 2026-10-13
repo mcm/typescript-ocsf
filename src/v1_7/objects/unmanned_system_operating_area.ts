@@ -124,3 +124,14 @@ const UnmannedSystemOperatingAreaSchema = z.strictObject({
 });
 
 export const UnmannedSystemOperatingArea = UnmannedSystemOperatingAreaSchema;
+
+/** Value → label mappings for each enum field of UnmannedSystemOperatingArea. */
+export const UnmannedSystemOperatingAreaLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown/Undeclared",
+    1: "Takeoff Location",
+    2: "Fixed Location",
+    3: "Dynamic Location",
+    99: "Other",
+  },
+};

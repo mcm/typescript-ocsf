@@ -44,3 +44,7 @@ const TableSchema = z.strictObject({
 });
 
 export const Table = TableSchema;
+
+/** Value → label mappings for each enum field of Table. */
+export const TableLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

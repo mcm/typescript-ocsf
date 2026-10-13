@@ -52,3 +52,7 @@ const SpanSchema = z.strictObject({
 });
 
 export const Span = SpanSchema;
+
+/** Value → label mappings for each enum field of Span. */
+export const SpanLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

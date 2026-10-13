@@ -58,3 +58,7 @@ const CertificateSchema = z.strictObject({
 });
 
 export const Certificate = CertificateSchema;
+
+/** Value → label mappings for each enum field of Certificate. */
+export const CertificateLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

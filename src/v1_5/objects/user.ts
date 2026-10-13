@@ -102,3 +102,22 @@ const UserSchema = z.strictObject({
 });
 
 export const User = UserSchema;
+
+/** Value → label mappings for each enum field of User. */
+export const UserLabels: Readonly<Record<"risk_level_id" | "type_id", Readonly<Record<number, string>>>> = {
+  risk_level_id: {
+    0: "Info",
+    1: "Low",
+    2: "Medium",
+    3: "High",
+    4: "Critical",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "User",
+    2: "Admin",
+    3: "System",
+    99: "Other",
+  },
+};

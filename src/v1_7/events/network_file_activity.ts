@@ -18,7 +18,7 @@ import type { FileType } from '../objects/file.js';
 import { NetworkFileActivityActivityId } from '../enums/network_file_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { ObservationPointId } from '../enums/index.js';
+import { NetworkFileActivityObservationPointId } from '../enums/network_file_activity_observation_point_id.js';
 
 /**
  * Network File Activity events report file activities traversing the network, including file storage services such as Box, MS OneDrive, or Google Drive.
@@ -127,59 +127,59 @@ import { Tls } from '../objects/tls.js';
 import { Actor } from '../objects/actor.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Upload",
-  2: "Download",
-  3: "Update",
-  4: "Delete",
-  5: "Rename",
-  6: "Copy",
-  7: "Move",
-  8: "Restore",
-  9: "Preview",
-  10: "Lock",
-  11: "Unlock",
-  12: "Share",
-  13: "Unshare",
-  14: "Open",
-  15: "Sync",
-  16: "Unsync",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const OBSERVATION_POINT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Source",
-  2: "Destination",
-  3: "Neither",
-  4: "Both",
-  99: "Other",
+/** Value → label mappings for each enum field of NetworkFileActivity. */
+export const NetworkFileActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "observation_point_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Upload",
+    2: "Download",
+    3: "Update",
+    4: "Delete",
+    5: "Rename",
+    6: "Copy",
+    7: "Move",
+    8: "Restore",
+    9: "Preview",
+    10: "Lock",
+    11: "Unlock",
+    12: "Share",
+    13: "Unshare",
+    14: "Open",
+    15: "Sync",
+    16: "Unsync",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  observation_point_id: {
+    0: "Unknown",
+    1: "Source",
+    2: "Destination",
+    3: "Neither",
+    4: "Both",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "observation_point_id", labelField: "observation_point", labels: OBSERVATION_POINT_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: NetworkFileActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: NetworkFileActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: NetworkFileActivityLabels.status_id },
+  { idField: "observation_point_id", labelField: "observation_point", labels: NetworkFileActivityLabels.observation_point_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -304,9 +304,12 @@ export const NetworkFileActivity = {
 
   schema: NetworkFileActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: NetworkFileActivityLabels,
+
   // Static enum references for convenience
   ActivityId: NetworkFileActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  ObservationPointId: ObservationPointId,
+  ObservationPointId: NetworkFileActivityObservationPointId,
 } as const;

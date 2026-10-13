@@ -24,3 +24,7 @@ const ExtensionSchema = z.strictObject({
 });
 
 export const Extension = ExtensionSchema;
+
+/** Value → label mappings for each enum field of Extension. */
+export const ExtensionLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -114,45 +114,46 @@ import { AuthFactor } from '../objects/auth_factor.js';
 import { Policy } from '../objects/policy.js';
 import { User } from '../objects/user.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Enable",
-  3: "Password Change",
-  4: "Password Reset",
-  5: "Disable",
-  6: "Delete",
-  7: "Attach Policy",
-  8: "Detach Policy",
-  9: "Lock",
-  10: "MFA Factor Enable",
-  11: "MFA Factor Disable",
-  12: "Unlock",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of AccountChange. */
+export const AccountChangeLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Enable",
+    3: "Password Change",
+    4: "Password Reset",
+    5: "Disable",
+    6: "Delete",
+    7: "Attach Policy",
+    8: "Detach Policy",
+    9: "Lock",
+    10: "MFA Factor Enable",
+    11: "MFA Factor Disable",
+    12: "Unlock",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: AccountChangeLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: AccountChangeLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: AccountChangeLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -266,6 +267,9 @@ export const AccountChange = {
   },
 
   schema: AccountChangeSchema,
+
+  // Value → label maps for every enum field
+  labels: AccountChangeLabels,
 
   // Static enum references for convenience
   ActivityId: AccountChangeActivityId,

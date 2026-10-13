@@ -20,3 +20,7 @@ const MetricSchema = z.strictObject({
 });
 
 export const Metric = MetricSchema;
+
+/** Value → label mappings for each enum field of Metric. */
+export const MetricLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

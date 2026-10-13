@@ -18,8 +18,8 @@ import type { FileType } from '../objects/file.js';
 import { SshActivityActivityId } from '../enums/ssh_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { ObservationPointId } from '../enums/index.js';
-import { AuthTypeId } from '../enums/index.js';
+import { SshActivityObservationPointId } from '../enums/ssh_activity_observation_point_id.js';
+import { SshActivityAuthTypeId } from '../enums/ssh_activity_auth_type_id.js';
 
 /**
  * SSH Activity events report remote client connections to a server using the Secure Shell (SSH) Protocol.
@@ -134,62 +134,61 @@ import { Tls } from '../objects/tls.js';
 import { Hassh } from '../objects/hassh.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Open",
-  2: "Close",
-  3: "Reset",
-  4: "Fail",
-  5: "Refuse",
-  6: "Traffic",
-  7: "Listen",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const OBSERVATION_POINT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Source",
-  2: "Destination",
-  3: "Neither",
-  4: "Both",
-  99: "Other",
-};
-
-const AUTH_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Certificate Based",
-  2: "GSSAPI",
-  3: "Host Based",
-  4: "Keyboard Interactive",
-  5: "Password",
-  6: "Public Key",
-  99: "Other",
+/** Value → label mappings for each enum field of SshActivity. */
+export const SshActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "observation_point_id" | "auth_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Open",
+    2: "Close",
+    3: "Reset",
+    4: "Fail",
+    5: "Refuse",
+    6: "Traffic",
+    7: "Listen",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  observation_point_id: {
+    0: "Unknown",
+    1: "Source",
+    2: "Destination",
+    3: "Neither",
+    4: "Both",
+    99: "Other",
+  },
+  auth_type_id: {
+    0: "Unknown",
+    1: "Certificate Based",
+    2: "GSSAPI",
+    3: "Host Based",
+    4: "Keyboard Interactive",
+    5: "Password",
+    6: "Public Key",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "observation_point_id", labelField: "observation_point", labels: OBSERVATION_POINT_ID_LABELS },
-  { idField: "auth_type_id", labelField: "auth_type", labels: AUTH_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: SshActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: SshActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: SshActivityLabels.status_id },
+  { idField: "observation_point_id", labelField: "observation_point", labels: SshActivityLabels.observation_point_id },
+  { idField: "auth_type_id", labelField: "auth_type", labels: SshActivityLabels.auth_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -320,10 +319,13 @@ export const SshActivity = {
 
   schema: SshActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: SshActivityLabels,
+
   // Static enum references for convenience
   ActivityId: SshActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  ObservationPointId: ObservationPointId,
-  AuthTypeId: AuthTypeId,
+  ObservationPointId: SshActivityObservationPointId,
+  AuthTypeId: SshActivityAuthTypeId,
 } as const;

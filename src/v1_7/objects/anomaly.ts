@@ -32,3 +32,7 @@ const AnomalySchema = z.strictObject({
 });
 
 export const Anomaly = AnomalySchema;
+
+/** Value → label mappings for each enum field of Anomaly. */
+export const AnomalyLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

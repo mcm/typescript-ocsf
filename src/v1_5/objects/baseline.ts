@@ -32,3 +32,7 @@ const BaselineSchema = z.strictObject({
 });
 
 export const Baseline = BaselineSchema;
+
+/** Value → label mappings for each enum field of Baseline. */
+export const BaselineLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -139,48 +139,48 @@ import { DceRpc } from '../objects/dce_rpc.js';
 import { File } from '../objects/file.js';
 import { Response } from '../objects/response.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "File Supersede",
-  2: "File Open",
-  3: "File Create",
-  4: "File Open If",
-  5: "File Overwrite",
-  6: "File Overwrite If",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const SHARE_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "File",
-  2: "Pipe",
-  3: "Print",
-  99: "Other",
+/** Value → label mappings for each enum field of SmbActivity. */
+export const SmbActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "share_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "File Supersede",
+    2: "File Open",
+    3: "File Create",
+    4: "File Open If",
+    5: "File Overwrite",
+    6: "File Overwrite If",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  share_type_id: {
+    0: "Unknown",
+    1: "File",
+    2: "Pipe",
+    3: "Print",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "share_type_id", labelField: "share_type", labels: SHARE_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: SmbActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: SmbActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: SmbActivityLabels.status_id },
+  { idField: "share_type_id", labelField: "share_type", labels: SmbActivityLabels.share_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -314,6 +314,9 @@ export const SmbActivity = {
   },
 
   schema: SmbActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: SmbActivityLabels,
 
   // Static enum references for convenience
   ActivityId: SmbActivityActivityId,

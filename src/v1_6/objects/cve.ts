@@ -78,3 +78,7 @@ const CveSchema = z.strictObject({
 });
 
 export const Cve = CveSchema;
+
+/** Value → label mappings for each enum field of Cve. */
+export const CveLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

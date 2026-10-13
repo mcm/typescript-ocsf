@@ -106,3 +106,17 @@ const RelatedEventSchema = z.strictObject({
 });
 
 export const RelatedEvent = RelatedEventSchema;
+
+/** Value → label mappings for each enum field of RelatedEvent. */
+export const RelatedEventLabels: Readonly<Record<"severity_id", Readonly<Record<number, string>>>> = {
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+};

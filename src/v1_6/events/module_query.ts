@@ -99,45 +99,45 @@ import { QueryInfo } from '../objects/query_info.js';
 import { Module } from '../objects/module.js';
 import { Process } from '../objects/process.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Query",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const QUERY_RESULT_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Exists",
-  2: "Partial",
-  3: "Does not exist",
-  4: "Error",
-  5: "Unsupported",
-  99: "Other",
+/** Value → label mappings for each enum field of ModuleQuery. */
+export const ModuleQueryLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "query_result_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Query",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  query_result_id: {
+    0: "Unknown",
+    1: "Exists",
+    2: "Partial",
+    3: "Does not exist",
+    4: "Error",
+    5: "Unsupported",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "query_result_id", labelField: "query_result", labels: QUERY_RESULT_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ModuleQueryLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ModuleQueryLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ModuleQueryLabels.status_id },
+  { idField: "query_result_id", labelField: "query_result", labels: ModuleQueryLabels.query_result_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -243,6 +243,9 @@ export const ModuleQuery = {
   },
 
   schema: ModuleQuerySchema,
+
+  // Value → label maps for every enum field
+  labels: ModuleQueryLabels,
 
   // Static enum references for convenience
   ActivityId: ModuleQueryActivityId,

@@ -105,51 +105,51 @@ import { Device } from '../objects/device.js';
 import { NetworkEndpoint } from '../objects/network_endpoint.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Clear",
-  2: "Delete",
-  3: "Export",
-  4: "Archive",
-  5: "Rotate",
-  6: "Start",
-  7: "Stop",
-  8: "Restart",
-  9: "Enable",
-  10: "Disable",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const LOG_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "OS",
-  2: "Application",
-  99: "Other",
+/** Value → label mappings for each enum field of EventLogActvity. */
+export const EventLogActvityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "log_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Clear",
+    2: "Delete",
+    3: "Export",
+    4: "Archive",
+    5: "Rotate",
+    6: "Start",
+    7: "Stop",
+    8: "Restart",
+    9: "Enable",
+    10: "Disable",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  log_type_id: {
+    0: "Unknown",
+    1: "OS",
+    2: "Application",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "log_type_id", labelField: "log_type", labels: LOG_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: EventLogActvityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: EventLogActvityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: EventLogActvityLabels.status_id },
+  { idField: "log_type_id", labelField: "log_type", labels: EventLogActvityLabels.log_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -261,6 +261,9 @@ export const EventLogActvity = {
   },
 
   schema: EventLogActvitySchema,
+
+  // Value → label maps for every enum field
+  labels: EventLogActvityLabels,
 
   // Static enum references for convenience
   ActivityId: EventLogActvityActivityId,

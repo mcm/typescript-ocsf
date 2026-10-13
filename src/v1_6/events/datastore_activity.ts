@@ -18,7 +18,7 @@ import type { TableType } from '../objects/table.js';
 import { DatastoreActivityActivityId } from '../enums/datastore_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
 import { StatusId } from '../enums/index.js';
-import { TypeId } from '../enums/index.js';
+import { DatastoreActivityTypeId } from '../enums/datastore_activity_type_id.js';
 
 /**
  * Datastore events describe general activities (Read, Update, Query, Delete, etc.) which affect datastores or data within those datastores, e.g. (AWS RDS, AWS S3).
@@ -121,52 +121,52 @@ import { HttpResponse } from '../objects/http_response.js';
 import { QueryInfo } from '../objects/query_info.js';
 import { Table } from '../objects/table.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Read",
-  2: "Update",
-  3: "Connect",
-  4: "Query",
-  5: "Write",
-  6: "Create",
-  7: "Delete",
-  8: "List",
-  9: "Encrypt",
-  10: "Decrypt",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Database",
-  2: "Databucket",
-  3: "Table",
-  99: "Other",
+/** Value → label mappings for each enum field of DatastoreActivity. */
+export const DatastoreActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Read",
+    2: "Update",
+    3: "Connect",
+    4: "Query",
+    5: "Write",
+    6: "Create",
+    7: "Delete",
+    8: "List",
+    9: "Encrypt",
+    10: "Decrypt",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Database",
+    2: "Databucket",
+    3: "Table",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "type_id", labelField: "type", labels: TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DatastoreActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DatastoreActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DatastoreActivityLabels.status_id },
+  { idField: "type_id", labelField: "type", labels: DatastoreActivityLabels.type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -285,9 +285,12 @@ export const DatastoreActivity = {
 
   schema: DatastoreActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: DatastoreActivityLabels,
+
   // Static enum references for convenience
   ActivityId: DatastoreActivityActivityId,
   SeverityId: SeverityId,
   StatusId: StatusId,
-  TypeId: TypeId,
+  TypeId: DatastoreActivityTypeId,
 } as const;

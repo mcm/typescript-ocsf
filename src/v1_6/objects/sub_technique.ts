@@ -24,3 +24,7 @@ const SubTechniqueSchema = z.strictObject({
 });
 
 export const SubTechnique = SubTechniqueSchema;
+
+/** Value → label mappings for each enum field of SubTechnique. */
+export const SubTechniqueLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

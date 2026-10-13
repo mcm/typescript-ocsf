@@ -82,3 +82,12 @@ const ComplianceSchema = z.strictObject({
 });
 
 export const Compliance = ComplianceSchema;
+
+/** Value → label mappings for each enum field of Compliance. */
+export const ComplianceLabels: Readonly<Record<"status_id", Readonly<Record<number, string>>>> = {
+  status_id: {
+    1: "Pass",
+    2: "Warning",
+    3: "Fail",
+  },
+};

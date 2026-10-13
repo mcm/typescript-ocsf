@@ -40,3 +40,7 @@ const ProcessEntitySchema = z.strictObject({
 });
 
 export const ProcessEntity = ProcessEntitySchema;
+
+/** Value → label mappings for each enum field of ProcessEntity. */
+export const ProcessEntityLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

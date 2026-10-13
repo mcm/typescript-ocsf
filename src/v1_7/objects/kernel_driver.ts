@@ -20,3 +20,7 @@ const KernelDriverSchema = z.strictObject({
 });
 
 export const KernelDriver = KernelDriverSchema;
+
+/** Value → label mappings for each enum field of KernelDriver. */
+export const KernelDriverLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

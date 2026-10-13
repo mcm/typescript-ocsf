@@ -12,3 +12,7 @@ const OcsfObjectSchema = z.strictObject({
 });
 
 export const OcsfObject = OcsfObjectSchema;
+
+/** Value → label mappings for each enum field of OcsfObject. */
+export const OcsfObjectLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

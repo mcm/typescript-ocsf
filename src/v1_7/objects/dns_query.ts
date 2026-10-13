@@ -36,3 +36,17 @@ const DnsQuerySchema = z.strictObject({
 });
 
 export const DnsQuery = DnsQuerySchema;
+
+/** Value → label mappings for each enum field of DnsQuery. */
+export const DnsQueryLabels: Readonly<Record<"opcode_id", Readonly<Record<number, string>>>> = {
+  opcode_id: {
+    0: "Query",
+    1: "Inverse Query",
+    2: "Status",
+    3: "Reserved",
+    4: "Notify",
+    5: "Update",
+    6: "DSO Message",
+    99: "Other",
+  },
+};

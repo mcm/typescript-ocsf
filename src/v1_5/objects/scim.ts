@@ -92,3 +92,31 @@ const ScimSchema = z.strictObject({
 });
 
 export const Scim = ScimSchema;
+
+/** Value → label mappings for each enum field of Scim. */
+export const ScimLabels: Readonly<Record<"auth_protocol_id" | "state_id", Readonly<Record<number, string>>>> = {
+  auth_protocol_id: {
+    0: "Unknown",
+    1: "NTLM",
+    2: "Kerberos",
+    3: "Digest",
+    4: "OpenID",
+    5: "SAML",
+    6: "OAUTH 2.0",
+    7: "PAP",
+    8: "CHAP",
+    9: "EAP",
+    10: "RADIUS",
+    11: "Basic Authentication",
+    12: "LDAP",
+    99: "Other",
+  },
+  state_id: {
+    0: "Unknown",
+    1: "Pending",
+    2: "Active",
+    3: "Failed",
+    4: "Deleted",
+    99: "Other",
+  },
+};

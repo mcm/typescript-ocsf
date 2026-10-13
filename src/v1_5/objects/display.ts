@@ -32,3 +32,7 @@ const DisplaySchema = z.strictObject({
 });
 
 export const Display = DisplaySchema;
+
+/** Value → label mappings for each enum field of Display. */
+export const DisplayLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

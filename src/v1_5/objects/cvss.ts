@@ -52,3 +52,7 @@ const CvssSchema = z.strictObject({
 });
 
 export const Cvss = CvssSchema;
+
+/** Value → label mappings for each enum field of Cvss. */
+export const CvssLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

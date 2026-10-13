@@ -56,3 +56,7 @@ const ActorSchema = z.strictObject({
 });
 
 export const Actor = ActorSchema;
+
+/** Value → label mappings for each enum field of Actor. */
+export const ActorLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

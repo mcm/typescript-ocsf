@@ -30,3 +30,7 @@ const D3fendSchema = z.strictObject({
 });
 
 export const D3fend = D3fendSchema;
+
+/** Value → label mappings for each enum field of D3fend. */
+export const D3fendLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

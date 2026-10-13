@@ -36,3 +36,7 @@ const RuleSchema = z.strictObject({
 });
 
 export const Rule = RuleSchema;
+
+/** Value → label mappings for each enum field of Rule. */
+export const RuleLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

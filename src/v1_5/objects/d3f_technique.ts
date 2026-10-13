@@ -24,3 +24,7 @@ const D3fTechniqueSchema = z.strictObject({
 });
 
 export const D3fTechnique = D3fTechniqueSchema;
+
+/** Value → label mappings for each enum field of D3fTechnique. */
+export const D3fTechniqueLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

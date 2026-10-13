@@ -132,44 +132,44 @@ import { Session } from '../objects/session.js';
 import { NetworkInterface } from '../objects/network_interface.js';
 import { User } from '../objects/user.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Open",
-  2: "Close",
-  3: "Renew",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const TUNNEL_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Split Tunnel",
-  2: "Full Tunnel",
-  99: "Other",
+/** Value → label mappings for each enum field of TunnelActivity. */
+export const TunnelActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "tunnel_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Open",
+    2: "Close",
+    3: "Renew",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  tunnel_type_id: {
+    0: "Unknown",
+    1: "Split Tunnel",
+    2: "Full Tunnel",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "tunnel_type_id", labelField: "tunnel_type", labels: TUNNEL_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: TunnelActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: TunnelActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: TunnelActivityLabels.status_id },
+  { idField: "tunnel_type_id", labelField: "tunnel_type", labels: TunnelActivityLabels.tunnel_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -295,6 +295,9 @@ export const TunnelActivity = {
   },
 
   schema: TunnelActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: TunnelActivityLabels,
 
   // Static enum references for convenience
   ActivityId: TunnelActivityActivityId,

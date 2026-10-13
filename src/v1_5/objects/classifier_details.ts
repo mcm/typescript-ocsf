@@ -24,3 +24,7 @@ const ClassifierDetailsSchema = z.strictObject({
 });
 
 export const ClassifierDetails = ClassifierDetailsSchema;
+
+/** Value → label mappings for each enum field of ClassifierDetails. */
+export const ClassifierDetailsLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

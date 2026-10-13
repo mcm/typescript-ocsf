@@ -28,3 +28,7 @@ const ObservationSchema = z.strictObject({
 });
 
 export const Observation = ObservationSchema;
+
+/** Value → label mappings for each enum field of Observation. */
+export const ObservationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

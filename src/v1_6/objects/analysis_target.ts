@@ -20,3 +20,7 @@ const AnalysisTargetSchema = z.strictObject({
 });
 
 export const AnalysisTarget = AnalysisTargetSchema;
+
+/** Value → label mappings for each enum field of AnalysisTarget. */
+export const AnalysisTargetLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

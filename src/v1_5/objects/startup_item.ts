@@ -68,3 +68,41 @@ const StartupItemSchema = z.strictObject({
 });
 
 export const StartupItem = StartupItemSchema;
+
+/** Value → label mappings for each enum field of StartupItem. */
+export const StartupItemLabels: Readonly<Record<"run_state_id" | "start_type_id" | "type_id", Readonly<Record<number, string>>>> = {
+  run_state_id: {
+    1: "Stopped",
+    2: "Start Pending",
+    3: "Stop Pending",
+    4: "Running",
+    5: "Continue Pending",
+    6: "Pause Pending",
+    7: "Paused",
+    8: "Restart Pending",
+  },
+  start_type_id: {
+    0: "Unknown",
+    1: "Auto",
+    2: "Boot",
+    3: "On Demand",
+    4: "Disabled",
+    5: "All Logins",
+    6: "Specific User Login",
+    7: "Scheduled",
+    8: "System Changed",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Kernel Mode Driver",
+    2: "User Mode Driver",
+    3: "Service",
+    4: "User Mode Application",
+    5: "Autoload",
+    6: "System Extension",
+    7: "Kernel Extension",
+    8: "Scheduled Job, Task",
+    99: "Other",
+  },
+};

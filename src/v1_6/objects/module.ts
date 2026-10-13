@@ -44,3 +44,14 @@ const ModuleSchema = z.strictObject({
 });
 
 export const Module = ModuleSchema;
+
+/** Value → label mappings for each enum field of Module. */
+export const ModuleLabels: Readonly<Record<"load_type_id", Readonly<Record<number, string>>>> = {
+  load_type_id: {
+    1: "Standard",
+    2: "Non Standard",
+    3: "ShellCode",
+    4: "Mapped",
+    5: "NonStandard Backed",
+  },
+};

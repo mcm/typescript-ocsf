@@ -78,3 +78,15 @@ const IdpSchema = z.strictObject({
 });
 
 export const Idp = IdpSchema;
+
+/** Value → label mappings for each enum field of Idp. */
+export const IdpLabels: Readonly<Record<"state_id", Readonly<Record<number, string>>>> = {
+  state_id: {
+    0: "Unknown",
+    1: "Active",
+    2: "Suspended",
+    3: "Deprecated",
+    4: "Deleted",
+    99: "Other",
+  },
+};

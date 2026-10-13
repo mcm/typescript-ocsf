@@ -113,59 +113,59 @@ import { NetworkConnectionInfo } from '../objects/network_connection_info.js';
 import { NetworkEndpoint } from '../objects/network_endpoint.js';
 import { File } from '../objects/file.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Upload",
-  2: "Download",
-  3: "Update",
-  4: "Delete",
-  5: "Rename",
-  6: "Copy",
-  7: "Move",
-  8: "Restore",
-  9: "Preview",
-  10: "Lock",
-  11: "Unlock",
-  12: "Share",
-  13: "Unshare",
-  14: "Open",
-  15: "Sync",
-  16: "Unsync",
-  17: "Access Check",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const SHARE_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "File",
-  2: "Pipe",
-  3: "Print",
-  99: "Other",
+/** Value → label mappings for each enum field of FileHosting. */
+export const FileHostingLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "share_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Upload",
+    2: "Download",
+    3: "Update",
+    4: "Delete",
+    5: "Rename",
+    6: "Copy",
+    7: "Move",
+    8: "Restore",
+    9: "Preview",
+    10: "Lock",
+    11: "Unlock",
+    12: "Share",
+    13: "Unshare",
+    14: "Open",
+    15: "Sync",
+    16: "Unsync",
+    17: "Access Check",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  share_type_id: {
+    0: "Unknown",
+    1: "File",
+    2: "Pipe",
+    3: "Print",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "share_type_id", labelField: "share_type", labels: SHARE_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: FileHostingLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: FileHostingLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: FileHostingLabels.status_id },
+  { idField: "share_type_id", labelField: "share_type", labels: FileHostingLabels.share_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -285,6 +285,9 @@ export const FileHosting = {
   },
 
   schema: FileHostingSchema,
+
+  // Value → label maps for every enum field
+  labels: FileHostingLabels,
 
   // Static enum references for convenience
   ActivityId: FileHostingActivityId,

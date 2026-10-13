@@ -38,3 +38,7 @@ const PermissionAnalysisResultSchema = z.strictObject({
 });
 
 export const PermissionAnalysisResult = PermissionAnalysisResultSchema;
+
+/** Value → label mappings for each enum field of PermissionAnalysisResult. */
+export const PermissionAnalysisResultLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

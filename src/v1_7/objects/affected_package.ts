@@ -98,3 +98,11 @@ const AffectedPackageSchema = z.strictObject({
 });
 
 export const AffectedPackage = AffectedPackageSchema;
+
+/** Value → label mappings for each enum field of AffectedPackage. */
+export const AffectedPackageLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "Application",
+    2: "Operating System",
+  },
+};

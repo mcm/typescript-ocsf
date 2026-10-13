@@ -40,3 +40,7 @@ const EdgeSchema = z.strictObject({
 });
 
 export const Edge = EdgeSchema;
+
+/** Value → label mappings for each enum field of Edge. */
+export const EdgeLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

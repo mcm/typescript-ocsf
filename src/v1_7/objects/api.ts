@@ -46,3 +46,7 @@ const ApiSchema = z.strictObject({
 });
 
 export const Api = ApiSchema;
+
+/** Value → label mappings for each enum field of Api. */
+export const ApiLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

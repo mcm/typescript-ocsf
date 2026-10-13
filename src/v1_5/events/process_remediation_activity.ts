@@ -12,7 +12,7 @@ import type { ProcessType } from '../objects/process.js';
 
 import { ProcessRemediationActivityActivityId } from '../enums/process_remediation_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
+import { ProcessRemediationActivityStatusId } from '../enums/process_remediation_activity_status_id.js';
 
 /**
  * Process Remediation Activity events report on attempts at remediating processes. It follows the MITRE countermeasures defined by the D3FEND™ <a target='_blank' href='https://d3fend.mitre.org/'>Matrix</a>. Sub-techniques will include Process, such as Process Termination or Kernel-based Process Isolation.
@@ -96,42 +96,43 @@ import { Remediation } from '../objects/remediation.js';
 import { Scan } from '../objects/scan.js';
 import { Process } from '../objects/process.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Isolate",
-  2: "Evict",
-  3: "Restore",
-  4: "Harden",
-  5: "Detect",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  3: "Does Not Exist",
-  4: "Partial",
-  5: "Unsupported",
-  6: "Error",
-  99: "Other",
+/** Value → label mappings for each enum field of ProcessRemediationActivity. */
+export const ProcessRemediationActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Isolate",
+    2: "Evict",
+    3: "Restore",
+    4: "Harden",
+    5: "Detect",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    3: "Does Not Exist",
+    4: "Partial",
+    5: "Unsupported",
+    6: "Error",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ProcessRemediationActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ProcessRemediationActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ProcessRemediationActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -236,8 +237,11 @@ export const ProcessRemediationActivity = {
 
   schema: ProcessRemediationActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: ProcessRemediationActivityLabels,
+
   // Static enum references for convenience
   ActivityId: ProcessRemediationActivityActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
+  StatusId: ProcessRemediationActivityStatusId,
 } as const;

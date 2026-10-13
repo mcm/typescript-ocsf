@@ -46,3 +46,7 @@ const CloudSchema = z.strictObject({
 });
 
 export const Cloud = CloudSchema;
+
+/** Value → label mappings for each enum field of Cloud. */
+export const CloudLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

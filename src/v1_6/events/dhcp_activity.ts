@@ -120,42 +120,43 @@ import { Tls } from '../objects/tls.js';
 import { NetworkTraffic } from '../objects/network_traffic.js';
 import { NetworkInterface } from '../objects/network_interface.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Discover",
-  2: "Offer",
-  3: "Request",
-  4: "Decline",
-  5: "Ack",
-  6: "Nak",
-  7: "Release",
-  8: "Inform",
-  9: "Expire",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of DhcpActivity. */
+export const DhcpActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Discover",
+    2: "Offer",
+    3: "Request",
+    4: "Decline",
+    5: "Ack",
+    6: "Nak",
+    7: "Release",
+    8: "Inform",
+    9: "Expire",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DhcpActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DhcpActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DhcpActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -275,6 +276,9 @@ export const DhcpActivity = {
   },
 
   schema: DhcpActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: DhcpActivityLabels,
 
   // Static enum references for convenience
   ActivityId: DhcpActivityActivityId,

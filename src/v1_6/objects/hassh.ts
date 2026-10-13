@@ -24,3 +24,7 @@ const HasshSchema = z.strictObject({
 });
 
 export const Hassh = HasshSchema;
+
+/** Value → label mappings for each enum field of Hassh. */
+export const HasshLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

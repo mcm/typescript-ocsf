@@ -20,3 +20,7 @@ const HttpHeaderSchema = z.strictObject({
 });
 
 export const HttpHeader = HttpHeaderSchema;
+
+/** Value → label mappings for each enum field of HttpHeader. */
+export const HttpHeaderLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -40,3 +40,7 @@ const TransformationInfoSchema = z.strictObject({
 });
 
 export const TransformationInfo = TransformationInfoSchema;
+
+/** Value → label mappings for each enum field of TransformationInfo. */
+export const TransformationInfoLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

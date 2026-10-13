@@ -106,41 +106,42 @@ import { HttpResponse } from '../objects/http_response.js';
 import { Tls } from '../objects/tls.js';
 import { WebResource } from '../objects/web_resource.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Read",
-  3: "Update",
-  4: "Delete",
-  5: "Search",
-  6: "Import",
-  7: "Export",
-  8: "Share",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of WebResourcesActivity. */
+export const WebResourcesActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Read",
+    3: "Update",
+    4: "Delete",
+    5: "Search",
+    6: "Import",
+    7: "Export",
+    8: "Share",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: WebResourcesActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: WebResourcesActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: WebResourcesActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -250,6 +251,9 @@ export const WebResourcesActivity = {
   },
 
   schema: WebResourcesActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: WebResourcesActivityLabels,
 
   // Static enum references for convenience
   ActivityId: WebResourcesActivityActivityId,

@@ -24,3 +24,28 @@ const FingerprintSchema = z.strictObject({
 });
 
 export const Fingerprint = FingerprintSchema;
+
+/** Value → label mappings for each enum field of Fingerprint. */
+export const FingerprintLabels: Readonly<Record<"algorithm_id", Readonly<Record<number, string>>>> = {
+  algorithm_id: {
+    0: "Unknown",
+    1: "MD5",
+    2: "SHA-1",
+    3: "SHA-256",
+    4: "SHA-512",
+    5: "CTPH",
+    6: "TLSH",
+    7: "quickXorHash",
+    8: "SHA-224",
+    9: "SHA-384",
+    10: "SHA-512/224",
+    11: "SHA-512/256",
+    12: "SHA3-224",
+    13: "SHA3-256",
+    14: "SHA3-384",
+    15: "SHA3-512",
+    16: "xxHash H3 64-bit",
+    17: "xxHash H3 128-bit",
+    99: "Other",
+  },
+};

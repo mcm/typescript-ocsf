@@ -68,3 +68,35 @@ const NetworkConnectionInfoSchema = z.strictObject({
 });
 
 export const NetworkConnectionInfo = NetworkConnectionInfoSchema;
+
+/** Value → label mappings for each enum field of NetworkConnectionInfo. */
+export const NetworkConnectionInfoLabels: Readonly<Record<"boundary_id" | "direction_id" | "protocol_ver_id", Readonly<Record<number, string>>>> = {
+  boundary_id: {
+    0: "Unknown",
+    1: "Localhost",
+    2: "Internal",
+    3: "External",
+    4: "Same VPC",
+    5: "Internet/VPC Gateway",
+    6: "Virtual Private Gateway",
+    7: "Intra-region VPC",
+    8: "Inter-region VPC",
+    9: "Local Gateway",
+    10: "Gateway VPC",
+    11: "Internet Gateway",
+    99: "Other",
+  },
+  direction_id: {
+    0: "Unknown",
+    1: "Inbound",
+    2: "Outbound",
+    3: "Lateral",
+    99: "Other",
+  },
+  protocol_ver_id: {
+    0: "Unknown",
+    4: "Internet Protocol version 4 (IPv4)",
+    6: "Internet Protocol version 6 (IPv6)",
+    99: "Other",
+  },
+};

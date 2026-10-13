@@ -32,3 +32,7 @@ const MitigationSchema = z.strictObject({
 });
 
 export const Mitigation = MitigationSchema;
+
+/** Value → label mappings for each enum field of Mitigation. */
+export const MitigationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

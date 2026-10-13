@@ -52,3 +52,7 @@ const ProductSchema = z.strictObject({
 });
 
 export const Product = ProductSchema;
+
+/** Value → label mappings for each enum field of Product. */
+export const ProductLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

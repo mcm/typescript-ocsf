@@ -32,3 +32,7 @@ const NodeSchema = z.strictObject({
 });
 
 export const Node = NodeSchema;
+
+/** Value → label mappings for each enum field of Node. */
+export const NodeLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

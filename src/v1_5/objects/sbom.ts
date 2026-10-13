@@ -52,3 +52,12 @@ const SbomSchema = z.strictObject({
 });
 
 export const Sbom = SbomSchema;
+
+/** Value → label mappings for each enum field of Sbom. */
+export const SbomLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "SPDX",
+    2: "CycloneDX",
+    3: "SWID",
+  },
+};

@@ -84,3 +84,11 @@ const PackageSchema = z.strictObject({
 });
 
 export const Package = PackageSchema;
+
+/** Value → label mappings for each enum field of Package. */
+export const PackageLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "Application",
+    2: "Operating System",
+  },
+};

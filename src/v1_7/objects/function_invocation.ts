@@ -28,3 +28,7 @@ const FunctionInvocationSchema = z.strictObject({
 });
 
 export const FunctionInvocation = FunctionInvocationSchema;
+
+/** Value → label mappings for each enum field of FunctionInvocation. */
+export const FunctionInvocationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

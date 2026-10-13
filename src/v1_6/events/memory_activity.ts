@@ -102,42 +102,43 @@ import { Actor } from '../objects/actor.js';
 import { Device } from '../objects/device.js';
 import { Process } from '../objects/process.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Allocate Page",
-  2: "Modify Page",
-  3: "Delete Page",
-  4: "Buffer Overflow",
-  5: "Disable DEP",
-  6: "Enable DEP",
-  7: "Read",
-  8: "Write",
-  9: "Map View",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of MemoryActivity. */
+export const MemoryActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Allocate Page",
+    2: "Modify Page",
+    3: "Delete Page",
+    4: "Buffer Overflow",
+    5: "Disable DEP",
+    6: "Enable DEP",
+    7: "Read",
+    8: "Write",
+    9: "Map View",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: MemoryActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: MemoryActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: MemoryActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -247,6 +248,9 @@ export const MemoryActivity = {
   },
 
   schema: MemoryActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: MemoryActivityLabels,
 
   // Static enum references for convenience
   ActivityId: MemoryActivityActivityId,

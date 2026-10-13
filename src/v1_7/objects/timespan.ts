@@ -60,3 +60,20 @@ const TimespanSchema = z.strictObject({
 });
 
 export const Timespan = TimespanSchema;
+
+/** Value → label mappings for each enum field of Timespan. */
+export const TimespanLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Milliseconds",
+    2: "Seconds",
+    3: "Minutes",
+    4: "Hours",
+    5: "Days",
+    6: "Weeks",
+    7: "Months",
+    8: "Years",
+    9: "Time Interval",
+    99: "Other",
+  },
+};

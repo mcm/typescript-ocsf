@@ -56,3 +56,15 @@ const NetworkInterfaceSchema = z.strictObject({
 });
 
 export const NetworkInterface = NetworkInterfaceSchema;
+
+/** Value → label mappings for each enum field of NetworkInterface. */
+export const NetworkInterfaceLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Wired",
+    2: "Wireless",
+    3: "Mobile",
+    4: "Tunnel",
+    99: "Other",
+  },
+};

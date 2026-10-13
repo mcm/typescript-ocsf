@@ -32,3 +32,7 @@ const RequestSchema = z.strictObject({
 });
 
 export const Request = RequestSchema;
+
+/** Value → label mappings for each enum field of Request. */
+export const RequestLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

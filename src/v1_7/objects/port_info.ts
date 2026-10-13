@@ -24,3 +24,7 @@ const PortInfoSchema = z.strictObject({
 });
 
 export const PortInfo = PortInfoSchema;
+
+/** Value → label mappings for each enum field of PortInfo. */
+export const PortInfoLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

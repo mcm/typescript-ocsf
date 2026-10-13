@@ -16,8 +16,8 @@ import type { UserType } from '../objects/user.js';
 
 import { DroneFlightsActivityActivityId } from '../enums/drone_flights_activity_activity_id.js';
 import { SeverityId } from '../enums/index.js';
-import { StatusId } from '../enums/index.js';
-import { AuthProtocolId } from '../enums/index.js';
+import { DroneFlightsActivityStatusId } from '../enums/drone_flights_activity_status_id.js';
+import { DroneFlightsActivityAuthProtocolId } from '../enums/drone_flights_activity_auth_protocol_id.js';
 
 /**
  * Drone Flights Activity events report the activity of Unmanned Aerial Systems (UAS), their Operators, and mission-planning and authorization metadata as reported by the UAS platforms themselves, by Counter-UAS (CUAS) systems, or other remote monitoring or sensing infrastructure. Based on the Remote ID defined in Standard Specification for Remote ID and Tracking (ASTM Designation: F3411-22a) <a target='_blank' href='https://cdn.standards.iteh.ai/samples/112830/71297057ac42432880a203654f213709/ASTM-F3411-22a.pdf'>ASTM F3411-22a</a>
@@ -123,53 +123,53 @@ import { UnmannedAerialSystem } from '../objects/unmanned_aerial_system.js';
 import { UnmannedSystemOperatingArea } from '../objects/unmanned_system_operating_area.js';
 import { User } from '../objects/user.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Capture",
-  2: "Record",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Undeclared",
-  2: "Ground",
-  3: "Airborne",
-  4: "Emergency",
-  5: "Remote ID System Failure",
-  6: "Reserved",
-  99: "Other",
-};
-
-const AUTH_PROTOCOL_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "None",
-  2: "UAS ID Signature",
-  3: "Operator ID Signature",
-  4: "Message Set Signature",
-  5: "Authentication Provided by Network Remote ID",
-  6: "Specific Authentication Method",
-  7: "Reserved",
-  8: "Private User",
-  99: "Other",
+/** Value → label mappings for each enum field of DroneFlightsActivity. */
+export const DroneFlightsActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "auth_protocol_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Capture",
+    2: "Record",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Undeclared",
+    2: "Ground",
+    3: "Airborne",
+    4: "Emergency",
+    5: "Remote ID System Failure",
+    6: "Reserved",
+    99: "Other",
+  },
+  auth_protocol_id: {
+    0: "Unknown",
+    1: "None",
+    2: "UAS ID Signature",
+    3: "Operator ID Signature",
+    4: "Message Set Signature",
+    5: "Authentication Provided by Network Remote ID",
+    6: "Specific Authentication Method",
+    7: "Reserved",
+    8: "Private User",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "auth_protocol_id", labelField: "auth_protocol", labels: AUTH_PROTOCOL_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: DroneFlightsActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: DroneFlightsActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: DroneFlightsActivityLabels.status_id },
+  { idField: "auth_protocol_id", labelField: "auth_protocol", labels: DroneFlightsActivityLabels.auth_protocol_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -292,9 +292,12 @@ export const DroneFlightsActivity = {
 
   schema: DroneFlightsActivitySchema,
 
+  // Value → label maps for every enum field
+  labels: DroneFlightsActivityLabels,
+
   // Static enum references for convenience
   ActivityId: DroneFlightsActivityActivityId,
   SeverityId: SeverityId,
-  StatusId: StatusId,
-  AuthProtocolId: AuthProtocolId,
+  StatusId: DroneFlightsActivityStatusId,
+  AuthProtocolId: DroneFlightsActivityAuthProtocolId,
 } as const;

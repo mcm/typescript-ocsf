@@ -28,3 +28,7 @@ const EpssSchema = z.strictObject({
 });
 
 export const Epss = EpssSchema;
+
+/** Value → label mappings for each enum field of Epss. */
+export const EpssLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

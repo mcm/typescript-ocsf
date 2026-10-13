@@ -44,3 +44,7 @@ const ResponseSchema = z.strictObject({
 });
 
 export const Response = ResponseSchema;
+
+/** Value → label mappings for each enum field of Response. */
+export const ResponseLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

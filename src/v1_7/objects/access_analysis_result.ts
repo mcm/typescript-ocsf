@@ -44,3 +44,7 @@ const AccessAnalysisResultSchema = z.strictObject({
 });
 
 export const AccessAnalysisResult = AccessAnalysisResultSchema;
+
+/** Value → label mappings for each enum field of AccessAnalysisResult. */
+export const AccessAnalysisResultLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

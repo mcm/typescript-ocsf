@@ -44,3 +44,7 @@ const PolicySchema = z.strictObject({
 });
 
 export const Policy = PolicySchema;
+
+/** Value → label mappings for each enum field of Policy. */
+export const PolicyLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

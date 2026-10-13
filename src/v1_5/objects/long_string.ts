@@ -24,3 +24,7 @@ const LongStringSchema = z.strictObject({
 });
 
 export const LongString = LongStringSchema;
+
+/** Value → label mappings for each enum field of LongString. */
+export const LongStringLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

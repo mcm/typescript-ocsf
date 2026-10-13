@@ -104,3 +104,7 @@ const LdapPersonSchema = z.strictObject({
 });
 
 export const LdapPerson = LdapPersonSchema;
+
+/** Value → label mappings for each enum field of LdapPerson. */
+export const LdapPersonLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

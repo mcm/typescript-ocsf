@@ -36,3 +36,7 @@ const PeripheralDeviceSchema = z.strictObject({
 });
 
 export const PeripheralDevice = PeripheralDeviceSchema;
+
+/** Value → label mappings for each enum field of PeripheralDevice. */
+export const PeripheralDeviceLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

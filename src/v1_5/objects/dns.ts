@@ -24,3 +24,7 @@ const DnsSchema = z.strictObject({
 });
 
 export const Dns = DnsSchema;
+
+/** Value → label mappings for each enum field of Dns. */
+export const DnsLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

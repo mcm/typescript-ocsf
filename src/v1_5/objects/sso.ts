@@ -76,3 +76,23 @@ const SsoSchema = z.strictObject({
 });
 
 export const Sso = SsoSchema;
+
+/** Value → label mappings for each enum field of Sso. */
+export const SsoLabels: Readonly<Record<"auth_protocol_id", Readonly<Record<number, string>>>> = {
+  auth_protocol_id: {
+    0: "Unknown",
+    1: "NTLM",
+    2: "Kerberos",
+    3: "Digest",
+    4: "OpenID",
+    5: "SAML",
+    6: "OAUTH 2.0",
+    7: "PAP",
+    8: "CHAP",
+    9: "EAP",
+    10: "RADIUS",
+    11: "Basic Authentication",
+    12: "LDAP",
+    99: "Other",
+  },
+};

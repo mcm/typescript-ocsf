@@ -36,3 +36,7 @@ const ServiceSchema = z.strictObject({
 });
 
 export const Service = ServiceSchema;
+
+/** Value → label mappings for each enum field of Service. */
+export const ServiceLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

@@ -52,3 +52,7 @@ const HttpCookieSchema = z.strictObject({
 });
 
 export const HttpCookie = HttpCookieSchema;
+
+/** Value → label mappings for each enum field of HttpCookie. */
+export const HttpCookieLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

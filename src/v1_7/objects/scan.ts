@@ -28,3 +28,18 @@ const ScanSchema = z.strictObject({
 });
 
 export const Scan = ScanSchema;
+
+/** Value → label mappings for each enum field of Scan. */
+export const ScanLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Manual",
+    2: "Scheduled",
+    3: "Updated Content",
+    4: "Quarantined Items",
+    5: "Attached Media",
+    6: "User Logon",
+    7: "ELAM",
+    99: "Other",
+  },
+};

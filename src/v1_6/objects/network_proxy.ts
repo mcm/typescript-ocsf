@@ -134,3 +134,26 @@ const NetworkProxySchema = z.strictObject({
 });
 
 export const NetworkProxy = NetworkProxySchema;
+
+/** Value → label mappings for each enum field of NetworkProxy. */
+export const NetworkProxyLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Server",
+    2: "Desktop",
+    3: "Laptop",
+    4: "Tablet",
+    5: "Mobile",
+    6: "Virtual",
+    7: "IOT",
+    8: "Browser",
+    9: "Firewall",
+    10: "Switch",
+    11: "Hub",
+    12: "Router",
+    13: "IDS",
+    14: "IPS",
+    15: "Load Balancer",
+    99: "Other",
+  },
+};

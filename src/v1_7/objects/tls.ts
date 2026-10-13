@@ -82,3 +82,7 @@ const TlsSchema = z.strictObject({
 });
 
 export const Tls = TlsSchema;
+
+/** Value → label mappings for each enum field of Tls. */
+export const TlsLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

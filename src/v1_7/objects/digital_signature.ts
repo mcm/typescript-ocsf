@@ -50,3 +50,27 @@ const DigitalSignatureSchema = z.strictObject({
 });
 
 export const DigitalSignature = DigitalSignatureSchema;
+
+/** Value → label mappings for each enum field of DigitalSignature. */
+export const DigitalSignatureLabels: Readonly<Record<"algorithm_id" | "state_id", Readonly<Record<number, string>>>> = {
+  algorithm_id: {
+    0: "Unknown",
+    1: "DSA",
+    2: "RSA",
+    3: "ECDSA",
+    4: "Authenticode",
+    99: "Other",
+  },
+  state_id: {
+    1: "Valid",
+    2: "Expired",
+    3: "Revoked",
+    4: "Suspended",
+    5: "Pending",
+    6: "Untrusted",
+    7: "Distrusted",
+    8: "WrongUsage",
+    9: "Bad",
+    10: "Broken",
+  },
+};

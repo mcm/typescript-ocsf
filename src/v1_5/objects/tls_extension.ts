@@ -24,3 +24,31 @@ const TlsExtensionSchema = z.strictObject({
 });
 
 export const TlsExtension = TlsExtensionSchema;
+
+/** Value → label mappings for each enum field of TlsExtension. */
+export const TlsExtensionLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "server_name",
+    1: "maximum_fragment_length",
+    5: "status_request",
+    10: "supported_groups",
+    13: "signature_algorithms",
+    14: "use_srtp",
+    15: "heartbeat",
+    16: "application_layer_protocol_negotiation",
+    18: "signed_certificate_timestamp",
+    19: "client_certificate_type",
+    20: "server_certificate_type",
+    21: "padding",
+    41: "pre_shared_key",
+    42: "early_data",
+    43: "supported_versions",
+    44: "cookie",
+    45: "psk_key_exchange_modes",
+    47: "certificate_authorities",
+    48: "oid_filters",
+    49: "post_handshake_auth",
+    50: "signature_algorithms_cert",
+    51: "key_share",
+  },
+};

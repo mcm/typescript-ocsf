@@ -1,3 +1,4 @@
+import { collectEnumFields, emitLabelsMap } from "./enum-labels.js";
 import { toClassName, toFileName } from "./naming.js";
 import { mapOcsfTypeToTs, mapOcsfTypeToZod, mapOcsfTypeToZodTypeName } from "./type-map.js";
 import type { ParsedAttribute, ParsedEnum, ParsedObject } from "./types.js";
@@ -113,8 +114,20 @@ export function emitObjectFile(
 
   // Export schema directly (no parser for objects)
   lines.push(`export const ${className} = ${schemaName};`);
-
   lines.push("");
+
+  // Value → label maps for every enum field on this object
+  const overrides =
+    isObservable && observableTypeIdEnum
+      ? new Map([["type_id", observableTypeIdEnum.values]])
+      : undefined;
+  emitLabelsMap(
+    lines,
+    `${className}Labels`,
+    className,
+    collectEnumFields(obj.attributes, overrides),
+  );
+
   return lines.join("\n");
 }
 

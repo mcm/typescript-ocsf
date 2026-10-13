@@ -84,3 +84,7 @@ const LocationSchema = z.strictObject({
 });
 
 export const Location = LocationSchema;
+
+/** Value → label mappings for each enum field of Location. */
+export const LocationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

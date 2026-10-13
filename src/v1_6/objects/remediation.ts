@@ -38,3 +38,7 @@ const RemediationSchema = z.strictObject({
 });
 
 export const Remediation = RemediationSchema;
+
+/** Value → label mappings for each enum field of Remediation. */
+export const RemediationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

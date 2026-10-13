@@ -94,39 +94,40 @@ import { Actor } from '../objects/actor.js';
 import { Device } from '../objects/device.js';
 import { Job } from '../objects/job.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Create",
-  2: "Update",
-  3: "Delete",
-  4: "Enable",
-  5: "Disable",
-  6: "Start",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of ScheduledJobActivity. */
+export const ScheduledJobActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Create",
+    2: "Update",
+    3: "Delete",
+    4: "Enable",
+    5: "Disable",
+    6: "Start",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ScheduledJobActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ScheduledJobActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ScheduledJobActivityLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -228,6 +229,9 @@ export const ScheduledJobActivity = {
   },
 
   schema: ScheduledJobActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: ScheduledJobActivityLabels,
 
   // Static enum references for convenience
   ActivityId: ScheduledJobActivityActivityId,

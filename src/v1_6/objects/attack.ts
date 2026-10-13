@@ -46,3 +46,7 @@ const AttackSchema = z.strictObject({
 });
 
 export const Attack = AttackSchema;
+
+/** Value → label mappings for each enum field of Attack. */
+export const AttackLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

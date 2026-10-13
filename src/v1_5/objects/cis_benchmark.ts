@@ -28,3 +28,7 @@ const CisBenchmarkSchema = z.strictObject({
 });
 
 export const CisBenchmark = CisBenchmarkSchema;
+
+/** Value → label mappings for each enum field of CisBenchmark. */
+export const CisBenchmarkLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

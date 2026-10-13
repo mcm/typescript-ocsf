@@ -82,41 +82,42 @@ import { Metadata } from '../objects/metadata.js';
 import { Observable } from '../objects/observable.js';
 import { Product } from '../objects/product.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Install",
-  2: "Remove",
-  3: "Start",
-  4: "Stop",
-  5: "Restart",
-  6: "Enable",
-  7: "Disable",
-  8: "Update",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
+/** Value → label mappings for each enum field of ApplicationLifecycle. */
+export const ApplicationLifecycleLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Install",
+    2: "Remove",
+    3: "Start",
+    4: "Stop",
+    5: "Restart",
+    6: "Enable",
+    7: "Disable",
+    8: "Update",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ApplicationLifecycleLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ApplicationLifecycleLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ApplicationLifecycleLabels.status_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -212,6 +213,9 @@ export const ApplicationLifecycle = {
   },
 
   schema: ApplicationLifecycleSchema,
+
+  // Value → label maps for every enum field
+  labels: ApplicationLifecycleLabels,
 
   // Static enum references for convenience
   ActivityId: ApplicationLifecycleActivityId,

@@ -80,3 +80,16 @@ const ManagedEntitySchema = z.strictObject({
 });
 
 export const ManagedEntity = ManagedEntitySchema;
+
+/** Value → label mappings for each enum field of ManagedEntity. */
+export const ManagedEntityLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "Device",
+    2: "User",
+    3: "Group",
+    4: "Organization",
+    5: "Policy",
+    6: "Email",
+    7: "Network Zone",
+  },
+};

@@ -52,3 +52,17 @@ const DatabaseSchema = z.strictObject({
 });
 
 export const Database = DatabaseSchema;
+
+/** Value → label mappings for each enum field of Database. */
+export const DatabaseLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    0: "Unknown",
+    1: "Relational",
+    2: "Network",
+    3: "Object Oriented",
+    4: "Centralized",
+    5: "Operational",
+    6: "NoSQL",
+    99: "Other",
+  },
+};

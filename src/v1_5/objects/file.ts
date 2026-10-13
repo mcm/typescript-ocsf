@@ -188,3 +188,37 @@ const FileSchema = z.strictObject({
 });
 
 export const File = FileSchema;
+
+/** Value → label mappings for each enum field of File. */
+export const FileLabels: Readonly<Record<"confidentiality_id" | "drive_type_id" | "type_id", Readonly<Record<number, string>>>> = {
+  confidentiality_id: {
+    0: "Unknown",
+    1: "Not Confidential",
+    2: "Confidential",
+    3: "Secret",
+    4: "Top Secret",
+    5: "Private",
+    6: "Restricted",
+    99: "Other",
+  },
+  drive_type_id: {
+    0: "Unknown",
+    1: "Removable",
+    2: "Fixed",
+    3: "Remote",
+    4: "CD-ROM",
+    5: "RAM Disk",
+    99: "Other",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Regular File",
+    2: "Folder",
+    3: "Character Device",
+    4: "Block Device",
+    5: "Local Socket",
+    6: "Named Pipe",
+    7: "Symbolic Link",
+    99: "Other",
+  },
+};

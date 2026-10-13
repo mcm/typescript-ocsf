@@ -24,3 +24,7 @@ const AuthorizationSchema = z.strictObject({
 });
 
 export const Authorization = AuthorizationSchema;
+
+/** Value → label mappings for each enum field of Authorization. */
+export const AuthorizationLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

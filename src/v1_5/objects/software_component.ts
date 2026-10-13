@@ -60,3 +60,17 @@ const SoftwareComponentSchema = z.strictObject({
 });
 
 export const SoftwareComponent = SoftwareComponentSchema;
+
+/** Value → label mappings for each enum field of SoftwareComponent. */
+export const SoftwareComponentLabels: Readonly<Record<"relationship_id" | "type_id", Readonly<Record<number, string>>>> = {
+  relationship_id: {
+    0: "Unknown",
+    1: "Depends On",
+    99: "Other",
+  },
+  type_id: {
+    1: "Framework",
+    2: "Library",
+    3: "Operating System",
+  },
+};

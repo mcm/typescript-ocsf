@@ -82,3 +82,13 @@ const WhoisSchema = z.strictObject({
 });
 
 export const Whois = WhoisSchema;
+
+/** Value → label mappings for each enum field of Whois. */
+export const WhoisLabels: Readonly<Record<"dnssec_status_id", Readonly<Record<number, string>>>> = {
+  dnssec_status_id: {
+    0: "Unknown",
+    1: "Signed",
+    2: "Unsigned",
+    99: "Other",
+  },
+};

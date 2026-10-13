@@ -44,3 +44,14 @@ const DomainContactSchema = z.strictObject({
 });
 
 export const DomainContact = DomainContactSchema;
+
+/** Value → label mappings for each enum field of DomainContact. */
+export const DomainContactLabels: Readonly<Record<"type_id", Readonly<Record<number, string>>>> = {
+  type_id: {
+    1: "Registrant",
+    2: "Administrative",
+    3: "Technical",
+    4: "Billing",
+    5: "Abuse",
+  },
+};

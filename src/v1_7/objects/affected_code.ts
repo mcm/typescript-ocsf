@@ -54,3 +54,7 @@ const AffectedCodeSchema = z.strictObject({
 });
 
 export const AffectedCode = AffectedCodeSchema;
+
+/** Value → label mappings for each enum field of AffectedCode. */
+export const AffectedCodeLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

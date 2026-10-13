@@ -56,3 +56,27 @@ const AnalyticSchema = z.strictObject({
 });
 
 export const Analytic = AnalyticSchema;
+
+/** Value → label mappings for each enum field of Analytic. */
+export const AnalyticLabels: Readonly<Record<"state_id" | "type_id", Readonly<Record<number, string>>>> = {
+  state_id: {
+    1: "Active",
+    2: "Suppressed",
+    3: "Experimental",
+  },
+  type_id: {
+    0: "Unknown",
+    1: "Rule",
+    2: "Behavioral",
+    3: "Statistical",
+    4: "Learning (ML/DL)",
+    5: "Fingerprinting",
+    6: "Tagging",
+    7: "Keyword Match",
+    8: "Regular Expressions",
+    9: "Exact Data Match",
+    10: "Partial Data Match",
+    11: "Indexed Data Match",
+    99: "Other",
+  },
+};

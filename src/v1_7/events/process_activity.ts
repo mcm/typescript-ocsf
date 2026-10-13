@@ -114,56 +114,55 @@ import { Device } from '../objects/device.js';
 import { Module } from '../objects/module.js';
 import { Process } from '../objects/process.js';
 
-const ACTIVITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Launch",
-  2: "Terminate",
-  3: "Open",
-  4: "Inject",
-  5: "Set User ID",
-  99: "Other",
-};
-
-const SEVERITY_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Informational",
-  2: "Low",
-  3: "Medium",
-  4: "High",
-  5: "Critical",
-  6: "Fatal",
-  99: "Other",
-};
-
-const STATUS_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Success",
-  2: "Failure",
-  99: "Other",
-};
-
-const INJECTION_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Remote Thread",
-  2: "Load Library",
-  3: "Queue APC",
-  99: "Other",
-};
-
-const LAUNCH_TYPE_ID_LABELS: Record<number, string> = {
-  0: "Unknown",
-  1: "Spawn",
-  2: "Fork",
-  3: "Exec",
-  99: "Other",
+/** Value → label mappings for each enum field of ProcessActivity. */
+export const ProcessActivityLabels: Readonly<Record<"activity_id" | "severity_id" | "status_id" | "injection_type_id" | "launch_type_id", Readonly<Record<number, string>>>> = {
+  activity_id: {
+    0: "Unknown",
+    1: "Launch",
+    2: "Terminate",
+    3: "Open",
+    4: "Inject",
+    5: "Set User ID",
+    99: "Other",
+  },
+  severity_id: {
+    0: "Unknown",
+    1: "Informational",
+    2: "Low",
+    3: "Medium",
+    4: "High",
+    5: "Critical",
+    6: "Fatal",
+    99: "Other",
+  },
+  status_id: {
+    0: "Unknown",
+    1: "Success",
+    2: "Failure",
+    99: "Other",
+  },
+  injection_type_id: {
+    0: "Unknown",
+    1: "Remote Thread",
+    2: "Load Library",
+    3: "Queue APC",
+    99: "Other",
+  },
+  launch_type_id: {
+    0: "Unknown",
+    1: "Spawn",
+    2: "Fork",
+    3: "Exec",
+    99: "Other",
+  },
 };
 
 const SIBLING_PAIRS: readonly SiblingPair[] = [
-  { idField: "activity_id", labelField: "activity_name", labels: ACTIVITY_ID_LABELS },
-  { idField: "severity_id", labelField: "severity", labels: SEVERITY_ID_LABELS },
-  { idField: "status_id", labelField: "status", labels: STATUS_ID_LABELS },
-  { idField: "injection_type_id", labelField: "injection_type", labels: INJECTION_TYPE_ID_LABELS },
-  { idField: "launch_type_id", labelField: "launch_type", labels: LAUNCH_TYPE_ID_LABELS },
+  { idField: "activity_id", labelField: "activity_name", labels: ProcessActivityLabels.activity_id },
+  { idField: "severity_id", labelField: "severity", labels: ProcessActivityLabels.severity_id },
+  { idField: "status_id", labelField: "status", labels: ProcessActivityLabels.status_id },
+  { idField: "injection_type_id", labelField: "injection_type", labels: ProcessActivityLabels.injection_type_id },
+  { idField: "launch_type_id", labelField: "launch_type", labels: ProcessActivityLabels.launch_type_id },
 ];
 
 const UID_CONFIG: UidConfig = {
@@ -281,6 +280,9 @@ export const ProcessActivity = {
   },
 
   schema: ProcessActivitySchema,
+
+  // Value → label maps for every enum field
+  labels: ProcessActivityLabels,
 
   // Static enum references for convenience
   ActivityId: ProcessActivityActivityId,

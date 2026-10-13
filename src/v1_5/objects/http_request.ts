@@ -62,3 +62,7 @@ const HttpRequestSchema = z.strictObject({
 });
 
 export const HttpRequest = HttpRequestSchema;
+
+/** Value → label mappings for each enum field of HttpRequest. */
+export const HttpRequestLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};

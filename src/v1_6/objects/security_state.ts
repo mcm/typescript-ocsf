@@ -20,3 +20,34 @@ const SecurityStateSchema = z.strictObject({
 });
 
 export const SecurityState = SecurityStateSchema;
+
+/** Value → label mappings for each enum field of SecurityState. */
+export const SecurityStateLabels: Readonly<Record<"state_id", Readonly<Record<number, string>>>> = {
+  state_id: {
+    0: "Unknown",
+    1: "Missing or outdated content",
+    2: "Policy mismatch",
+    3: "In network quarantine",
+    4: "Protection off",
+    5: "Protection malfunction",
+    6: "Protection not licensed",
+    7: "Unremediated threat",
+    8: "Suspicious reputation",
+    9: "Reboot pending",
+    10: "Content is locked",
+    11: "Not installed",
+    12: "Writable system partition",
+    13: "SafetyNet failure",
+    14: "Failed boot verify",
+    15: "Modified execution environment",
+    16: "SELinux disabled",
+    17: "Elevated privilege shell",
+    18: "iOS file system altered",
+    19: "Open remote access",
+    20: "OTA updates disabled",
+    21: "Rooted",
+    22: "Android partition modified",
+    23: "Compliance failure",
+    99: "Other",
+  },
+};

@@ -56,3 +56,7 @@ const EnrichmentSchema = z.strictObject({
 });
 
 export const Enrichment = EnrichmentSchema;
+
+/** Value → label mappings for each enum field of Enrichment. */
+export const EnrichmentLabels: Readonly<Record<never, Readonly<Record<number, string>>>> = {
+};
